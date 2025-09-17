@@ -142,30 +142,6 @@
   </entry>
   
   <entry>
-    <title>GitHub Actions 最佳实践</title>
-    <link href="https://zhangxianda.com/tools/github-actions-best-practices/"/>
-    <id>https://zhangxianda.com/tools/github-actions-best-practices/</id>
-    <published>2025-09-11T16:00:00.000Z</published>
-    <updated>2025-09-16T09:13:29.557Z</updated>
-    
-    <content type="html"><![CDATA[<h2>1. 基础配置</h2>                        <ul>                            <li>触发器：合理使用 <code>push</code>/<code>pull_request</code>/<code>workflow_dispatch</code>；限制路径减少无效构建。</li>                            <li>Runner：优先使用官方托管；密集型任务可自建自托管 Runner。</li>                        </ul>                        <h2>2. 缓存与加速</h2>                        <ul>                            <li>使用 <code>actions/cache</code> 缓存依赖，键包含锁文件哈希与 OS/语言版本。</li>                            <li>多作业共享工件：<code>actions/upload-artifact</code> 与 <code>download-artifact</code>。</li>                        </ul>                        <h2>3. 矩阵与复用</h2>                        <ul>                            <li>矩阵构建：多平台/多版本并行测试，提高覆盖率。</li>                            <li>可复用工作流：<code>workflow_call</code> 提炼通用 CI 逻辑，团队复用。</li>                        </ul>                        <h2>4. 权限与安全</h2>                        <ul>                            <li>最小权限：显式设置 <code>permissions</code>，避免默认 <code>write-all</code>。</li>                            <li>密钥：全部放在 <code>Secrets</code>；切勿在日志回显；必要时加密写入。</li>                            <li>供应链：使用 SHA 固定第三方 Action 版本；配合 Dependabot/Renovate。</li>                        </ul>                        <h2>5. 质量与可观测</h2>                        <ul>                            <li>报告：测试覆盖率、构建用时趋势；关键失败自动 @ 责任人。</li>                            <li>并发与超时：避免队列积压；对长任务设置超时与取消策略。</li>                        </ul>                        <p>借助以上要点，CI/CD 能既快又稳，且更安全、可维护。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2&gt;1. 基础配置&lt;/h2&gt;
-                        &lt;ul&gt;
-                            &lt;li&gt;触发器：合理使用 &lt;code&gt;push&lt;/code&gt;/&lt;code&gt;pull_request&lt;/code&gt;/&lt;code&gt;wor</summary>
-      
-    
-    
-    
-    <category term="推荐工具" scheme="https://zhangxianda.com/categories/%E6%8E%A8%E8%8D%90%E5%B7%A5%E5%85%B7/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>GitHub Actions 与供应链安全</title>
     <link href="https://zhangxianda.com/tools/github-actions-supply-chain-security/"/>
     <id>https://zhangxianda.com/tools/github-actions-supply-chain-security/</id>
@@ -210,6 +186,30 @@
     
     
     <category term="后端" scheme="https://zhangxianda.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>GitHub Actions 最佳实践</title>
+    <link href="https://zhangxianda.com/tools/github-actions-best-practices/"/>
+    <id>https://zhangxianda.com/tools/github-actions-best-practices/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.557Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 基础配置</h2>                        <ul>                            <li>触发器：合理使用 <code>push</code>/<code>pull_request</code>/<code>workflow_dispatch</code>；限制路径减少无效构建。</li>                            <li>Runner：优先使用官方托管；密集型任务可自建自托管 Runner。</li>                        </ul>                        <h2>2. 缓存与加速</h2>                        <ul>                            <li>使用 <code>actions/cache</code> 缓存依赖，键包含锁文件哈希与 OS/语言版本。</li>                            <li>多作业共享工件：<code>actions/upload-artifact</code> 与 <code>download-artifact</code>。</li>                        </ul>                        <h2>3. 矩阵与复用</h2>                        <ul>                            <li>矩阵构建：多平台/多版本并行测试，提高覆盖率。</li>                            <li>可复用工作流：<code>workflow_call</code> 提炼通用 CI 逻辑，团队复用。</li>                        </ul>                        <h2>4. 权限与安全</h2>                        <ul>                            <li>最小权限：显式设置 <code>permissions</code>，避免默认 <code>write-all</code>。</li>                            <li>密钥：全部放在 <code>Secrets</code>；切勿在日志回显；必要时加密写入。</li>                            <li>供应链：使用 SHA 固定第三方 Action 版本；配合 Dependabot/Renovate。</li>                        </ul>                        <h2>5. 质量与可观测</h2>                        <ul>                            <li>报告：测试覆盖率、构建用时趋势；关键失败自动 @ 责任人。</li>                            <li>并发与超时：避免队列积压；对长任务设置超时与取消策略。</li>                        </ul>                        <p>借助以上要点，CI/CD 能既快又稳，且更安全、可维护。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 基础配置&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;触发器：合理使用 &lt;code&gt;push&lt;/code&gt;/&lt;code&gt;pull_request&lt;/code&gt;/&lt;code&gt;wor</summary>
+      
+    
+    
+    
+    <category term="推荐工具" scheme="https://zhangxianda.com/categories/%E6%8E%A8%E8%8D%90%E5%B7%A5%E5%85%B7/"/>
     
     
   </entry>
@@ -362,31 +362,6 @@
   </entry>
   
   <entry>
-    <title>RAG 向量质量评估</title>
-    <link href="https://zhangxianda.com/ai/rag-vector-quality/"/>
-    <id>https://zhangxianda.com/ai/rag-vector-quality/</id>
-    <published>2025-09-11T16:00:00.000Z</published>
-    <updated>2025-09-16T09:13:29.560Z</updated>
-    
-    <content type="html"><![CDATA[<h2>1. Embedding 选择与对比</h2>                        <ul>                            <li>通用/中文/领域模型对比；维度、速度与成本权衡。</li>                        </ul>                        <h2>2. 质量指标</h2>                        <ul>                            <li>覆盖率@k、NDCG、MRR；标注样本与噪声控制。</li>                        </ul>                        <h2>3. 数据漂移与回归</h2>                        <ul>                            <li>数据/模型/切分变更的影响评估；双写与灰度。</li>                        </ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2&gt;1. Embedding 选择与对比&lt;/h2&gt;
-                        &lt;ul&gt;
-                            &lt;li&gt;通用/中文/领域模型对比；维度、速度与成本权衡。&lt;/li&gt;
-                     </summary>
-      
-    
-    
-    
-    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>RAG 重排与评测深水区</title>
     <link href="https://zhangxianda.com/ai/rag-rerank-evaluation/"/>
     <id>https://zhangxianda.com/ai/rag-rerank-evaluation/</id>
@@ -402,6 +377,31 @@
                         &lt;ul&gt;
                             &lt;li&gt;切分策略与重叠对召回的影响；去重/模板化清洗减少噪声。&lt;/li&gt;
                        </summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>RAG 向量质量评估</title>
+    <link href="https://zhangxianda.com/ai/rag-vector-quality/"/>
+    <id>https://zhangxianda.com/ai/rag-vector-quality/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.560Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. Embedding 选择与对比</h2>                        <ul>                            <li>通用/中文/领域模型对比；维度、速度与成本权衡。</li>                        </ul>                        <h2>2. 质量指标</h2>                        <ul>                            <li>覆盖率@k、NDCG、MRR；标注样本与噪声控制。</li>                        </ul>                        <h2>3. 数据漂移与回归</h2>                        <ul>                            <li>数据/模型/切分变更的影响评估；双写与灰度。</li>                        </ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. Embedding 选择与对比&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;通用/中文/领域模型对比；维度、速度与成本权衡。&lt;/li&gt;
+                     </summary>
       
     
     
@@ -456,28 +456,6 @@
   </entry>
   
   <entry>
-    <title>AI 输出合规与敏感信息检测</title>
-    <link href="https://zhangxianda.com/ai/security-output-compliance-pii-dlp/"/>
-    <id>https://zhangxianda.com/ai/security-output-compliance-pii-dlp/</id>
-    <published>2025-09-11T16:00:00.000Z</published>
-    <updated>2025-09-16T09:13:29.561Z</updated>
-    
-    <content type="html"><![CDATA[<h2>1. PII/DLP 策略</h2><ul><li>识别：正则 + 词典 + 小模型判别。</li><li>处理：掩码、替换或拒答；保留证据以备审计。</li></ul><h2>2. 输出约束</h2><ul><li>Schema/正则/判别器；引用可追溯；敏感时拒答。</li></ul><h2>3. 审计与留痕</h2><ul><li>日志与样例存档；定期复测与策略调优。</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2&gt;1. PII/DLP 策略&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;识别：正则 + 词典 + 小模型判别。&lt;/li&gt;&lt;li&gt;处理：掩码、替换或拒答；保留证据以备审计。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. 输出约束&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Schema/正则/判别器；引用可追溯；敏感时拒答。&lt;</summary>
-      
-    
-    
-    
-    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>Prompt 注入红队与基准集</title>
     <link href="https://zhangxianda.com/ai/security-prompt-redteaming-benchmarks/"/>
     <id>https://zhangxianda.com/ai/security-prompt-redteaming-benchmarks/</id>
@@ -490,6 +468,28 @@
       
       
     <summary type="html">&lt;h2&gt;1. 样例采集&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;真实流量与公开集；敏感策略与红队技巧。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. 对抗生成&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;自动化生成攻击样例；多模板覆盖；多语言与变体。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;3. 评分与回归&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;判别器/评</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>工具调用安全：凭据、权限与审计</title>
+    <link href="https://zhangxianda.com/ai/security-tooling-credentials-audit/"/>
+    <id>https://zhangxianda.com/ai/security-tooling-credentials-audit/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.561Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 凭据管理</h2><ul><li>密钥分环境/分权限；短期凭据；KMS/Secrets 管理。</li></ul><h2>2. 权限最小化</h2><ul><li>细粒度授权；关键操作双因子与人工确认。</li></ul><h2>3. 审计留痕</h2><ul><li>结构化记录参数/结果/耗时/操作者；可回放日志。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 凭据管理&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;密钥分环境/分权限；短期凭据；KMS/Secrets 管理。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. 权限最小化&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;细粒度授权；关键操作双因子与人工确认。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;3. 审计留痕&lt;/h2&gt;&lt;ul&gt;&lt;l</summary>
       
     
     
