@@ -92,31 +92,6 @@
   </entry>
   
   <entry>
-    <title>大模型评测与安全治理入门</title>
-    <link href="https://zhangxianda.com/ai/eval-and-safety/"/>
-    <id>https://zhangxianda.com/ai/eval-and-safety/</id>
-    <published>2025-09-11T16:00:00.000Z</published>
-    <updated>2025-09-16T09:13:29.557Z</updated>
-    
-    <content type="html"><![CDATA[<p>评测是保障交付质量的第一道防线；安全治理是保障可控与合规的最后一道防线。两者共同构成生产级 AI 应用的“护城河”。</p>                        <h2>评测维度</h2>                        <ul>                            <li>正确性：与参考答案一致或在可接受范围内。</li>                            <li>相关性：回答是否紧扣问题，不额外发挥。</li>                            <li>完整性：关键要点覆盖，引用与出处明确。</li>                            <li>稳健性：对噪声输入、边界输入、对抗输入的鲁棒性。</li>                            <li>成本/时延：单位成本与响应时延是否满足 SLO。</li>                        </ul>                        <h2>回归与自动化</h2>                        <ul>                            <li>构建数据集：任务样例、参考答案、可执行校验（正则/评分器/判别模型）。</li>                            <li>自动回归：每次改动（提示、检索、模型版本）都触发评测并产出报告。</li>                            <li>可视化：趋势、失败样例聚类、长尾分析，指导后续优化。</li>                        </ul>                        <h2>安全风险</h2>                        <ul>                            <li>越狱/提示注入：诱导模型违反约束；需做输入过滤、上下文隔离与响应审查。</li>                            <li>数据泄露：对话中暴露敏感数据；需脱敏、权限控制与最小化收集。</li>                            <li>幻觉：无依据的自信回答；需引用强约束、拒答机制与事后验证。</li>                        </ul>                        <h2>治理策略</h2>                        <ul>                            <li>输入治理：模板白名单、敏感词过滤、HTML/URL 隔离、文件型载荷判定。</li>                            <li>输出治理：Schema/正则校验、规则与小模型判别器、人工抽检。</li>                            <li>流程治理：关键操作二次确认、审计日志、可观测性与告警。</li>                        </ul>                        <p>结语：没有评测与安全的 AI，无法稳定地服务业务。把“度量与约束”内建到系统里，是走向可持续演进的关键。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;评测是保障交付质量的第一道防线；安全治理是保障可控与合规的最后一道防线。两者共同构成生产级 AI 应用的“护城河”。&lt;/p&gt;
-                        &lt;h2&gt;评测维度&lt;/h2&gt;
-                        &lt;ul&gt;
-       </summary>
-      
-    
-    
-    
-    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>LLM 函数调用最佳实践</title>
     <link href="https://zhangxianda.com/ai/function-calling-best-practices/"/>
     <id>https://zhangxianda.com/ai/function-calling-best-practices/</id>
@@ -137,6 +112,30 @@
     
     
     <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>GitHub Actions 最佳实践</title>
+    <link href="https://zhangxianda.com/tools/github-actions-best-practices/"/>
+    <id>https://zhangxianda.com/tools/github-actions-best-practices/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.557Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 基础配置</h2>                        <ul>                            <li>触发器：合理使用 <code>push</code>/<code>pull_request</code>/<code>workflow_dispatch</code>；限制路径减少无效构建。</li>                            <li>Runner：优先使用官方托管；密集型任务可自建自托管 Runner。</li>                        </ul>                        <h2>2. 缓存与加速</h2>                        <ul>                            <li>使用 <code>actions/cache</code> 缓存依赖，键包含锁文件哈希与 OS/语言版本。</li>                            <li>多作业共享工件：<code>actions/upload-artifact</code> 与 <code>download-artifact</code>。</li>                        </ul>                        <h2>3. 矩阵与复用</h2>                        <ul>                            <li>矩阵构建：多平台/多版本并行测试，提高覆盖率。</li>                            <li>可复用工作流：<code>workflow_call</code> 提炼通用 CI 逻辑，团队复用。</li>                        </ul>                        <h2>4. 权限与安全</h2>                        <ul>                            <li>最小权限：显式设置 <code>permissions</code>，避免默认 <code>write-all</code>。</li>                            <li>密钥：全部放在 <code>Secrets</code>；切勿在日志回显；必要时加密写入。</li>                            <li>供应链：使用 SHA 固定第三方 Action 版本；配合 Dependabot/Renovate。</li>                        </ul>                        <h2>5. 质量与可观测</h2>                        <ul>                            <li>报告：测试覆盖率、构建用时趋势；关键失败自动 @ 责任人。</li>                            <li>并发与超时：避免队列积压；对长任务设置超时与取消策略。</li>                        </ul>                        <p>借助以上要点，CI/CD 能既快又稳，且更安全、可维护。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 基础配置&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;触发器：合理使用 &lt;code&gt;push&lt;/code&gt;/&lt;code&gt;pull_request&lt;/code&gt;/&lt;code&gt;wor</summary>
+      
+    
+    
+    
+    <category term="推荐工具" scheme="https://zhangxianda.com/categories/%E6%8E%A8%E8%8D%90%E5%B7%A5%E5%85%B7/"/>
     
     
   </entry>
@@ -186,30 +185,6 @@
     
     
     <category term="后端" scheme="https://zhangxianda.com/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>GitHub Actions 最佳实践</title>
-    <link href="https://zhangxianda.com/tools/github-actions-best-practices/"/>
-    <id>https://zhangxianda.com/tools/github-actions-best-practices/</id>
-    <published>2025-09-11T16:00:00.000Z</published>
-    <updated>2025-09-16T09:13:29.557Z</updated>
-    
-    <content type="html"><![CDATA[<h2>1. 基础配置</h2>                        <ul>                            <li>触发器：合理使用 <code>push</code>/<code>pull_request</code>/<code>workflow_dispatch</code>；限制路径减少无效构建。</li>                            <li>Runner：优先使用官方托管；密集型任务可自建自托管 Runner。</li>                        </ul>                        <h2>2. 缓存与加速</h2>                        <ul>                            <li>使用 <code>actions/cache</code> 缓存依赖，键包含锁文件哈希与 OS/语言版本。</li>                            <li>多作业共享工件：<code>actions/upload-artifact</code> 与 <code>download-artifact</code>。</li>                        </ul>                        <h2>3. 矩阵与复用</h2>                        <ul>                            <li>矩阵构建：多平台/多版本并行测试，提高覆盖率。</li>                            <li>可复用工作流：<code>workflow_call</code> 提炼通用 CI 逻辑，团队复用。</li>                        </ul>                        <h2>4. 权限与安全</h2>                        <ul>                            <li>最小权限：显式设置 <code>permissions</code>，避免默认 <code>write-all</code>。</li>                            <li>密钥：全部放在 <code>Secrets</code>；切勿在日志回显；必要时加密写入。</li>                            <li>供应链：使用 SHA 固定第三方 Action 版本；配合 Dependabot/Renovate。</li>                        </ul>                        <h2>5. 质量与可观测</h2>                        <ul>                            <li>报告：测试覆盖率、构建用时趋势；关键失败自动 @ 责任人。</li>                            <li>并发与超时：避免队列积压；对长任务设置超时与取消策略。</li>                        </ul>                        <p>借助以上要点，CI/CD 能既快又稳，且更安全、可维护。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2&gt;1. 基础配置&lt;/h2&gt;
-                        &lt;ul&gt;
-                            &lt;li&gt;触发器：合理使用 &lt;code&gt;push&lt;/code&gt;/&lt;code&gt;pull_request&lt;/code&gt;/&lt;code&gt;wor</summary>
-      
-    
-    
-    
-    <category term="推荐工具" scheme="https://zhangxianda.com/categories/%E6%8E%A8%E8%8D%90%E5%B7%A5%E5%85%B7/"/>
     
     
   </entry>
@@ -284,6 +259,31 @@
     
     
     <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>大模型评测与安全治理入门</title>
+    <link href="https://zhangxianda.com/ai/eval-and-safety/"/>
+    <id>https://zhangxianda.com/ai/eval-and-safety/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.557Z</updated>
+    
+    <content type="html"><![CDATA[<p>评测是保障交付质量的第一道防线；安全治理是保障可控与合规的最后一道防线。两者共同构成生产级 AI 应用的“护城河”。</p>                        <h2>评测维度</h2>                        <ul>                            <li>正确性：与参考答案一致或在可接受范围内。</li>                            <li>相关性：回答是否紧扣问题，不额外发挥。</li>                            <li>完整性：关键要点覆盖，引用与出处明确。</li>                            <li>稳健性：对噪声输入、边界输入、对抗输入的鲁棒性。</li>                            <li>成本/时延：单位成本与响应时延是否满足 SLO。</li>                        </ul>                        <h2>回归与自动化</h2>                        <ul>                            <li>构建数据集：任务样例、参考答案、可执行校验（正则/评分器/判别模型）。</li>                            <li>自动回归：每次改动（提示、检索、模型版本）都触发评测并产出报告。</li>                            <li>可视化：趋势、失败样例聚类、长尾分析，指导后续优化。</li>                        </ul>                        <h2>安全风险</h2>                        <ul>                            <li>越狱/提示注入：诱导模型违反约束；需做输入过滤、上下文隔离与响应审查。</li>                            <li>数据泄露：对话中暴露敏感数据；需脱敏、权限控制与最小化收集。</li>                            <li>幻觉：无依据的自信回答；需引用强约束、拒答机制与事后验证。</li>                        </ul>                        <h2>治理策略</h2>                        <ul>                            <li>输入治理：模板白名单、敏感词过滤、HTML/URL 隔离、文件型载荷判定。</li>                            <li>输出治理：Schema/正则校验、规则与小模型判别器、人工抽检。</li>                            <li>流程治理：关键操作二次确认、审计日志、可观测性与告警。</li>                        </ul>                        <p>结语：没有评测与安全的 AI，无法稳定地服务业务。把“度量与约束”内建到系统里，是走向可持续演进的关键。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;评测是保障交付质量的第一道防线；安全治理是保障可控与合规的最后一道防线。两者共同构成生产级 AI 应用的“护城河”。&lt;/p&gt;
+                        &lt;h2&gt;评测维度&lt;/h2&gt;
+                        &lt;ul&gt;
+       </summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
     
   </entry>
@@ -434,18 +434,18 @@
   </entry>
   
   <entry>
-    <title>越狱检测与响应流程</title>
-    <link href="https://zhangxianda.com/ai/security-jailbreak-detection-response/"/>
-    <id>https://zhangxianda.com/ai/security-jailbreak-detection-response/</id>
+    <title>AI 输出合规与敏感信息检测</title>
+    <link href="https://zhangxianda.com/ai/security-output-compliance-pii-dlp/"/>
+    <id>https://zhangxianda.com/ai/security-output-compliance-pii-dlp/</id>
     <published>2025-09-11T16:00:00.000Z</published>
-    <updated>2025-09-16T09:13:29.560Z</updated>
+    <updated>2025-09-16T09:13:29.561Z</updated>
     
-    <content type="html"><![CDATA[<h2>1. 检测信号</h2><ul><li>提示绕过、安全拒答失败、异常模式输出等。</li><li>多级评分器：规则 + 小模型判别 + 人审抽样。</li></ul><h2>2. 自动化处置</h2><ul><li>降级/拒答；替换为安全模板；冻结会话。</li><li>速率限制与黑名单；隔离高危来源。</li></ul><h2>3. 复盘与改进</h2><ul><li>样例沉淀为回归集；提示/工具/策略迭代。</li><li>发布门禁与灰度策略优化。</li></ul>]]></content>
+    <content type="html"><![CDATA[<h2>1. PII/DLP 策略</h2><ul><li>识别：正则 + 词典 + 小模型判别。</li><li>处理：掩码、替换或拒答；保留证据以备审计。</li></ul><h2>2. 输出约束</h2><ul><li>Schema/正则/判别器；引用可追溯；敏感时拒答。</li></ul><h2>3. 审计与留痕</h2><ul><li>日志与样例存档；定期复测与策略调优。</li></ul>]]></content>
     
     
       
       
-    <summary type="html">&lt;h2&gt;1. 检测信号&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;提示绕过、安全拒答失败、异常模式输出等。&lt;/li&gt;&lt;li&gt;多级评分器：规则 + 小模型判别 + 人审抽样。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. 自动化处置&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;降级/拒答；替换为安全模板；冻结会话。&lt;/li&gt;&lt;li&gt;</summary>
+    <summary type="html">&lt;h2&gt;1. PII/DLP 策略&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;识别：正则 + 词典 + 小模型判别。&lt;/li&gt;&lt;li&gt;处理：掩码、替换或拒答；保留证据以备审计。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. 输出约束&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Schema/正则/判别器；引用可追溯；敏感时拒答。&lt;</summary>
       
     
     
@@ -478,18 +478,18 @@
   </entry>
   
   <entry>
-    <title>工具调用安全：凭据、权限与审计</title>
-    <link href="https://zhangxianda.com/ai/security-tooling-credentials-audit/"/>
-    <id>https://zhangxianda.com/ai/security-tooling-credentials-audit/</id>
+    <title>越狱检测与响应流程</title>
+    <link href="https://zhangxianda.com/ai/security-jailbreak-detection-response/"/>
+    <id>https://zhangxianda.com/ai/security-jailbreak-detection-response/</id>
     <published>2025-09-11T16:00:00.000Z</published>
-    <updated>2025-09-16T09:13:29.561Z</updated>
+    <updated>2025-09-16T09:13:29.560Z</updated>
     
-    <content type="html"><![CDATA[<h2>1. 凭据管理</h2><ul><li>密钥分环境/分权限；短期凭据；KMS/Secrets 管理。</li></ul><h2>2. 权限最小化</h2><ul><li>细粒度授权；关键操作双因子与人工确认。</li></ul><h2>3. 审计留痕</h2><ul><li>结构化记录参数/结果/耗时/操作者；可回放日志。</li></ul>]]></content>
+    <content type="html"><![CDATA[<h2>1. 检测信号</h2><ul><li>提示绕过、安全拒答失败、异常模式输出等。</li><li>多级评分器：规则 + 小模型判别 + 人审抽样。</li></ul><h2>2. 自动化处置</h2><ul><li>降级/拒答；替换为安全模板；冻结会话。</li><li>速率限制与黑名单；隔离高危来源。</li></ul><h2>3. 复盘与改进</h2><ul><li>样例沉淀为回归集；提示/工具/策略迭代。</li><li>发布门禁与灰度策略优化。</li></ul>]]></content>
     
     
       
       
-    <summary type="html">&lt;h2&gt;1. 凭据管理&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;密钥分环境/分权限；短期凭据；KMS/Secrets 管理。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. 权限最小化&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;细粒度授权；关键操作双因子与人工确认。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;3. 审计留痕&lt;/h2&gt;&lt;ul&gt;&lt;l</summary>
+    <summary type="html">&lt;h2&gt;1. 检测信号&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;提示绕过、安全拒答失败、异常模式输出等。&lt;/li&gt;&lt;li&gt;多级评分器：规则 + 小模型判别 + 人审抽样。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. 自动化处置&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;降级/拒答；替换为安全模板；冻结会话。&lt;/li&gt;&lt;li&gt;</summary>
       
     
     
