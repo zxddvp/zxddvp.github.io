@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>张显达的个人博客</title>
+  
+  <subtitle>张显达 zxd blog</subtitle>
+  <link href="https://zhangxianda.com/atom.xml" rel="self"/>
+  
+  <link href="https://zhangxianda.com/"/>
+  <updated>2025-09-16T09:13:29.556Z</updated>
+  <id>https://zhangxianda.com/</id>
+  
+  <author>
+    <name>张显达</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>智能体设计与多工具编排</title>
+    <link href="https://zhangxianda.com/ai/agents-design/"/>
+    <id>https://zhangxianda.com/ai/agents-design/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.556Z</updated>
+    
+    <content type="html"><![CDATA[<p>智能体（Agent）是在给定目标下，能规划、调用工具、观测反馈并自我纠正的系统。本文聚焦工程中的可落地方案。</p>                        <h2>核心循环：计划—执行—反馈</h2>                        <ul>                            <li>计划：分解目标为若干可执行步骤（任务树/链）。</li>                            <li>执行：根据步骤选择并调用工具（函数调用/API/数据库/检索）。</li>                            <li>反馈：记录结果与异常；必要时回滚、重试或调整计划。</li>                        </ul>                        <h2>工具与选择策略</h2>                        <ul>                            <li>工具描述：严格定义输入/输出与异常；提供示例以降低调用错误率。</li>                            <li>工具选择：基于模型路由或规则；为关键工具设置人工确认阈值。</li>                            <li>组合模式：顺序（Chain）、并行（Fan-out/Fan-in）、条件分支（IF/ELSE）。</li>                        </ul>                        <h2>记忆与状态</h2>                        <ul>                            <li>短时记忆：本轮对话关键信息，控制上下文长度。</li>                            <li>长时记忆：以向量检索存储实体与事实；按场景检索注入。</li>                            <li>任务状态：显式状态机/事件驱动，便于监控与恢复。</li>                        </ul>                        <h2>验证与安全</h2>                        <ul>                            <li>结果验证：正则/Schema 校验、单元断言、冗余工具交叉验证。</li>                            <li>安全：权限最小化、输出过滤、工具沙箱、敏感操作二次确认。</li>                            <li>审计：结构化日志、追踪调用链、可观测性指标。</li>                        </ul>                        <h2>工程建议</h2>                        <ul>                            <li>优先明确目标与可衡量指标（任务成功率、时延、成本）。</li>                            <li>小步快跑：从“半自动 + 人审”迭代到全自动。</li>                            <li>降级方案：故障时切换到保守路径或人工接管。</li>                        </ul>                        <p>良好的智能体不在于“花哨提示词”，而在于清晰的边界、可靠的工具与严格的验证闭环。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;智能体（Agent）是在给定目标下，能规划、调用工具、观测反馈并自我纠正的系统。本文聚焦工程中的可落地方案。&lt;/p&gt;
+                        &lt;h2&gt;核心循环：计划—执行—反馈&lt;/h2&gt;
+                        &lt;ul&gt;
+  </summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Dev Containers 项目环境</title>
+    <link href="https://zhangxianda.com/tools/devcontainers-setup/"/>
+    <id>https://zhangxianda.com/tools/devcontainers-setup/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.557Z</updated>
+    
+    <content type="html"><![CDATA[<p>Dev Containers 通过容器化封装编译器、依赖与工具链，实现“入职即用、环境一致、可重复”的研发体验。</p>                        <h2>核心组件</h2>                        <ul>                            <li><code>devcontainer.json</code>：定义镜像、扩展、端口转发、初始化命令。</li>                            <li>容器镜像：基于 <code>mcr.microsoft.com/devcontainers</code> 或自定义 Dockerfile。</li>                            <li>VS Code 扩展与设置：在容器中自动安装并应用。</li>                        </ul>                        <h2>落地步骤</h2>                        <ul>                            <li>选择基础镜像（node/python/java/go 等），编写 Dockerfile 安装系统依赖。</li>                            <li>配置 <code>devcontainer.json</code>（workspaceMount、postCreateCommand、features）。</li>                            <li>项目根目录放置 <code>.devcontainer</code>，团队共享。</li>                        </ul>                        <h2>团队治理</h2>                        <ul>                            <li>版本与变更：以代码评审方式管理环境；打标签并做发布说明。</li>                            <li>权限：容器内使用最小权限；对外资源用最小凭据。</li>                            <li>缓存与镜像：配置私有镜像仓库与构建缓存，加速拉取。</li>                        </ul>                        <p>总结：把“环境”纳入版本控制，是提升团队研发效率与可维护性的关键一环。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Dev Containers 通过容器化封装编译器、依赖与工具链，实现“入职即用、环境一致、可重复”的研发体验。&lt;/p&gt;
+                        &lt;h2&gt;核心组件&lt;/h2&gt;
+                        &lt;ul&gt;
+         </summary>
+      
+    
+    
+    
+    <category term="推荐工具" scheme="https://zhangxianda.com/categories/%E6%8E%A8%E8%8D%90%E5%B7%A5%E5%85%B7/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>企业级 RAG 蓝图：架构、实践与治理</title>
+    <link href="https://zhangxianda.com/ai/enterprise-rag-blueprint/"/>
+    <id>https://zhangxianda.com/ai/enterprise-rag-blueprint/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.557Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 目标与边界</h2>                        <p>面向企业知识与流程的问答/助手，强调可追溯、可治理、可回归与低运维成本。</p>                        <ul>                            <li>目标：可信回答与来源引用、低幻觉率、统一评测与灰度机制。</li>                            <li>边界：仅回答授权范围内的问题；越权与无依据时优雅拒答。</li>                        </ul>                        <h2>2. 数据与知识库</h2>                        <ul>                            <li>采集：结构化（DB/接口）、半结构化（表格/文档）、非结构化（PDF/网页）。</li>                            <li>清洗与切分：去重、模板化抽取；按语义切分并保留层级/页码。</li>                            <li>索引：Embedding + 向量库（pgvector/Milvus/FAISS），配合倒排与重排。</li>                            <li>权限：元数据中记录 ACL/租户/标签，检索阶段过滤。</li>                        </ul>                        <h2>3. 检索与生成</h2>                        <ul>                            <li>召回：向量检索；必要时 BM25 混合检索；Top-k 召回 20–50。</li>                            <li>重排：cross-encoder 精排 5–8 段，显著降低幻觉与跑题。</li>                            <li>生成：提示模板注入片段；结构化输出（结论/要点/引用）。</li>                            <li>拒答策略：当证据不足时明确拒答并给出可能的下一步。</li>                        </ul>                        <h2>4. 智能体与工具</h2>                        <ul>                            <li>函数调用：数据库/检索/业务接口；输出验证与异常回退。</li>                            <li>工作流：计划—执行—反馈；长时任务使用队列与状态机。</li>                        </ul>                        <h2>5. 评测与回归</h2>                        <ul>                            <li>构建数据集：问答对/引用校验/拒答样例；覆盖关键业务域。</li>                            <li>自动回归：每次变更（数据/索引/提示/模型）触发评测与对比报告。</li>                            <li>指标：正确性、相关性、可追溯性、拒答准确性、成本与时延。</li>                        </ul>                        <h2>6. 安全与合规</h2>                        <ul>                            <li>输入治理：越狱/提示注入防护、敏感词与数据脱敏。</li>                            <li>输出治理：Schema 校验、判别器/规则、人工抽检与追责。</li>                            <li>合规：隐私、留痕与审批；第三方模型的数据边界说明。</li>                        </ul>                        <h2>7. 参考选型</h2>                        <ul>                            <li>模型/推理：OpenAI API、Anthropic、Google、vLLM/Ollama。</li>                            <li>框架：LangChain/LlamaIndex；评测：OpenAI Evals/自研。</li>                            <li>向量：pgvector/Milvus/Weaviate；重排：bge-reranker 等。</li>                        </ul>                        <h2>8. 交付与运维</h2>                        <ul>                            <li>多环境：数据/索引与提示版本化；灰度与回滚流程。</li>                            <li>可观测：指标/日志/追踪齐全；质量看板与告警闭环。</li>                        </ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 目标与边界&lt;/h2&gt;
+                        &lt;p&gt;面向企业知识与流程的问答/助手，强调可追溯、可治理、可回归与低运维成本。&lt;/p&gt;
+                        &lt;ul&gt;
+                         </summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>大模型评测与安全治理入门</title>
+    <link href="https://zhangxianda.com/ai/eval-and-safety/"/>
+    <id>https://zhangxianda.com/ai/eval-and-safety/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.557Z</updated>
+    
+    <content type="html"><![CDATA[<p>评测是保障交付质量的第一道防线；安全治理是保障可控与合规的最后一道防线。两者共同构成生产级 AI 应用的“护城河”。</p>                        <h2>评测维度</h2>                        <ul>                            <li>正确性：与参考答案一致或在可接受范围内。</li>                            <li>相关性：回答是否紧扣问题，不额外发挥。</li>                            <li>完整性：关键要点覆盖，引用与出处明确。</li>                            <li>稳健性：对噪声输入、边界输入、对抗输入的鲁棒性。</li>                            <li>成本/时延：单位成本与响应时延是否满足 SLO。</li>                        </ul>                        <h2>回归与自动化</h2>                        <ul>                            <li>构建数据集：任务样例、参考答案、可执行校验（正则/评分器/判别模型）。</li>                            <li>自动回归：每次改动（提示、检索、模型版本）都触发评测并产出报告。</li>                            <li>可视化：趋势、失败样例聚类、长尾分析，指导后续优化。</li>                        </ul>                        <h2>安全风险</h2>                        <ul>                            <li>越狱/提示注入：诱导模型违反约束；需做输入过滤、上下文隔离与响应审查。</li>                            <li>数据泄露：对话中暴露敏感数据；需脱敏、权限控制与最小化收集。</li>                            <li>幻觉：无依据的自信回答；需引用强约束、拒答机制与事后验证。</li>                        </ul>                        <h2>治理策略</h2>                        <ul>                            <li>输入治理：模板白名单、敏感词过滤、HTML/URL 隔离、文件型载荷判定。</li>                            <li>输出治理：Schema/正则校验、规则与小模型判别器、人工抽检。</li>                            <li>流程治理：关键操作二次确认、审计日志、可观测性与告警。</li>                        </ul>                        <p>结语：没有评测与安全的 AI，无法稳定地服务业务。把“度量与约束”内建到系统里，是走向可持续演进的关键。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;评测是保障交付质量的第一道防线；安全治理是保障可控与合规的最后一道防线。两者共同构成生产级 AI 应用的“护城河”。&lt;/p&gt;
+                        &lt;h2&gt;评测维度&lt;/h2&gt;
+                        &lt;ul&gt;
+       </summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>LLM 函数调用最佳实践</title>
+    <link href="https://zhangxianda.com/ai/function-calling-best-practices/"/>
+    <id>https://zhangxianda.com/ai/function-calling-best-practices/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.557Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 工具协议设计</h2>                        <ul>                            <li>输入/输出 Schema、错误模型与幂等性；示例优先。</li>                            <li>安全边界：字段级校验与脱敏；速率与用量限制。</li>                        </ul>                        <h2>2. 工具选择与路由</h2>                        <ul>                            <li>少量高价值工具白名单；其余通过路由或回退策略触达。</li>                            <li>基于上下文的路由提示；失败回退至安全路径。</li>                        </ul>                        <h2>3. 执行与验证</h2>                        <ul>                            <li>Schema/正则/小模型判别器对输出二次校验。</li>                            <li>关键动作需人工确认或双因子；提供撤销与补偿。</li>                        </ul>                        <h2>4. 审计与可观测</h2>                        <ul>                            <li>记录调用链：工具参数、结果、耗时与错误；生成可回放日志。</li>                            <li>暴露指标：成功率/错误率/时延/成本；异常激增报警。</li>                        </ul>                        <h2>5. 典型陷阱</h2>                        <ul>                            <li>工具爆炸与提示冗长；缺少回退；错误吞没；权限过大。</li>                        </ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 工具协议设计&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;输入/输出 Schema、错误模型与幂等性；示例优先。&lt;/li&gt;
+                           </summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>GitHub Actions 最佳实践</title>
+    <link href="https://zhangxianda.com/tools/github-actions-best-practices/"/>
+    <id>https://zhangxianda.com/tools/github-actions-best-practices/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.557Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 基础配置</h2>                        <ul>                            <li>触发器：合理使用 <code>push</code>/<code>pull_request</code>/<code>workflow_dispatch</code>；限制路径减少无效构建。</li>                            <li>Runner：优先使用官方托管；密集型任务可自建自托管 Runner。</li>                        </ul>                        <h2>2. 缓存与加速</h2>                        <ul>                            <li>使用 <code>actions/cache</code> 缓存依赖，键包含锁文件哈希与 OS/语言版本。</li>                            <li>多作业共享工件：<code>actions/upload-artifact</code> 与 <code>download-artifact</code>。</li>                        </ul>                        <h2>3. 矩阵与复用</h2>                        <ul>                            <li>矩阵构建：多平台/多版本并行测试，提高覆盖率。</li>                            <li>可复用工作流：<code>workflow_call</code> 提炼通用 CI 逻辑，团队复用。</li>                        </ul>                        <h2>4. 权限与安全</h2>                        <ul>                            <li>最小权限：显式设置 <code>permissions</code>，避免默认 <code>write-all</code>。</li>                            <li>密钥：全部放在 <code>Secrets</code>；切勿在日志回显；必要时加密写入。</li>                            <li>供应链：使用 SHA 固定第三方 Action 版本；配合 Dependabot/Renovate。</li>                        </ul>                        <h2>5. 质量与可观测</h2>                        <ul>                            <li>报告：测试覆盖率、构建用时趋势；关键失败自动 @ 责任人。</li>                            <li>并发与超时：避免队列积压；对长任务设置超时与取消策略。</li>                        </ul>                        <p>借助以上要点，CI/CD 能既快又稳，且更安全、可维护。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 基础配置&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;触发器：合理使用 &lt;code&gt;push&lt;/code&gt;/&lt;code&gt;pull_request&lt;/code&gt;/&lt;code&gt;wor</summary>
+      
+    
+    
+    
+    <category term="推荐工具" scheme="https://zhangxianda.com/categories/%E6%8E%A8%E8%8D%90%E5%B7%A5%E5%85%B7/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>GitHub Actions 与供应链安全</title>
+    <link href="https://zhangxianda.com/tools/github-actions-supply-chain-security/"/>
+    <id>https://zhangxianda.com/tools/github-actions-supply-chain-security/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.558Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 权限与隔离</h2>                        <ul>                            <li>最小权限 permissions；细分环境密钥；复用工作流隔离职责。</li>                            <li>自托管 Runner 隔离与镜像加固；临时凭据与过期策略。</li>                        </ul>                        <h2>2. 依赖与制品</h2>                        <ul>                            <li>SBOM 生成（CycloneDX/Syft）；依赖扫描（Trivy/Dependabot）。</li>                            <li>制品签名（Sigstore/Cosign）；镜像签名与验证策略。</li>                        </ul>                        <h2>3. 供应链与流程</h2>                        <ul>                            <li>固定第三方 Action 版本（SHA）；审批与双人复核。</li>                            <li>变更日志与版本管理自动化；回滚与审计。</li>                        </ul>                        <h2>4. 事件响应</h2>                        <ul>                            <li>告警与抑制；凭据泄露扫描；应急禁用 Action 与密钥轮换。</li>                        </ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 权限与隔离&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;最小权限 permissions；细分环境密钥；复用工作流隔离职责。&lt;/li&gt;
+                     </summary>
+      
+    
+    
+    
+    <category term="推荐工具" scheme="https://zhangxianda.com/categories/%E6%8E%A8%E8%8D%90%E5%B7%A5%E5%85%B7/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>OpenTelemetry 实战：指标、日志、追踪三板斧</title>
+    <link href="https://zhangxianda.com/observability/opentelemetry-hands-on/"/>
+    <id>https://zhangxianda.com/observability/opentelemetry-hands-on/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.558Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 为什么是 OpenTelemetry</h2>                        <p>统一语义与 SDK，避免厂商锁定；在成本、迁移与可观测性深度间取得平衡。</p>                        <h2>2. 数据模型与采集面</h2>                        <ul>                            <li>Metrics：RED/USE 指标体系；直方图与基数问题；采样策略。</li>                            <li>Logs：结构化日志，关联 TraceId/SpanId；落地与保留策略。</li>                            <li>Traces：端到端链路；采样（Head/Tail）；关键属性建模。</li>                        </ul>                        <h2>3. 采集与导出</h2>                        <ul>                            <li>SDK/Auto Instrumentation；Exporter：OTLP/HTTP/gRPC。</li>                            <li>Collector：集中转发与加工（过滤、采样、重命名、聚合）。</li>                            <li>后端：Prometheus/Grafana、Tempo/Jaeger、Loki/ELK、云厂商。</li>                        </ul>                        <h2>4. Java 示例</h2>                        <pre class="line-numbers language-java"><code>// build.gradleimplementation("io.opentelemetry:opentelemetry-api:1.40.0")implementation("io.opentelemetry:opentelemetry-sdk:1.40.0")implementation("io.opentelemetry:opentelemetry-exporter-otlp:1.40.0")// 运行时：-Dotel.service.name=demo -Dotel.exporter.otlp.endpoint=http://otel-collector:4317</code></pre>                        <h2>5. 采样与成本</h2>                        <p>区分关键路径与普通请求；对高基数标签做降维；使用 Tail-based 采样保留异常与慢请求。</p>                        <h2>6. 治理与可用性</h2>                        <ul>                            <li>命名规范与标签基线；版本控制与回滚；集群故障降级。</li>                            <li>可视化：SLO/错误预算、服务依赖拓扑、容量与热度地图。</li>                        </ul>                        <h2>7. 与业务结合</h2>                        <p>将业务指标嵌入可观测三件套，构建从用户体验到服务内部的闭环。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 为什么是 OpenTelemetry&lt;/h2&gt;
+                        &lt;p&gt;统一语义与 SDK，避免厂商锁定；在成本、迁移与可观测性深度间取得平衡。&lt;/p&gt;
+                        &lt;h2&gt;2. 数据模型与采集面&lt;/</summary>
+      
+    
+    
+    
+    <category term="后端" scheme="https://zhangxianda.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端性能预算与监控实战</title>
+    <link href="https://zhangxianda.com/frontend/performance-budget-monitoring/"/>
+    <id>https://zhangxianda.com/frontend/performance-budget-monitoring/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.558Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 指标与预算</h2>                        <ul>                            <li>Core Web Vitals：LCP、CLS、INP；性能预算设定方法。</li>                            <li>资源预算：JS/CSS/图片体积与请求数；首屏大小与关键路径。</li>                        </ul>                        <h2>2. 监控与报警</h2>                        <ul>                            <li>实时上报与采样；分维度看板；阈值报警与抑制。</li>                        </ul>                        <h2>3. 优化闭环</h2>                        <ul>                            <li>分包与懒加载；图片与字体优化；预加载与缓存。</li>                            <li>CI 阶段的 Lighthouse 分数守门与回归趋势。</li>                        </ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 指标与预算&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;Core Web Vitals：LCP、CLS、INP；性能预算设定方法。&lt;/li&gt;
+                  </summary>
+      
+    
+    
+    
+    <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>pgvector 深入浅出</title>
+    <link href="https://zhangxianda.com/database/pgvector-deep-dive/"/>
+    <id>https://zhangxianda.com/database/pgvector-deep-dive/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.558Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 索引结构</h2>                        <ul>                            <li>IVFFlat、HNSW 与 Brute-Force 对比；维度、lists/ef 参数解释。</li>                            <li>距离度量：L2/Inner Product/Cosine；标准化与向量维度。</li>                        </ul>                        <h2>2. 模式与表设计</h2>                        <ul>                            <li>分区/并行；元数据列（来源/页码/ACL）；只读副本承载查询。</li>                        </ul>                        <h2>3. 查询与过滤</h2>                        <ul>                            <li>向量 + 倒排混合检索；权限过滤与租户隔离；近邻 + 重排。</li>                        </ul>                        <h2>4. 维护与变更</h2>                        <ul>                            <li>重建/增量回填；Embedding 版本与双写；VACUUM 与统计信息。</li>                        </ul>                        <h2>5. 监控与优化</h2>                        <ul>                            <li>延迟/召回/CPU/IO 指标；慢查询与 explain 分析；参数调优。</li>                        </ul>                        <h2>6. 安全与合规</h2>                        <ul>                            <li>ACL 与行级安全（RLS）；审计日志；备份与恢复策略。</li>                        </ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 索引结构&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;IVFFlat、HNSW 与 Brute-Force 对比；维度、lists/ef 参数解释。&lt;/li&gt;
+         </summary>
+      
+    
+    
+    
+    <category term="数据库" scheme="https://zhangxianda.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Playwright 视觉回归指南</title>
+    <link href="https://zhangxianda.com/testing/playwright-visual-regression/"/>
+    <id>https://zhangxianda.com/testing/playwright-visual-regression/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.559Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 视觉回归的价值</h2>                        <p>通过比对“基线截图”与“当前截图”的差异，发现 UI 偏移、样式回归与意外变更，补齐单元测试的盲区。</p>                        <h2>2. 项目初始化</h2>                        <pre class="line-numbers language-bash"><code>pnpm dlx playwright@latest init# 配置 expect(page).toHaveScreenshot() 基线目录与阈值</code></pre>                        <h2>3. 基线管理</h2>                        <ul>                            <li>按组件/页面维度组织基线；大改动时更新基线并评审。</li>                            <li>跨浏览器/分辨率基线；移动端模拟；暗黑模式覆盖。</li>                        </ul>                        <h2>4. 稳定性与抗抖动</h2>                        <ul>                            <li>禁用动画/时间依赖；使用 mock 固定数据与时间。</li>                            <li>加载完成后再截图（网络空闲/选择器稳定）。</li>                        </ul>                        <h2>5. CI 集成与审阅</h2>                        <ul>                            <li>Artifacts 上传差异图；PR Bot 评论预览；审批后更新基线。</li>                            <li>与 Storybook 结合，形成“可视化回归 + 组件文档”的闭环。</li>                        </ul>                        <h2>6. 与 E2E/单测的边界</h2>                        <p>视觉回归关注像素差异，不替代行为正确性测试；三者协同更可靠。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 视觉回归的价值&lt;/h2&gt;
+                        &lt;p&gt;通过比对“基线截图”与“当前截图”的差异，发现 UI 偏移、样式回归与意外变更，补齐单元测试的盲区。&lt;/p&gt;
+                        &lt;h2&gt;2. 项目初始化&lt;/</summary>
+      
+    
+    
+    
+    <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>RAG 压缩与多文档组装</title>
+    <link href="https://zhangxianda.com/ai/rag-compression-multidoc/"/>
+    <id>https://zhangxianda.com/ai/rag-compression-multidoc/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.559Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 片段压缩策略</h2>                        <ul>                            <li>语义压缩/提炼摘要；关键句抽取；去冗余合并。</li>                            <li>图表/代码块的特判与保留；引用锚点维护。</li>                        </ul>                        <h2>2. 多文档组装</h2>                        <ul>                            <li>跨文档冲突消解；一致性检查；来源权重与投票。</li>                            <li>答案结构：结论/证据/反例，输出可追溯。</li>                        </ul>                        <h2>3. 成本与质量平衡</h2>                        <ul>                            <li>上下文长度预算；片段聚合/压缩层数；缓存策略。</li>                            <li>自动回归：不同压缩参数的对比实验与报告。</li>                        </ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 片段压缩策略&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;语义压缩/提炼摘要；关键句抽取；去冗余合并。&lt;/li&gt;
+                            &lt;li&gt;</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>RAG 实战入门：从零搭建检索增强生成</title>
+    <link href="https://zhangxianda.com/ai/rag-from-zero/"/>
+    <id>https://zhangxianda.com/ai/rag-from-zero/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.559Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>RAG（Retrieval-Augmented Generation）</strong> 将“外部知识检索”与“生成式模型”结合，兼顾准确性与可追溯性，适用于企业知识库问答、报表问答、复杂检索答疑等场景。</p>                        <h2>一、数据与切分</h2>                        <ul>                            <li>数据清洗：去除噪声、水印、无用页眉页脚，抽取结构（标题/段落/表格）。</li>                            <li>切分策略：定长切分（500–1000 tokens）+ 重叠（50–200），或按段落/标题结构切分。</li>                            <li>元数据：为每个块记录来源、页码、章节，便于过滤与引用。</li>                        </ul>                        <h2>二、Embedding 与索引</h2>                        <ul>                            <li>模型选择：通用（text-embedding-3）、中文优化（bge-*）或领域定制模型。</li>                            <li>向量库：PostgreSQL + pgvector、Milvus、Weaviate、FAISS 均可；根据规模与预算选型。</li>                            <li>索引构建：批量向量化 + 建立 ANN 索引；定期增量更新。</li>                        </ul>                        <h2>三、检索与重排</h2>                        <ul>                            <li>召回：向量相似度检索；必要时与 BM25 混合检索。</li>                            <li>重排：用 cross-encoder 对前 N 片段重新排序，提升前 K 的质量。</li>                            <li>过滤：结合元数据做文档/时间/权限过滤，减少误召回。</li>                        </ul>                        <h2>四、提示与引用</h2>                        <ul>                            <li>提示模板：将检索片段与问题注入，要求“仅基于上下文作答，并在结尾列出【引用】”。</li>                            <li>输出格式：结构化字段（结论/要点/引用列表），便于渲染与后处理。</li>                        </ul>                        <h2>五、评测与演进</h2>                        <ul>                            <li>构建基准：抽样问题集 + 参考答案 + 引用校验；持续回归评测。</li>                            <li>优化路径：改良切分、使用更优 Embedding、加强重排、微调提示与输出约束。</li>                            <li>安全治理：防越狱/提示注入、敏感信息脱敏、来源强约束与拒答策略。</li>                        </ul>                        <p>小结：RAG 的关键是“数据与检索质量”。在做好数据工程与评测闭环的前提下，再追求模型能力与推理技巧，才能稳定落地。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;RAG（Retrieval-Augmented Generation）&lt;/strong&gt; 将“外部知识检索”与“生成式模型”结合，兼顾准确性与可追溯性，适用于企业知识库问答、报表问答、复杂检索答疑等场景。&lt;/p&gt;
+                      </summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>提示注入与越狱防护</title>
+    <link href="https://zhangxianda.com/ai/prompt-injection-defense/"/>
+    <id>https://zhangxianda.com/ai/prompt-injection-defense/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.559Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 威胁模型</h2>                        <ul>                            <li>提示注入：用户输入/上下文中的恶意指令劫持系统目标。</li>                            <li>越狱：诱导模型解除安全约束；数据外泄与危险动作。</li>                        </ul>                        <h2>2. 输入与上下文隔离</h2>                        <ul>                            <li>对用户输入与检索片段加“引号”/标记，提示模型不要信任。</li>                            <li>不同来源隔离（系统/开发者/工具/用户）；最小暴露。</li>                        </ul>                        <h2>3. 检测与防御</h2>                        <ul>                            <li>规则 + 小模型判别器；黑白名单；正则/Schema 校验。</li>                            <li>输出约束：结构化回复；引用与证据链；拒答策略。</li>                        </ul>                        <h2>4. 审计与响应</h2>                        <ul>                            <li>记录可疑样例；自动化复测与签名；拉黑源。</li>                            <li>蓝绿/灰度切换与回滚；上线门禁。</li>                        </ul>                        <h2>5. 最佳实践清单</h2>                        <ul>                            <li>分离角色与输入；最小化上下文；输出前后双重校验。</li>                            <li>关键操作强制人工确认；详尽审计日志。</li>                        </ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 威胁模型&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;提示注入：用户输入/上下文中的恶意指令劫持系统目标。&lt;/li&gt;
+                            &lt;l</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>RAG 重排与评测深水区</title>
+    <link href="https://zhangxianda.com/ai/rag-rerank-evaluation/"/>
+    <id>https://zhangxianda.com/ai/rag-rerank-evaluation/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.560Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 召回的上限与数据质量</h2>                        <ul>                            <li>切分策略与重叠对召回的影响；去重/模板化清洗减少噪声。</li>                            <li>Embedding 版本升级策略与向后兼容；批量回填与双写。</li>                        </ul>                        <h2>2. 重排模型的选择</h2>                        <ul>                            <li>双塔 vs 交叉编码（cross-encoder）；延迟/精度对比。</li>                            <li>候选数与阈值；多阶段重排（粗排→精排）。</li>                        </ul>                        <h2>3. 指标与采样</h2>                        <ul>                            <li>覆盖率@k、NDCG、MRR；引用命中与可追溯性。</li>                            <li>在线/离线一致性校准；A/B 与灰度推进。</li>                        </ul>                        <h2>4. 自动回归</h2>                        <ul>                            <li>构建问答对与引用标注；变更触发评测与报告。</li>                            <li>基线管理：切分/Embedding/提示/模型的多版本。</li>                        </ul>                        <h2>5. 成本控制</h2>                        <ul>                            <li>Top-k 与上下文长度预算；片段压缩与聚合。</li>                            <li>缓存：检索结果缓存与回答缓存；数据过期策略。</li>                        </ul>                        <h2>6. 风险与防护</h2>                        <ul>                            <li>数据污染与越权；引用伪造与注入；拒答机制与降级。</li>                        </ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 召回的上限与数据质量&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;切分策略与重叠对召回的影响；去重/模板化清洗减少噪声。&lt;/li&gt;
+                       </summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>RAG 向量质量评估</title>
+    <link href="https://zhangxianda.com/ai/rag-vector-quality/"/>
+    <id>https://zhangxianda.com/ai/rag-vector-quality/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.560Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. Embedding 选择与对比</h2>                        <ul>                            <li>通用/中文/领域模型对比；维度、速度与成本权衡。</li>                        </ul>                        <h2>2. 质量指标</h2>                        <ul>                            <li>覆盖率@k、NDCG、MRR；标注样本与噪声控制。</li>                        </ul>                        <h2>3. 数据漂移与回归</h2>                        <ul>                            <li>数据/模型/切分变更的影响评估；双写与灰度。</li>                        </ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. Embedding 选择与对比&lt;/h2&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;通用/中文/领域模型对比；维度、速度与成本权衡。&lt;/li&gt;
+                     </summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>越狱检测与响应流程</title>
+    <link href="https://zhangxianda.com/ai/security-jailbreak-detection-response/"/>
+    <id>https://zhangxianda.com/ai/security-jailbreak-detection-response/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.560Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 检测信号</h2><ul><li>提示绕过、安全拒答失败、异常模式输出等。</li><li>多级评分器：规则 + 小模型判别 + 人审抽样。</li></ul><h2>2. 自动化处置</h2><ul><li>降级/拒答；替换为安全模板；冻结会话。</li><li>速率限制与黑名单；隔离高危来源。</li></ul><h2>3. 复盘与改进</h2><ul><li>样例沉淀为回归集；提示/工具/策略迭代。</li><li>发布门禁与灰度策略优化。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 检测信号&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;提示绕过、安全拒答失败、异常模式输出等。&lt;/li&gt;&lt;li&gt;多级评分器：规则 + 小模型判别 + 人审抽样。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. 自动化处置&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;降级/拒答；替换为安全模板；冻结会话。&lt;/li&gt;&lt;li&gt;</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>RAG 数据脱敏与权限控制</title>
+    <link href="https://zhangxianda.com/ai/security-data-masking-acl/"/>
+    <id>https://zhangxianda.com/ai/security-data-masking-acl/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.560Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 脱敏与分级</h2><ul><li>字段级、模式级、上下文级脱敏；数据分级与访问策略。</li></ul><h2>2. ACL 与 RLS</h2><ul><li>检索阶段的权限过滤；数据库行级安全（RLS）配合 pgvector。</li></ul><h2>3. 回答约束</h2><ul><li>不可披露信息拒答；引用可追溯保障不越权。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 脱敏与分级&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;字段级、模式级、上下文级脱敏；数据分级与访问策略。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. ACL 与 RLS&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;检索阶段的权限过滤；数据库行级安全（RLS）配合 pgvector。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;3. </summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>AI 输出合规与敏感信息检测</title>
+    <link href="https://zhangxianda.com/ai/security-output-compliance-pii-dlp/"/>
+    <id>https://zhangxianda.com/ai/security-output-compliance-pii-dlp/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.561Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. PII/DLP 策略</h2><ul><li>识别：正则 + 词典 + 小模型判别。</li><li>处理：掩码、替换或拒答；保留证据以备审计。</li></ul><h2>2. 输出约束</h2><ul><li>Schema/正则/判别器；引用可追溯；敏感时拒答。</li></ul><h2>3. 审计与留痕</h2><ul><li>日志与样例存档；定期复测与策略调优。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. PII/DLP 策略&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;识别：正则 + 词典 + 小模型判别。&lt;/li&gt;&lt;li&gt;处理：掩码、替换或拒答；保留证据以备审计。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. 输出约束&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Schema/正则/判别器；引用可追溯；敏感时拒答。&lt;</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Prompt 注入红队与基准集</title>
+    <link href="https://zhangxianda.com/ai/security-prompt-redteaming-benchmarks/"/>
+    <id>https://zhangxianda.com/ai/security-prompt-redteaming-benchmarks/</id>
+    <published>2025-09-11T16:00:00.000Z</published>
+    <updated>2025-09-16T09:13:29.561Z</updated>
+    
+    <content type="html"><![CDATA[<h2>1. 样例采集</h2><ul><li>真实流量与公开集；敏感策略与红队技巧。</li></ul><h2>2. 对抗生成</h2><ul><li>自动化生成攻击样例；多模板覆盖；多语言与变体。</li></ul><h2>3. 评分与回归</h2><ul><li>判别器/评分器；基线与趋势；发布门禁。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2&gt;1. 样例采集&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;真实流量与公开集；敏感策略与红队技巧。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;2. 对抗生成&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;自动化生成攻击样例；多模板覆盖；多语言与变体。&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;3. 评分与回归&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;判别器/评</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+  </entry>
+  
+</feed>
