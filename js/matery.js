@@ -1,4 +1,13 @@
 $(function () {
+    var DEFAULT_FEATURE_IMAGES = ['/medias/featureimages/0.jpg','/medias/featureimages/1.jpg','/medias/featureimages/2.jpg','/medias/featureimages/3.jpg','/medias/featureimages/4.jpg','/medias/featureimages/5.jpg','/medias/featureimages/6.jpg','/medias/featureimages/7.jpg','/medias/featureimages/8.jpg','/medias/featureimages/9.jpg','/medias/featureimages/10.jpg','/medias/featureimages/11.jpg','/medias/featureimages/12.jpg','/medias/featureimages/13.jpg','/medias/featureimages/14.jpg','/medias/featureimages/15.jpg','/medias/featureimages/16.jpg','/medias/featureimages/17.jpg','/medias/featureimages/18.jpg','/medias/featureimages/19.jpg','/medias/featureimages/20.jpg','/medias/featureimages/21.jpg','/medias/featureimages/22.jpg','/medias/featureimages/23.jpg'];
+    var featureImagesPool = Array.isArray(window.MATERY_FEATURE_IMAGES) && window.MATERY_FEATURE_IMAGES.length ? window.MATERY_FEATURE_IMAGES.slice() : DEFAULT_FEATURE_IMAGES.slice();
+    function takeFeatureImage() {
+        if (!featureImagesPool.length) {
+            featureImagesPool = Array.isArray(window.MATERY_FEATURE_IMAGES) && window.MATERY_FEATURE_IMAGES.length ? window.MATERY_FEATURE_IMAGES.slice() : DEFAULT_FEATURE_IMAGES.slice();
+        }
+        var idx = Math.floor(Math.random() * featureImagesPool.length);
+        return featureImagesPool.splice(idx, 1)[0];
+    }
     /**
      * 添加文章卡片hover效果.
      */
@@ -348,18 +357,20 @@ $(function () {
                     scored.sort((a,b) => b.score - a.score);
                     const top = scored.slice(0, 3).map(x => x.e);
                     if (!top.length) return;
-                    const cards = top.map(it => (
-                        '<div class="col s12 m6 l4">\
-                            <div class="card">\
-                                <a href="' + (it.url.startsWith('/')? it.url : ('/' + it.url)) + '">\
-                                    <div class="card-image">\
-                                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="' + it.title + '">\
-                                        <span class="card-title">' + it.title + '</span>\
-                                    </div>\
-                                </a>\
-                            </div>\
-                        </div>'
-                    )).join('');
+                    const cards = top.map(it => {
+                        const href = it.url.startsWith('/') ? it.url : ('/' + it.url);
+                        const imgSrc = takeFeatureImage();
+                        return `<div class="col s12 m6 l4">
+                            <div class="card">
+                                <a href="${href}">
+                                    <div class="card-image">
+                                        <img src="${imgSrc}" class="responsive-img" alt="${it.title}">
+                                        <span class="card-title">${it.title}</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>`;
+                    }).join('');
                     const container = '<div class="auto-related" style="padding:8px 16px 0 16px;">\
                         <h5><i class="fas fa-link"></i>&nbsp;相关推荐</h5>\
                         <div class="row">' + cards + '</div>\
