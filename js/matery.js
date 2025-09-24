@@ -247,8 +247,10 @@ $(function () {
             $('<link rel="canonical">').attr('href', canonicalHref).appendTo('head');
         })();
 
-        // 2) 对聚合页（标签/分类/归档）设置 noindex,follow，降低重复内容
+        // 2) 对聚合页（标签/分类/归档）设置 noindex,follow，降低重复内容（仅作为后备策略，若服务端已渲染则不重复注入）
         (function markThinPages() {
+            const hasRobotsMeta = $('meta[name="robots"]').length > 0;
+            if (hasRobotsMeta) return;
             const path = window.location.pathname;
             const isThin = /\/tags\b|\/categories\b|\/archives\b/.test(path);
             if (isThin) {
