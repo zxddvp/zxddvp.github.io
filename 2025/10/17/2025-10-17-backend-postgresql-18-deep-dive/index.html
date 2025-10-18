@@ -1,0 +1,1091 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程, 张显达|个人|博客|技术|生活">
+    <meta name="description" content="导语PostgreSQL 18 于 2025-09-25 正式发布（官方文档“18.0 Release Notes”）。本次迭代既有“硬核内核增强”（异步 I&amp;#x2F;O 子系统、锁与哈希操作优化、VACUUM 改进），也有“开发体验增强">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <link rel="canonical" href="https://zhangxianda.com/2025/10/17/2025-10-17-backend-postgresql-18-deep-dive/">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程 | 张显达的个人博客">
+    <meta property="og:description" content="导语PostgreSQL 18 于 2025-09-25 正式发布（官方文档“18.0 Release Notes”）。本次迭代既有“硬核内核增强”（异步 I&amp;#x2F;O 子系统、锁与哈希操作优化、VACUUM 改进），也有“开发体验增强">
+    <meta property="og:url" content="https://zhangxianda.com/2025/10/17/2025-10-17-backend-postgresql-18-deep-dive/">
+    <meta property="og:site_name" content="张显达的个人博客">
+    <meta property="og:image" content="/favicon.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程 | 张显达的个人博客">
+    <meta name="twitter:description" content="导语PostgreSQL 18 于 2025-09-25 正式发布（官方文档“18.0 Release Notes”）。本次迭代既有“硬核内核增强”（异步 I&amp;#x2F;O 子系统、锁与哈希操作优化、VACUUM 改进），也有“开发体验增强">
+    <meta name="twitter:image" content="/favicon.png">
+
+    
+
+    <title>PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程 | 张显达的个人博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
+     crossorigin="anonymous"></script>
+
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程",
+      "mainEntityOfPage": "https://zhangxianda.com/2025/10/17/2025-10-17-backend-postgresql-18-deep-dive/",
+      "datePublished": "2025-10-17T02:12:00.000Z",
+      "dateModified": "2025-10-18T02:48:24.671Z",
+      "author": { "@type": "Person", "name": "张显达" },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "image": "/favicon.png"
+    }
+    </script>
+    
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+
+<body>
+    
+<header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+          
+          <span class="logo-span">张显达</span>
+        </a>
+      </div>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+      <ul class="right nav-menu">
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/" class="waves-effect waves-light">
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              <span>首页</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/ai" class="waves-effect waves-light">
+              <i class="fas fa-robot" style="zoom: 0.6;"></i>
+              <span>人工智能</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tools" class="waves-effect waves-light">
+              <i class="fas fa-tools" style="zoom: 0.6;"></i>
+              <span>推荐工具</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tags" class="waves-effect waves-light">
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              <span>标签</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/categories" class="waves-effect waves-light">
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              <span>分类</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/archives" class="waves-effect waves-light">
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              <span>归档</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/about" class="waves-effect waves-light">
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              <span>关于</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/friends" class="waves-effect waves-light">
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              <span>友情链接</span>
+            </a>
+          </li>
+        
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div id="mobile-nav" class="side-nav sidenav">
+        <div class="mobile-head bg-color">
+          
+            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+          
+          <div class="logo-name">张显达</div>
+          <div class="logo-desc">张显达的个人博客</div>
+        </div>
+        <ul class="menu-list mobile-menu-list">
+          
+            <li class="m-nav-item">
+              <a href="/" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-home"></i>
+                首页
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/ai" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-robot"></i>
+                人工智能
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tools" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tools"></i>
+                推荐工具
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tags" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tags"></i>
+                标签
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/categories" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-bookmark"></i>
+                分类
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/archives" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-archive"></i>
+                归档
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/about" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-user-circle"></i>
+                关于
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/friends" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-address-book"></i>
+                友情链接
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/PostgreSQL-18/">
+                                <span class="chip bg-color">PostgreSQL 18</span>
+                            </a>
+                        
+                            <a href="/tags/AIO/">
+                                <span class="chip bg-color">AIO</span>
+                            </a>
+                        
+                            <a href="/tags/uuidv7/">
+                                <span class="chip bg-color">uuidv7</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%99%9A%E6%8B%9F%E7%94%9F%E6%88%90%E5%88%97/">
+                                <span class="chip bg-color">虚拟生成列</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/">
+                                <span class="chip bg-color">数据库升级</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                后端
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-10-17
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>PostgreSQL 18 于 2025-09-25 正式发布（官方文档“18.0 Release Notes”）。本次迭代既有“硬核内核增强”（异步 I&#x2F;O 子系统、锁与哈希操作优化、VACUUM 改进），也有“开发体验增强”（uuidv7()、虚拟生成列默认启用、RETURNING 对 OLD&#x2F;NEW 的支持、时态约束），以及“运维升级便利性”（pg_upgrade 保留优化器统计、initdb 默认开启数据校验和、OAuth 认证支持）。本文围绕四个维度展开：性能机制、开发者特性、迁移与治理、生产落地清单。</p>
+<h2 id="性能机制：AIO-子系统与算子级优化"><a href="#性能机制：AIO-子系统与算子级优化" class="headerlink" title="性能机制：AIO 子系统与算子级优化"></a>性能机制：AIO 子系统与算子级优化</h2><ol>
+<li>AIO（Asynchronous I&#x2F;O）子系统</li>
+</ol>
+<ul>
+<li>能力：允许后端批量排队读请求，从而显著提升顺序扫描、位图堆扫描与 VACUUM 的效率。</li>
+<li>开关与参数：<code>io_method</code> 启用方式；<code>io_combine_limit</code>、<code>io_max_combine_limit</code> 控制合并阈值；新增系统视图 <code>pg_aios</code> 观察 AIO 句柄状态。</li>
+<li>实操建议：<ul>
+<li>评估 IOPS&#x2F;吞吐型介质的差异，分环境压测选择合适的 combine 阈值；</li>
+<li>与 <code>effective_io_concurrency</code> &#x2F; <code>maintenance_io_concurrency</code>（默认已提升至 16）联动调优；</li>
+<li>VACUUM 作业分时段（低峰）+ AIO 合理阈值 &#x3D; 降低抖动。</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>锁&#x2F;哈希&#x2F;聚合优化</li>
+</ol>
+<ul>
+<li>多关系查询的锁性能提升；哈希连接与 GROUP BY 的内存占用与性能改善；哈希集合操作（EXCEPT 等）与子计划哈希查找也受益。</li>
+<li>价值：面向中高并发 OLTP 与混合负载场景，降低“热点查询 + 元数据锁”叠加导致的尾延迟。</li>
+</ul>
+<ol start="3">
+<li>VACUUM 演进</li>
+</ol>
+<ul>
+<li>普通 VACUUM 现在可在“all-visible”页面上进行部分冻结，减少后续全表冻结的成本；<code>vacuum_truncate</code> 细化文件截断控制，<code>vacuum_max_eager_freeze_failure_rate</code> 管理积极度。</li>
+<li>建议：将冻结策略纳入容量规划与备份窗口，避免“全局冻结风暴”。</li>
+</ul>
+<h2 id="开发者特性：把“可维护性”纳入语言表层"><a href="#开发者特性：把“可维护性”纳入语言表层" class="headerlink" title="开发者特性：把“可维护性”纳入语言表层"></a>开发者特性：把“可维护性”纳入语言表层</h2><ol>
+<li><code>uuidv7()</code> 内置函数</li>
+</ol>
+<ul>
+<li>语义：时间有序的 UUID，有利于避免 B-Tree 层面的“随机写放大”，提升写入与范围查询的物理局部性。</li>
+<li>落地：替代部分使用 <code>uuidv4</code> 的场景，尤其是高写入 + 主键索引密集的表；观察自增序列与分布式唯一性策略的协同关系。</li>
+</ul>
+<ol start="2">
+<li>虚拟生成列（Virtual Generated Columns）成为默认</li>
+</ol>
+<ul>
+<li>语义：在读取时计算值，而非写入时存储，适合衍生列、轻量转换、低频读场景，降低存储开销。</li>
+<li>治理：避免在热路径上堆叠复杂表达式；约束其数据类型与函数副作用，确保可预测的读时成本。</li>
+</ul>
+<ol start="3">
+<li>RETURNING 对 <code>OLD</code> &#x2F; <code>NEW</code> 的支持</li>
+</ol>
+<ul>
+<li>作用：在 INSERT&#x2F;UPDATE&#x2F;DELETE&#x2F;MERGE 的 RETURNING 子句中引用 <code>OLD</code>&#x2F;<code>NEW</code>，简化审计、日志与补偿逻辑。</li>
+<li>价值：减少二次 SELECT，统一“写 + 读回”模式，利于 ORMs&#x2F;存储过程的表达能力。</li>
+</ul>
+<ol start="4">
+<li>时态约束（Temporal Constraints）</li>
+</ol>
+<ul>
+<li>语义：允许在 PRIMARY&#x2F;UNIQUE&#x2F;FOREIGN KEY 约束上表达“时间范围”的约束逻辑。</li>
+<li>价值：支持“有效期&#x2F;历史表”建模，减少触发器与应用层校验复杂度。</li>
+</ul>
+<h2 id="迁移与治理：升级要“有温度”"><a href="#迁移与治理：升级要“有温度”" class="headerlink" title="迁移与治理：升级要“有温度”"></a>迁移与治理：升级要“有温度”</h2><ol>
+<li>pg_upgrade：保留优化器统计</li>
+</ol>
+<ul>
+<li>意义：避免升级后因统计信息为空导致的“性能冷启动”。</li>
+<li>路线：仍建议预演（影子集群 + 回放），并在灰度阶段实时观察计划差异与慢查询分布。</li>
+</ul>
+<ol start="2">
+<li>initdb 默认启用数据校验和</li>
+</ol>
+<ul>
+<li>变更：默认开启；<code>--no-data-checksums</code> 可在需要与旧集群（无校验和）对齐时使用。</li>
+<li>建议：将校验和监控纳入日常巡检，异常块与备份&#x2F;恢复策略要有 SOP。</li>
+</ul>
+<ol start="3">
+<li>OAuth 认证支持</li>
+</ol>
+<ul>
+<li>场景：与现代身份基础设施（IdP、机器身份）对齐，减少口令面风险。</li>
+<li>建议：在零信任架构中，将 DB 访问纳入统一的工作负载身份治理（短期证书&#x2F;令牌、最小权限、分段网络）。</li>
+</ul>
+<ol start="4">
+<li>兼容性：MD5 密码弃用预告</li>
+</ol>
+<ul>
+<li>风险：未来大版本将移除 MD5 密码；当前设置 MD5 会告警（可通过配置关闭告警，不建议）。</li>
+<li>建议：尽快迁移至 SCRAM 或与 OAuth 配套的身份方式。</li>
+</ul>
+<h2 id="生产落地清单（按优先级）"><a href="#生产落地清单（按优先级）" class="headerlink" title="生产落地清单（按优先级）"></a>生产落地清单（按优先级）</h2><ul>
+<li><p>性能与容量</p>
+<ul>
+<li>基准：在预发对 AIO 开关 + 阈值做压测；记录 TPC-C&#x2F;TPC-H 或自有基准指标差异。</li>
+<li>查询：对“多表&#x2F;多锁”与“哈希聚合”重压场景进行回归；确认内存与临时文件峰值。</li>
+</ul>
+</li>
+<li><p>架构与可用性</p>
+<ul>
+<li>复制&#x2F;备份：验证逻辑复制&#x2F;物理复制在 18 的一致性与延迟；备份&#x2F;恢复通过率与 RTO&#x2F;RPO 对标。</li>
+<li>灰度：双写或影子读策略，把可能的计划震荡置于可回退范围内。</li>
+</ul>
+</li>
+<li><p>安全与身份</p>
+<ul>
+<li>身份：梳理 DB 账户 → 统一到 IdP&#x2F;OAuth 或 SCRAM；清退 MD5。</li>
+<li>审计：借助 RETURNING + 逻辑解耦，完善写入审计与数据血缘。</li>
+</ul>
+</li>
+<li><p>开发与建模</p>
+<ul>
+<li>主键策略：评估 <code>uuidv7()</code> 替代 <code>uuidv4</code> 的收益，避免热点&#x2F;随机写放大。</li>
+<li>衍生列：将低频计算迁往虚拟生成列，压缩存储体积，清理不必要的物化字段。</li>
+<li>时态约束：重构历史&#x2F;版本化表结构，把“时间有效性”下沉到数据库约束层。</li>
+</ul>
+</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>PostgreSQL 18 的关键词是“性能工程 + 治理工程”：AIO 拉升 I&#x2F;O 吞吐、算子级优化降低尾延迟，配合对升级、认证与约束语义的系统化补齐，让“安全上线 + 平滑演进”成为常态。建议采用“预演压测 → 灰度发布 → 观测回滚”的标配流程，分阶段引入新能力，把风险与收益纳入同一张工程账。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>官方文档：PostgreSQL 18.0 Release Notes（2025-09-25）</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张显达</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangxianda.com/2025/10/17/2025-10-17-backend-postgresql-18-deep-dive/">https://zhangxianda.com/2025/10/17/2025-10-17-backend-postgresql-18-deep-dive/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">张显达</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/PostgreSQL-18/">
+                                    <span class="chip bg-color">PostgreSQL 18</span>
+                                </a>
+                            
+                                <a href="/tags/AIO/">
+                                    <span class="chip bg-color">AIO</span>
+                                </a>
+                            
+                                <a href="/tags/uuidv7/">
+                                    <span class="chip bg-color">uuidv7</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%99%9A%E6%8B%9F%E7%94%9F%E6%88%90%E5%88%97/">
+                                    <span class="chip bg-color">虚拟生成列</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/">
+                                    <span class="chip bg-color">数据库升级</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/10/17/2025-10-17-cybersecurity-kev-oct-patch-tuesday/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略">
+                        
+                        <span class="card-title">十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-10-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category">
+                                    网络安全
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9B%B6%E4%BF%A1%E4%BB%BB/">
+                        <span class="chip bg-color">零信任</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%94%BB%E5%87%BB%E9%9D%A2%E7%AE%A1%E7%90%86/">
+                        <span class="chip bg-color">攻击面管理</span>
+                    </a>
+                    
+                    <a href="/tags/CISA-KEV/">
+                        <span class="chip bg-color">CISA KEV</span>
+                    </a>
+                    
+                    <a href="/tags/Patch-Tuesday/">
+                        <span class="chip bg-color">Patch Tuesday</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%BC%8F%E6%B4%9E%E7%AE%A1%E7%90%86/">
+                        <span class="chip bg-color">漏洞管理</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/10/17/2025-10-17-frontend-react-conf-compiler-19-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="2025年10月前端观察：React Conf 2025 回顾、Compiler 1.0 与 19.2 的落地路线">
+                        
+                        <span class="card-title">2025年10月前端观察：React Conf 2025 回顾、Compiler 1.0 与 19.2 的落地路线</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
+                                    前端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                        <span class="chip bg-color">性能优化</span>
+                    </a>
+                    
+                    <a href="/tags/React-Compiler/">
+                        <span class="chip bg-color">React Compiler</span>
+                    </a>
+                    
+                    <a href="/tags/React-19-2/">
+                        <span class="chip bg-color">React 19.2</span>
+                    </a>
+                    
+                    <a href="/tags/React-Foundation/">
+                        <span class="chip bg-color">React Foundation</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/">
+                        <span class="chip bg-color">工程化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 l8">
+        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        
+      </div>
+      <div class="col s12 m4 l4 right-align">
+        <a href="/privacy" class="tooltipped" data-tooltip="隐私政策" data-position="top" data-delay="50">隐私</a> |
+        <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
+        <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
+        <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+          <i class="fas fa-rss"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

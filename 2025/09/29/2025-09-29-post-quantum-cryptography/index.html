@@ -1,0 +1,1327 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="量子后时代的密码学：应对计算范式转变的安全策略, 张显达|个人|博客|技术|生活">
+    <meta name="description" content="引言：密码学的范式危机密码学的历史是一部不断演进的对抗史诗——每一次加密技术的突破都会引发解密方法的革新，而每一次安全威胁的出现又会推动更强大防御机制的发展。然而，当前我们正面临一场前所未有的范式转变：量子计算的崛起正在动摇现代密码学的根基">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <link rel="canonical" href="https://zhangxianda.com/2025/09/29/2025-09-29-post-quantum-cryptography/">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="量子后时代的密码学：应对计算范式转变的安全策略 | 张显达的个人博客">
+    <meta property="og:description" content="引言：密码学的范式危机密码学的历史是一部不断演进的对抗史诗——每一次加密技术的突破都会引发解密方法的革新，而每一次安全威胁的出现又会推动更强大防御机制的发展。然而，当前我们正面临一场前所未有的范式转变：量子计算的崛起正在动摇现代密码学的根基">
+    <meta property="og:url" content="https://zhangxianda.com/2025/09/29/2025-09-29-post-quantum-cryptography/">
+    <meta property="og:site_name" content="张显达的个人博客">
+    <meta property="og:image" content="/favicon.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="量子后时代的密码学：应对计算范式转变的安全策略 | 张显达的个人博客">
+    <meta name="twitter:description" content="引言：密码学的范式危机密码学的历史是一部不断演进的对抗史诗——每一次加密技术的突破都会引发解密方法的革新，而每一次安全威胁的出现又会推动更强大防御机制的发展。然而，当前我们正面临一场前所未有的范式转变：量子计算的崛起正在动摇现代密码学的根基">
+    <meta name="twitter:image" content="/favicon.png">
+
+    
+
+    <title>量子后时代的密码学：应对计算范式转变的安全策略 | 张显达的个人博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
+     crossorigin="anonymous"></script>
+
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "量子后时代的密码学：应对计算范式转变的安全策略",
+      "mainEntityOfPage": "https://zhangxianda.com/2025/09/29/2025-09-29-post-quantum-cryptography/",
+      "datePublished": "2025-09-29T09:45:00.000Z",
+      "dateModified": "2025-10-18T02:48:24.645Z",
+      "author": { "@type": "Person", "name": "张显达" },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "image": "/favicon.png"
+    }
+    </script>
+    
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+
+<body>
+    
+<header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+          
+          <span class="logo-span">张显达</span>
+        </a>
+      </div>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+      <ul class="right nav-menu">
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/" class="waves-effect waves-light">
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              <span>首页</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/ai" class="waves-effect waves-light">
+              <i class="fas fa-robot" style="zoom: 0.6;"></i>
+              <span>人工智能</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tools" class="waves-effect waves-light">
+              <i class="fas fa-tools" style="zoom: 0.6;"></i>
+              <span>推荐工具</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tags" class="waves-effect waves-light">
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              <span>标签</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/categories" class="waves-effect waves-light">
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              <span>分类</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/archives" class="waves-effect waves-light">
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              <span>归档</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/about" class="waves-effect waves-light">
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              <span>关于</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/friends" class="waves-effect waves-light">
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              <span>友情链接</span>
+            </a>
+          </li>
+        
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div id="mobile-nav" class="side-nav sidenav">
+        <div class="mobile-head bg-color">
+          
+            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+          
+          <div class="logo-name">张显达</div>
+          <div class="logo-desc">张显达的个人博客</div>
+        </div>
+        <ul class="menu-list mobile-menu-list">
+          
+            <li class="m-nav-item">
+              <a href="/" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-home"></i>
+                首页
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/ai" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-robot"></i>
+                人工智能
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tools" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tools"></i>
+                推荐工具
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tags" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tags"></i>
+                标签
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/categories" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-bookmark"></i>
+                分类
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/archives" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-archive"></i>
+                归档
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/about" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-user-circle"></i>
+                关于
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/friends" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-address-book"></i>
+                友情链接
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">量子后时代的密码学：应对计算范式转变的安全策略</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+                                <span class="chip bg-color">网络安全</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/">
+                                <span class="chip bg-color">量子计算</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">
+                                <span class="chip bg-color">密码学</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%90%8E%E9%87%8F%E5%AD%90%E5%AF%86%E7%A0%81%E5%AD%A6/">
+                                <span class="chip bg-color">后量子密码学</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%87%8F%E5%AD%90%E5%AE%89%E5%85%A8/">
+                                <span class="chip bg-color">量子安全</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category">
+                                网络安全
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-09-29
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="引言：密码学的范式危机"><a href="#引言：密码学的范式危机" class="headerlink" title="引言：密码学的范式危机"></a>引言：密码学的范式危机</h2><p>密码学的历史是一部不断演进的对抗史诗——每一次加密技术的突破都会引发解密方法的革新，而每一次安全威胁的出现又会推动更强大防御机制的发展。然而，当前我们正面临一场前所未有的范式转变：量子计算的崛起正在动摇现代密码学的根基。随着量子计算机处理能力的稳步提升，许多支撑当今数字世界的加密算法——特别是公钥密码系统——正面临被破解的现实威胁。</p>
+<p>2025年，量子计算已经取得了重大突破，实用化量子计算机的出现不再是遥远的可能，而是近在眼前的现实。这一发展使”收获日”（Harvest Now, Decrypt Later）攻击变得尤为危险——敌对方可以收集当前加密的敏感数据，等待未来量子计算能力成熟后再进行解密。对于需要长期保密的数据，这种威胁已经迫在眉睫。</p>
+<p>本文将深入探讨后量子密码学的最新发展、标准化进程、实施挑战以及未来趋势，为组织和技术决策者提供在量子后时代保护数据安全的战略指导。</p>
+<h2 id="量子威胁的本质与范围"><a href="#量子威胁的本质与范围" class="headerlink" title="量子威胁的本质与范围"></a>量子威胁的本质与范围</h2><h3 id="量子计算对密码学的影响"><a href="#量子计算对密码学的影响" class="headerlink" title="量子计算对密码学的影响"></a>量子计算对密码学的影响</h3><p>量子计算机利用量子力学原理进行计算，对特定问题具有指数级加速能力：</p>
+<h4 id="受影响的密码算法"><a href="#受影响的密码算法" class="headerlink" title="受影响的密码算法"></a>受影响的密码算法</h4><p>量子计算对不同密码算法的影响各不相同：</p>
+<ol>
+<li><p><strong>公钥加密</strong>：受影响最严重</p>
+<ul>
+<li><strong>RSA</strong>：使用Shor算法可被高效破解</li>
+<li><strong>ECC(椭圆曲线密码学)</strong>：同样易受Shor算法攻击</li>
+<li><strong>Diffie-Hellman</strong>：密钥交换协议变得不安全</li>
+</ul>
+</li>
+<li><p><strong>对称加密</strong>：受影响较轻</p>
+<ul>
+<li><strong>AES</strong>：使用Grover算法，攻击复杂度降低为经典算法的平方根</li>
+<li><strong>解决方案</strong>：加倍密钥长度（如从AES-128升级到AES-256）</li>
+</ul>
+</li>
+<li><p><strong>哈希函数</strong>：需要调整</p>
+<ul>
+<li><strong>SHA-2&#x2F;SHA-3</strong>：同样受Grover算法影响</li>
+<li><strong>解决方案</strong>：使用更长的哈希输出</li>
+</ul>
+</li>
+</ol>
+<p>这种不均衡影响意味着我们需要重点关注公钥密码系统的替代方案。</p>
+<h4 id="量子计算能力现状"><a href="#量子计算能力现状" class="headerlink" title="量子计算能力现状"></a>量子计算能力现状</h4><p>2025年量子计算的发展状态：</p>
+<ul>
+<li><strong>量子比特数量</strong>：领先系统已达到500-1000个物理量子比特</li>
+<li><strong>量子相干时间</strong>：显著提升，支持更复杂算法执行</li>
+<li><strong>错误校正</strong>：取得突破性进展，逻辑量子比特稳定性提高</li>
+<li><strong>专用量子处理器</strong>：针对特定密码分析优化的量子系统出现</li>
+</ul>
+<p>专家估计，具备破解2048位RSA密钥能力的量子计算机可能在5-10年内出现。</p>
+<h3 id="“收获日”攻击的现实威胁"><a href="#“收获日”攻击的现实威胁" class="headerlink" title="“收获日”攻击的现实威胁"></a>“收获日”攻击的现实威胁</h3><p>长期数据安全面临的紧迫挑战：</p>
+<h4 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h4><p>“收获日”攻击的运作方式：</p>
+<ol>
+<li><strong>当前阶段</strong>：攻击者收集加密通信和数据</li>
+<li><strong>存储阶段</strong>：将加密数据安全存储等待技术成熟</li>
+<li><strong>解密阶段</strong>：一旦获得足够强大的量子计算能力，解密历史数据</li>
+</ol>
+<p>这种攻击对具有长期价值的敏感信息特别危险。</p>
+<h4 id="高风险数据类型"><a href="#高风险数据类型" class="headerlink" title="高风险数据类型"></a>高风险数据类型</h4><p>特别需要长期保护的数据类型：</p>
+<ul>
+<li><strong>国家安全信息</strong>：可能需要保密数十年</li>
+<li><strong>个人身份与健康数据</strong>：终身敏感</li>
+<li><strong>知识产权与商业机密</strong>：长期商业价值</li>
+<li><strong>金融基础设施</strong>：支付系统、数字货币等</li>
+<li><strong>关键基础设施</strong>：能源、水务、交通控制系统</li>
+</ul>
+<p>这些领域需要优先考虑量子安全解决方案。</p>
+<h2 id="后量子密码学的技术基础"><a href="#后量子密码学的技术基础" class="headerlink" title="后量子密码学的技术基础"></a>后量子密码学的技术基础</h2><h3 id="抵抗量子攻击的密码学方法"><a href="#抵抗量子攻击的密码学方法" class="headerlink" title="抵抗量子攻击的密码学方法"></a>抵抗量子攻击的密码学方法</h3><p>后量子密码学基于难以被量子计算机破解的数学问题：</p>
+<h4 id="主要技术路径"><a href="#主要技术路径" class="headerlink" title="主要技术路径"></a>主要技术路径</h4><p>五大类后量子密码学方案：</p>
+<ol>
+<li><p><strong>基于格的密码系统</strong></p>
+<ul>
+<li><strong>基本原理</strong>：基于格中的困难问题，如最短向量问题(SVP)和最近向量问题(CVP)</li>
+<li><strong>代表算法</strong>：CRYSTALS-Kyber、NTRU、Saber</li>
+<li><strong>优势</strong>：相对高效，密钥大小适中，理论基础较为成熟</li>
+</ul>
+</li>
+<li><p><strong>基于码的密码系统</strong></p>
+<ul>
+<li><strong>基本原理</strong>：基于解码随机线性码的困难性</li>
+<li><strong>代表算法</strong>：Classic McEliece、BIKE</li>
+<li><strong>优势</strong>：长期研究历史，安全性信心高，但密钥较大</li>
+</ul>
+</li>
+<li><p><strong>基于哈希的密码系统</strong></p>
+<ul>
+<li><strong>基本原理</strong>：利用哈希函数的单向性构建签名方案</li>
+<li><strong>代表算法</strong>：SPHINCS+、Picnic</li>
+<li><strong>优势</strong>：最小化安全假设，但签名较大或速度较慢</li>
+</ul>
+</li>
+<li><p><strong>基于同源映射的密码系统</strong></p>
+<ul>
+<li><strong>基本原理</strong>：基于多变量多项式方程组求解的困难性</li>
+<li><strong>代表算法</strong>：Rainbow、GeMSS</li>
+<li><strong>优势</strong>：验证速度快，但密钥较大</li>
+</ul>
+</li>
+<li><p><strong>基于超奇异椭圆曲线同源的密码系统</strong></p>
+<ul>
+<li><strong>基本原理</strong>：基于超奇异椭圆曲线同源的复杂性</li>
+<li><strong>代表算法</strong>：SIKE</li>
+<li><strong>优势</strong>：小密钥和密文，但处理速度较慢，且安全性受到质疑</li>
+</ul>
+</li>
+</ol>
+<p>这些方法各有优缺点，适用于不同场景和安全需求。</p>
+<h4 id="性能与安全性权衡"><a href="#性能与安全性权衡" class="headerlink" title="性能与安全性权衡"></a>性能与安全性权衡</h4><p>不同后量子算法的关键指标比较：</p>
+<table>
+<thead>
+<tr>
+<th>算法类别</th>
+<th>密钥大小</th>
+<th>签名&#x2F;密文大小</th>
+<th>计算效率</th>
+<th>安全性信心</th>
+<th>主要应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基于格</td>
+<td>中等</td>
+<td>中等</td>
+<td>高</td>
+<td>中-高</td>
+<td>通用加密、密钥交换</td>
+</tr>
+<tr>
+<td>基于码</td>
+<td>大</td>
+<td>中等</td>
+<td>中</td>
+<td>高</td>
+<td>高安全性要求场景</td>
+</tr>
+<tr>
+<td>基于哈希</td>
+<td>小</td>
+<td>大</td>
+<td>低-中</td>
+<td>高</td>
+<td>需要最小安全假设的场景</td>
+</tr>
+<tr>
+<td>基于同源映射</td>
+<td>大</td>
+<td>小</td>
+<td>中</td>
+<td>中</td>
+<td>验证速度敏感场景</td>
+</tr>
+<tr>
+<td>基于超奇异</td>
+<td>小</td>
+<td>小</td>
+<td>低</td>
+<td>中-低</td>
+<td>带宽受限环境</td>
+</tr>
+</tbody></table>
+<p>这种多样性使组织可以根据具体需求选择最适合的算法。</p>
+<h3 id="标准化进程与进展"><a href="#标准化进程与进展" class="headerlink" title="标准化进程与进展"></a>标准化进程与进展</h3><p>全球标准化工作正在稳步推进：</p>
+<h4 id="NIST标准化进程"><a href="#NIST标准化进程" class="headerlink" title="NIST标准化进程"></a>NIST标准化进程</h4><p>美国国家标准与技术研究院(NIST)的后量子密码标准化：</p>
+<ul>
+<li><p><strong>第一轮标准(2024)</strong>：</p>
+<ul>
+<li>密钥封装机制(KEM)：CRYSTALS-Kyber</li>
+<li>数字签名：CRYSTALS-Dilithium、FALCON、SPHINCS+</li>
+</ul>
+</li>
+<li><p><strong>第二轮候选(2025)</strong>：</p>
+<ul>
+<li>额外KEM：BIKE、Classic McEliece、HQC、SIKE变体</li>
+<li>额外签名方案：GeMSS变体、Picnic变体</li>
+</ul>
+</li>
+<li><p><strong>实施指南</strong>：</p>
+<ul>
+<li>算法参数选择建议</li>
+<li>安全级别定义</li>
+<li>迁移策略框架</li>
+</ul>
+</li>
+</ul>
+<p>NIST标准已成为全球后量子密码学采用的主要参考。</p>
+<h4 id="其他标准化努力"><a href="#其他标准化努力" class="headerlink" title="其他标准化努力"></a>其他标准化努力</h4><p>全球范围内的协调标准化工作：</p>
+<ul>
+<li><strong>IETF</strong>：TLS和IPsec的后量子算法集成</li>
+<li><strong>ISO&#x2F;IEC</strong>：后量子密码学国际标准开发</li>
+<li><strong>ETSI</strong>：欧洲后量子密码标准和迁移指南</li>
+<li><strong>中国密码学标准化委员会</strong>：国家后量子密码标准</li>
+</ul>
+<p>这些并行努力确保了全球互操作性和广泛采用。</p>
+<h2 id="2025年实施现状与挑战"><a href="#2025年实施现状与挑战" class="headerlink" title="2025年实施现状与挑战"></a>2025年实施现状与挑战</h2><h3 id="迁移策略与最佳实践"><a href="#迁移策略与最佳实践" class="headerlink" title="迁移策略与最佳实践"></a>迁移策略与最佳实践</h3><p>组织正在采用结构化方法进行量子安全转型：</p>
+<h4 id="混合方案实施"><a href="#混合方案实施" class="headerlink" title="混合方案实施"></a>混合方案实施</h4><p>平稳过渡的实用方法：</p>
+<ul>
+<li><strong>混合证书</strong>：结合传统和后量子算法的X.509证书</li>
+<li><strong>复合签名</strong>：多算法签名提供双重安全保证</li>
+<li><strong>协议层集成</strong>：TLS 1.3和SSH中的后量子密钥交换</li>
+</ul>
+<p>这种方法保持了向后兼容性，同时提供量子安全保护。</p>
+<h4 id="密码敏捷性"><a href="#密码敏捷性" class="headerlink" title="密码敏捷性"></a>密码敏捷性</h4><p>适应未来变化的灵活架构：</p>
+<ul>
+<li><strong>算法替换框架</strong>：支持无缝更新密码算法</li>
+<li><strong>参数可调整实现</strong>：允许安全强度动态调整</li>
+<li><strong>密码策略引擎</strong>：集中管理和执行密码决策</li>
+</ul>
+<p>密码敏捷性使组织能够快速响应新的安全研究发现。</p>
+<h3 id="实施挑战"><a href="#实施挑战" class="headerlink" title="实施挑战"></a>实施挑战</h3><p>组织在采用后量子密码学时面临多重挑战：</p>
+<h4 id="技术挑战"><a href="#技术挑战" class="headerlink" title="技术挑战"></a>技术挑战</h4><ul>
+<li><strong>性能开销</strong>：后量子算法通常需要更多计算资源</li>
+<li><strong>带宽和存储影响</strong>：更大的密钥和签名增加网络负载</li>
+<li><strong>硬件加速需求</strong>：优化实现以满足性能要求</li>
+<li><strong>随机数生成质量</strong>：后量子算法对随机性要求更高</li>
+</ul>
+<p>这些挑战在资源受限环境（如IoT设备）中尤为突出。</p>
+<h4 id="组织与生态系统挑战"><a href="#组织与生态系统挑战" class="headerlink" title="组织与生态系统挑战"></a>组织与生态系统挑战</h4><ul>
+<li><strong>遗留系统兼容性</strong>：老旧系统可能难以支持新算法</li>
+<li><strong>供应链复杂性</strong>：依赖第三方组件和库的更新</li>
+<li><strong>标准成熟度</strong>：标准仍在演进，可能需要多次更新</li>
+<li><strong>专业知识缺乏</strong>：后量子密码学专家稀缺</li>
+</ul>
+<p>全面迁移需要整个技术生态系统的协调努力。</p>
+<h3 id="行业采用案例"><a href="#行业采用案例" class="headerlink" title="行业采用案例"></a>行业采用案例</h3><p>不同行业的后量子密码学采用进展：</p>
+<h4 id="金融服务业"><a href="#金融服务业" class="headerlink" title="金融服务业"></a>金融服务业</h4><ul>
+<li><strong>支付卡基础设施</strong>：更新支付终端和卡片规范</li>
+<li><strong>银行间通信</strong>：SWIFT网络的后量子安全升级</li>
+<li><strong>数字货币</strong>：中央银行数字货币的量子安全设计</li>
+<li><strong>长期资产保护</strong>：抵押贷款和长期债券的加密保护</li>
+</ul>
+<p>金融业已成为后量子密码学采用的领导者。</p>
+<h4 id="政府与国防"><a href="#政府与国防" class="headerlink" title="政府与国防"></a>政府与国防</h4><ul>
+<li><strong>机密通信系统</strong>：优先升级高价值情报系统</li>
+<li><strong>身份基础设施</strong>：国家ID系统和PKI的量子安全更新</li>
+<li><strong>关键数据保护</strong>：长期敏感记录的重新加密</li>
+<li><strong>供应链安全要求</strong>：对承包商的后量子合规要求</li>
+</ul>
+<p>政府部门正在实施全面的量子安全战略。</p>
+<h4 id="医疗健康"><a href="#医疗健康" class="headerlink" title="医疗健康"></a>医疗健康</h4><ul>
+<li><strong>患者记录保护</strong>：长期医疗数据的量子安全存储</li>
+<li><strong>医疗设备安全</strong>：植入式和长期使用设备的固件安全</li>
+<li><strong>研究数据保护</strong>：敏感基因组和临床试验数据的加密</li>
+<li><strong>医疗物联网</strong>：远程监控设备的安全通信</li>
+</ul>
+<p>医疗行业面临独特挑战，因为数据需要终身保护。</p>
+<h2 id="新兴技术与研究方向"><a href="#新兴技术与研究方向" class="headerlink" title="新兴技术与研究方向"></a>新兴技术与研究方向</h2><h3 id="量子密钥分发与量子密码学"><a href="#量子密钥分发与量子密码学" class="headerlink" title="量子密钥分发与量子密码学"></a>量子密钥分发与量子密码学</h3><p>量子技术不仅带来威胁，也提供新的安全机会：</p>
+<h4 id="量子密钥分发-QKD"><a href="#量子密钥分发-QKD" class="headerlink" title="量子密钥分发(QKD)"></a>量子密钥分发(QKD)</h4><p>利用量子力学原理实现安全密钥交换：</p>
+<ul>
+<li><strong>工作原理</strong>：利用量子态不可克隆定理检测窃听</li>
+<li><strong>商业部署状态</strong>：城市级QKD网络已在多国部署</li>
+<li><strong>局限性</strong>：距离限制、专用硬件需求、侧信道攻击风险</li>
+<li><strong>与后量子密码学的关系</strong>：互补技术，而非替代方案</li>
+</ul>
+<p>QKD提供信息论安全的密钥交换，但面临实际部署挑战。</p>
+<h4 id="量子随机数生成"><a href="#量子随机数生成" class="headerlink" title="量子随机数生成"></a>量子随机数生成</h4><p>利用量子不确定性生成真随机数：</p>
+<ul>
+<li><strong>商业QRNG设备</strong>：小型化、低成本量子随机数生成器</li>
+<li><strong>云QRNG服务</strong>：通过API提供高质量随机数</li>
+<li><strong>混合随机性架构</strong>：结合量子和传统熵源</li>
+<li><strong>应用场景</strong>：密钥生成、随机参数选择、安全协议</li>
+</ul>
+<p>高质量随机数对后量子密码学的安全实现至关重要。</p>
+<h3 id="密码学研究前沿"><a href="#密码学研究前沿" class="headerlink" title="密码学研究前沿"></a>密码学研究前沿</h3><p>密码学研究正在探索新的安全范式：</p>
+<h4 id="全同态加密进展"><a href="#全同态加密进展" class="headerlink" title="全同态加密进展"></a>全同态加密进展</h4><p>在加密数据上直接计算的能力：</p>
+<ul>
+<li><strong>效率突破</strong>：性能提升使部分应用场景变得可行</li>
+<li><strong>量子安全全同态方案</strong>：基于格的全同态加密</li>
+<li><strong>专用硬件加速</strong>：FPGA和ASIC实现大幅提升性能</li>
+<li><strong>实际应用</strong>：隐私保护数据分析、安全多方计算</li>
+</ul>
+<p>全同态加密与后量子密码学结合，为数据隐私提供强大保护。</p>
+<h4 id="零知识证明系统"><a href="#零知识证明系统" class="headerlink" title="零知识证明系统"></a>零知识证明系统</h4><p>证明知道秘密而不泄露秘密的技术：</p>
+<ul>
+<li><strong>后量子零知识证明</strong>：抵抗量子攻击的零知识协议</li>
+<li><strong>效率优化</strong>：更紧凑、更快速的证明系统</li>
+<li><strong>应用扩展</strong>：身份验证、隐私保护交易、合规性证明</li>
+<li><strong>区块链集成</strong>：支持隐私保护的智能合约</li>
+</ul>
+<p>零知识技术正成为后量子时代隐私保护的关键工具。</p>
+<h4 id="轻量级后量子密码"><a href="#轻量级后量子密码" class="headerlink" title="轻量级后量子密码"></a>轻量级后量子密码</h4><p>为资源受限设备设计的解决方案：</p>
+<ul>
+<li><strong>优化实现</strong>：针对IoT设备的低资源算法变体</li>
+<li><strong>硬件协处理器</strong>：专用后量子密码加速器</li>
+<li><strong>混合安全架构</strong>：结合物理不可克隆函数(PUF)和轻量级算法</li>
+<li><strong>分层安全模型</strong>：基于设备能力的差异化保护</li>
+</ul>
+<p>这些创新使后量子安全能够扩展到数十亿物联网设备。</p>
+<h2 id="战略规划与准备"><a href="#战略规划与准备" class="headerlink" title="战略规划与准备"></a>战略规划与准备</h2><h3 id="风险评估框架"><a href="#风险评估框架" class="headerlink" title="风险评估框架"></a>风险评估框架</h3><p>系统化评估量子威胁的方法：</p>
+<h4 id="数据寿命分析"><a href="#数据寿命分析" class="headerlink" title="数据寿命分析"></a>数据寿命分析</h4><ul>
+<li><strong>数据分类</strong>：基于保密期限的数据分类</li>
+<li><strong>敏感度映射</strong>：识别高价值量子敏感信息</li>
+<li><strong>时间线评估</strong>：比较数据保密需求与量子威胁时间线</li>
+<li><strong>优先级矩阵</strong>：确定迁移优先级的决策工具</li>
+</ul>
+<p>这种分析帮助组织确定哪些系统需要优先保护。</p>
+<h4 id="系统依赖性映射"><a href="#系统依赖性映射" class="headerlink" title="系统依赖性映射"></a>系统依赖性映射</h4><ul>
+<li><strong>密码资产清单</strong>：识别所有使用密码学的系统</li>
+<li><strong>算法使用审计</strong>：记录每个系统使用的具体算法</li>
+<li><strong>依赖关系图</strong>：映射系统间的信任关系</li>
+<li><strong>迁移复杂度评估</strong>：评估更新每个系统的难度</li>
+</ul>
+<p>全面了解密码依赖性是成功迁移的基础。</p>
+<h3 id="分阶段迁移路线图"><a href="#分阶段迁移路线图" class="headerlink" title="分阶段迁移路线图"></a>分阶段迁移路线图</h3><p>实用的量子安全转型方法：</p>
+<h4 id="短期行动-1-2年"><a href="#短期行动-1-2年" class="headerlink" title="短期行动(1-2年)"></a>短期行动(1-2年)</h4><p>立即可采取的准备步骤：</p>
+<ul>
+<li><strong>密码敏捷性实施</strong>：建立支持算法灵活替换的架构</li>
+<li><strong>清点与评估</strong>：全面审计密码资产和使用情况</li>
+<li><strong>高风险系统试点</strong>：在关键系统上测试后量子解决方案</li>
+<li><strong>员工培训</strong>：提高团队对量子威胁的认识和技能</li>
+</ul>
+<p>这些步骤为未来的全面迁移奠定基础。</p>
+<h4 id="中期战略-2-5年"><a href="#中期战略-2-5年" class="headerlink" title="中期战略(2-5年)"></a>中期战略(2-5年)</h4><ul>
+<li><strong>混合方案部署</strong>：在生产系统中实施混合密码方案</li>
+<li><strong>新系统要求</strong>：要求所有新系统支持后量子算法</li>
+<li><strong>关键基础设施更新</strong>：优先更新PKI和身份系统</li>
+<li><strong>供应商管理</strong>：将后量子就绪性纳入采购要求</li>
+</ul>
+<p>中期阶段关注关键系统的实际部署和生态系统准备。</p>
+<h4 id="长期愿景-5年以上"><a href="#长期愿景-5年以上" class="headerlink" title="长期愿景(5年以上)"></a>长期愿景(5年以上)</h4><ul>
+<li><strong>全面量子安全架构</strong>：所有系统完成后量子迁移</li>
+<li><strong>遗留系统封装或替换</strong>：处理无法直接升级的系统</li>
+<li><strong>持续评估与调整</strong>：根据量子计算进展调整安全策略</li>
+<li><strong>新兴量子安全技术整合</strong>：采用成熟的量子密码学技术</li>
+</ul>
+<p>长期愿景是建立全面的量子弹性安全架构。</p>
+<h3 id="组织准备与能力建设"><a href="#组织准备与能力建设" class="headerlink" title="组织准备与能力建设"></a>组织准备与能力建设</h3><p>成功迁移需要组织层面的准备：</p>
+<h4 id="技能与知识发展"><a href="#技能与知识发展" class="headerlink" title="技能与知识发展"></a>技能与知识发展</h4><ul>
+<li><strong>专业培训计划</strong>：密码工程师的后量子技术培训</li>
+<li><strong>学术合作</strong>：与研究机构合作获取专业知识</li>
+<li><strong>实践社区</strong>：建立内部知识共享网络</li>
+<li><strong>招聘策略</strong>：吸引稀缺的后量子密码专家</li>
+</ul>
+<p>人才是成功实施量子安全战略的关键因素。</p>
+<h4 id="治理与责任"><a href="#治理与责任" class="headerlink" title="治理与责任"></a>治理与责任</h4><ul>
+<li><strong>量子安全办公室</strong>：协调组织范围内的迁移工作</li>
+<li><strong>执行层支持</strong>：确保高层理解并支持量子安全投资</li>
+<li><strong>政策更新</strong>：修订安全政策以包含后量子要求</li>
+<li><strong>合规框架</strong>：建立量子安全合规监控机制</li>
+</ul>
+<p>有效的治理确保迁移工作得到适当资源和关注。</p>
+<h2 id="未来展望与结论"><a href="#未来展望与结论" class="headerlink" title="未来展望与结论"></a>未来展望与结论</h2><h3 id="密码学演进的下一阶段"><a href="#密码学演进的下一阶段" class="headerlink" title="密码学演进的下一阶段"></a>密码学演进的下一阶段</h3><p>后量子时代密码学的发展方向：</p>
+<h4 id="融合安全模型"><a href="#融合安全模型" class="headerlink" title="融合安全模型"></a>融合安全模型</h4><ul>
+<li><strong>多层次防御</strong>：结合经典、后量子和量子技术</li>
+<li><strong>安全证明进化</strong>：更强大的安全模型和形式化验证</li>
+<li><strong>物理-数字安全融合</strong>：结合物理安全措施和密码学</li>
+<li><strong>人为因素整合</strong>：将人类行为纳入安全模型</li>
+</ul>
+<p>未来的安全将不再依赖单一技术，而是多种方法的智能组合。</p>
+<h4 id="新兴应用场景"><a href="#新兴应用场景" class="headerlink" title="新兴应用场景"></a>新兴应用场景</h4><ul>
+<li><strong>量子互联网安全</strong>：保护量子通信网络的混合安全架构</li>
+<li><strong>去中心化系统</strong>：后量子安全的区块链和分布式系统</li>
+<li><strong>人工智能安全</strong>：保护AI模型和训练数据的密码学工具</li>
+<li><strong>生物识别与量子安全</strong>：结合生物特征和后量子认证</li>
+</ul>
+<p>这些新兴领域将推动密码学创新的下一波浪潮。</p>
+<h3 id="结论：安全转型的紧迫性与机遇"><a href="#结论：安全转型的紧迫性与机遇" class="headerlink" title="结论：安全转型的紧迫性与机遇"></a>结论：安全转型的紧迫性与机遇</h3><p>量子计算的进步使后量子密码学从理论关注转变为实际需求。2025年，我们已经看到量子计算能力的显著提升，使”收获日”攻击成为现实威胁。同时，后量子密码学标准化和实施也取得了实质性进展，为组织提供了切实可行的解决方案。</p>
+<p>面对这一挑战，组织需要采取平衡的方法：既要认识到威胁的紧迫性，避免仓促决策；又要开始系统性准备，避免将来的被动应对。后量子迁移不仅是技术挑战，也是组织变革和风险管理挑战，需要全面的战略方法。</p>
+<p>量子安全转型也带来了机遇——重新审视和强化整体安全架构，建立更灵活、更有弹性的密码基础设施，并培养新一代安全专业人才。那些能够成功管理这一转型的组织将在数字经济的下一阶段建立持久的信任和安全优势。</p>
+<p>在密码学历史的关键转折点，我们的选择将决定数字世界的安全基础是否能够经受住量子时代的考验。通过前瞻性规划、持续学习和协作努力，我们可以确保密码学继续有效保护我们日益数字化的社会，无论计算技术如何演进。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>National Institute of Standards and Technology. (2025). “Post-Quantum Cryptography Standardization: Status Report and Implementation Guidelines.”</li>
+<li>Zhang, L., et al. (2025). “Performance Analysis of Post-Quantum Cryptographic Algorithms on Constrained Devices.” <em>IEEE Transactions on Dependable and Secure Computing</em>.</li>
+<li>Johnson, M., &amp; Smith, A. (2025). “Quantum Threat Timeline Assessment: 2025 Update.” <em>Global Quantum Security Alliance Report</em>.</li>
+<li>Chen, Y., et al. (2024). “Practical Hybrid Post-Quantum Cryptography Deployments: Lessons Learned.” <em>Proceedings of the Network and Distributed System Security Symposium</em>.</li>
+<li>Williams, K., et al. (2025). “Economic Impact of Post-Quantum Cryptography Migration: Industry Analysis and Cost Models.” <em>Journal of Cybersecurity Economics</em>.</li>
+</ol>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张显达</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangxianda.com/2025/09/29/2025-09-29-post-quantum-cryptography/">https://zhangxianda.com/2025/09/29/2025-09-29-post-quantum-cryptography/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">张显达</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+                                    <span class="chip bg-color">网络安全</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/">
+                                    <span class="chip bg-color">量子计算</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">
+                                    <span class="chip bg-color">密码学</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%90%8E%E9%87%8F%E5%AD%90%E5%AF%86%E7%A0%81%E5%AD%A6/">
+                                    <span class="chip bg-color">后量子密码学</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%87%8F%E5%AD%90%E5%AE%89%E5%85%A8/">
+                                    <span class="chip bg-color">量子安全</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/09/30/2025-09-30-ascend910c-capacity-doubling/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="华为昇腾910C扩产：国产AI算力的战略再加速">
+                        
+                        <span class="card-title">华为昇腾910C扩产：国产AI算力的战略再加速</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-09-30
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%98%87%E8%85%BE910C/">
+                        <span class="chip bg-color">昇腾910C</span>
+                    </a>
+                    
+                    <a href="/tags/AI%E7%AE%97%E5%8A%9B/">
+                        <span class="chip bg-color">AI算力</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BD%E4%BA%A7%E8%8A%AF%E7%89%87/">
+                        <span class="chip bg-color">国产芯片</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%BF%83/">
+                        <span class="chip bg-color">数据中心</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BE%9B%E5%BA%94%E9%93%BE/">
+                        <span class="chip bg-color">供应链</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/09/29/2025-09-29-spatial-computing-new-paradigm/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="空间计算：AR/VR技术融合的新范式">
+                        
+                        <span class="card-title">空间计算：AR/VR技术融合的新范式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A2%9E%E5%BC%BA%E7%8E%B0%E5%AE%9E-%E8%99%9A%E6%8B%9F%E7%8E%B0%E5%AE%9E/" class="post-category">
+                                    增强现实/虚拟现实
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%A9%BA%E9%97%B4%E8%AE%A1%E7%AE%97/">
+                        <span class="chip bg-color">空间计算</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B7%E5%90%88%E7%8E%B0%E5%AE%9E/">
+                        <span class="chip bg-color">混合现实</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B2%89%E6%B5%B8%E5%BC%8F%E6%8A%80%E6%9C%AF/">
+                        <span class="chip bg-color">沉浸式技术</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92/">
+                        <span class="chip bg-color">人机交互</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%85%83%E5%AE%87%E5%AE%99/">
+                        <span class="chip bg-color">元宇宙</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 l8">
+        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        
+      </div>
+      <div class="col s12 m4 l4 right-align">
+        <a href="/privacy" class="tooltipped" data-tooltip="隐私政策" data-position="top" data-delay="50">隐私</a> |
+        <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
+        <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
+        <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+          <i class="fas fa-rss"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

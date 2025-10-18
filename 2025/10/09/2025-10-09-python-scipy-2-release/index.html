@@ -1,0 +1,993 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="SciPy 2.0发布：Python科学计算迈向高性能模块化新时代, 张显达|个人|博客|技术|生活">
+    <meta name="description" content="新闻速读：SciPy 2.0正式发布10月9日，SciPy社区发布期待已久的2.0版本，标志着Python科学计算库进入新的里程碑。SciPy 2.0引入模块化架构、GPU加速接口、稀疏矩阵升级、统计建模增强，并完成对Python 3.9及">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <link rel="canonical" href="https://zhangxianda.com/2025/10/09/2025-10-09-python-scipy-2-release/">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="SciPy 2.0发布：Python科学计算迈向高性能模块化新时代 | 张显达的个人博客">
+    <meta property="og:description" content="新闻速读：SciPy 2.0正式发布10月9日，SciPy社区发布期待已久的2.0版本，标志着Python科学计算库进入新的里程碑。SciPy 2.0引入模块化架构、GPU加速接口、稀疏矩阵升级、统计建模增强，并完成对Python 3.9及">
+    <meta property="og:url" content="https://zhangxianda.com/2025/10/09/2025-10-09-python-scipy-2-release/">
+    <meta property="og:site_name" content="张显达的个人博客">
+    <meta property="og:image" content="/favicon.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SciPy 2.0发布：Python科学计算迈向高性能模块化新时代 | 张显达的个人博客">
+    <meta name="twitter:description" content="新闻速读：SciPy 2.0正式发布10月9日，SciPy社区发布期待已久的2.0版本，标志着Python科学计算库进入新的里程碑。SciPy 2.0引入模块化架构、GPU加速接口、稀疏矩阵升级、统计建模增强，并完成对Python 3.9及">
+    <meta name="twitter:image" content="/favicon.png">
+
+    
+
+    <title>SciPy 2.0发布：Python科学计算迈向高性能模块化新时代 | 张显达的个人博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
+     crossorigin="anonymous"></script>
+
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "SciPy 2.0发布：Python科学计算迈向高性能模块化新时代",
+      "mainEntityOfPage": "https://zhangxianda.com/2025/10/09/2025-10-09-python-scipy-2-release/",
+      "datePublished": "2025-10-09T05:00:00.000Z",
+      "dateModified": "2025-10-18T02:48:24.660Z",
+      "author": { "@type": "Person", "name": "张显达" },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "image": "/favicon.png"
+    }
+    </script>
+    
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+
+<body>
+    
+<header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+          
+          <span class="logo-span">张显达</span>
+        </a>
+      </div>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+      <ul class="right nav-menu">
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/" class="waves-effect waves-light">
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              <span>首页</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/ai" class="waves-effect waves-light">
+              <i class="fas fa-robot" style="zoom: 0.6;"></i>
+              <span>人工智能</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tools" class="waves-effect waves-light">
+              <i class="fas fa-tools" style="zoom: 0.6;"></i>
+              <span>推荐工具</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tags" class="waves-effect waves-light">
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              <span>标签</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/categories" class="waves-effect waves-light">
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              <span>分类</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/archives" class="waves-effect waves-light">
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              <span>归档</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/about" class="waves-effect waves-light">
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              <span>关于</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/friends" class="waves-effect waves-light">
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              <span>友情链接</span>
+            </a>
+          </li>
+        
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div id="mobile-nav" class="side-nav sidenav">
+        <div class="mobile-head bg-color">
+          
+            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+          
+          <div class="logo-name">张显达</div>
+          <div class="logo-desc">张显达的个人博客</div>
+        </div>
+        <ul class="menu-list mobile-menu-list">
+          
+            <li class="m-nav-item">
+              <a href="/" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-home"></i>
+                首页
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/ai" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-robot"></i>
+                人工智能
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tools" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tools"></i>
+                推荐工具
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tags" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tags"></i>
+                标签
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/categories" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-bookmark"></i>
+                分类
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/archives" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-archive"></i>
+                归档
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/about" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-user-circle"></i>
+                关于
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/friends" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-address-book"></i>
+                友情链接
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">SciPy 2.0发布：Python科学计算迈向高性能模块化新时代</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python%E7%94%9F%E6%80%81/">
+                                <span class="chip bg-color">Python生态</span>
+                            </a>
+                        
+                            <a href="/tags/SciPy-2-0/">
+                                <span class="chip bg-color">SciPy 2.0</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/">
+                                <span class="chip bg-color">科学计算</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%AB%98%E6%80%A7%E8%83%BD/">
+                                <span class="chip bg-color">高性能</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/">
+                                <span class="chip bg-color">模块化</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-10-09
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="新闻速读：SciPy-2-0正式发布"><a href="#新闻速读：SciPy-2-0正式发布" class="headerlink" title="新闻速读：SciPy 2.0正式发布"></a>新闻速读：SciPy 2.0正式发布</h2><p>10月9日，SciPy社区发布期待已久的2.0版本，标志着Python科学计算库进入新的里程碑。SciPy 2.0引入模块化架构、GPU加速接口、稀疏矩阵升级、统计建模增强，并完成对Python 3.9及以下版本的支持终止。发布同步提供“性能剖析报告”，显示在数值积分、优化、信号处理等模块获得20%-80%性能提升。</p>
+<h2 id="核心改进：模块化与高性能"><a href="#核心改进：模块化与高性能" class="headerlink" title="核心改进：模块化与高性能"></a>核心改进：模块化与高性能</h2><ol>
+<li><strong>模块化打包</strong>：SciPy 2.0将库拆分为独立的可选模块包，如<code>scipy.integrate</code>, <code>scipy.optimize</code>, <code>scipy.signal</code>，支持按需安装，减小依赖体积，方便云端与容器化部署。</li>
+<li><strong>GPU加速接口</strong>：引入<code>scipy.cuda</code>与<code>scipy.xp</code>接口，支持CuPy、PyTorch、JAX作为后端。开发者可通过<code>with scipy.xp.use_backend(&quot;cupy&quot;)</code>将算法运行在GPU。</li>
+<li><strong>稀疏矩阵升级</strong>：全新<code>sparse</code>模块支持块稀疏、动态图结构、GraphBLAS接口，适合图计算、机器学习。</li>
+<li><strong>统计模型增强</strong>：<code>scipy.stats</code>支持贝叶斯推断、置信区间可视化、引导法工具；<code>scipy.optimize</code>新增随机优化、分布式求解。</li>
+</ol>
+<h2 id="生态影响：科学计算与AI协同"><a href="#生态影响：科学计算与AI协同" class="headerlink" title="生态影响：科学计算与AI协同"></a>生态影响：科学计算与AI协同</h2><p>SciPy 2.0的模块化和GPU支持让科学计算与AI工作流无缝衔接。研究机构可在同一套代码中灵活切换CPU&#x2F;GPU，实现高性能模拟。工业界可以把SciPy模块嵌入数据管道、边缘设备。模块化包配合Pyodide、WebAssembly，使浏览器端科学计算成为可能。</p>
+<h2 id="升级建议"><a href="#升级建议" class="headerlink" title="升级建议"></a>升级建议</h2><ul>
+<li><strong>依赖清理</strong>：确认环境使用Python 3.10+，更新<code>numpy</code>, <code>numba</code>, <code>cupy</code>等依赖；对自定义扩展进行兼容性测试。</li>
+<li><strong>性能调优</strong>：使用<code>scipy.profile</code>新工具分析性能瓶颈；尝试GPU后端，在大型矩阵计算、信号处理场景获取提升。</li>
+<li><strong>模块化部署</strong>：在容器镜像中仅安装所需模块，减少镜像大小，提高冷启动速度。</li>
+<li><strong>测试覆盖</strong>：SciPy 2.0变更部分API，需更新单元测试，尤其是稀疏矩阵操作和统计函数。</li>
+</ul>
+<h2 id="实践案例：科研机构与工业企业"><a href="#实践案例：科研机构与工业企业" class="headerlink" title="实践案例：科研机构与工业企业"></a>实践案例：科研机构与工业企业</h2><p>欧洲某气象研究所使用SciPy 2.0构建高分辨率气候模拟，加速器后端让模型运行时间缩短30%，并通过模块化部署将容器镜像体积减少40%。一家半导体企业在良率分析中利用新的统计模块进行贝叶斯推断，快速评估不同工艺参数对缺陷率的影响，同时使用<code>sparse</code>模块构建图模型分析供应链风险。</p>
+<h2 id="风险提示：兼容性与资源成本"><a href="#风险提示：兼容性与资源成本" class="headerlink" title="风险提示：兼容性与资源成本"></a>风险提示：兼容性与资源成本</h2><p>模块化拆分可能导致旧版脚本找不到模块，需要通过<code>pip install scipy-optimize</code>等命令显式安装。GPU后端虽然提升性能，但对硬件、驱动匹配要求更高，企业要考虑运维成本。建议建立兼容性测试矩阵，提前识别关键脚本是否依赖被弃用的API，并制定迁移计划。</p>
+<h2 id="结语：SciPy-2-0让Python科学计算更轻、更快、更灵活"><a href="#结语：SciPy-2-0让Python科学计算更轻、更快、更灵活" class="headerlink" title="结语：SciPy 2.0让Python科学计算更轻、更快、更灵活"></a>结语：SciPy 2.0让Python科学计算更轻、更快、更灵活</h2><p>随着SciPy迈向2.0，Python科学计算生态迎来高性能与模块化的双重进化。把握好升级节奏，将有助于科研与工业应用全面受益。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张显达</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangxianda.com/2025/10/09/2025-10-09-python-scipy-2-release/">https://zhangxianda.com/2025/10/09/2025-10-09-python-scipy-2-release/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">张显达</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python%E7%94%9F%E6%80%81/">
+                                    <span class="chip bg-color">Python生态</span>
+                                </a>
+                            
+                                <a href="/tags/SciPy-2-0/">
+                                    <span class="chip bg-color">SciPy 2.0</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/">
+                                    <span class="chip bg-color">科学计算</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%AB%98%E6%80%A7%E8%83%BD/">
+                                    <span class="chip bg-color">高性能</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/">
+                                    <span class="chip bg-color">模块化</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/10/09/2025-10-09-quantum-secure-backbone/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="京沪量子干线2.0全线贯通：量子安全通信迈入算网融合时代">
+                        
+                        <span class="card-title">京沪量子干线2.0全线贯通：量子安全通信迈入算网融合时代</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-10-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/" class="post-category">
+                                    量子计算
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%87%8F%E5%AD%90%E9%80%9A%E4%BF%A1/">
+                        <span class="chip bg-color">量子通信</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%87%8F%E5%AD%90%E5%AF%86%E9%92%A5/">
+                        <span class="chip bg-color">量子密钥</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%AE%97%E7%BD%91%E8%9E%8D%E5%90%88/">
+                        <span class="chip bg-color">算网融合</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B9%B2%E7%BA%BF%E5%BB%BA%E8%AE%BE/">
+                        <span class="chip bg-color">干线建设</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">
+                        <span class="chip bg-color">安全基础设施</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/10/09/2025-10-09-java-quarkus-4-release/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Quarkus 4发布：Java全栈框架走向云原生AI混合工作负载">
+                        
+                        <span class="card-title">Quarkus 4发布：Java全栈框架走向云原生AI混合工作负载</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/">
+                        <span class="chip bg-color">云原生</span>
+                    </a>
+                    
+                    <a href="/tags/GraalVM/">
+                        <span class="chip bg-color">GraalVM</span>
+                    </a>
+                    
+                    <a href="/tags/Quarkus-4/">
+                        <span class="chip bg-color">Quarkus 4</span>
+                    </a>
+                    
+                    <a href="/tags/AI%E9%9B%86%E6%88%90/">
+                        <span class="chip bg-color">AI集成</span>
+                    </a>
+                    
+                    <a href="/tags/Java%E6%A1%86%E6%9E%B6/">
+                        <span class="chip bg-color">Java框架</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 l8">
+        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        
+      </div>
+      <div class="col s12 m4 l4 right-align">
+        <a href="/privacy" class="tooltipped" data-tooltip="隐私政策" data-position="top" data-delay="50">隐私</a> |
+        <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
+        <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
+        <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+          <i class="fas fa-rss"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

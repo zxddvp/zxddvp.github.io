@@ -1,0 +1,1048 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略, 张显达|个人|博客|技术|生活">
+    <meta name="description" content="导语10 月中旬，CISA 将多起正在被利用的漏洞纳入 KEV（Known Exploited Vulnerabilities）目录，涉及微软生态、Oracle 与第三方组件（页面显示多条新增日期为 10-14 与 10-15）。与此同时，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <link rel="canonical" href="https://zhangxianda.com/2025/10/17/2025-10-17-cybersecurity-kev-oct-patch-tuesday/">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略 | 张显达的个人博客">
+    <meta property="og:description" content="导语10 月中旬，CISA 将多起正在被利用的漏洞纳入 KEV（Known Exploited Vulnerabilities）目录，涉及微软生态、Oracle 与第三方组件（页面显示多条新增日期为 10-14 与 10-15）。与此同时，">
+    <meta property="og:url" content="https://zhangxianda.com/2025/10/17/2025-10-17-cybersecurity-kev-oct-patch-tuesday/">
+    <meta property="og:site_name" content="张显达的个人博客">
+    <meta property="og:image" content="/favicon.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略 | 张显达的个人博客">
+    <meta name="twitter:description" content="导语10 月中旬，CISA 将多起正在被利用的漏洞纳入 KEV（Known Exploited Vulnerabilities）目录，涉及微软生态、Oracle 与第三方组件（页面显示多条新增日期为 10-14 与 10-15）。与此同时，">
+    <meta name="twitter:image" content="/favicon.png">
+
+    
+
+    <title>十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略 | 张显达的个人博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
+     crossorigin="anonymous"></script>
+
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略",
+      "mainEntityOfPage": "https://zhangxianda.com/2025/10/17/2025-10-17-cybersecurity-kev-oct-patch-tuesday/",
+      "datePublished": "2025-10-17T02:18:00.000Z",
+      "dateModified": "2025-10-18T02:48:24.671Z",
+      "author": { "@type": "Person", "name": "张显达" },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "image": "/favicon.png"
+    }
+    </script>
+    
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+
+<body>
+    
+<header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+          
+          <span class="logo-span">张显达</span>
+        </a>
+      </div>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+      <ul class="right nav-menu">
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/" class="waves-effect waves-light">
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              <span>首页</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/ai" class="waves-effect waves-light">
+              <i class="fas fa-robot" style="zoom: 0.6;"></i>
+              <span>人工智能</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tools" class="waves-effect waves-light">
+              <i class="fas fa-tools" style="zoom: 0.6;"></i>
+              <span>推荐工具</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tags" class="waves-effect waves-light">
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              <span>标签</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/categories" class="waves-effect waves-light">
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              <span>分类</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/archives" class="waves-effect waves-light">
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              <span>归档</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/about" class="waves-effect waves-light">
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              <span>关于</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/friends" class="waves-effect waves-light">
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              <span>友情链接</span>
+            </a>
+          </li>
+        
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div id="mobile-nav" class="side-nav sidenav">
+        <div class="mobile-head bg-color">
+          
+            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+          
+          <div class="logo-name">张显达</div>
+          <div class="logo-desc">张显达的个人博客</div>
+        </div>
+        <ul class="menu-list mobile-menu-list">
+          
+            <li class="m-nav-item">
+              <a href="/" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-home"></i>
+                首页
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/ai" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-robot"></i>
+                人工智能
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tools" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tools"></i>
+                推荐工具
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tags" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tags"></i>
+                标签
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/categories" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-bookmark"></i>
+                分类
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/archives" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-archive"></i>
+                归档
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/about" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-user-circle"></i>
+                关于
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/friends" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-address-book"></i>
+                友情链接
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E9%9B%B6%E4%BF%A1%E4%BB%BB/">
+                                <span class="chip bg-color">零信任</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%94%BB%E5%87%BB%E9%9D%A2%E7%AE%A1%E7%90%86/">
+                                <span class="chip bg-color">攻击面管理</span>
+                            </a>
+                        
+                            <a href="/tags/CISA-KEV/">
+                                <span class="chip bg-color">CISA KEV</span>
+                            </a>
+                        
+                            <a href="/tags/Patch-Tuesday/">
+                                <span class="chip bg-color">Patch Tuesday</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%BC%8F%E6%B4%9E%E7%AE%A1%E7%90%86/">
+                                <span class="chip bg-color">漏洞管理</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category">
+                                网络安全
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-10-17
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>10 月中旬，CISA 将多起正在被利用的漏洞纳入 KEV（Known Exploited Vulnerabilities）目录，涉及微软生态、Oracle 与第三方组件（页面显示多条新增日期为 10-14 与 10-15）。与此同时，十月“补丁星期二”释放了大批安全更新。对于企业而言，关键不在于“知道有更新”，而在于“把更新放到正确位置并在正确时间完成”。本文基于 CISA KEV 公告页公开信息与供应商补丁节奏，构建“风险识别—优先级排序—窗口编排—验证回滚”的工程化闭环，提供可执行的落地清单。</p>
+<h2 id="慢变量与快变量：为什么“目录级”治理比“单点打补丁”更重要"><a href="#慢变量与快变量：为什么“目录级”治理比“单点打补丁”更重要" class="headerlink" title="慢变量与快变量：为什么“目录级”治理比“单点打补丁”更重要"></a>慢变量与快变量：为什么“目录级”治理比“单点打补丁”更重要</h2><ul>
+<li>慢变量（资产&#x2F;架构）：影子资产、跨租户协作、老旧系统（Legacy）与供应链软件层级是漏洞得以长期存在的“土壤”。</li>
+<li>快变量（威胁&#x2F;利用）：KEV 的“Date Added”是攻击者节奏的映射。10 月 14～15 日批量加入 KEV 的记录，意味着攻击面在短时间内被广泛扫描与验证利用。</li>
+<li>结论：若缺少统一的资产与攻击面目录（ASM&#x2F;EASM），“打补丁”只能对着问题表面。治理的起点必须是“完整目录 + 实时变化”。</li>
+</ul>
+<h2 id="风险识别：把“KEV-匹配”作为数据产品，而非一张表"><a href="#风险识别：把“KEV-匹配”作为数据产品，而非一张表" class="headerlink" title="风险识别：把“KEV 匹配”作为数据产品，而非一张表"></a>风险识别：把“KEV 匹配”作为数据产品，而非一张表</h2><ol>
+<li>数据聚合</li>
+</ol>
+<ul>
+<li>KEV 元数据（CVE、Date Added、Vendor&#x2F;Project、Notes）</li>
+<li>自有资产图谱（CMDB&#x2F;EASM）：域名、IP、SaaS&#x2F;OAuth 应用、端点&#x2F;容器、开源组件 SBOM</li>
+</ul>
+<ol start="2">
+<li>关联策略</li>
+</ol>
+<ul>
+<li>资产-组件-CVE 三方映射：以 SBOM&#x2F;签名信息校验版本与构建链来源，避免误判。</li>
+<li>租户与协作：把 SaaS&#x2F;OAuth 应用（如 SharePoint&#x2F;Confluence&#x2F;插件生态）的授权与外部共享也纳入受影响面。</li>
+</ul>
+<ol start="3">
+<li>输出形态</li>
+</ol>
+<ul>
+<li>“可执行清单”：每条 KEV 生成“资产列表 + 业务重要度 + 暴露面 + 候选缓解策略”。</li>
+<li>“变更订阅”：针对持续被利用的家族漏洞，建立专题订阅（例如某产品线的历史漏洞簇）。</li>
+</ul>
+<h2 id="优先级：从“CVSS-至上”转向“可利用性-业务影响-可达性”的三维模型"><a href="#优先级：从“CVSS-至上”转向“可利用性-业务影响-可达性”的三维模型" class="headerlink" title="优先级：从“CVSS 至上”转向“可利用性 + 业务影响 + 可达性”的三维模型"></a>优先级：从“CVSS 至上”转向“可利用性 + 业务影响 + 可达性”的三维模型</h2><ul>
+<li>可利用性：KEV &#x3D; 正在被利用；记录厂商通告&#x2F;PoC 动态；观察攻击面遥测（WAF&#x2F;EDR&#x2F;日志湖）。</li>
+<li>业务影响：关键交易&#x2F;生产系统权重更高；考虑数据敏感性（PII、知识产权）。</li>
+<li>可达性：是否公网暴露？是否可经由零信任策略绕过？是否存在跨租户链路？</li>
+</ul>
+<p>优先级函数建议：Priority &#x3D; f(KEV 指示 × 暴露可达性 × 业务权重 × 侧路缓解成本)</p>
+<h2 id="窗口编排：补丁、缓解与隔离并存"><a href="#窗口编排：补丁、缓解与隔离并存" class="headerlink" title="窗口编排：补丁、缓解与隔离并存"></a>窗口编排：补丁、缓解与隔离并存</h2><ol>
+<li>多路径策略</li>
+</ol>
+<ul>
+<li>补丁优先：供应商已发布修复时，进入加急变更窗口；预发 24h 验证 + 蓝绿&#x2F;金丝雀发布。</li>
+<li>暂缓 + 缓解：补丁不可用或风险较高时，采用 WAF 规则、关闭易受攻击功能、最小权限、网络分段；对高值资产先做隔离。</li>
+</ul>
+<ol start="2">
+<li>供应商节奏（十月 Patch Tuesday）</li>
+</ol>
+<ul>
+<li>微软：整批补丁需与域控&#x2F;Exchange&#x2F;SharePoint 等关键基建兼容性联测；对外部暴露的协作&#x2F;邮箱端点先行防护。</li>
+<li>Oracle：关注 10 月季度 CPU（Oracle Security Alerts 页展示 2025 年 10 月 CPU 预告条目），评估数据库&#x2F;中间件&#x2F;Java 的联动升级。</li>
+</ul>
+<ol start="3">
+<li>影子与长尾</li>
+</ol>
+<ul>
+<li>影子资产&#x2F;临时环境：通过 EASM 与资产爬取纳入统一治理；对“部署与销毁未闭环”的团队设置流程门禁。</li>
+<li>长尾系统：对“无维护&#x2F;不支持”的系统纳入隔离清单，计划替换与数据迁移；短期以分段与访问代理降低风险。</li>
+</ul>
+<h2 id="验证与回滚：将“可观测性”前置"><a href="#验证与回滚：将“可观测性”前置" class="headerlink" title="验证与回滚：将“可观测性”前置"></a>验证与回滚：将“可观测性”前置</h2><ul>
+<li>覆盖面：为每一条高优先级 KEV 建立“验证脚本 + 攻击模拟（红队） + 业务探针”。</li>
+<li>健康度：接入合规&#x2F;日志湖（SIEM），观测入侵尝试、异常认证、行为基线偏移；对成功&#x2F;失败补丁形成闭环记录。</li>
+<li>回滚：对关键系统使用蓝绿或金丝雀，明确回滚触发条件与步骤；把配置变更纳入基础设施即代码（IaC），确保可重放。</li>
+</ul>
+<h2 id="企业落地清单（一步一项）"><a href="#企业落地清单（一步一项）" class="headerlink" title="企业落地清单（一步一项）"></a>企业落地清单（一步一项）</h2><ul>
+<li>建立 KEV → 资产 → 变更单 的“拉通链路”，形成周频节奏的周报与例会机制；</li>
+<li>将“Date Added ≤ 72h”的 KEV 自动标红，生成默认缓解策略；</li>
+<li>把微软&#x2F;Oracle 等“补丁星期二”的月度节奏纳入统一日历；</li>
+<li>对外暴露协作者&#x2F;插件生态（OAuth）的授权与外分享审计按天巡检；</li>
+<li>SBOM 强制化，拉齐构建链签名与供应链监测；</li>
+<li>在零信任平台侧加强设备姿态&#x2F;地理围栏&#x2F;异常行为评分，阻断“补丁空窗期”的横向移动。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>KEV 并非一张“新闻清单”，而是企业安全运营的“工作说明书”。在补丁周期与供应商通告密集的十月，把“目录与节奏”前置到工程流程中，才是缩小攻击面与缩短暴露时间（MTTE&#x2F;MTTR）的关键。将漏洞管理从“IT 支援工作”升级为“数据产品 + 决策系统”，是 2025 年企业安全现代化的分水岭。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>CISA KEV 目录（包含 2025-10-14、2025-10-15 的新增记录）</li>
+<li>Oracle Security Alerts：Critical Patch Updates 页面（含 2025 年 10 月 CPU 预告）</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张显达</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangxianda.com/2025/10/17/2025-10-17-cybersecurity-kev-oct-patch-tuesday/">https://zhangxianda.com/2025/10/17/2025-10-17-cybersecurity-kev-oct-patch-tuesday/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">张显达</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E9%9B%B6%E4%BF%A1%E4%BB%BB/">
+                                    <span class="chip bg-color">零信任</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%94%BB%E5%87%BB%E9%9D%A2%E7%AE%A1%E7%90%86/">
+                                    <span class="chip bg-color">攻击面管理</span>
+                                </a>
+                            
+                                <a href="/tags/CISA-KEV/">
+                                    <span class="chip bg-color">CISA KEV</span>
+                                </a>
+                            
+                                <a href="/tags/Patch-Tuesday/">
+                                    <span class="chip bg-color">Patch Tuesday</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%BC%8F%E6%B4%9E%E7%AE%A1%E7%90%86/">
+                                    <span class="chip bg-color">漏洞管理</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/10/17/2025-10-17-ai-inference-intel-cpu-hf-c4/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="AI 推理成本再平衡：Hugging Face × Intel 在 Google Cloud C4 的 TCO 信号">
+                        
+                        <span class="card-title">AI 推理成本再平衡：Hugging Face × Intel 在 Google Cloud C4 的 TCO 信号</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-10-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hugging-Face/">
+                        <span class="chip bg-color">Hugging Face</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%88%90%E6%9C%AC%E6%B2%BB%E7%90%86/">
+                        <span class="chip bg-color">成本治理</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96/">
+                        <span class="chip bg-color">推理优化</span>
+                    </a>
+                    
+                    <a href="/tags/CPU-%E6%8E%A8%E7%90%86/">
+                        <span class="chip bg-color">CPU 推理</span>
+                    </a>
+                    
+                    <a href="/tags/Intel/">
+                        <span class="chip bg-color">Intel</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/10/17/2025-10-17-backend-postgresql-18-deep-dive/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程">
+                        
+                        <span class="card-title">PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                    后端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/PostgreSQL-18/">
+                        <span class="chip bg-color">PostgreSQL 18</span>
+                    </a>
+                    
+                    <a href="/tags/AIO/">
+                        <span class="chip bg-color">AIO</span>
+                    </a>
+                    
+                    <a href="/tags/uuidv7/">
+                        <span class="chip bg-color">uuidv7</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%99%9A%E6%8B%9F%E7%94%9F%E6%88%90%E5%88%97/">
+                        <span class="chip bg-color">虚拟生成列</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/">
+                        <span class="chip bg-color">数据库升级</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 l8">
+        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        
+      </div>
+      <div class="col s12 m4 l4 right-align">
+        <a href="/privacy" class="tooltipped" data-tooltip="隐私政策" data-position="top" data-delay="50">隐私</a> |
+        <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
+        <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
+        <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+          <i class="fas fa-rss"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,1015 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="后端算力三重奏：Talos Linux、IBM Serverless Fleets 与 Cloudflare “Shard &amp; Conquer”的架构启示, 张显达|个人|博客|技术|生活">
+    <meta name="description" content="导语TalosCon 2025、IBM Cloud 与 Cloudflare 在同一周发布的三则消息，描绘出后端基础设施的多层演化：专用操作系统追求“纯粹的 Kubernetes 设计”、企业级 Serverless 尝试让 GPU 伸缩真">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <link rel="canonical" href="https://zhangxianda.com/2025/10/18/2025-10-18-backend-talos-serverless/">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="后端算力三重奏：Talos Linux、IBM Serverless Fleets 与 Cloudflare “Shard &amp; Conquer”的架构启示 | 张显达的个人博客">
+    <meta property="og:description" content="导语TalosCon 2025、IBM Cloud 与 Cloudflare 在同一周发布的三则消息，描绘出后端基础设施的多层演化：专用操作系统追求“纯粹的 Kubernetes 设计”、企业级 Serverless 尝试让 GPU 伸缩真">
+    <meta property="og:url" content="https://zhangxianda.com/2025/10/18/2025-10-18-backend-talos-serverless/">
+    <meta property="og:site_name" content="张显达的个人博客">
+    <meta property="og:image" content="/favicon.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="后端算力三重奏：Talos Linux、IBM Serverless Fleets 与 Cloudflare “Shard &amp; Conquer”的架构启示 | 张显达的个人博客">
+    <meta name="twitter:description" content="导语TalosCon 2025、IBM Cloud 与 Cloudflare 在同一周发布的三则消息，描绘出后端基础设施的多层演化：专用操作系统追求“纯粹的 Kubernetes 设计”、企业级 Serverless 尝试让 GPU 伸缩真">
+    <meta name="twitter:image" content="/favicon.png">
+
+    
+
+    <title>后端算力三重奏：Talos Linux、IBM Serverless Fleets 与 Cloudflare “Shard &amp; Conquer”的架构启示 | 张显达的个人博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
+     crossorigin="anonymous"></script>
+
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "后端算力三重奏：Talos Linux、IBM Serverless Fleets 与 Cloudflare “Shard &amp; Conquer”的架构启示",
+      "mainEntityOfPage": "https://zhangxianda.com/2025/10/18/2025-10-18-backend-talos-serverless/",
+      "datePublished": "2025-10-18T01:25:00.000Z",
+      "dateModified": "2025-10-18T03:14:41.135Z",
+      "author": { "@type": "Person", "name": "张显达" },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "image": "/favicon.png"
+    }
+    </script>
+    
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+
+<body>
+    
+<header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+          
+          <span class="logo-span">张显达</span>
+        </a>
+      </div>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+      <ul class="right nav-menu">
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/" class="waves-effect waves-light">
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              <span>首页</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/ai" class="waves-effect waves-light">
+              <i class="fas fa-robot" style="zoom: 0.6;"></i>
+              <span>人工智能</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tools" class="waves-effect waves-light">
+              <i class="fas fa-tools" style="zoom: 0.6;"></i>
+              <span>推荐工具</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tags" class="waves-effect waves-light">
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              <span>标签</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/categories" class="waves-effect waves-light">
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              <span>分类</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/archives" class="waves-effect waves-light">
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              <span>归档</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/about" class="waves-effect waves-light">
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              <span>关于</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/friends" class="waves-effect waves-light">
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              <span>友情链接</span>
+            </a>
+          </li>
+        
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div id="mobile-nav" class="side-nav sidenav">
+        <div class="mobile-head bg-color">
+          
+            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+          
+          <div class="logo-name">张显达</div>
+          <div class="logo-desc">张显达的个人博客</div>
+        </div>
+        <ul class="menu-list mobile-menu-list">
+          
+            <li class="m-nav-item">
+              <a href="/" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-home"></i>
+                首页
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/ai" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-robot"></i>
+                人工智能
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tools" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tools"></i>
+                推荐工具
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tags" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tags"></i>
+                标签
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/categories" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-bookmark"></i>
+                分类
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/archives" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-archive"></i>
+                归档
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/about" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-user-circle"></i>
+                关于
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/friends" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-address-book"></i>
+                友情链接
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">后端算力三重奏：Talos Linux、IBM Serverless Fleets 与 Cloudflare “Shard &amp; Conquer”的架构启示</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
+                            </a>
+                        
+                            <a href="/tags/Serverless/">
+                                <span class="chip bg-color">Serverless</span>
+                            </a>
+                        
+                            <a href="/tags/Talos/">
+                                <span class="chip bg-color">Talos</span>
+                            </a>
+                        
+                            <a href="/tags/IBM-Cloud/">
+                                <span class="chip bg-color">IBM Cloud</span>
+                            </a>
+                        
+                            <a href="/tags/Cloudflare/">
+                                <span class="chip bg-color">Cloudflare</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                后端
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-10-18
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>TalosCon 2025、IBM Cloud 与 Cloudflare 在同一周发布的三则消息，描绘出后端基础设施的多层演化：专用操作系统追求“纯粹的 Kubernetes 设计”、企业级 Serverless 尝试让 GPU 伸缩真正落地、边缘平台则通过一致性哈希把冷启动率压低 90%。面对云原生“控制面越来越重、算力类型愈发分层、数据路径日益复杂”的现实，后端工程团队必须重新厘清“操作系统、运行时、平台策略”之间的职责边界。</p>
+<h2 id="新闻脉络拆解"><a href="#新闻脉络拆解" class="headerlink" title="新闻脉络拆解"></a>新闻脉络拆解</h2><h3 id="1-Talos-Linux：从“不可变”走向“可运营”"><a href="#1-Talos-Linux：从“不可变”走向“可运营”" class="headerlink" title="1. Talos Linux：从“不可变”走向“可运营”"></a>1. Talos Linux：从“不可变”走向“可运营”</h3><ul>
+<li>Talos 的改进重点在于：Go 编写的用户态、仅保留 kubelet 所需的 12 个二进制、默认关闭 SSH，以 API 替代传统 Shell。</li>
+<li>Sidero 将 Talos 定位为“只为 Kubernetes 服务”的发行版，强调 upstream 一致性与 Conformance 测试。</li>
+<li>Omni 路线图：扩展至 Oxide、KubeVirt 等多种 provisioner，目标是“一次声明即可完成裸金属+虚拟化的集群生命周期管理”。</li>
+<li>典型场景：零售、工厂、交通等边缘节点通过 Appliance 模式获得已认证的单节点 Kubernetes，配合 SBOM、SELinux、签名提交满足 CRA 合规要求。</li>
+</ul>
+<h3 id="2-IBM-Serverless-Fleets：Serverless-终于拥抱-GPU"><a href="#2-IBM-Serverless-Fleets：Serverless-终于拥抱-GPU" class="headerlink" title="2. IBM Serverless Fleets：Serverless 终于拥抱 GPU"></a>2. IBM Serverless Fleets：Serverless 终于拥抱 GPU</h3><ul>
+<li>IBM 把 Code Engine 的 Fleets 定义为“一键提交成千上万批处理任务的入口”，后端自动调度 GPU 支持的大规模任务。</li>
+<li>优势对比：AWS Fargate + EKS&#x2F;ECS、Azure Container Apps 虽支持 GPU，但需要运维多个服务；IBM 尝试在单一平台统一 Web 应用、函数与批处理。</li>
+<li>架构亮点：Fleets 源自真实场景（数十万处理器的大规模任务），设计目标是“近乎零 SRE 维护”。LinkedIn 贴文指出其支撑媒体处理、AI 推理、科学模拟等复杂负载。</li>
+<li>关键价值：运营上去掉“GPU 容器池”的手动管理、成本上通过按需计费避免长期租用、研发上提供统一的 CLI&#x2F;SDK 以编排混合负载。</li>
+</ul>
+<h3 id="3-Cloudflare-“Shard-Conquer”：冷启动率降到万分之一"><a href="#3-Cloudflare-“Shard-Conquer”：冷启动率降到万分之一" class="headerlink" title="3. Cloudflare “Shard &amp; Conquer”：冷启动率降到万分之一"></a>3. Cloudflare “Shard &amp; Conquer”：冷启动率降到万分之一</h3><ul>
+<li>背景：Workers 放宽脚本体积（付费用户 10MB）、启动 CPU 时间（从 200ms 提至 400ms），原有 TLS 预热策略已经无法掩盖更久的启动成本。</li>
+<li>新方法：使用一致性哈希将某个 Worker 的流量稳定落在同一个“分片服务器”上，减少跨机器的重复冷启动。</li>
+<li>负载分摊：通过 Cap’n Proto RPC 实现低延迟的跨分片加载，遇到瞬时高峰时可迅速复制实例。</li>
+<li>效果：官方披露 99.99% 请求保持热态，冷启动率下降 10 倍，也解决了 Service Binding 场景下上下游 Workers 的上下文传递。</li>
+</ul>
+<h2 id="趋势洞察：基础设施的“定制化—一体化—分布式”三段论"><a href="#趋势洞察：基础设施的“定制化—一体化—分布式”三段论" class="headerlink" title="趋势洞察：基础设施的“定制化—一体化—分布式”三段论"></a>趋势洞察：基础设施的“定制化—一体化—分布式”三段论</h2><ol>
+<li><strong>定制化层：OS 针对性增强重新升温</strong>。Talos 把“不可变”推到极致，却提供 API 化运维手段，证明有一类负载需要专用操作系统来避免漂移。对多集群团队而言，重新考虑“通用 Linux + 通用运维”的成本是否已经高于“采用专用 OS + 自动化”。</li>
+<li><strong>一体化层：Serverless 必须真正支持异构算力</strong>。Fleets 的出现意味着企业级 Serverless 不再只处理短任务，而要承载 GPU、批处理、长时运行。团队在 Serverless 选型时应关注 “GPU 资源池如何创建”“作业依赖如何注入”“成本模型是否透明”。</li>
+<li><strong>分布式层：边缘平台需要更聪明的调度策略</strong>。Cloudflare 的案例提醒我们，随着脚本变大、链路变长，仅靠硬件扩容已无法保障延迟，必须把“命中率”问题下沉到调度策略。企业若自建边缘框架，应优先评估一致性哈希、链路观测、横向扩容的协同方案。</li>
+</ol>
+<h2 id="实施建议"><a href="#实施建议" class="headerlink" title="实施建议"></a>实施建议</h2><ul>
+<li><strong>Kubernetes 客户</strong>：评估 Talos&#x2F;Flatcar&#x2F;Bottlerocket 这类“专用 OS”，尤其在边缘、零信任、合规场景。若转换成本高，可先在新建集群试点，验证 API 驱动的运维流程是否减少漂移与人为干预。</li>
+<li><strong>Serverless 团队</strong>：梳理 GPU 工作负载（推理、ETL、多媒体处理），判断是否适合迁入 Fleets 类平台。提前设计作业队列、模型权重、容错机制在 Serverless 环境下的实现方式。</li>
+<li><strong>边缘平台负责人</strong>：引入“命中率”指标到 SLA；评估现有冷启动统计是否区分“调度冷启动”和“业务初始化”。可参考 Cloudflare 的做法，将跨实例通信组件抽象为标准库，而非业务自行维护。</li>
+</ul>
+<h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul>
+<li>Talos 去掉 SSH 的设计会影响紧急排障，需要为 API 管理通道配置 RBAC、审计与备份策略。</li>
+<li>Serverless Fleets 仍处早期阶段，需关注 GPU 申请失败、驱动更新、账单透明度等潜在问题。</li>
+<li>一致性哈希可能造成的热点需配合负载感知策略，否则在极端流量下仍会触发大规模实例迁移。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.com/news/2025/10/talos-linux-kubernetes/">InfoQ：Talos Linux: Bringing Immutability and Security to Kubernetes Operations</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.com/news/2025/10/ibm-cloud-code-engine-serverless/">InfoQ：IBM Cloud Code Engine Serverless Fleets with GPUs for High-Performance AI and Parallel Computing</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.com/news/2025/10/workers-shard-conquer-cold-start/">InfoQ：Cloudflare’s “Shard and Conquer” Slashes Cold Starts by 90%</a></li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张显达</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangxianda.com/2025/10/18/2025-10-18-backend-talos-serverless/">https://zhangxianda.com/2025/10/18/2025-10-18-backend-talos-serverless/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">张显达</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
+                                </a>
+                            
+                                <a href="/tags/Serverless/">
+                                    <span class="chip bg-color">Serverless</span>
+                                </a>
+                            
+                                <a href="/tags/Talos/">
+                                    <span class="chip bg-color">Talos</span>
+                                </a>
+                            
+                                <a href="/tags/IBM-Cloud/">
+                                    <span class="chip bg-color">IBM Cloud</span>
+                                </a>
+                            
+                                <a href="/tags/Cloudflare/">
+                                    <span class="chip bg-color">Cloudflare</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/10/18/2025-10-18-cybersecurity-aer-blockchain/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="安全响应前移：Slack AER、自适应密钥治理与链上恶意载荷的三点思考">
+                        
+                        <span class="card-title">安全响应前移：Slack AER、自适应密钥治理与链上恶意载荷的三点思考</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-10-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category">
+                                    网络安全
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AF%86%E9%92%A5%E7%AE%A1%E7%90%86/">
+                        <span class="chip bg-color">密钥管理</span>
+                    </a>
+                    
+                    <a href="/tags/Slack/">
+                        <span class="chip bg-color">Slack</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%94%BB%E5%87%BB/">
+                        <span class="chip bg-color">区块链攻击</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%93%8D%E5%BA%94/">
+                        <span class="chip bg-color">自动化响应</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5/">
+                        <span class="chip bg-color">威胁情报</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/10/18/2025-10-18-ai-privacy-tooling/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="多终端 AI 进入隐私与工程双考期：Meta 照片助手、Gemini CLI 与 OxygenOS 16 三线观察">
+                        
+                        <span class="card-title">多终端 AI 进入隐私与工程双考期：Meta 照片助手、Gemini CLI 与 OxygenOS 16 三线观察</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Gemini/">
+                        <span class="chip bg-color">Gemini</span>
+                    </a>
+                    
+                    <a href="/tags/Meta/">
+                        <span class="chip bg-color">Meta</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%89%8B%E6%9C%BA%E7%94%9F%E6%80%81/">
+                        <span class="chip bg-color">手机生态</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">开发者工具</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9A%90%E7%A7%81%E6%B2%BB%E7%90%86/">
+                        <span class="chip bg-color">隐私治理</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 l8">
+        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        
+      </div>
+      <div class="col s12 m4 l4 right-align">
+        <a href="/privacy" class="tooltipped" data-tooltip="隐私政策" data-position="top" data-delay="50">隐私</a> |
+        <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
+        <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
+        <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+          <i class="fas fa-rss"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

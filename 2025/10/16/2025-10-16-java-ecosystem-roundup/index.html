@@ -1,0 +1,1005 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="2025年10月16日Java技术速递：Jakarta Query M1、Spring AI 1.1与Seed4J 2.0的三重信号, 张显达|个人|博客|技术|生活">
+    <meta name="description" content="导语随着 OpenJDK 进入 JDK 26 的规划窗口，Java 生态在 10 月中旬迎来一波面向企业应用的迭代：Jakarta EE 宣布 Jakarta Query 1.0 首个里程碑版本，试图统一持久化查询生态；Spring 团队发">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <link rel="canonical" href="https://zhangxianda.com/2025/10/16/2025-10-16-java-ecosystem-roundup/">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="2025年10月16日Java技术速递：Jakarta Query M1、Spring AI 1.1与Seed4J 2.0的三重信号 | 张显达的个人博客">
+    <meta property="og:description" content="导语随着 OpenJDK 进入 JDK 26 的规划窗口，Java 生态在 10 月中旬迎来一波面向企业应用的迭代：Jakarta EE 宣布 Jakarta Query 1.0 首个里程碑版本，试图统一持久化查询生态；Spring 团队发">
+    <meta property="og:url" content="https://zhangxianda.com/2025/10/16/2025-10-16-java-ecosystem-roundup/">
+    <meta property="og:site_name" content="张显达的个人博客">
+    <meta property="og:image" content="/favicon.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="2025年10月16日Java技术速递：Jakarta Query M1、Spring AI 1.1与Seed4J 2.0的三重信号 | 张显达的个人博客">
+    <meta name="twitter:description" content="导语随着 OpenJDK 进入 JDK 26 的规划窗口，Java 生态在 10 月中旬迎来一波面向企业应用的迭代：Jakarta EE 宣布 Jakarta Query 1.0 首个里程碑版本，试图统一持久化查询生态；Spring 团队发">
+    <meta name="twitter:image" content="/favicon.png">
+
+    
+
+    <title>2025年10月16日Java技术速递：Jakarta Query M1、Spring AI 1.1与Seed4J 2.0的三重信号 | 张显达的个人博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
+     crossorigin="anonymous"></script>
+
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "2025年10月16日Java技术速递：Jakarta Query M1、Spring AI 1.1与Seed4J 2.0的三重信号",
+      "mainEntityOfPage": "https://zhangxianda.com/2025/10/16/2025-10-16-java-ecosystem-roundup/",
+      "datePublished": "2025-10-16T02:30:00.000Z",
+      "dateModified": "2025-10-18T02:48:24.670Z",
+      "author": { "@type": "Person", "name": "张显达" },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "image": "/favicon.png"
+    }
+    </script>
+    
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+
+<body>
+    
+<header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+          
+          <span class="logo-span">张显达</span>
+        </a>
+      </div>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+      <ul class="right nav-menu">
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/" class="waves-effect waves-light">
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              <span>首页</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/ai" class="waves-effect waves-light">
+              <i class="fas fa-robot" style="zoom: 0.6;"></i>
+              <span>人工智能</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tools" class="waves-effect waves-light">
+              <i class="fas fa-tools" style="zoom: 0.6;"></i>
+              <span>推荐工具</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tags" class="waves-effect waves-light">
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              <span>标签</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/categories" class="waves-effect waves-light">
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              <span>分类</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/archives" class="waves-effect waves-light">
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              <span>归档</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/about" class="waves-effect waves-light">
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              <span>关于</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/friends" class="waves-effect waves-light">
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              <span>友情链接</span>
+            </a>
+          </li>
+        
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div id="mobile-nav" class="side-nav sidenav">
+        <div class="mobile-head bg-color">
+          
+            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+          
+          <div class="logo-name">张显达</div>
+          <div class="logo-desc">张显达的个人博客</div>
+        </div>
+        <ul class="menu-list mobile-menu-list">
+          
+            <li class="m-nav-item">
+              <a href="/" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-home"></i>
+                首页
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/ai" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-robot"></i>
+                人工智能
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tools" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tools"></i>
+                推荐工具
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tags" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tags"></i>
+                标签
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/categories" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-bookmark"></i>
+                分类
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/archives" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-archive"></i>
+                归档
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/about" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-user-circle"></i>
+                关于
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/friends" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-address-book"></i>
+                友情链接
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">2025年10月16日Java技术速递：Jakarta Query M1、Spring AI 1.1与Seed4J 2.0的三重信号</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84/">
+                                <span class="chip bg-color">企业架构</span>
+                            </a>
+                        
+                            <a href="/tags/Java%E7%94%9F%E6%80%81/">
+                                <span class="chip bg-color">Java生态</span>
+                            </a>
+                        
+                            <a href="/tags/Spring-AI/">
+                                <span class="chip bg-color">Spring AI</span>
+                            </a>
+                        
+                            <a href="/tags/Jakarta-Query/">
+                                <span class="chip bg-color">Jakarta Query</span>
+                            </a>
+                        
+                            <a href="/tags/Seed4J/">
+                                <span class="chip bg-color">Seed4J</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java/" class="post-category">
+                                Java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-10-16
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>随着 OpenJDK 进入 JDK 26 的规划窗口，Java 生态在 10 月中旬迎来一波面向企业应用的迭代：Jakarta EE 宣布 Jakarta Query 1.0 首个里程碑版本，试图统一持久化查询生态；Spring 团队发布 Spring AI 1.1.0-M3 与 Spring Batch 6.0.0-M4，持续扩张数据与 AI 集成能力；Seed4J 2.0（原 JHipster Lite）完成迁移，强调“六边形架构 + 清洁代码”的脚手架理念。三则新闻背后，共同反映出 Java 正在从“后端语言”过渡到“全栈平台”，并主动拥抱 AI、数据、现代工程的交集。</p>
+<h2 id="Jakarta-Query-1-0-M1：查询语言的统一"><a href="#Jakarta-Query-1-0-M1：查询语言的统一" class="headerlink" title="Jakarta Query 1.0-M1：查询语言的统一"></a>Jakarta Query 1.0-M1：查询语言的统一</h2><p>InfoQ 10 月 13 日指出，Jakarta Query 1.0 的首个里程碑版本有三个重点：</p>
+<ol>
+<li><strong>语义统一</strong>：将 Jakarta Persistence Query Language（JPQL）与 Jakarta Data Query Language（JDQL）整合为一部规范，消除了过去“ORM 领域语言 + 数据访问语言”割裂的问题。</li>
+<li><strong>独立语法定义</strong>：引入自包含的语义描述，便于在 Java 之外的语言或跨服务场景中实现查询能力，从而支持微服务、多语言互操作。</li>
+<li><strong>纳入 Jakarta EE 12</strong>：规范正在进行平台投票，若顺利通过，将成为 Jakarta EE 12 平台与 Web Profile 的核心组成部分，意味着企业应用可以在标准层面享受统一的查询接口。</li>
+</ol>
+<p>统一查询语言不仅能降低学习成本，还能在数据访问层引入一致的优化策略，例如统一的参数绑定、缓存策略、审计机制。对于同时使用 Jakarta Persistence 与 Jakarta Data 的大型项目，这将带来显著的维护效率提升。</p>
+<h2 id="Spring-AI-1-1-与-Spring-Batch-6-0：AI-与数据管道的融合"><a href="#Spring-AI-1-1-与-Spring-Batch-6-0：AI-与数据管道的融合" class="headerlink" title="Spring AI 1.1 与 Spring Batch 6.0：AI 与数据管道的融合"></a>Spring AI 1.1 与 Spring Batch 6.0：AI 与数据管道的融合</h2><p>Spring 团队在官方博客上公布的两个里程碑版本值得重点关注：</p>
+<ul>
+<li><strong>Spring AI 1.1.0-M3</strong>：升级到 Model Context Protocol（MCP） Java SDK 0.14.0，引入 Azure Cosmos DB 作为聊天记忆持久化选项，增加基于 GemFire 的元数据过滤，并完善了 Prompt 模板、函数调用与评估工具。这意味着 Spring 生态对多模型、多存储场景的支持更加成熟，企业可以在熟悉的框架中构建生产级 AI 应用。</li>
+<li><strong>Spring Batch 6.0.0-M4</strong>：全量引入 JSpecify 注解，提高空值与类型安全性；支持在 <code>MongoJobRepositoryFactoryBean</code> 中配置 Mongo 序列自增器；将监控从 Micrometer 全局 <code>MeterRegistry</code> 迁移到更灵活的 <code>ObservationRegistry</code>。这些改动让批处理任务在可观测性、可测试性上更加现代化，有助于与云原生监控体系对接。</li>
+</ul>
+<p>对于希望将 AI 能力嵌入现有 Java 系统的企业来说，Spring 的这次迭代提供了重要支撑：一方面，AI 服务的编排、记忆、评估可以复用 Spring 的依赖注入与配置管理；另一方面，批处理框架的升级也为模型训练数据准备、日志审计等环节提供了更可靠的管道。</p>
+<h2 id="Seed4J-2-0：六边形架构脚手架的持续演进"><a href="#Seed4J-2-0：六边形架构脚手架的持续演进" class="headerlink" title="Seed4J 2.0：六边形架构脚手架的持续演进"></a>Seed4J 2.0：六边形架构脚手架的持续演进</h2><p>Seed4J（前身为 JHipster Lite）在 10 月发布 2.0 版本，重点包括：</p>
+<ul>
+<li>从 JHipster Lite 1.35.0 平滑迁移，保留模块化代码生成能力；</li>
+<li>增强 Angular 国际化支持，方便构建多语言前端；</li>
+<li>更新依赖、修复缺陷，并通过 SonarCloud 提供代码质量分析结果；</li>
+<li>强调“六边形架构 + 清洁代码 + 端到端测试”的理念，提供一套可复制的企业级工程模板。</li>
+</ul>
+<p>Seed4J 的定位是将架构最佳实践沉淀为脚手架，帮助团队在快速交付与可维护性之间取得平衡。对于正在推进微服务、DDD 或多语言项目的企业，Seed4J 2.0 提供了高质量的起步工程以及规范化的代码组织方式，可有效降低“脚手架腐化”风险。</p>
+<h2 id="企业行动建议"><a href="#企业行动建议" class="headerlink" title="企业行动建议"></a>企业行动建议</h2><ol>
+<li><strong>评估 Jakarta Query 的适配度</strong>：梳理现有系统中 JPQL、JPA Criteria、手写 SQL 的使用场景，评估向 Jakarta Query 统一过渡的成本与收益，尤其关注多服务之间的查询语义一致性。</li>
+<li><strong>构建 Spring AI 的实践路径</strong>：在内部建立模型接入规范，利用 Spring AI 的存储、评估工具实现 Prompt 管理、上下文记忆和函数调用的标准化；同时结合 Spring Batch，将数据准备、监控告警、审计记录纳入同一条流水线。</li>
+<li><strong>引入 Seed4J 做工程治理</strong>：对新项目或需要重构的项目采用 Seed4J 模板，结合团队的代码规范与安全要求进行扩展；利用 SonarCloud 报告监测代码质量，避免快速迭代带来的技术债堆积。</li>
+<li><strong>关注生态协同</strong>：Jakarta、Spring、Seed4J 之间存在天然协同——前者提供标准，后两者提供实现与工程化能力。企业可以围绕这三者构建统一的企业 Java 平台，以减少碎片化工具带来的管理成本。</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Jakarta Query 的标准化、Spring AI 的平台化、Seed4J 的工程化，共同展示了 Java 生态的三重进化：从语义到框架再到脚手架，为企业在云原生与 AI 时代继续使用 Java 提供坚实基础。对于技术决策者而言，现在正是梳理现有技术栈、引入统一标准、升级工程体系的窗口期。抓住这波更新，就能让 Java 在“经典后端语言”的标签之外，焕发面向未来的生命力。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张显达</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangxianda.com/2025/10/16/2025-10-16-java-ecosystem-roundup/">https://zhangxianda.com/2025/10/16/2025-10-16-java-ecosystem-roundup/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">张显达</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84/">
+                                    <span class="chip bg-color">企业架构</span>
+                                </a>
+                            
+                                <a href="/tags/Java%E7%94%9F%E6%80%81/">
+                                    <span class="chip bg-color">Java生态</span>
+                                </a>
+                            
+                                <a href="/tags/Spring-AI/">
+                                    <span class="chip bg-color">Spring AI</span>
+                                </a>
+                            
+                                <a href="/tags/Jakarta-Query/">
+                                    <span class="chip bg-color">Jakarta Query</span>
+                                </a>
+                            
+                                <a href="/tags/Seed4J/">
+                                    <span class="chip bg-color">Seed4J</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/10/16/2025-10-16-python-release-tracker/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="2025年10月16日Python发布追踪：3.15.0a1新特性与多版本安全补丁全解析">
+                        
+                        <span class="card-title">2025年10月16日Python发布追踪：3.15.0a1新特性与多版本安全补丁全解析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-10-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%89%88%E6%9C%AC%E6%B2%BB%E7%90%86/">
+                        <span class="chip bg-color">版本治理</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AE%89%E5%85%A8%E6%9B%B4%E6%96%B0/">
+                        <span class="chip bg-color">安全更新</span>
+                    </a>
+                    
+                    <a href="/tags/Python-3-15/">
+                        <span class="chip bg-color">Python 3.15</span>
+                    </a>
+                    
+                    <a href="/tags/PEP-799/">
+                        <span class="chip bg-color">PEP 799</span>
+                    </a>
+                    
+                    <a href="/tags/UTF-8/">
+                        <span class="chip bg-color">UTF-8</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/10/16/2025-10-16-digital-governance-alt-nyc/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="2025年10月16日数字治理纵览：ALT框架与纽约数字资产办公室的协同棋局">
+                        
+                        <span class="card-title">2025年10月16日数字治理纵览：ALT框架与纽约数字资产办公室的协同棋局</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E5%AD%97%E6%B2%BB%E7%90%86/" class="post-category">
+                                    数字治理
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ALT%E6%A1%86%E6%9E%B6/">
+                        <span class="chip bg-color">ALT框架</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E5%AD%97%E8%B5%84%E4%BA%A7/">
+                        <span class="chip bg-color">数字资产</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BA%BD%E7%BA%A6/">
+                        <span class="chip bg-color">纽约</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%85%AC%E5%85%B1%E5%8F%82%E4%B8%8E/">
+                        <span class="chip bg-color">公共参与</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%94%BF%E7%AD%96%E5%88%9B%E6%96%B0/">
+                        <span class="chip bg-color">政策创新</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 l8">
+        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        
+      </div>
+      <div class="col s12 m4 l4 right-align">
+        <a href="/privacy" class="tooltipped" data-tooltip="隐私政策" data-position="top" data-delay="50">隐私</a> |
+        <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
+        <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
+        <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+          <i class="fas fa-rss"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
