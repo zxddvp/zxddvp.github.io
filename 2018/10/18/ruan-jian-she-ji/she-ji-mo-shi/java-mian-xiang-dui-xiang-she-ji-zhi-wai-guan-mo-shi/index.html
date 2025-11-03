@@ -1,9 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-
-
-<head>
+<!DOCTYPE html><html lang="zh-CN"><head>
     <meta charset="utf-8">
+    <meta name="author" content="张显达">
     <meta name="keywords" content="Java面向对象设计之外观模式, 张显达|个人|博客|技术|生活">
     <meta name="description" content="一、模式定义
 外观模式(Facade Pattern)：外部与一个子系统的通信必须通过一个统一的外观对象进行，为子系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。外观模式又称为门面模式，它">
@@ -15,8 +12,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
     <link rel="canonical" href="https://zhangxianda.com/2018/10/18/ruan-jian-she-ji/she-ji-mo-shi/java-mian-xiang-dui-xiang-she-ji-zhi-wai-guan-mo-shi/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -30,6 +31,11 @@
     <meta property="og:url" content="https://zhangxianda.com/2018/10/18/ruan-jian-she-ji/she-ji-mo-shi/java-mian-xiang-dui-xiang-she-ji-zhi-wai-guan-mo-shi/">
     <meta property="og:site_name" content="张显达的个人博客">
     <meta property="og:image" content="https://statics.sh1a.qingstor.com/2018/10/18/facade.jpg">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2025-09-16T09:13:29.545Z">
+    
+    <meta property="og:image:alt" content="Java面向对象设计之外观模式 | 张显达的个人博客">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -37,11 +43,12 @@
     <meta name="twitter:description" content="一、模式定义
 外观模式(Facade Pattern)：外部与一个子系统的通信必须通过一个统一的外观对象进行，为子系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。外观模式又称为门面模式，它">
     <meta name="twitter:image" content="https://statics.sh1a.qingstor.com/2018/10/18/facade.jpg">
+    
 
     
 
     <title>Java面向对象设计之外观模式 | 张显达的个人博客</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
     
 
 
@@ -73,13 +80,12 @@
 
 
 
-    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
 
     
     <script type="application/ld+json">
@@ -91,13 +97,19 @@
       "datePublished": "2018-10-17T16:00:00.000Z",
       "dateModified": "2025-09-16T09:13:29.545Z",
       "author": { "@type": "Person", "name": "张显达" },
-      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
       "image": "https://statics.sh1a.qingstor.com/2018/10/18/facade.jpg"
     }
     </script>
     
+    <meta property="article:published_time" content="2018-10-17T16:00:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2025-09-16T09:13:29.545Z">
+    
+    
 
-<meta name="generator" content="Hexo 8.0.0"></head>
+<meta name="generator" content="Hexo 8.1.0"></head>
 
 
 <body>
@@ -108,7 +120,7 @@
       <div class="brand-logo">
         <a href="/" class="waves-effect waves-light">
           
-            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
           
           <span class="logo-span">张显达</span>
         </a>
@@ -182,7 +194,7 @@
       <div id="mobile-nav" class="side-nav sidenav">
         <div class="mobile-head bg-color">
           
-            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
           
           <div class="logo-name">张显达</div>
           <div class="logo-desc">张显达的个人博客</div>
@@ -342,71 +354,71 @@
 <li><code>Facade</code>: 外观角色</li>
 <li><code>SubSystem</code>: 子系统角色</li>
 </ul>
-<h3 id="2-结构图"><a href="#2-结构图" class="headerlink" title="2. 结构图"></a>2. 结构图</h3><p><img src="https://statics.sh1a.qingstor.com/2018/10/18/facade-structure.jpg" alt="命令模式结构图"></p>
+<h3 id="2-结构图"><a href="#2-结构图" class="headerlink" title="2. 结构图"></a>2. 结构图</h3><p><img src="https://statics.sh1a.qingstor.com/2018/10/18/facade-structure.jpg" alt="命令模式结构图" loading="lazy" decoding="async" fetchpriority="low"></p>
 <h2 id="三、示例代码"><a href="#三、示例代码" class="headerlink" title="三、示例代码"></a>三、示例代码</h2><p>首先，是各个子系统角色类，分别如下：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 子系统类A.
  *
  * Created by zhangxianda on 16/8/25.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClassA</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClassA</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;doSomethingA&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;----业务方法A...&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+<pre><code>&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;doSomethingA&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token class-name"&gt;System&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;out&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;println&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"----业务方法A..."&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 子系统类B.
  *
  * Created by zhangxianda on 16/8/25.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClassB</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClassB</span> <span class="token punctuation">{</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomethingB</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomethingB</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"----业务方法B..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
 
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 子系统类C.
  *
  * Created by zhangxianda on 16/8/25.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClassC</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClassC</span> <span class="token punctuation">{</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomethingC</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomethingC</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"----业务方法C..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
 
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>以下是外观模式的外观类：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 外观门面类.
  *
  * Created by zhangxianda on 16/8/25.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Facade</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Facade</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ClassA&lt;/span&gt; a &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ClassA&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ClassB&lt;/span&gt; b &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ClassB&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ClassC&lt;/span&gt; c &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ClassC&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+<pre><code>&lt;span class="token keyword"&gt;private&lt;/span&gt; &lt;span class="token class-name"&gt;ClassA&lt;/span&gt; a &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;ClassA&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token keyword"&gt;private&lt;/span&gt; &lt;span class="token class-name"&gt;ClassB&lt;/span&gt; b &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;ClassB&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token keyword"&gt;private&lt;/span&gt; &lt;span class="token class-name"&gt;ClassC&lt;/span&gt; c &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;ClassC&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;token comment&quot;&gt;// 以下是提供给外部访问的方法.&lt;/span&gt;
+&lt;span class="token comment"&gt;// 以下是提供给外部访问的方法.&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;methodA&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;a&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;doSomethingA&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;methodA&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;this&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;a&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;doSomethingA&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;methodB&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;b&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;doSomethingB&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;methodB&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;this&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;b&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;doSomethingB&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;methodC&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;doSomethingC&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;methodC&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;this&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;c&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;doSomethingC&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <h2 id="四、模式分析"><a href="#四、模式分析" class="headerlink" title="四、模式分析"></a>四、模式分析</h2><p>根据“单一职责原则”，在软件中将一个系统划分为若干个子系统有利于降低整个系统的复杂性，一个常见的设计目标是使子系统间的通信和相互依赖关系达到最小，而达到该目标的途径之一就是引入一个外观对象，它为子系统的访问提供了一个简单而单一的入口。 外观模式也是“<strong>迪米特法则</strong>”的体现，通过引入一个新的外观类可以降低原有系统的复杂度，同时降低客户类与子系统类的耦合度。</p>
 <ul>
 <li>外观模式要求一个子系统的外部与其内部的通信通过一个统一的外观对象进行，外观类将客户端与子系统的内部复杂性分隔开，使得客户端只需要与外观对象打交道，而不需要与子系统内部的很多对象打交道。</li>
@@ -441,7 +453,7 @@
 
                 
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -475,16 +487,16 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">张显达</a>
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
                     !
                 </span>
             </div>
         
     </div>
 
-    <script async defer>
+    <script async="" defer="">
       document.addEventListener("copy", function (e) {
         let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
         M.toast({html: toastHTML})
@@ -544,10 +556,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                 </div>
             </div>
@@ -594,7 +606,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Java面向对象设计之建造者模式">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Java面向对象设计之建造者模式" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">Java面向对象设计之建造者模式</span>
                     </div>
@@ -647,7 +659,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Java面向对象设计之中介者模式">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Java面向对象设计之中介者模式" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">Java面向对象设计之中介者模式</span>
                     </div>
@@ -810,7 +822,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m8 l8">
-        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        <p>Copyright © 2025 <a href="/">张显达的个人博客</a></p>
         
       </div>
       <div class="col s12 m4 l4 right-align">
@@ -818,7 +830,7 @@
         <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
         <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
         <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
-        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
           <i class="fas fa-rss"></i>
         </a>
       </div>
@@ -833,8 +845,7 @@
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
         </div>
         <div id="searchResult"></div>
     </div>
@@ -986,7 +997,7 @@ $(function () {
      
         <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
         <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
     
 
     <!-- Baidu Analytics -->
@@ -1011,7 +1022,7 @@ $(function () {
     <script src="/libs/others/clicklove.js" async="async"></script>
     
     
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1030,6 +1041,7 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-</body>
 
-</html>
+
+
+</body></html>

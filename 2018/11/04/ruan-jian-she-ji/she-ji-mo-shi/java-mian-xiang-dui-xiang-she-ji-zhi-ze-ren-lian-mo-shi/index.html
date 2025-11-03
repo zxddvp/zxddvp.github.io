@@ -1,9 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-
-
-<head>
+<!DOCTYPE html><html lang="zh-CN"><head>
     <meta charset="utf-8">
+    <meta name="author" content="张显达">
     <meta name="keywords" content="Java面向对象设计之责任链模式, 张显达|个人|博客|技术|生活">
     <meta name="description" content="模式动机很多情况下，在一个软件系统中可以处理某个请求的对象不止一个。例如审批工作流等，他们可以构成一条处理采购单的链式结构，采购单(可以看作是要处理的信息)沿着这条链进行传递，这条链就称为责任链。责任链可以是一条直线、一个环或者一个树形结构">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,8 +11,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
     <link rel="canonical" href="https://zhangxianda.com/2018/11/04/ruan-jian-she-ji/she-ji-mo-shi/java-mian-xiang-dui-xiang-she-ji-zhi-ze-ren-lian-mo-shi/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -28,17 +29,23 @@
     <meta property="og:url" content="https://zhangxianda.com/2018/11/04/ruan-jian-she-ji/she-ji-mo-shi/java-mian-xiang-dui-xiang-she-ji-zhi-ze-ren-lian-mo-shi/">
     <meta property="og:site_name" content="张显达的个人博客">
     <meta property="og:image" content="https://statics.sh1a.qingstor.com/2018/11/04/chain.jpg">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2025-09-16T09:13:29.548Z">
+    
+    <meta property="og:image:alt" content="Java面向对象设计之责任链模式 | 张显达的个人博客">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Java面向对象设计之责任链模式 | 张显达的个人博客">
     <meta name="twitter:description" content="模式动机很多情况下，在一个软件系统中可以处理某个请求的对象不止一个。例如审批工作流等，他们可以构成一条处理采购单的链式结构，采购单(可以看作是要处理的信息)沿着这条链进行传递，这条链就称为责任链。责任链可以是一条直线、一个环或者一个树形结构">
     <meta name="twitter:image" content="https://statics.sh1a.qingstor.com/2018/11/04/chain.jpg">
+    
 
     
 
     <title>Java面向对象设计之责任链模式 | 张显达的个人博客</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
     
 
 
@@ -70,13 +77,12 @@
 
 
 
-    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
 
     
     <script type="application/ld+json">
@@ -88,13 +94,19 @@
       "datePublished": "2018-11-03T16:00:00.000Z",
       "dateModified": "2025-09-16T09:13:29.548Z",
       "author": { "@type": "Person", "name": "张显达" },
-      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
       "image": "https://statics.sh1a.qingstor.com/2018/11/04/chain.jpg"
     }
     </script>
     
+    <meta property="article:published_time" content="2018-11-03T16:00:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2025-09-16T09:13:29.548Z">
+    
+    
 
-<meta name="generator" content="Hexo 8.0.0"></head>
+<meta name="generator" content="Hexo 8.1.0"></head>
 
 
 <body>
@@ -105,7 +117,7 @@
       <div class="brand-logo">
         <a href="/" class="waves-effect waves-light">
           
-            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
           
           <span class="logo-span">张显达</span>
         </a>
@@ -179,7 +191,7 @@
       <div id="mobile-nav" class="side-nav sidenav">
         <div class="mobile-head bg-color">
           
-            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
           
           <div class="logo-name">张显达</div>
           <div class="logo-desc">张显达的个人博客</div>
@@ -341,66 +353,66 @@
 <li><code>ConcreteHandler</code>（具体处理者）：抽象处理者的子类，可以处理用户请求，其实现了抽象处理者中定义的请求处理方法。在具体处理请求时需要进行判断，若其具有相应的处理权限，那么就处理它；否则，其将请求转发给后继者，以便让后面的处理者进行处理。</li>
 </ul>
 <p>在责任链模式里，由每一个请求处理者对象对其下家的引用而连接起来形成一条请求处理链。请求将在这条链上一直传递，直到链上的某一个请求处理者能够处理此请求。<strong>发出这个请求的客户端并不知道链上的哪一个请求处理者将处理这个请求，这使得系统可以在不影响客户端的情况下动态地重新组织链和分配责任</strong>。</p>
-<h3 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h3><p><img src="https://statics.sh1a.qingstor.com/2018/11/04/chain-of-responsibility.png" alt="责任链模式UML类图"></p>
+<h3 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h3><p><img src="https://statics.sh1a.qingstor.com/2018/11/04/chain-of-responsibility.png" alt="责任链模式UML类图" loading="lazy" decoding="async" fetchpriority="low"></p>
 <h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>首先，责任链模式的核心在于对请求处理者的抽象。在实现过程中，抽象处理者一般会被设定为<strong>抽象类</strong>，其典型实现代码如下所示：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 责任连模式的抽象处理者角色.
  *
  * Created by zhangxianda on 16/7/11.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Handler</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Handler</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token comment&quot;&gt;/** 后继处理者角色. */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Handler&lt;/span&gt; nextHandler&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+<pre><code>&lt;span class="token comment"&gt;/** 后继处理者角色. */&lt;/span&gt;
+&lt;span class="token keyword"&gt;protected&lt;/span&gt; &lt;span class="token class-name"&gt;Handler&lt;/span&gt; nextHandler&lt;span class="token punctuation"&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;token comment&quot;&gt;/**
+&lt;span class="token comment"&gt;/**
  * 处理请求的抽象方法.
  *
  * @param condition 条件
  */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;handle&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; condition&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;abstract&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;handle&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;String&lt;/span&gt; condition&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;token comment&quot;&gt;/**
+&lt;span class="token comment"&gt;/**
  * nextHandler的Setter方法.
  *
  * @param nextHandler 后继处理器
  */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;setNextHandler&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Handler&lt;/span&gt; nextHandler&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;nextHandler &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; nextHandler&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;setNextHandler&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;Handler&lt;/span&gt; nextHandler&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;this&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;nextHandler &lt;span class="token operator"&gt;=&lt;/span&gt; nextHandler&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <p>其次，是若干个具体的处理角色类。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 具体处理角色1.
  *
  * Created by zhangxianda on 16/7/11.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcreteHandler1</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcreteHandler1</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token comment&quot;&gt;/**
+<pre><code>&lt;span class="token comment"&gt;/**
  * 具体处理角色1的处理方法.
  *
  * @param condition 条件
  */&lt;/span&gt;
-&lt;span class=&quot;token annotation punctuation&quot;&gt;@Override&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;handle&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; condition&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token comment&quot;&gt;// 如果是自己的责任，就自己处理，负责传给下家处理&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;ConcreteHandler1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;condition&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;具体处理角色1的处理方法handled1...&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;具体处理角色1 通过...&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-        nextHandler&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;handle&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;condition&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token annotation punctuation"&gt;@Override&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;handle&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;String&lt;/span&gt; condition&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token comment"&gt;// 如果是自己的责任，就自己处理，负责传给下家处理&lt;/span&gt;
+    &lt;span class="token keyword"&gt;if&lt;/span&gt; &lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"ConcreteHandler1"&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;equals&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;condition&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        &lt;span class="token class-name"&gt;System&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;out&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;println&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt; &lt;span class="token string"&gt;"具体处理角色1的处理方法handled1..."&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt; &lt;span class="token keyword"&gt;else&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        &lt;span class="token class-name"&gt;System&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;out&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;println&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt; &lt;span class="token string"&gt;"具体处理角色1 通过..."&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+        nextHandler&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;handle&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;condition&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 具体处理角色2.
  *
  * Created by zhangxianda on 16/7/11.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcreteHandler2</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcreteHandler2</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span> <span class="token punctuation">{</span>
 
     <span class="token comment">/**
      * 具体处理角色2的处理方法.
@@ -408,23 +420,23 @@
      * @param condition 条件
      */</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handle</span><span class="token punctuation">(</span><span class="token class-name">String</span> condition<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handle</span><span class="token punctuation">(</span><span class="token class-name">String</span> condition<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment">// 如果是自己的责任，就自己处理，负责传给下家处理</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"ConcreteHandler2"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>condition<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"ConcreteHandler2"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>condition<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span> <span class="token string">"具体处理角色2的处理方法handled1..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
             <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span> <span class="token string">"具体处理角色2 通过..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             nextHandler<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>condition<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 具体处理角色n.
  *
  * Created by zhangxianda on 16/7/11.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcreteHandlerN</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcreteHandlerN</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span> <span class="token punctuation">{</span>
 
     <span class="token comment">/**
      * 这里假设n是链的最后一个节点必须处理掉.
@@ -433,37 +445,37 @@
      * @param condition 参数条件
      */</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handle</span><span class="token punctuation">(</span><span class="token class-name">String</span> condition<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handle</span><span class="token punctuation">(</span><span class="token class-name">String</span> condition<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span> <span class="token string">"具体处理角色n的处理方法 结束..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
 
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>最后，是客户端场景类，代码调用示例如下：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 责任连模式的客户端场景类.
  *
  * Created by zhangxianda on 16/7/11.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ChainClient</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ChainClient</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token comment&quot;&gt;/**
+<pre><code>&lt;span class="token comment"&gt;/**
  * 主入口方法.
  *
  * @param args 数组参数
  */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;Handler&lt;/span&gt; handler1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ConcreteHandler1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;Handler&lt;/span&gt; handler2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ConcreteHandler2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;Handler&lt;/span&gt; handlern &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ConcreteHandlerN&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;static&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;main&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;String&lt;/span&gt;&lt;span class="token punctuation"&gt;[&lt;/span&gt;&lt;span class="token punctuation"&gt;]&lt;/span&gt; args&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token class-name"&gt;Handler&lt;/span&gt; handler1 &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;ConcreteHandler1&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token class-name"&gt;Handler&lt;/span&gt; handler2 &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;ConcreteHandler2&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token class-name"&gt;Handler&lt;/span&gt; handlern &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;ConcreteHandlerN&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
 
-    handler1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setNextHandler&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;handler2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    handler2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setNextHandler&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;handlern&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    handler1&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;setNextHandler&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;handler2&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    handler2&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;setNextHandler&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;handlern&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
 
-    &lt;span class=&quot;token comment&quot;&gt;//假设这个请求是ConcreteHandler2的责任&lt;/span&gt;
-    handler1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;handle&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;ConcreteHandler2&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+    &lt;span class="token comment"&gt;//假设这个请求是ConcreteHandler2的责任&lt;/span&gt;
+    handler1&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;handle&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"ConcreteHandler2"&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <blockquote>
 <p><strong>注</strong>：责任链模式并不创建职责链，职责链的创建工作必须由系统的其他部分来完成，一般由使用该责任链的客户端创建。职责链模式降低了请求的发送者和请求处理者之间的耦合，从而使得多个请求处理者都有机会处理这个请求。</p>
 </blockquote>
@@ -493,7 +505,7 @@
 
                 
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -527,16 +539,16 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">张显达</a>
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
                     !
                 </span>
             </div>
         
     </div>
 
-    <script async defer>
+    <script async="" defer="">
       document.addEventListener("copy", function (e) {
         let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
         M.toast({html: toastHTML})
@@ -596,10 +608,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                 </div>
             </div>
@@ -646,7 +658,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Java IO 知识整理">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Java IO 知识整理" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">Java IO 知识整理</span>
                     </div>
@@ -695,7 +707,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="JavaScript之再学习">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="JavaScript之再学习" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">JavaScript之再学习</span>
                     </div>
@@ -854,7 +866,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m8 l8">
-        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        <p>Copyright © 2025 <a href="/">张显达的个人博客</a></p>
         
       </div>
       <div class="col s12 m4 l4 right-align">
@@ -862,7 +874,7 @@
         <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
         <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
         <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
-        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
           <i class="fas fa-rss"></i>
         </a>
       </div>
@@ -877,8 +889,7 @@
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1030,7 +1041,7 @@ $(function () {
      
         <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
         <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
     
 
     <!-- Baidu Analytics -->
@@ -1055,7 +1066,7 @@ $(function () {
     <script src="/libs/others/clicklove.js" async="async"></script>
     
     
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1074,6 +1085,7 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-</body>
 
-</html>
+
+
+</body></html>

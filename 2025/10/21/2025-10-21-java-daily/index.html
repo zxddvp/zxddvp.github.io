@@ -1,9 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-
-
-<head>
+<!DOCTYPE html><html lang="zh-CN"><head>
     <meta charset="utf-8">
+    <meta name="author" content="张显达">
     <meta name="keywords" content="Java 速递：虚拟线程与原生化并进, 张显达|个人|博客|技术|生活">
     <meta name="description" content="Java 的叙事正从“框架主导”转向“运行时能力主导”。在虚拟线程带动的并发模型转型、AOT&amp;#x2F;原生镜像驱动的冷启动与内存压缩、以及以观测与配置即代码（PaC）支撑的运行时自证下，开发者开始以更“系统工程”的视角评估吞吐、时延与成本">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,8 +11,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
     <link rel="canonical" href="https://zhangxianda.com/2025/10/21/2025-10-21-java-daily/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -27,18 +28,24 @@
     <meta property="og:description" content="Java 的叙事正从“框架主导”转向“运行时能力主导”。在虚拟线程带动的并发模型转型、AOT&amp;#x2F;原生镜像驱动的冷启动与内存压缩、以及以观测与配置即代码（PaC）支撑的运行时自证下，开发者开始以更“系统工程”的视角评估吞吐、时延与成本">
     <meta property="og:url" content="https://zhangxianda.com/2025/10/21/2025-10-21-java-daily/">
     <meta property="og:site_name" content="张显达的个人博客">
-    <meta property="og:image" content="/favicon.png">
+    <meta property="og:image" content="https://zhangxianda.com/favicon.png">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2025-10-21T00:36:22.550Z">
+    
+    <meta property="og:image:alt" content="Java 速递：虚拟线程与原生化并进 | 张显达的个人博客">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Java 速递：虚拟线程与原生化并进 | 张显达的个人博客">
     <meta name="twitter:description" content="Java 的叙事正从“框架主导”转向“运行时能力主导”。在虚拟线程带动的并发模型转型、AOT&amp;#x2F;原生镜像驱动的冷启动与内存压缩、以及以观测与配置即代码（PaC）支撑的运行时自证下，开发者开始以更“系统工程”的视角评估吞吐、时延与成本">
-    <meta name="twitter:image" content="/favicon.png">
+    <meta name="twitter:image" content="https://zhangxianda.com/favicon.png">
+    
 
     
 
     <title>Java 速递：虚拟线程与原生化并进 | 张显达的个人博客</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
     
 
 
@@ -70,13 +77,12 @@
 
 
 
-    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
 
     
     <script type="application/ld+json">
@@ -88,13 +94,19 @@
       "datePublished": "2025-10-21T01:03:00.000Z",
       "dateModified": "2025-10-21T00:36:22.550Z",
       "author": { "@type": "Person", "name": "张显达" },
-      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
-      "image": "/favicon.png"
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
+      "image": "https://zhangxianda.com/favicon.png"
     }
     </script>
     
+    <meta property="article:published_time" content="2025-10-21T01:03:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2025-10-21T00:36:22.550Z">
+    
+    
 
-<meta name="generator" content="Hexo 8.0.0"></head>
+<meta name="generator" content="Hexo 8.1.0"></head>
 
 
 <body>
@@ -105,7 +117,7 @@
       <div class="brand-logo">
         <a href="/" class="waves-effect waves-light">
           
-            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
           
           <span class="logo-span">张显达</span>
         </a>
@@ -179,7 +191,7 @@
       <div id="mobile-nav" class="side-nav sidenav">
         <div class="mobile-head bg-color">
           
-            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
           
           <div class="logo-name">张显达</div>
           <div class="logo-desc">张显达的个人博客</div>
@@ -355,7 +367,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Java 的叙事正从“框架主导”转向“运行时能力主导”。在虚拟线程带动的并发模型转型、AOT&#x2F;原生镜像驱动的冷启动与内存压缩、以及以观测与配置即代码（PaC）支撑的运行时自证下，开发者开始以更“系统工程”的视角评估吞吐、时延与成本的三角关系。不是“响应式 vs 线程模型”的非此即彼，而是在不同负载类型与 SLA 下的合理分层组合。</p>
+                <p>Java 的叙事正从“框架主导”转向“运行时能力主导”。在虚拟线程带动的并发模型转型、AOT/原生镜像驱动的冷启动与内存压缩、以及以观测与配置即代码（PaC）支撑的运行时自证下，开发者开始以更“系统工程”的视角评估吞吐、时延与成本的三角关系。不是“响应式 vs 线程模型”的非此即彼，而是在不同负载类型与 SLA 下的合理分层组合。</p>
 <p>一、并发范式：从“资源稀贵”到“上下文轻量”</p>
 <ul>
 <li>虚拟线程将并发的粒度降到“任务级”。传统阻塞 IO 在虚拟线程上以较低开销实现，极大降低了“为并发选择复杂编程模型”的门槛。</li>
@@ -364,26 +376,26 @@
 </ul>
 <p>二、原生化：冷启动、内存与镜像供应链</p>
 <ul>
-<li>AOT&#x2F;原生镜像对冷启动敏感的负载（FaaS&#x2F;短生命周期容器）具有显著收益，但需要在反射、动态代理与类路径扫描上付出“显式配置”成本。</li>
+<li>AOT/原生镜像对冷启动敏感的负载（FaaS/短生命周期容器）具有显著收益，但需要在反射、动态代理与类路径扫描上付出“显式配置”成本。</li>
 <li>观测与诊断需前置设计：在原生镜像中保留必要探针与符号信息，避免上线后“看不见、拆不开”。</li>
 <li>镜像供应链要可追踪：构建过程的依赖、插件与配置生成 SBOM，镜像签名与不可变制品库构成“从源码到镜像”的信任链。</li>
 </ul>
 <p>三、响应式与线程模型的工程分工</p>
 <ul>
 <li>对极端并发与背压控制要求高的场景（如长连接推送、流式编解码），响应式在资源利用与可控性上仍具优势。</li>
-<li>以业务开发效率为主的 CRUD&#x2F;中台场景，虚拟线程可用“更低心智负担”取得接近甚至等效的吞吐表现。</li>
-<li>组合策略：边界层（网关&#x2F;推送）用响应式，业务层用虚拟线程，异步任务管道以消息队列与批处理承接，形成“清晰分层”。</li>
+<li>以业务开发效率为主的 CRUD/中台场景，虚拟线程可用“更低心智负担”取得接近甚至等效的吞吐表现。</li>
+<li>组合策略：边界层（网关/推送）用响应式，业务层用虚拟线程，异步任务管道以消息队列与批处理承接，形成“清晰分层”。</li>
 </ul>
 <p>四、性能与可观测：别让优化建立在“错因果”上</p>
 <ul>
-<li>以端到端指标为真：P95&#x2F;P99 时延与错误率先于微观指标；火焰图与事件日志用于定位瓶颈，不以平均值“自我安慰”。</li>
-<li>Hot Path 自动化守护：为核心交易的关键路径设定门槛与回归测试，避免优化“伤及上游&#x2F;下游”。</li>
-<li>垃圾回收与内存布局：在不同 GC（G1&#x2F;ZGC）的延迟&#x2F;吞吐权衡下做“业务选择题”，并通过对象生命周期管理降低堆压。</li>
+<li>以端到端指标为真：P95/P99 时延与错误率先于微观指标；火焰图与事件日志用于定位瓶颈，不以平均值“自我安慰”。</li>
+<li>Hot Path 自动化守护：为核心交易的关键路径设定门槛与回归测试，避免优化“伤及上游/下游”。</li>
+<li>垃圾回收与内存布局：在不同 GC（G1/ZGC）的延迟/吞吐权衡下做“业务选择题”，并通过对象生命周期管理降低堆压。</li>
 </ul>
 <p>五、实践建议与清单</p>
 <ol>
 <li>并发策略基线：优先以虚拟线程实现阻塞风格，必要处以响应式承担高并发与背压；以结构化并发统一取消与超时。</li>
-<li>原生镜像门槛：把反射&#x2F;代理配置生成纳入构建，预埋可观测探针，准备回退到 JIT 的逃生通道。</li>
+<li>原生镜像门槛：把反射/代理配置生成纳入构建，预埋可观测探针，准备回退到 JIT 的逃生通道。</li>
 <li>依赖可视化与锁定：以 BOM 锁定关键依赖版本，避免“幽灵升级”；制品签名与 CI 机密分域管理。</li>
 <li>压测即事实：为关键接口保留可复现的压测脚本与数据集，结合 Profiling 做“有证据的优化”。</li>
 </ol>
@@ -391,12 +403,12 @@
 <p>补充：内存治理与升级策略</p>
 <ul>
 <li>内存治理：以逃逸分析与对象池审慎使用为前提，优先减少短命对象与跨代复制；对关键结构采用紧凑表示与 off-heap 缓存，避免 GC 尖刺。</li>
-<li>升级策略：将 JDK&#x2F;依赖升级纳入季度节奏，保留回放压测与金丝雀发布，避免“堆积更新”在一次性切换中放大风险。</li>
+<li>升级策略：将 JDK/依赖升级纳入季度节奏，保留回放压测与金丝雀发布，避免“堆积更新”在一次性切换中放大风险。</li>
 </ul>
 
                 
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -430,16 +442,16 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">张显达</a>
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
                     !
                 </span>
             </div>
         
     </div>
 
-    <script async defer>
+    <script async="" defer="">
       document.addEventListener("copy", function (e) {
         let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
         M.toast({html: toastHTML})
@@ -523,10 +535,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                 </div>
             </div>
@@ -573,7 +585,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Python 速递：解释器加速与生态治理">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Python 速递：解释器加速与生态治理" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">Python 速递：解释器加速与生态治理</span>
                     </div>
@@ -650,7 +662,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="数字治理速递：算法透明与数据主权">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="数字治理速递：算法透明与数据主权" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">数字治理速递：算法透明与数据主权</span>
                     </div>
@@ -837,7 +849,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m8 l8">
-        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        <p>Copyright © 2025 <a href="/">张显达的个人博客</a></p>
         
       </div>
       <div class="col s12 m4 l4 right-align">
@@ -845,7 +857,7 @@
         <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
         <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
         <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
-        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
           <i class="fas fa-rss"></i>
         </a>
       </div>
@@ -860,8 +872,7 @@
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1013,7 +1024,7 @@ $(function () {
      
         <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
         <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
     
 
     <!-- Baidu Analytics -->
@@ -1038,7 +1049,7 @@ $(function () {
     <script src="/libs/others/clicklove.js" async="async"></script>
     
     
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1057,6 +1068,7 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-</body>
 
-</html>
+
+
+</body></html>

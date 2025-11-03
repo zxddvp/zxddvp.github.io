@@ -1,9 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-
-
-<head>
+<!DOCTYPE html><html lang="zh-CN"><head>
     <meta charset="utf-8">
+    <meta name="author" content="张显达">
     <meta name="keywords" content="Java异常知识汇总, 张显达|个人|博客|技术|生活">
     <meta name="description" content="前言为什么要使用异常在我们的程序中，任何时候任何地方因为任何原因都有可能会出现异常，在没有异常机制的时候我们是这样处理的：通过函数的返回值来判断是否发生了异常（这个返回值通常是已经约定好了的），调用该函数的程序负责检查并且分析返回值。虽然可">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,8 +11,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
     <link rel="canonical" href="https://zhangxianda.com/2018/10/28/hou-duan/java/java-yi-chang-zhi-shi-hui-zong/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -28,17 +29,23 @@
     <meta property="og:url" content="https://zhangxianda.com/2018/10/28/hou-duan/java/java-yi-chang-zhi-shi-hui-zong/">
     <meta property="og:site_name" content="张显达的个人博客">
     <meta property="og:image" content="https://statics.sh1a.qingstor.com/2018/10/28/exception.jpg">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2025-09-16T09:13:29.547Z">
+    
+    <meta property="og:image:alt" content="Java异常知识汇总 | 张显达的个人博客">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Java异常知识汇总 | 张显达的个人博客">
     <meta name="twitter:description" content="前言为什么要使用异常在我们的程序中，任何时候任何地方因为任何原因都有可能会出现异常，在没有异常机制的时候我们是这样处理的：通过函数的返回值来判断是否发生了异常（这个返回值通常是已经约定好了的），调用该函数的程序负责检查并且分析返回值。虽然可">
     <meta name="twitter:image" content="https://statics.sh1a.qingstor.com/2018/10/28/exception.jpg">
+    
 
     
 
     <title>Java异常知识汇总 | 张显达的个人博客</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
     
 
 
@@ -70,13 +77,12 @@
 
 
 
-    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
 
     
     <script type="application/ld+json">
@@ -88,13 +94,19 @@
       "datePublished": "2018-10-27T16:00:00.000Z",
       "dateModified": "2025-09-16T09:13:29.547Z",
       "author": { "@type": "Person", "name": "张显达" },
-      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
       "image": "https://statics.sh1a.qingstor.com/2018/10/28/exception.jpg"
     }
     </script>
     
+    <meta property="article:published_time" content="2018-10-27T16:00:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2025-09-16T09:13:29.547Z">
+    
+    
 
-<meta name="generator" content="Hexo 8.0.0"></head>
+<meta name="generator" content="Hexo 8.1.0"></head>
 
 
 <body>
@@ -105,7 +117,7 @@
       <div class="brand-logo">
         <a href="/" class="waves-effect waves-light">
           
-            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
           
           <span class="logo-span">张显达</span>
         </a>
@@ -179,7 +191,7 @@
       <div id="mobile-nav" class="side-nav sidenav">
         <div class="mobile-head bg-color">
           
-            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
           
           <div class="logo-name">张显达</div>
           <div class="logo-desc">张显达的个人博客</div>
@@ -341,7 +353,7 @@
 </blockquote>
 <p>总的来说异常处理机制就是当程序发生异常时，它强制终止程序运行，记录异常信息并将这些信息反馈给我们，由我们来确定是否处理异常。</p>
 <h2 id="异常体系"><a href="#异常体系" class="headerlink" title="异常体系"></a>异常体系</h2><p>在Java中，所有的事件都能由类描述，Java中的异常就是由<code>java.lang</code>包下的异常类来描述的。Java定义了一个异常类的层次结构，其以<code>Throwable</code>（万物即可抛）开始，派生出了<code>Error</code>和<code>Exception</code>，而<code>Exception</code>又派生出了<code>CheckedException</code>和<code>RuntimeException</code>。如下图所示：</p>
-<p><img src="https://statics.sh1a.qingstor.com/2018/10/28/java-exception.png" alt="Java异常体系"></p>
+<p><img src="https://statics.sh1a.qingstor.com/2018/10/28/java-exception.png" alt="Java异常体系" loading="lazy" decoding="async" fetchpriority="low"></p>
 <h3 id="Throwable"><a href="#Throwable" class="headerlink" title="Throwable"></a>Throwable</h3><p>Throwable（可抛出）是异常类的最终父类，它有两个子类，<code>Error</code>与<code>Exception</code>。</p>
 <p>Throwable 中常用方法有：</p>
 <ul>
@@ -377,21 +389,21 @@
 <p>总体来说，Java规定：对于检查异常必须捕捉、或者声明抛出。允许忽略非检查的<code>RuntimeException</code>和<code>Error</code>。</p>
 </blockquote>
 <h3 id="处理方式"><a href="#处理方式" class="headerlink" title="处理方式"></a>处理方式</h3><p><code>try-catch</code>语句还可以包括第三部分，就是<code>finally</code>子句。它表示无论是否出现异常，都应当执行的内容。<code>try-catch-finally</code>语句的一般语法形式为：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">{</span>
     <span class="token comment">// 可能会发生异常的程序代码</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception1</span> e1<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception1</span> e1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">// 捕获并处理try抛出的异常类型Type1</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception2</span> e2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception2</span> e2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">// 捕获并处理try抛出的异常类型Type2</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
     <span class="token comment">// 无论是否发生异常，都将执行的语句块</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java7及之后的版本可这样使用：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">(</span><span class="token class-name">MyResource</span> mr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">(</span><span class="token class-name">MyResource</span> mr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"MyResource created in try-with-resources"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception1</span> <span class="token operator">|</span> <span class="token class-name">Exception2</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception1</span> <span class="token operator">|</span> <span class="token class-name">Exception2</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">// 捕获并统一处理 try 抛出的多种异常类型，不需要finally块</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><code>try</code>块：用于捕获异常。其后可接零个或多个<code>catch</code>块，如果没有<code>catch</code>块，则必须跟一个<code>finally</code>块。</li>
 <li><code>catch</code>块：用于处理<code>try</code>捕获到的异常。</li>
@@ -419,9 +431,9 @@
 </ul>
 <h2 id="异常抛出"><a href="#异常抛出" class="headerlink" title="异常抛出"></a>异常抛出</h2><p>任何Java代码都可以抛出异常，如：自己编写的代码、来自Java开发环境包中代码，或者Java运行时系统。无论是谁，都可以通过Java的<code>throw</code>语句抛出异常。从方法中抛出的任何异常都必须使用<code>throws</code>子句。</p>
 <h3 id="throws抛出异常"><a href="#throws抛出异常" class="headerlink" title="throws抛出异常"></a>throws抛出异常</h3><p>如果一个方法可能会出现异常，但没有能力处理这种异常，可以在方法声明处用<code>throws</code>子句来声明抛出异常。<code>throws</code>语句用在方法定义时声明该方法要抛出的异常类型，如果抛出的是<code>Exception</code>异常类型，则该方法被声明为抛出所有的异常。多个异常可使用逗号分割。<code>throws</code>语句的语法格式为：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">methodname <span class="token keyword">throws</span> <span class="token class-name">Exception1</span><span class="token punctuation">,</span> <span class="token class-name">Exception2</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">,</span> <span class="token class-name">ExceptionN</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">methodname <span class="token keyword">throws</span> <span class="token class-name">Exception1</span><span class="token punctuation">,</span> <span class="token class-name">Exception2</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">,</span> <span class="token class-name">ExceptionN</span> <span class="token punctuation">{</span>
 
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></p></pre><p></p>
 <p>方法名后的<code>throws Exception1, Exception2, ... , ExceptionN</code>为声明要抛出的异常列表。当方法抛出异常列表的异常时，方法将不对这些类型及其子类类型的异常作处理，而抛向调用该方法的方法，由他去处理。使用<code>throws</code>关键字将异常抛给调用者后，如果调用者不想处理该异常，可以继续向上抛出，但最终要有能够处理该异常的调用者。</p>
 <p>throws抛出异常的规则：</p>
 <ul>
@@ -441,38 +453,38 @@
 <p><strong>通过使用异常链，我们可以提高代码的可理解性、系统的可维护性和友好性</strong>。</p>
 <p>同理，我们有时候在捕获一个异常后抛出另一个异常信息，并且希望将原始的异常信息也保持起来，这个时候也需要使用异常链。</p>
 <p>在异常链的使用中，<code>throw</code>抛出的是一个新的异常信息，这样势必会导致原有的异常信息丢失，如何保持？在<code>Throwable</code>及其子类中的构造器中都可以接受一个<code>cause</code>参数，该参数保存了原有的异常信息，通过<code>getCause()</code>就可以获取该原始异常信息。使用方式如下：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-     &lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-         &lt;span class=&quot;token class-name&quot;&gt;FileReader&lt;/span&gt; reader &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;FileReader&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;test.txt&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-         &lt;span class=&quot;token class-name&quot;&gt;Scanner&lt;/span&gt; in &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Scanner&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;reader&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-         &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;in&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;FileNotFoundException&lt;/span&gt; e&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        &lt;span class=&quot;token comment&quot;&gt;//e 保存异常信息&lt;/span&gt;
-        &lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;文件没有找到--01&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; e&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+<pre><code>&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;f&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token keyword"&gt;throws&lt;/span&gt; &lt;span class="token class-name"&gt;MyException&lt;/span&gt;&lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+     &lt;span class="token keyword"&gt;try&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+         &lt;span class="token class-name"&gt;FileReader&lt;/span&gt; reader &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;FileReader&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"test.txt"&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+         &lt;span class="token class-name"&gt;Scanner&lt;/span&gt; in &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;Scanner&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;reader&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+         &lt;span class="token class-name"&gt;System&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;out&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;println&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;in&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;next&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt; &lt;span class="token keyword"&gt;catch&lt;/span&gt; &lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;FileNotFoundException&lt;/span&gt; e&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        &lt;span class="token comment"&gt;//e 保存异常信息&lt;/span&gt;
+        &lt;span class="token keyword"&gt;throw&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;MyException&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"文件没有找到--01"&lt;/span&gt;&lt;span class="token punctuation"&gt;,&lt;/span&gt; e&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt; e&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        &lt;span class=&quot;token comment&quot;&gt;//e 保存异常信息&lt;/span&gt;
-        &lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;文件没有找到--02&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; e&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;g&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token keyword"&gt;throws&lt;/span&gt; &lt;span class="token class-name"&gt;MyException&lt;/span&gt;&lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;try&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        &lt;span class="token function"&gt;f&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt; &lt;span class="token keyword"&gt;catch&lt;/span&gt; &lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;MyException&lt;/span&gt; e&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        &lt;span class="token comment"&gt;//e 保存异常信息&lt;/span&gt;
+        &lt;span class="token keyword"&gt;throw&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;MyException&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"文件没有找到--02"&lt;/span&gt;&lt;span class="token punctuation"&gt;,&lt;/span&gt; e&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;Test&lt;/span&gt; t &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        t&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt; e&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        e&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;static&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;main&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;String&lt;/span&gt;&lt;span class="token punctuation"&gt;[&lt;/span&gt;&lt;span class="token punctuation"&gt;]&lt;/span&gt; args&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token class-name"&gt;Test&lt;/span&gt; t &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;Test&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;try&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        t&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;g&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt; &lt;span class="token keyword"&gt;catch&lt;/span&gt; &lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;MyException&lt;/span&gt; e&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        e&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;printStackTrace&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <p>如果在程序中,去掉<code>e</code>，也就是：<code>throw new MyException(“文件没有找到–02″);</code>那么异常信息就保存不了。</p>
 <h2 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h2><p>Java确实给我们提供了非常多的异常，但是异常体系是不可能预见所有的希望加以报告的错误。所以，Java允许我们自定义异常来表现程序中可能会遇到的特定问题，总之就是一句话：我们不必拘泥于Java中已有的异常类型。</p>
 <p>Java自定义异常的使用要经历如下四个步骤：</p>
@@ -486,41 +498,41 @@
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  *自定义异常 继承Exception类.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyException</span> <span class="token keyword">extends</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyException</span> <span class="token keyword">extends</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
+<pre><code>&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token class-name"&gt;MyException&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
 
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; message&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;message&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token class-name"&gt;MyException&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;String&lt;/span&gt; message&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;super&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;message&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span></p>
-<p><span class="token comment">&#x2F;**</p>
+<p><span class="token punctuation">}</span></p>
+<p><span class="token comment">/**</span></p>
 <ul>
-<li>测试抛出和捕捉异常的类.<br> *&#x2F;</span></li>
+<li>测试抛出和捕捉异常的类.<br> */</li>
 </ul>
-<p><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">&#123;</span></p>
-<pre><code>&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;i &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        &lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;该值不能为0.......&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+<p><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">{</span></p>
+<pre><code>&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;display&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token keyword"&gt;int&lt;/span&gt; i&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token keyword"&gt;throws&lt;/span&gt; &lt;span class="token class-name"&gt;MyException&lt;/span&gt;&lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;if&lt;/span&gt; &lt;span class="token punctuation"&gt;(&lt;/span&gt;i &lt;span class="token operator"&gt;==&lt;/span&gt; &lt;span class="token number"&gt;0&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        &lt;span class="token keyword"&gt;throw&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;MyException&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"该值不能为0......."&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt; &lt;span class="token keyword"&gt;else&lt;/span&gt;&lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        &lt;span class="token class-name"&gt;System&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;out&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;println&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt; i &lt;span class="token operator"&gt;/&lt;/span&gt; &lt;span class="token number"&gt;2&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;Test&lt;/span&gt; test &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        test&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;---------------------&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;MyException&lt;/span&gt; e&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-        e&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;static&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;main&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;String&lt;/span&gt;&lt;span class="token punctuation"&gt;[&lt;/span&gt;&lt;span class="token punctuation"&gt;]&lt;/span&gt; args&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token class-name"&gt;Test&lt;/span&gt; test &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;Test&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;try&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        test&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;display&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token number"&gt;0&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+        &lt;span class="token class-name"&gt;System&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;out&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;println&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"---------------------"&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt; &lt;span class="token keyword"&gt;catch&lt;/span&gt; &lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;MyException&lt;/span&gt; e&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+        e&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;printStackTrace&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ul>
 <li>尽可能的减小<code>try</code>块。</li>
 <li>不要在构造函数中抛出异常。</li>
@@ -534,10 +546,10 @@
 <li>不要捕获<code>Throwable</code>。<code>Throwable</code>是所有异常和错误的父类。如果<code>catch</code>了<code>throwable</code>，那么不仅仅会捕获所有<code>Exception</code>，还会捕获<code>Error</code>。而<code>Error</code>是表明无法恢复的JVM错误。因此除非绝对肯定能够处理或者被要求处理<code>Error</code>，不要捕获<code>Throwable</code>。</li>
 <li>包装异常时要包含原始的异常。包装异常时，一定要把原始的异常设置为<code>cause</code>(<code>Exception</code>有构造方法可以传入<code>cause</code>)。否则，丢失了原始的异常信息会让错误的分析变得困难。</li>
 </ul>
-<h2 id="常见异常及解释"><a href="#常见异常及解释" class="headerlink" title="常见异常及解释"></a>常见异常及解释</h2><p>以下是常见<a target="_blank" rel="noopener" href="http://rymden.nu/exceptions.html">Java异常</a>的<strong>非技术角度</strong>的理解。阅读有风险，理解需谨慎。</p>
+<h2 id="常见异常及解释"><a href="#常见异常及解释" class="headerlink" title="常见异常及解释"></a>常见异常及解释</h2><p>以下是常见<a target="_blank" rel="noopener noreferrer external nofollow" href="http://rymden.nu/exceptions.html">Java异常</a>的<strong>非技术角度</strong>的理解。阅读有风险，理解需谨慎。</p>
 <h3 id="java-lang"><a href="#java-lang" class="headerlink" title="java.lang"></a>java.lang</h3><ul>
 <li><code>ArithmeticException</code>：你正在试图使用电脑解决一个自己解决不了的数学问题，请重新阅读你的算术表达式并再次尝试。</li>
-<li><code>ArrayIndexOutOfBoundsException</code>：请查看<a target="_blank" rel="noopener" href="http://rymden.nu/exceptions.html#IndexOutOfBoundsException">IndexOutOfBoundsException</a>。不同之处在于这个异常越界的元素不止一个。</li>
+<li><code>ArrayIndexOutOfBoundsException</code>：请查看<a target="_blank" rel="noopener noreferrer external nofollow" href="http://rymden.nu/exceptions.html#IndexOutOfBoundsException">IndexOutOfBoundsException</a>。不同之处在于这个异常越界的元素不止一个。</li>
 <li><code>ArrayStoreException</code>：你已用光了所有数组，需要从数组商店中购买更多的数组。</li>
 <li><code>ClassCastException</code>：你需要呆在自己出生的种姓或阶级。Java 不会允许达利特人表现得像刹帝利或者高贵种族的人假装成为工人阶级。为了保持向前兼容，Java 1.0中把Caste误写为Cast保留到了现在。</li>
 <li><code>ClassNotFoundException</code>：你似乎创造了自己的类。这也是目前 Java 还未实现的种姓制度，但是 Java 明显使用了巴厘岛的种姓制度。也就是说，如果你是一个武士，也就相当于印度种姓制度中的第三层——吠舍。</li>
@@ -656,16 +668,16 @@
 <hr>
 <p>参考文档：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="http://www.importnew.com/20629.html">java提高篇之异常（上）</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.importnew.com/20645.html">java提高篇之异常（下）</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.importnew.com/14688.html">深入理解java异常处理机制</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.importnew.com/26775.html">Java 中 9 个处理 Exception 的最佳实践</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.importnew.com/16725.html">Java常见异常及解释</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="http://www.importnew.com/20629.html">java提高篇之异常（上）</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="http://www.importnew.com/20645.html">java提高篇之异常（下）</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="http://www.importnew.com/14688.html">深入理解java异常处理机制</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="http://www.importnew.com/26775.html">Java 中 9 个处理 Exception 的最佳实践</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="http://www.importnew.com/16725.html">Java常见异常及解释</a></li>
 </ul>
 
                 
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -699,16 +711,16 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">张显达</a>
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
                     !
                 </span>
             </div>
         
     </div>
 
-    <script async defer>
+    <script async="" defer="">
       document.addEventListener("copy", function (e) {
         let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
         M.toast({html: toastHTML})
@@ -764,10 +776,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                 </div>
             </div>
@@ -814,7 +826,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Java面向对象设计之单例模式">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Java面向对象设计之单例模式" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">Java面向对象设计之单例模式</span>
                     </div>
@@ -867,7 +879,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="你需要知道的Java枚举知识">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="你需要知道的Java枚举知识" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">你需要知道的Java枚举知识</span>
                     </div>
@@ -1026,7 +1038,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m8 l8">
-        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        <p>Copyright © 2025 <a href="/">张显达的个人博客</a></p>
         
       </div>
       <div class="col s12 m4 l4 right-align">
@@ -1034,7 +1046,7 @@
         <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
         <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
         <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
-        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
           <i class="fas fa-rss"></i>
         </a>
       </div>
@@ -1049,8 +1061,7 @@
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1202,7 +1213,7 @@ $(function () {
      
         <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
         <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
     
 
     <!-- Baidu Analytics -->
@@ -1227,7 +1238,7 @@ $(function () {
     <script src="/libs/others/clicklove.js" async="async"></script>
     
     
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1246,6 +1257,7 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-</body>
 
-</html>
+
+
+</body></html>

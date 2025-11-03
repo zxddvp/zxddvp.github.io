@@ -1,9 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-
-
-<head>
+<!DOCTYPE html><html lang="zh-CN"><head>
     <meta charset="utf-8">
+    <meta name="author" content="张显达">
     <meta name="keywords" content="Java面向对象设计之桥接模式, 张显达|个人|博客|技术|生活">
     <meta name="description" content="模式动机设想如果要绘制矩形、圆形、椭圆、正方形，我们至少需要4个形状类，但是如果绘制的图形需要具有不同的颜色，如红色、绿色、蓝色等，此时至少有如下两种设计方案：
 
@@ -17,8 +14,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
     <link rel="canonical" href="https://zhangxianda.com/2018/12/19/ruan-jian-she-ji/she-ji-mo-shi/java-mian-xiang-dui-xiang-she-ji-zhi-qiao-jie-mo-shi/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -34,6 +35,11 @@
     <meta property="og:url" content="https://zhangxianda.com/2018/12/19/ruan-jian-she-ji/she-ji-mo-shi/java-mian-xiang-dui-xiang-she-ji-zhi-qiao-jie-mo-shi/">
     <meta property="og:site_name" content="张显达的个人博客">
     <meta property="og:image" content="https://statics.sh1a.qingstor.com/2018/12/19/bridge.jpg">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2025-09-16T09:13:29.554Z">
+    
+    <meta property="og:image:alt" content="Java面向对象设计之桥接模式 | 张显达的个人博客">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -43,11 +49,12 @@
 第一种设计方案是为每一种形状都提供一套各种颜色的版本。
 第二种设计方案是根据">
     <meta name="twitter:image" content="https://statics.sh1a.qingstor.com/2018/12/19/bridge.jpg">
+    
 
     
 
     <title>Java面向对象设计之桥接模式 | 张显达的个人博客</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
     
 
 
@@ -79,13 +86,12 @@
 
 
 
-    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
 
     
     <script type="application/ld+json">
@@ -97,13 +103,19 @@
       "datePublished": "2018-12-18T16:00:00.000Z",
       "dateModified": "2025-09-16T09:13:29.554Z",
       "author": { "@type": "Person", "name": "张显达" },
-      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
       "image": "https://statics.sh1a.qingstor.com/2018/12/19/bridge.jpg"
     }
     </script>
     
+    <meta property="article:published_time" content="2018-12-18T16:00:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2025-09-16T09:13:29.554Z">
+    
+    
 
-<meta name="generator" content="Hexo 8.0.0"></head>
+<meta name="generator" content="Hexo 8.1.0"></head>
 
 
 <body>
@@ -114,7 +126,7 @@
       <div class="brand-logo">
         <a href="/" class="waves-effect waves-light">
           
-            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
           
           <span class="logo-span">张显达</span>
         </a>
@@ -188,7 +200,7 @@
       <div id="mobile-nav" class="side-nav sidenav">
         <div class="mobile-head bg-color">
           
-            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
           
           <div class="logo-name">张显达</div>
           <div class="logo-desc">张显达的个人博客</div>
@@ -356,163 +368,163 @@
 <li><code>Implementor</code>：实现化角色</li>
 <li><code>ConcreteImplementor</code>：具体实现化角色的实现类</li>
 </ul>
-<h3 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h3><p><img src="https://statics.sh1a.qingstor.com/2018/12/19/java-design-bridge.jpg" alt="桥接模式UML"></p>
+<h3 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h3><p><img src="https://statics.sh1a.qingstor.com/2018/12/19/java-design-bridge.jpg" alt="桥接模式UML" loading="lazy" decoding="async" fetchpriority="low"></p>
 <h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>首先，是实现化角色<code>Abstraction</code>类：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 实现化角色 Implementor.
  *
  * @author zhangxianda on 2018-12-17.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Implementor</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Implementor</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token comment&quot;&gt;/**
+<pre><code>&lt;span class="token comment"&gt;/**
  * 基本方法1.
  */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;doSomething&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;token comment&quot;&gt;/**
+&lt;span class="token comment"&gt;/**
  * 基本方法2.
  */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;doAnything&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;doAnything&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <p>然后，是各个具体的实现化角色类：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * ConcreteImplementor1.
  *
  * @author zhangxianda on 2018-12-17.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcreteImplementor1</span> <span class="token keyword">implements</span> <span class="token class-name">Implementor</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcreteImplementor1</span> <span class="token keyword">implements</span> <span class="token class-name">Implementor</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token comment&quot;&gt;/**
+<pre><code>&lt;span class="token comment"&gt;/**
  * 基本方法1.
  */&lt;/span&gt;
-&lt;span class=&quot;token annotation punctuation&quot;&gt;@Override&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;ConcreteImplementor1 的业务逻辑 doSomething.&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token annotation punctuation"&gt;@Override&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;doSomething&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token class-name"&gt;System&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;out&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;println&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"ConcreteImplementor1 的业务逻辑 doSomething."&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 
-&lt;span class=&quot;token comment&quot;&gt;/**
+&lt;span class="token comment"&gt;/**
  * 基本方法2.
  */&lt;/span&gt;
-&lt;span class=&quot;token annotation punctuation&quot;&gt;@Override&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;doAnything&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;ConcreteImplementor1 的业务逻辑 doAnything.&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token annotation punctuation"&gt;@Override&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;doAnything&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token class-name"&gt;System&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;out&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;println&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"ConcreteImplementor1 的业务逻辑 doAnything."&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * ConcreteImplementor2.
  *
  * @author zhangxianda on 2018-12-17.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcreteImplementor2</span> <span class="token keyword">implements</span> <span class="token class-name">Implementor</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcreteImplementor2</span> <span class="token keyword">implements</span> <span class="token class-name">Implementor</span> <span class="token punctuation">{</span>
 
     <span class="token comment">/**
      * 基本方法1.
      */</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"ConcreteImplementor2 的业务逻辑 doSomething."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
 
     <span class="token comment">/**
      * 基本方法2.
      */</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doAnything</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doAnything</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"ConcreteImplementor2 的业务逻辑 doAnything."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
 
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>接下来，是抽象类角色<code>Abstraction</code>类：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>zxd<span class="token punctuation">.</span>patterns<span class="token punctuation">.</span>bridge</span><span class="token punctuation">;</span>
 
-<p><span class="token comment">&#x2F;**</p>
+<p><span class="token comment">/**</span></p>
 <ul>
 <li>抽象化角色 Abstraction.</li>
 <li></li>
-<li>@author zhangxianda on 2018-12-17.<br> *&#x2F;</span></li>
+<li>@author zhangxianda on 2018-12-17.<br> */</li>
 </ul>
-<p><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Abstraction</span> <span class="token punctuation">&#123;</span></p>
-<pre><code>&lt;span class=&quot;token comment&quot;&gt;/** 定义对实现化角色的引用. */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Implementor&lt;/span&gt; impl&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+<p><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Abstraction</span> <span class="token punctuation">{</span></p>
+<pre><code>&lt;span class="token comment"&gt;/** 定义对实现化角色的引用. */&lt;/span&gt;
+&lt;span class="token keyword"&gt;private&lt;/span&gt; &lt;span class="token class-name"&gt;Implementor&lt;/span&gt; impl&lt;span class="token punctuation"&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;token comment&quot;&gt;/**
+&lt;span class="token comment"&gt;/**
  * 构造方法.
  *
  * @param impl 实现类的实例
  */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Abstraction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Implementor&lt;/span&gt; impl&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;impl &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; impl&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token class-name"&gt;Abstraction&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;Implementor&lt;/span&gt; impl&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;this&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;impl &lt;span class="token operator"&gt;=&lt;/span&gt; impl&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 
-&lt;span class=&quot;token comment&quot;&gt;/**
+&lt;span class="token comment"&gt;/**
  * impl 的 getter方法.
  *
  * @return impl
  */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Implementor&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getImpl&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; impl&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token class-name"&gt;Implementor&lt;/span&gt; &lt;span class="token function"&gt;getImpl&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;return&lt;/span&gt; impl&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 
-&lt;span class=&quot;token comment&quot;&gt;/**
+&lt;span class="token comment"&gt;/**
  * 自身的请求处理方法.
  */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;impl&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;request&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;this&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;impl&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;doSomething&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <p>再次，是扩展的具体抽象化角色类<code>RefinedAbstraction</code>：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * RefinedAbstraction.
  *
  * @author zhangxianda on 2018-12-17.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RefinedAbstraction</span> <span class="token keyword">extends</span> <span class="token class-name">Abstraction</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RefinedAbstraction</span> <span class="token keyword">extends</span> <span class="token class-name">Abstraction</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token comment&quot;&gt;/**
+<pre><code>&lt;span class="token comment"&gt;/**
  * 构造方法.
  *
  * @param impl 实现类的实例
  */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;RefinedAbstraction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Implementor&lt;/span&gt; impl&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;impl&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token class-name"&gt;RefinedAbstraction&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;Implementor&lt;/span&gt; impl&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;super&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;impl&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 
-&lt;span class=&quot;token comment&quot;&gt;/**
+&lt;span class="token comment"&gt;/**
  * 覆盖后的请求处理方法.
  */&lt;/span&gt;
-&lt;span class=&quot;token annotation punctuation&quot;&gt;@Override&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;RefinedAbstraction 开始做业务处理.&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getImpl&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;doAnything&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token annotation punctuation"&gt;@Override&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;request&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token class-name"&gt;System&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;out&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;println&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token string"&gt;"RefinedAbstraction 开始做业务处理."&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;super&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;request&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token keyword"&gt;super&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;getImpl&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;doAnything&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <p>最后，是客户端场景类：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * Client.
  *
  * @author zhangxianda on 2018-12-17.
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
 
-<pre><code>&lt;span class=&quot;token comment&quot;&gt;/**
+<pre><code>&lt;span class="token comment"&gt;/**
  * main方法.
  *
  * @param args 数组参数
  */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;&amp;#123;&lt;/span&gt;
-    &lt;span class=&quot;token comment&quot;&gt;// 定义一个实现化角色和抽象化角色,并执行请求方法.&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;Implementor&lt;/span&gt; impl &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ConcreteImplementor1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;Abstraction&lt;/span&gt; abs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;RefinedAbstraction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;impl&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    abs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;&amp;#125;&lt;/span&gt;
+&lt;span class="token keyword"&gt;public&lt;/span&gt; &lt;span class="token keyword"&gt;static&lt;/span&gt; &lt;span class="token keyword"&gt;void&lt;/span&gt; &lt;span class="token function"&gt;main&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token class-name"&gt;String&lt;/span&gt;&lt;span class="token punctuation"&gt;[&lt;/span&gt;&lt;span class="token punctuation"&gt;]&lt;/span&gt; args&lt;span class="token punctuation"&gt;)&lt;/span&gt; &lt;span class="token punctuation"&gt;&amp;#123;&lt;/span&gt;
+    &lt;span class="token comment"&gt;// 定义一个实现化角色和抽象化角色,并执行请求方法.&lt;/span&gt;
+    &lt;span class="token class-name"&gt;Implementor&lt;/span&gt; impl &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;ConcreteImplementor1&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    &lt;span class="token class-name"&gt;Abstraction&lt;/span&gt; abs &lt;span class="token operator"&gt;=&lt;/span&gt; &lt;span class="token keyword"&gt;new&lt;/span&gt; &lt;span class="token class-name"&gt;RefinedAbstraction&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;impl&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+    abs&lt;span class="token punctuation"&gt;.&lt;/span&gt;&lt;span class="token function"&gt;request&lt;/span&gt;&lt;span class="token punctuation"&gt;(&lt;/span&gt;&lt;span class="token punctuation"&gt;)&lt;/span&gt;&lt;span class="token punctuation"&gt;;&lt;/span&gt;
+&lt;span class="token punctuation"&gt;&amp;#125;&lt;/span&gt;
 </code></pre>
-<p><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-java"><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <h2 id="模式分析"><a href="#模式分析" class="headerlink" title="模式分析"></a>模式分析</h2><p>理解桥接模式，重点需要理解如何将抽象化(<code>Abstraction</code>)与实现化(<code>Implementation</code>)脱耦，使得二者可以独立地变化。</p>
 <ul>
 <li><strong>抽象化</strong>：抽象化就是忽略一些信息，把不同的实体当作同样的实体对待。在面向对象中，将对象的共同性质抽取出来形成类的过程即为抽象化的过程。</li>
@@ -549,11 +561,11 @@
 <li>桥接模式的主要优点是分离抽象接口及其实现部分，是比多继承方案更好的解决方法，桥接模式还提高了系统的可扩充性，在两个变化维度中任意扩展一个维度，都不需要修改原有系统，实现细节对客户透明，可以对用户隐藏实现细节；其主要缺点是增加系统的理解与设计难度，且识别出系统中两个独立变化的维度并不是一件容易的事情。</li>
 <li>桥接模式适用情况包括：需要在构件的抽象化角色和具体化角色之间增加更多的灵活性，避免在两个层次之间建立静态的继承联系；抽象化角色和实现化角色可以以继承的方式独立扩展而互不影响；一个类存在两个独立变化的维度，且这两个维度都需要进行扩展；设计要求需要独立管理抽象化角色和具体化角色；不希望使用继承或因为多层次继承导致系统类的个数急剧增加的系统。</li>
 </ul>
-<p>参考自：<a target="_blank" rel="noopener" href="https://design-patterns.readthedocs.io/zh_CN/latest/structural_patterns/bridge.html">桥接模式</a></p>
+<p>参考自：<a target="_blank" rel="noopener noreferrer external nofollow" href="https://design-patterns.readthedocs.io/zh_CN/latest/structural_patterns/bridge.html">桥接模式</a></p>
 
                 
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -587,16 +599,16 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">张显达</a>
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
                     !
                 </span>
             </div>
         
     </div>
 
-    <script async defer>
+    <script async="" defer="">
       document.addEventListener("copy", function (e) {
         let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
         M.toast({html: toastHTML})
@@ -656,10 +668,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                 </div>
             </div>
@@ -706,7 +718,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="一个极简的 Java ASCII 表格生成库">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="一个极简的 Java ASCII 表格生成库" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">一个极简的 Java ASCII 表格生成库</span>
                     </div>
@@ -755,7 +767,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Java面向对象设计之适配器模式">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Java面向对象设计之适配器模式" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">Java面向对象设计之适配器模式</span>
                     </div>
@@ -918,7 +930,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m8 l8">
-        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        <p>Copyright © 2025 <a href="/">张显达的个人博客</a></p>
         
       </div>
       <div class="col s12 m4 l4 right-align">
@@ -926,7 +938,7 @@
         <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
         <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
         <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
-        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
           <i class="fas fa-rss"></i>
         </a>
       </div>
@@ -941,8 +953,7 @@
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1094,7 +1105,7 @@ $(function () {
      
         <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
         <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
     
 
     <!-- Baidu Analytics -->
@@ -1119,7 +1130,7 @@ $(function () {
     <script src="/libs/others/clicklove.js" async="async"></script>
     
     
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1138,6 +1149,7 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-</body>
 
-</html>
+
+
+</body></html>

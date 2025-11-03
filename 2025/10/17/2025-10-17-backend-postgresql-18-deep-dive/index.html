@@ -1,9 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-
-
-<head>
+<!DOCTYPE html><html lang="zh-CN"><head>
     <meta charset="utf-8">
+    <meta name="author" content="张显达">
     <meta name="keywords" content="PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程, 张显达|个人|博客|技术|生活">
     <meta name="description" content="导语PostgreSQL 18 于 2025-09-25 正式发布（官方文档“18.0 Release Notes”）。本次迭代既有“硬核内核增强”（异步 I&amp;#x2F;O 子系统、锁与哈希操作优化、VACUUM 改进），也有“开发体验增强">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,8 +11,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
     <link rel="canonical" href="https://zhangxianda.com/2025/10/17/2025-10-17-backend-postgresql-18-deep-dive/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -27,18 +28,24 @@
     <meta property="og:description" content="导语PostgreSQL 18 于 2025-09-25 正式发布（官方文档“18.0 Release Notes”）。本次迭代既有“硬核内核增强”（异步 I&amp;#x2F;O 子系统、锁与哈希操作优化、VACUUM 改进），也有“开发体验增强">
     <meta property="og:url" content="https://zhangxianda.com/2025/10/17/2025-10-17-backend-postgresql-18-deep-dive/">
     <meta property="og:site_name" content="张显达的个人博客">
-    <meta property="og:image" content="/favicon.png">
+    <meta property="og:image" content="https://zhangxianda.com/favicon.png">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2025-10-17T01:17:04.390Z">
+    
+    <meta property="og:image:alt" content="PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程 | 张显达的个人博客">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程 | 张显达的个人博客">
     <meta name="twitter:description" content="导语PostgreSQL 18 于 2025-09-25 正式发布（官方文档“18.0 Release Notes”）。本次迭代既有“硬核内核增强”（异步 I&amp;#x2F;O 子系统、锁与哈希操作优化、VACUUM 改进），也有“开发体验增强">
-    <meta name="twitter:image" content="/favicon.png">
+    <meta name="twitter:image" content="https://zhangxianda.com/favicon.png">
+    
 
     
 
     <title>PostgreSQL 18 深度解读：AIO 子系统、uuidv7、虚拟生成列与升级工程 | 张显达的个人博客</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
     
 
 
@@ -70,13 +77,12 @@
 
 
 
-    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
 
     
     <script type="application/ld+json">
@@ -88,13 +94,19 @@
       "datePublished": "2025-10-17T02:12:00.000Z",
       "dateModified": "2025-10-17T01:17:04.390Z",
       "author": { "@type": "Person", "name": "张显达" },
-      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
-      "image": "/favicon.png"
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
+      "image": "https://zhangxianda.com/favicon.png"
     }
     </script>
     
+    <meta property="article:published_time" content="2025-10-17T02:12:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2025-10-17T01:17:04.390Z">
+    
+    
 
-<meta name="generator" content="Hexo 8.0.0"></head>
+<meta name="generator" content="Hexo 8.1.0"></head>
 
 
 <body>
@@ -105,7 +117,7 @@
       <div class="brand-logo">
         <a href="/" class="waves-effect waves-light">
           
-            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
           
           <span class="logo-span">张显达</span>
         </a>
@@ -179,7 +191,7 @@
       <div id="mobile-nav" class="side-nav sidenav">
         <div class="mobile-head bg-color">
           
-            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
           
           <div class="logo-name">张显达</div>
           <div class="logo-desc">张显达的个人博客</div>
@@ -343,22 +355,22 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>PostgreSQL 18 于 2025-09-25 正式发布（官方文档“18.0 Release Notes”）。本次迭代既有“硬核内核增强”（异步 I&#x2F;O 子系统、锁与哈希操作优化、VACUUM 改进），也有“开发体验增强”（uuidv7()、虚拟生成列默认启用、RETURNING 对 OLD&#x2F;NEW 的支持、时态约束），以及“运维升级便利性”（pg_upgrade 保留优化器统计、initdb 默认开启数据校验和、OAuth 认证支持）。本文围绕四个维度展开：性能机制、开发者特性、迁移与治理、生产落地清单。</p>
+                <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>PostgreSQL 18 于 2025-09-25 正式发布（官方文档“18.0 Release Notes”）。本次迭代既有“硬核内核增强”（异步 I/O 子系统、锁与哈希操作优化、VACUUM 改进），也有“开发体验增强”（uuidv7()、虚拟生成列默认启用、RETURNING 对 OLD/NEW 的支持、时态约束），以及“运维升级便利性”（pg_upgrade 保留优化器统计、initdb 默认开启数据校验和、OAuth 认证支持）。本文围绕四个维度展开：性能机制、开发者特性、迁移与治理、生产落地清单。</p>
 <h2 id="性能机制：AIO-子系统与算子级优化"><a href="#性能机制：AIO-子系统与算子级优化" class="headerlink" title="性能机制：AIO 子系统与算子级优化"></a>性能机制：AIO 子系统与算子级优化</h2><ol>
-<li>AIO（Asynchronous I&#x2F;O）子系统</li>
+<li>AIO（Asynchronous I/O）子系统</li>
 </ol>
 <ul>
 <li>能力：允许后端批量排队读请求，从而显著提升顺序扫描、位图堆扫描与 VACUUM 的效率。</li>
 <li>开关与参数：<code>io_method</code> 启用方式；<code>io_combine_limit</code>、<code>io_max_combine_limit</code> 控制合并阈值；新增系统视图 <code>pg_aios</code> 观察 AIO 句柄状态。</li>
 <li>实操建议：<ul>
-<li>评估 IOPS&#x2F;吞吐型介质的差异，分环境压测选择合适的 combine 阈值；</li>
-<li>与 <code>effective_io_concurrency</code> &#x2F; <code>maintenance_io_concurrency</code>（默认已提升至 16）联动调优；</li>
-<li>VACUUM 作业分时段（低峰）+ AIO 合理阈值 &#x3D; 降低抖动。</li>
+<li>评估 IOPS/吞吐型介质的差异，分环境压测选择合适的 combine 阈值；</li>
+<li>与 <code>effective_io_concurrency</code> / <code>maintenance_io_concurrency</code>（默认已提升至 16）联动调优；</li>
+<li>VACUUM 作业分时段（低峰）+ AIO 合理阈值 = 降低抖动。</li>
 </ul>
 </li>
 </ul>
 <ol start="2">
-<li>锁&#x2F;哈希&#x2F;聚合优化</li>
+<li>锁/哈希/聚合优化</li>
 </ol>
 <ul>
 <li>多关系查询的锁性能提升；哈希连接与 GROUP BY 的内存占用与性能改善；哈希集合操作（EXCEPT 等）与子计划哈希查找也受益。</li>
@@ -386,18 +398,18 @@
 <li>治理：避免在热路径上堆叠复杂表达式；约束其数据类型与函数副作用，确保可预测的读时成本。</li>
 </ul>
 <ol start="3">
-<li>RETURNING 对 <code>OLD</code> &#x2F; <code>NEW</code> 的支持</li>
+<li>RETURNING 对 <code>OLD</code> / <code>NEW</code> 的支持</li>
 </ol>
 <ul>
-<li>作用：在 INSERT&#x2F;UPDATE&#x2F;DELETE&#x2F;MERGE 的 RETURNING 子句中引用 <code>OLD</code>&#x2F;<code>NEW</code>，简化审计、日志与补偿逻辑。</li>
-<li>价值：减少二次 SELECT，统一“写 + 读回”模式，利于 ORMs&#x2F;存储过程的表达能力。</li>
+<li>作用：在 INSERT/UPDATE/DELETE/MERGE 的 RETURNING 子句中引用 <code>OLD</code>/<code>NEW</code>，简化审计、日志与补偿逻辑。</li>
+<li>价值：减少二次 SELECT，统一“写 + 读回”模式，利于 ORMs/存储过程的表达能力。</li>
 </ul>
 <ol start="4">
 <li>时态约束（Temporal Constraints）</li>
 </ol>
 <ul>
-<li>语义：允许在 PRIMARY&#x2F;UNIQUE&#x2F;FOREIGN KEY 约束上表达“时间范围”的约束逻辑。</li>
-<li>价值：支持“有效期&#x2F;历史表”建模，减少触发器与应用层校验复杂度。</li>
+<li>语义：允许在 PRIMARY/UNIQUE/FOREIGN KEY 约束上表达“时间范围”的约束逻辑。</li>
+<li>价值：支持“有效期/历史表”建模，减少触发器与应用层校验复杂度。</li>
 </ul>
 <h2 id="迁移与治理：升级要“有温度”"><a href="#迁移与治理：升级要“有温度”" class="headerlink" title="迁移与治理：升级要“有温度”"></a>迁移与治理：升级要“有温度”</h2><ol>
 <li>pg_upgrade：保留优化器统计</li>
@@ -411,14 +423,14 @@
 </ol>
 <ul>
 <li>变更：默认开启；<code>--no-data-checksums</code> 可在需要与旧集群（无校验和）对齐时使用。</li>
-<li>建议：将校验和监控纳入日常巡检，异常块与备份&#x2F;恢复策略要有 SOP。</li>
+<li>建议：将校验和监控纳入日常巡检，异常块与备份/恢复策略要有 SOP。</li>
 </ul>
 <ol start="3">
 <li>OAuth 认证支持</li>
 </ol>
 <ul>
 <li>场景：与现代身份基础设施（IdP、机器身份）对齐，减少口令面风险。</li>
-<li>建议：在零信任架构中，将 DB 访问纳入统一的工作负载身份治理（短期证书&#x2F;令牌、最小权限、分段网络）。</li>
+<li>建议：在零信任架构中，将 DB 访问纳入统一的工作负载身份治理（短期证书/令牌、最小权限、分段网络）。</li>
 </ul>
 <ol start="4">
 <li>兼容性：MD5 密码弃用预告</li>
@@ -430,38 +442,38 @@
 <h2 id="生产落地清单（按优先级）"><a href="#生产落地清单（按优先级）" class="headerlink" title="生产落地清单（按优先级）"></a>生产落地清单（按优先级）</h2><ul>
 <li><p>性能与容量</p>
 <ul>
-<li>基准：在预发对 AIO 开关 + 阈值做压测；记录 TPC-C&#x2F;TPC-H 或自有基准指标差异。</li>
-<li>查询：对“多表&#x2F;多锁”与“哈希聚合”重压场景进行回归；确认内存与临时文件峰值。</li>
+<li>基准：在预发对 AIO 开关 + 阈值做压测；记录 TPC-C/TPC-H 或自有基准指标差异。</li>
+<li>查询：对“多表/多锁”与“哈希聚合”重压场景进行回归；确认内存与临时文件峰值。</li>
 </ul>
 </li>
 <li><p>架构与可用性</p>
 <ul>
-<li>复制&#x2F;备份：验证逻辑复制&#x2F;物理复制在 18 的一致性与延迟；备份&#x2F;恢复通过率与 RTO&#x2F;RPO 对标。</li>
+<li>复制/备份：验证逻辑复制/物理复制在 18 的一致性与延迟；备份/恢复通过率与 RTO/RPO 对标。</li>
 <li>灰度：双写或影子读策略，把可能的计划震荡置于可回退范围内。</li>
 </ul>
 </li>
 <li><p>安全与身份</p>
 <ul>
-<li>身份：梳理 DB 账户 → 统一到 IdP&#x2F;OAuth 或 SCRAM；清退 MD5。</li>
+<li>身份：梳理 DB 账户 → 统一到 IdP/OAuth 或 SCRAM；清退 MD5。</li>
 <li>审计：借助 RETURNING + 逻辑解耦，完善写入审计与数据血缘。</li>
 </ul>
 </li>
 <li><p>开发与建模</p>
 <ul>
-<li>主键策略：评估 <code>uuidv7()</code> 替代 <code>uuidv4</code> 的收益，避免热点&#x2F;随机写放大。</li>
+<li>主键策略：评估 <code>uuidv7()</code> 替代 <code>uuidv4</code> 的收益，避免热点/随机写放大。</li>
 <li>衍生列：将低频计算迁往虚拟生成列，压缩存储体积，清理不必要的物化字段。</li>
-<li>时态约束：重构历史&#x2F;版本化表结构，把“时间有效性”下沉到数据库约束层。</li>
+<li>时态约束：重构历史/版本化表结构，把“时间有效性”下沉到数据库约束层。</li>
 </ul>
 </li>
 </ul>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>PostgreSQL 18 的关键词是“性能工程 + 治理工程”：AIO 拉升 I&#x2F;O 吞吐、算子级优化降低尾延迟，配合对升级、认证与约束语义的系统化补齐，让“安全上线 + 平滑演进”成为常态。建议采用“预演压测 → 灰度发布 → 观测回滚”的标配流程，分阶段引入新能力，把风险与收益纳入同一张工程账。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>PostgreSQL 18 的关键词是“性能工程 + 治理工程”：AIO 拉升 I/O 吞吐、算子级优化降低尾延迟，配合对升级、认证与约束语义的系统化补齐，让“安全上线 + 平滑演进”成为常态。建议采用“预演压测 → 灰度发布 → 观测回滚”的标配流程，分阶段引入新能力，把风险与收益纳入同一张工程账。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li>官方文档：PostgreSQL 18.0 Release Notes（2025-09-25）</li>
 </ul>
 
                 
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -495,16 +507,16 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">张显达</a>
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
                     !
                 </span>
             </div>
         
     </div>
 
-    <script async defer>
+    <script async="" defer="">
       document.addEventListener("copy", function (e) {
         let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
         M.toast({html: toastHTML})
@@ -576,10 +588,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                 </div>
             </div>
@@ -626,7 +638,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">十月安全脉搏：CISA KEV 新增高危漏洞与“补丁星期二”的企业执行攻略</span>
                     </div>
@@ -691,7 +703,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="2025年10月前端观察：React Conf 2025 回顾、Compiler 1.0 与 19.2 的落地路线">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="2025年10月前端观察：React Conf 2025 回顾、Compiler 1.0 与 19.2 的落地路线" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">2025年10月前端观察：React Conf 2025 回顾、Compiler 1.0 与 19.2 的落地路线</span>
                     </div>
@@ -866,7 +878,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m8 l8">
-        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        <p>Copyright © 2025 <a href="/">张显达的个人博客</a></p>
         
       </div>
       <div class="col s12 m4 l4 right-align">
@@ -874,7 +886,7 @@
         <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
         <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
         <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
-        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
           <i class="fas fa-rss"></i>
         </a>
       </div>
@@ -889,8 +901,7 @@
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1042,7 +1053,7 @@ $(function () {
      
         <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
         <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
     
 
     <!-- Baidu Analytics -->
@@ -1067,7 +1078,7 @@ $(function () {
     <script src="/libs/others/clicklove.js" async="async"></script>
     
     
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1086,6 +1097,7 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-</body>
 
-</html>
+
+
+</body></html>

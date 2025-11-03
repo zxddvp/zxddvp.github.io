@@ -1,9 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-
-
-<head>
+<!DOCTYPE html><html lang="zh-CN"><head>
     <meta charset="utf-8">
+    <meta name="author" content="张显达">
     <meta name="keywords" content="GitLab CI/CD 介绍和使用, 张显达|个人|博客|技术|生活">
     <meta name="description" content="一、持续集成介绍
 持续集成是一种软件开发实践，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次，也就意味着每天可能会发生多次集成。每次集成都通过自动化的构建（包括编译，发布，自动化测试)来验证，从而尽快地发现集成错误。许多团队">
@@ -15,8 +12,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
     <link rel="canonical" href="https://zhangxianda.com/2018/11/22/ruan-jian-gong-ju/devops/gitlab-ci-jie-shao-he-shi-yong/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -30,6 +31,11 @@
     <meta property="og:url" content="https://zhangxianda.com/2018/11/22/ruan-jian-gong-ju/devops/gitlab-ci-jie-shao-he-shi-yong/">
     <meta property="og:site_name" content="张显达的个人博客">
     <meta property="og:image" content="https://statics.sh1a.qingstor.com/2018/11/22/gitlab-ci-machine.png">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2025-09-16T09:13:29.553Z">
+    
+    <meta property="og:image:alt" content="GitLab CI/CD 介绍和使用 | 张显达的个人博客">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -37,11 +43,12 @@
     <meta name="twitter:description" content="一、持续集成介绍
 持续集成是一种软件开发实践，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次，也就意味着每天可能会发生多次集成。每次集成都通过自动化的构建（包括编译，发布，自动化测试)来验证，从而尽快地发现集成错误。许多团队">
     <meta name="twitter:image" content="https://statics.sh1a.qingstor.com/2018/11/22/gitlab-ci-machine.png">
+    
 
     
 
     <title>GitLab CI/CD 介绍和使用 | 张显达的个人博客</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
     
 
 
@@ -73,13 +80,12 @@
 
 
 
-    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
 
     
     <script type="application/ld+json">
@@ -91,13 +97,19 @@
       "datePublished": "2018-11-21T16:00:00.000Z",
       "dateModified": "2025-09-16T09:13:29.553Z",
       "author": { "@type": "Person", "name": "张显达" },
-      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
       "image": "https://statics.sh1a.qingstor.com/2018/11/22/gitlab-ci-machine.png"
     }
     </script>
     
+    <meta property="article:published_time" content="2018-11-21T16:00:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2025-09-16T09:13:29.553Z">
+    
+    
 
-<meta name="generator" content="Hexo 8.0.0"></head>
+<meta name="generator" content="Hexo 8.1.0"></head>
 
 
 <body>
@@ -108,7 +120,7 @@
       <div class="brand-logo">
         <a href="/" class="waves-effect waves-light">
           
-            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
           
           <span class="logo-span">张显达</span>
         </a>
@@ -182,7 +194,7 @@
       <div id="mobile-nav" class="side-nav sidenav">
         <div class="mobile-head bg-color">
           
-            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
           
           <div class="logo-name">张显达</div>
           <div class="logo-desc">张显达的个人博客</div>
@@ -356,42 +368,42 @@
 <li><strong>更高的产品质量。</strong>集成服务器往往提供代码质量检测等功能，对不规范或有错误的地方会进行标致，也可以设置邮件和短信等进行警告。</li>
 </ul>
 <h3 id="3-常用持续集成工具"><a href="#3-常用持续集成工具" class="headerlink" title="3 常用持续集成工具"></a>3 常用持续集成工具</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://jenkins.io/">Jenkins</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/README.html">GitLab CI</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.jetbrains.com/teamcity/">TeamCity</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.travis-ci.org/">Travis CI</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.atlassian.com/software/bamboo">Bamboo</a></li>
-<li><a target="_blank" rel="noopener" href="https://circleci.com/">CircleCI</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="https://jenkins.io/">Jenkins</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ee/ci/README.html">GitLab CI</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="https://www.jetbrains.com/teamcity/">TeamCity</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="https://www.travis-ci.org/">Travis CI</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="https://www.atlassian.com/software/bamboo">Bamboo</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="https://circleci.com/">CircleCI</a></li>
 <li>…</li>
 </ul>
-<h2 id="二、Gitlab-持续集成"><a href="#二、Gitlab-持续集成" class="headerlink" title="二、Gitlab 持续集成"></a>二、Gitlab 持续集成</h2><p><img src="https://statics.sh1a.qingstor.com/2018/11/22/pipelines.png" alt="GitLab CI/CD"></p>
-<h3 id="1-概念介绍"><a href="#1-概念介绍" class="headerlink" title="1 概念介绍"></a>1 概念介绍</h3><h4 id="1-GitLab"><a href="#1-GitLab" class="headerlink" title="(1) GitLab"></a>(1) GitLab</h4><p><a target="_blank" rel="noopener" href="https://about.gitlab.com/">GitLab</a> 是一个利用<code>Ruby on Rails</code>开发的开源应用程序，实现一个自托管的 Git 项目仓库，可通过 Web 界面进行访问公开的或者私人项目。它拥有与<a target="_blank" rel="noopener" href="https://github.com/">GitHub</a>类似的功能，能够浏览源代码，管理缺陷和注释。可以管理团队对仓库的访问，它非常易于浏览提交过的版本并提供一个文件历史库。</p>
-<h4 id="2-GitLab-CI-CD"><a href="#2-GitLab-CI-CD" class="headerlink" title="(2) GitLab CI/CD"></a>(2) GitLab CI/CD</h4><p><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/README.html">GitLab CI/CD</a> 是<code>GitLab Continuous Integration</code>（Gitlab持续集成）的简称。GitLab 自<code>GitLab 8.0</code>开始提供了持续集成的功能，且对所有项目默认开启。只要在项目仓库的根目录添加<code>.gitlab-ci.yml</code>文件，并且配置了Runner（运行器），那么每一次<code>push</code>或者合并请求（<code>Merge Request</code>）都会触发<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/pipelines.html">CI Pipeline</a>。</p>
-<h4 id="3-GitLab-Runner"><a href="#3-GitLab-Runner" class="headerlink" title="(3) GitLab Runner"></a>(3) GitLab Runner</h4><p><a target="_blank" rel="noopener" href="https://docs.gitlab.com/runner/">GitLab Runner</a> <code>GitLab Runner</code>是一个开源项目，可以运行在 GNU / Linux，macOS 和 Windows 操作系统上。每次<code>push</code>的时候 GitLab CI 会根据<code>.gitlab-ci.yml</code>配置文件运行你流水线（<code>Pipeline</code>）中各个阶段的任务（<code>Job</code>），并将结果发送回 GitLab。GitLab Runner 是基于 Gitlab CI 的 API 进行构建的相互隔离的机器（或虚拟机）。GitLab Runner 不需要和 Gitlab 安装在同一台机器上，且考虑到 GitLab Runner 的资源消耗问题和安全问题，也不建议这两者安装在同一台机器上。</p>
+<h2 id="二、Gitlab-持续集成"><a href="#二、Gitlab-持续集成" class="headerlink" title="二、Gitlab 持续集成"></a>二、Gitlab 持续集成</h2><p><img src="https://statics.sh1a.qingstor.com/2018/11/22/pipelines.png" alt="GitLab CI/CD" loading="lazy" decoding="async" fetchpriority="low"></p>
+<h3 id="1-概念介绍"><a href="#1-概念介绍" class="headerlink" title="1 概念介绍"></a>1 概念介绍</h3><h4 id="1-GitLab"><a href="#1-GitLab" class="headerlink" title="(1) GitLab"></a>(1) GitLab</h4><p><a target="_blank" rel="noopener noreferrer external nofollow" href="https://about.gitlab.com/">GitLab</a> 是一个利用<code>Ruby on Rails</code>开发的开源应用程序，实现一个自托管的 Git 项目仓库，可通过 Web 界面进行访问公开的或者私人项目。它拥有与<a target="_blank" rel="noopener noreferrer external nofollow" href="https://github.com/">GitHub</a>类似的功能，能够浏览源代码，管理缺陷和注释。可以管理团队对仓库的访问，它非常易于浏览提交过的版本并提供一个文件历史库。</p>
+<h4 id="2-GitLab-CI-CD"><a href="#2-GitLab-CI-CD" class="headerlink" title="(2) GitLab CI/CD"></a>(2) GitLab CI/CD</h4><p><a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ee/ci/README.html">GitLab CI/CD</a> 是<code>GitLab Continuous Integration</code>（Gitlab持续集成）的简称。GitLab 自<code>GitLab 8.0</code>开始提供了持续集成的功能，且对所有项目默认开启。只要在项目仓库的根目录添加<code>.gitlab-ci.yml</code>文件，并且配置了Runner（运行器），那么每一次<code>push</code>或者合并请求（<code>Merge Request</code>）都会触发<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/pipelines.html">CI Pipeline</a>。</p>
+<h4 id="3-GitLab-Runner"><a href="#3-GitLab-Runner" class="headerlink" title="(3) GitLab Runner"></a>(3) GitLab Runner</h4><p><a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/runner/">GitLab Runner</a> <code>GitLab Runner</code>是一个开源项目，可以运行在 GNU / Linux，macOS 和 Windows 操作系统上。每次<code>push</code>的时候 GitLab CI 会根据<code>.gitlab-ci.yml</code>配置文件运行你流水线（<code>Pipeline</code>）中各个阶段的任务（<code>Job</code>），并将结果发送回 GitLab。GitLab Runner 是基于 Gitlab CI 的 API 进行构建的相互隔离的机器（或虚拟机）。GitLab Runner 不需要和 Gitlab 安装在同一台机器上，且考虑到 GitLab Runner 的资源消耗问题和安全问题，也不建议这两者安装在同一台机器上。</p>
 <p>Gitlab Runner 分为三种：</p>
 <ul>
 <li>共享Runner(<code>Shared runners</code>)</li>
 <li>专享Runner(<code>Specific runners</code>)</li>
 <li>分组Runner(<code>Group Runners</code>)</li>
 </ul>
-<h4 id="4-Pipelines"><a href="#4-Pipelines" class="headerlink" title="(4) Pipelines"></a>(4) Pipelines</h4><p><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/pipelines.html">Pipelines</a> 中文称为流水线，是分阶段执行的构建任务。如：安装依赖、运行测试、打包、部署开发服务器、部署生产服务器等流程。每一次<code>push</code>或者<code>Merge Request</code>都会触发生成一条新的Pipeline。</p>
+<h4 id="4-Pipelines"><a href="#4-Pipelines" class="headerlink" title="(4) Pipelines"></a>(4) Pipelines</h4><p><a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/pipelines.html">Pipelines</a> 中文称为流水线，是分阶段执行的构建任务。如：安装依赖、运行测试、打包、部署开发服务器、部署生产服务器等流程。每一次<code>push</code>或者<code>Merge Request</code>都会触发生成一条新的Pipeline。</p>
 <p>下面是流水线示例图：</p>
-<p><img src="https://docs.gitlab.com/ce/ci/img/pipelines_index.png" alt="Pipeline Status"></p>
-<h4 id="5-Stages"><a href="#5-Stages" class="headerlink" title="(5) Stages"></a>(5) Stages</h4><p><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/yaml/README.html#stages">Stages</a> 表示构建阶段，可以理解为上面所说“安装依赖”、“运行测试”等环节的流程。我们可以在一次 Pipeline 中定义多个 Stages，这些 Stages 会有以下特点：</p>
+<p><img src="https://docs.gitlab.com/ce/ci/img/pipelines_index.png" alt="Pipeline Status" loading="lazy" decoding="async" fetchpriority="low"></p>
+<h4 id="5-Stages"><a href="#5-Stages" class="headerlink" title="(5) Stages"></a>(5) Stages</h4><p><a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/yaml/README.html#stages">Stages</a> 表示构建阶段，可以理解为上面所说“安装依赖”、“运行测试”等环节的流程。我们可以在一次 Pipeline 中定义多个 Stages，这些 Stages 会有以下特点：</p>
 <ul>
 <li>所有 Stages 会按照顺序运行，即当一个 Stage 完成后，下一个 Stage 才会开始（当然可以在<code>.gitlab-ci.yml</code>文件中配置上一阶段失败时下一阶段也执行）</li>
 <li>只有当所有 Stages 完成后，该构建任务 (Pipeline) 才会成功</li>
 <li>如果任何一个 Stage 失败，那么后面的 Stages 不会执行，该构建任务 (Pipeline) 失败</li>
 </ul>
 <p>下面是一个流水线内的阶段任务示例图：</p>
-<p><img src="https://docs.gitlab.com/ce/ci/img/pipelines.png" alt="Job Status"></p>
-<h4 id="6-Jobs"><a href="#6-Jobs" class="headerlink" title="(6) Jobs"></a>(6) Jobs</h4><p><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/pipelines.html#jobs">Jobs</a> 表示构建的作业（或称之为任务），表示某个 Stage 里面执行的具体任务。我们可以在 Stages 里面定义多个 Jobs，这些 Jobs 会有以下特点：</p>
+<p><img src="https://docs.gitlab.com/ce/ci/img/pipelines.png" alt="Job Status" loading="lazy" decoding="async" fetchpriority="low"></p>
+<h4 id="6-Jobs"><a href="#6-Jobs" class="headerlink" title="(6) Jobs"></a>(6) Jobs</h4><p><a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/pipelines.html#jobs">Jobs</a> 表示构建的作业（或称之为任务），表示某个 Stage 里面执行的具体任务。我们可以在 Stages 里面定义多个 Jobs，这些 Jobs 会有以下特点：</p>
 <ul>
 <li>相同 Stage 中的 Jobs 无执行顺序要求，会并行执行</li>
 <li>相同 Stage 中的 Jobs 都执行成功时，该 Stage 才会成功</li>
 <li>如果任何一个 Job 失败，那么该 Stage 失败，即该构建任务 (Pipeline) 也失败（可以在<code>.gitlab-ci.yml</code>文件中配置允许某 Job 可以失败，也算该 Stage 成功）</li>
 </ul>
-<h4 id="7-gitlab-ci-yml"><a href="#7-gitlab-ci-yml" class="headerlink" title="(7) .gitlab-ci.yml"></a>(7) .gitlab-ci.yml</h4><p>GitLab 中默认开启了 Gitlab CI/CD 的支持，且使用<a target="_blank" rel="noopener" href="http://yaml.org/">YAML</a>文件<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/yaml/README.html#examples">.gitlab-ci.yml</a>来管理项目构建配置。该文件需要存放于项目仓库的根目录（默认路径，可在 GitLab 中修改），它定义该项目的 CI/CD 如何配置。所以，我们只需要在<code>.gitlab-ci.yml</code>配置文件中定义流水线的各个阶段，以及各个阶段中的若干作业（任务）即可。</p>
+<h4 id="7-gitlab-ci-yml"><a href="#7-gitlab-ci-yml" class="headerlink" title="(7) .gitlab-ci.yml"></a>(7) .gitlab-ci.yml</h4><p>GitLab 中默认开启了 Gitlab CI/CD 的支持，且使用<a target="_blank" rel="noopener noreferrer external nofollow" href="http://yaml.org/">YAML</a>文件<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ee/ci/yaml/README.html#examples">.gitlab-ci.yml</a>来管理项目构建配置。该文件需要存放于项目仓库的根目录（默认路径，可在 GitLab 中修改），它定义该项目的 CI/CD 如何配置。所以，我们只需要在<code>.gitlab-ci.yml</code>配置文件中定义流水线的各个阶段，以及各个阶段中的若干作业（任务）即可。</p>
 <p>下面是<code>.gitlab-ci.yml</code>文件的一个简单的<code>Hello World</code>示例：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 定义 test 和 package 两个 Stages</span>
 <span class="token key atrule">stages</span><span class="token punctuation">:</span>
@@ -399,41 +411,41 @@
   <span class="token punctuation">-</span> package
 
 <p><span class="token comment"># 定义 package 阶段的一个 job</span><br><span class="token key atrule">package-job</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> package<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> echo “Hello<span class="token punctuation">,</span> package<span class="token punctuation">-</span>job”<br>    <span class="token punctuation">-</span> echo “I am in package stage”</p>
-<p><span class="token comment"># 定义 test 阶段的一个 job</span><br><span class="token key atrule">test-job</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> test<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> echo “Hello<span class="token punctuation">,</span> test<span class="token punctuation">-</span>job”<br>    <span class="token punctuation">-</span> echo “I am in test stage”<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-yaml"><span class="token comment"># 定义 test 阶段的一个 job</span><br><span class="token key atrule">test-job</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> test<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> echo “Hello<span class="token punctuation">,</span> test<span class="token punctuation">-</span>job”<br>    <span class="token punctuation">-</span> echo “I am in test stage”<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <p>以上配置中，用 stages 关键字来定义 Pipeline 中的各个构建阶段，然后用一些非关键字来定义 jobs。每个 job 中可以可以再用 stage 关键字来指定该 job 对应哪个 stage。job 里面的<code>script</code>关键字是每个 job 中必须要包含的，它表示每个 job 要执行的命令。</p>
 <blockquote>
 <p><strong>注</strong>：猜猜上面例子的运行结果？</p>
 </blockquote>
-<h4 id="8-Badges"><a href="#8-Badges" class="headerlink" title="(8) Badges"></a>(8) Badges</h4><p><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/pipelines.html#badges">Badges</a> 即：<strong>徽章</strong>，当 Pipelines 执行过程中或者执行完成时会生成徽章，你可以将这些徽章加入到你的<code>README.md</code>文件中，便于从仓库主页看到最新的构建状态。</p>
+<h4 id="8-Badges"><a href="#8-Badges" class="headerlink" title="(8) Badges"></a>(8) Badges</h4><p><a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/pipelines.html#badges">Badges</a> 即：<strong>徽章</strong>，当 Pipelines 执行过程中或者执行完成时会生成徽章，你可以将这些徽章加入到你的<code>README.md</code>文件中，便于从仓库主页看到最新的构建状态。</p>
 <p>徽章的链接形如下：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">http://example.gitlab.com/namespace/project/badges/branch/build.svg <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>我们用 GitLab 项目的徽章作为例子，效果如下：</p>
-<p><img src="https://gitlab.com/gitlab-org/gitlab-ce/badges/master/build.svg" alt="Gitlab build badges"> <img src="https://gitlab.com/gitlab-org/gitlab-ce/badges/master/coverage.svg?job=coverage" alt="Gitlab coverage badges"></p>
-<h3 id="2-安装-GitLab-Runner"><a href="#2-安装-GitLab-Runner" class="headerlink" title="2 安装 GitLab Runner"></a>2 安装 GitLab Runner</h3><p><a target="_blank" rel="noopener" href="https://docs.gitlab.com/runner/install/index.html">这里</a>有 GitLab Runner安装相关的资源和文档可供大家参考。以下仅以咱们公司常用的<code>Centos</code>为例来做安装说明。</p>
+<p><img src="https://gitlab.com/gitlab-org/gitlab-ce/badges/master/build.svg" alt="Gitlab build badges" loading="lazy" decoding="async" fetchpriority="low"> <img src="https://gitlab.com/gitlab-org/gitlab-ce/badges/master/coverage.svg?job=coverage" alt="Gitlab coverage badges" loading="lazy" decoding="async" fetchpriority="low"></p>
+<h3 id="2-安装-GitLab-Runner"><a href="#2-安装-GitLab-Runner" class="headerlink" title="2 安装 GitLab Runner"></a>2 安装 GitLab Runner</h3><p><a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/runner/install/index.html">这里</a>有 GitLab Runner安装相关的资源和文档可供大家参考。以下仅以咱们公司常用的<code>Centos</code>为例来做安装说明。</p>
 <h4 id="1-在线安装"><a href="#1-在线安装" class="headerlink" title="(1) 在线安装"></a>(1) 在线安装</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 添加官方的repo.</span>
 <span class="token function">curl</span> -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span>
 
-<p><span class="token comment"># yum 安装Gtilab Runner.</span><br><span class="token function">sudo</span> yum <span class="token function">install</span> gitlab-runner<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-bash"><span class="token comment"># yum 安装Gtilab Runner.</span><br><span class="token function">sudo</span> yum <span class="token function">install</span> gitlab-runner<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <h4 id="2-离线安装"><a href="#2-离线安装" class="headerlink" title="(2) 离线安装"></a>(2) 离线安装</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装Git</span>
 <span class="token function">sudo</span> yum –y <span class="token function">install</span> <span class="token function">git</span>
 
-<p><span class="token comment"># rpm离线安装事先下载好的 Gitlab Runner rpm包.</span><br><span class="token function">rpm</span> -ivh gitlab-runner-10.5.0-1.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-bash"><span class="token comment"># rpm离线安装事先下载好的 Gitlab Runner rpm包.</span><br><span class="token function">rpm</span> -ivh gitlab-runner-10.5.0-1.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <blockquote>
-<p><strong>注</strong>：Gitlab Runner 依赖了<code>Git</code>，所以，离线安装 Gitlab Runner 之前得首先安装Git，离线安装包可以从<a target="_blank" rel="noopener" href="https://packages.gitlab.com/runner/gitlab-runner">这里</a>下载。</p>
+<p><strong>注</strong>：Gitlab Runner 依赖了<code>Git</code>，所以，离线安装 Gitlab Runner 之前得首先安装Git，离线安装包可以从<a target="_blank" rel="noopener noreferrer external nofollow" href="https://packages.gitlab.com/runner/gitlab-runner">这里</a>下载。</p>
 </blockquote>
-<h3 id="3-注册-Gitlab-Runner"><a href="#3-注册-Gitlab-Runner" class="headerlink" title="3 注册 Gitlab Runner"></a>3 注册 Gitlab Runner</h3><p>安装了 GitLab Runner 之后,就可以为 GitLab 中的仓库<a target="_blank" rel="noopener" href="https://docs.gitlab.com/runner/register/index.html">注册一个 Runner</a>，注册的交互式命令如下：</p>
+<h3 id="3-注册-Gitlab-Runner"><a href="#3-注册-Gitlab-Runner" class="headerlink" title="3 注册 Gitlab Runner"></a>3 注册 Gitlab Runner</h3><p>安装了 GitLab Runner 之后,就可以为 GitLab 中的仓库<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/runner/register/index.html">注册一个 Runner</a>，注册的交互式命令如下：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> gitlab-runner register<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>命令的交互式的过程如下：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 输入注册命令</span>
 <span class="token function">sudo</span> gitlab-runner register
 
-<p><span class="token comment"># 输入公司的 GitLab 网站地址</span><br>Please enter the gitlab-ci coordinator URL <span class="token punctuation">(</span>e.g. <a target="_blank" rel="noopener" href="https://gitlab.com/">https://gitlab.com</a> <span class="token punctuation">)</span><br><a target="_blank" rel="noopener" href="http://gitlab.xxxx.com/">http://gitlab.xxxx.com/</a></p>
-<p><span class="token comment"># 你项目仓库的token，token可以在 Settings -&gt; CI&#x2F;CD -&gt; Runners settings 中找到.</span><br>Please enter the gitlab-ci token <span class="token keyword">for</span> this runner<br>xxx</p>
+<p><span class="token comment"># 输入公司的 GitLab 网站地址</span><br>Please enter the gitlab-ci coordinator URL <span class="token punctuation">(</span>e.g. <a target="_blank" rel="noopener noreferrer external nofollow" href="https://gitlab.com/">https://gitlab.com</a> <span class="token punctuation">)</span><br><a target="_blank" rel="noopener noreferrer external nofollow" href="http://gitlab.xxxx.com/">http://gitlab.xxxx.com/</a></p>
+<p><span class="token comment"># 你项目仓库的token，token可以在 Settings -&gt; CI/CD -&gt; Runners settings 中找到.</span><br>Please enter the gitlab-ci token <span class="token keyword">for</span> this runner<br>xxx</p>
 <p><span class="token comment"># 输入描述这个 runner 的名称</span><br>Please enter the gitlab-ci description <span class="token keyword">for</span> this runner<br><span class="token punctuation">[</span>hostame<span class="token punctuation">]</span> my-runner</p>
 <p><span class="token comment"># 输入 runner 的标签</span><br>Please enter the gitlab-ci tags <span class="token keyword">for</span> this runner <span class="token punctuation">(</span>comma separated<span class="token punctuation">)</span>:<br>my-tag,another-tag</p>
-<p><span class="token comment"># 输入 runner 的执行器.</span><br>Please enter the executor: ssh, docker+machine, docker-ssh+machine, kubernetes, docker, parallels, virtualbox, docker-ssh, shell:<br>shell<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-bash"><span class="token comment"># 输入 runner 的执行器.</span><br>Please enter the executor: ssh, docker+machine, docker-ssh+machine, kubernetes, docker, parallels, virtualbox, docker-ssh, shell:<br>shell<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <p>以上流程注册成功之后，就可以在你的项目仓库中 <code>Settings</code> -&gt; <code>CI/CD</code> -&gt; <code>Runners settings</code> 看到这个 Runner 了。</p>
-<h3 id="4-Gitlab-Runner-常用命令汇总"><a href="#4-Gitlab-Runner-常用命令汇总" class="headerlink" title="4 Gitlab Runner 常用命令汇总"></a>4 Gitlab Runner 常用命令汇总</h3><p>下面的表格中列出了一些常用的<a target="_blank" rel="noopener" href="https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-list">Gitlab Runner命令</a>，以供参考：</p>
+<h3 id="4-Gitlab-Runner-常用命令汇总"><a href="#4-Gitlab-Runner-常用命令汇总" class="headerlink" title="4 Gitlab Runner 常用命令汇总"></a>4 Gitlab Runner 常用命令汇总</h3><p>下面的表格中列出了一些常用的<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-list">Gitlab Runner命令</a>，以供参考：</p>
 <table>
 <thead>
 <tr>
@@ -490,17 +502,17 @@
   <span class="token punctuation">-</span> run
   <span class="token punctuation">-</span> sonar
 
-<p><span class="token comment"># 定义安装包的存放位置和Tomcat服务器的地址的变量，便于后续部署使用.</span><br><span class="token key atrule">variables</span><span class="token punctuation">:</span><br>  <span class="token key atrule">CIDEMO_PACKAGE_DIR</span><span class="token punctuation">:</span> <span class="token string">‘&#x2F;home&#x2F;gitlab-runner&#x2F;packages&#x2F;cidemo&#x2F;‘</span><br>  <span class="token key atrule">SERVER_HOME_DIR</span><span class="token punctuation">:</span> <span class="token string">‘&#x2F;home&#x2F;gitlab-runner&#x2F;tomcat&#x2F;cidemo-tomcat&#x2F;‘</span></p>
+<p><span class="token comment"># 定义安装包的存放位置和Tomcat服务器的地址的变量，便于后续部署使用.</span><br><span class="token key atrule">variables</span><span class="token punctuation">:</span><br>  <span class="token key atrule">CIDEMO_PACKAGE_DIR</span><span class="token punctuation">:</span> <span class="token string">‘/home/gitlab-runner/packages/cidemo/‘</span><br>  <span class="token key atrule">SERVER_HOME_DIR</span><span class="token punctuation">:</span> <span class="token string">‘/home/gitlab-runner/tomcat/cidemo-tomcat/‘</span></p>
 <p><span class="token comment">###################### 构建编译和单元测试的job. #######################</span></p>
 <p><span class="token key atrule">编译测试任务</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> test<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> branches<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> mvn clean test</p>
 <p><span class="token comment">###################### Maven安装得到war包的job. #######################</span></p>
-<p><span class="token key atrule">打包任务</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> install<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> develop<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> mvn install<br>    <span class="token punctuation">-</span> echo ‘准备将最新的war包复制、保存到某个目录里面供后续使用.’<br>    <span class="token punctuation">-</span> rm <span class="token punctuation">-</span>rf $CIDEMO_PACKAGE_DIR&#x2F;<span class="token important"><em>.war</span><br>    <span class="token punctuation">-</span> cp target&#x2F;<span class="token important"></em>.war</span> $CIDEMO_PACKAGE_DIR&#x2F;cidemo.war</p>
+<p><span class="token key atrule">打包任务</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> install<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> develop<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> mvn install<br>    <span class="token punctuation">-</span> echo ‘准备将最新的war包复制、保存到某个目录里面供后续使用.’<br>    <span class="token punctuation">-</span> rm <span class="token punctuation">-</span>rf $CIDEMO_PACKAGE_DIR/<span class="token important"><em>.war</em></span><em><br>    <span class="token punctuation">-</span> cp target/<span class="token important"></span></em>.war $CIDEMO_PACKAGE_DIR/cidemo.war</p>
 <p><span class="token comment">####################### 部署运行war包的job. #######################</span></p>
-<p><span class="token key atrule">部署运行任务</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> run<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> develop<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> echo ‘准备部署和运行war包！(为了方便部署到了Tomcat中运行)’<br>    <span class="token punctuation">-</span> cd $SERVER_HOME_DIR<br>    <span class="token punctuation">-</span> sh bin&#x2F;shutdown.sh<br>    <span class="token punctuation">-</span> rm <span class="token punctuation">-</span>rf webapps&#x2F;cidemo.war<br>    <span class="token punctuation">-</span> cp $CIDEMO_PACKAGE_DIR&#x2F;cidemo.war $SERVER_HOME_DIR&#x2F;webapps&#x2F;cidemo.war<br>    <span class="token punctuation">-</span> nohup sh .&#x2F;bin&#x2F;startup.sh <span class="token punctuation">&gt;</span> logs&#x2F;cidemo_nohup.log 2<span class="token punctuation">&gt;</span><span class="token important">&amp;1</span> &amp;</p>
+<p><span class="token key atrule">部署运行任务</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> run<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> develop<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> echo ‘准备部署和运行war包！(为了方便部署到了Tomcat中运行)’<br>    <span class="token punctuation">-</span> cd $SERVER_HOME_DIR<br>    <span class="token punctuation">-</span> sh bin/shutdown.sh<br>    <span class="token punctuation">-</span> rm <span class="token punctuation">-</span>rf webapps/cidemo.war<br>    <span class="token punctuation">-</span> cp $CIDEMO_PACKAGE_DIR/cidemo.war $SERVER_HOME_DIR/webapps/cidemo.war<br>    <span class="token punctuation">-</span> nohup sh ./bin/startup.sh <span class="token punctuation">&gt;</span> logs/cidemo_nohup.log 2<span class="token punctuation">&gt;</span><span class="token important">&amp;1</span> &amp;</p>
 <p><span class="token comment">###################### Sonar手动构建的job. #######################</span></p>
-<p><span class="token key atrule">Sonar手动检查</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> sonar<br>  <span class="token key atrule">when</span><span class="token punctuation">:</span> manual<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> develop<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> echo ‘准备对项目代码做sonar的质量检查！’<br>    <span class="token punctuation">-</span> mvn compile <span class="token important">&amp;&amp;</span> mvn sonar<span class="token punctuation">:</span>sonar <span class="token punctuation">-</span>Dsonar.host.url&#x3D;http<span class="token punctuation">:</span>&#x2F;&#x2F;172.16.34.102<span class="token punctuation">:</span>9000 <span class="token punctuation">-</span>Dsonar.login&#x3D;497a0e0e2fc07f64c4b54edc17bb47dfa251ba34</p>
+<p><span class="token key atrule">Sonar手动检查</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> sonar<br>  <span class="token key atrule">when</span><span class="token punctuation">:</span> manual<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> develop<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> echo ‘准备对项目代码做sonar的质量检查！’<br>    <span class="token punctuation">-</span> mvn compile <span class="token important">&amp;&amp;</span> mvn sonar<span class="token punctuation">:</span>sonar <span class="token punctuation">-</span>Dsonar.host.url=http<span class="token punctuation">:</span>//172.16.34.102<span class="token punctuation">:</span>9000 <span class="token punctuation">-</span>Dsonar.login=497a0e0e2fc07f64c4b54edc17bb47dfa251ba34</p>
 <p><span class="token comment">###################### Sonar每晚定时构建的job. #######################</span></p>
-<p><span class="token key atrule">Sonar定时检查</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> sonar<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> schedules<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> echo ‘开始定时对项目代码做sonar的质量检查！’<br>    <span class="token punctuation">-</span> mvn compile <span class="token important">&amp;&amp;</span> mvn sonar<span class="token punctuation">:</span>sonar <span class="token punctuation">-</span>Dsonar.host.url&#x3D;http<span class="token punctuation">:</span>&#x2F;&#x2F;172.16.34.102<span class="token punctuation">:</span>9000 <span class="token punctuation">-</span>Dsonar.login&#x3D;497a0e0e2fc07f64c4b54edc17bb47dfa251ba34<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-yaml"><span class="token key atrule">Sonar定时检查</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> sonar<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> schedules<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> echo ‘开始定时对项目代码做sonar的质量检查！’<br>    <span class="token punctuation">-</span> mvn compile <span class="token important">&amp;&amp;</span> mvn sonar<span class="token punctuation">:</span>sonar <span class="token punctuation">-</span>Dsonar.host.url=http<span class="token punctuation">:</span>//172.16.34.102<span class="token punctuation">:</span>9000 <span class="token punctuation">-</span>Dsonar.login=497a0e0e2fc07f64c4b54edc17bb47dfa251ba34<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <h2 id="四、Gitlab-CI-CD-yaml-常用配置介绍"><a href="#四、Gitlab-CI-CD-yaml-常用配置介绍" class="headerlink" title="四、Gitlab CI/CD yaml 常用配置介绍"></a>四、Gitlab CI/CD yaml 常用配置介绍</h2><p>开始构建之前<code>.gitlab-ci.yml</code>文件定义了一系列带有约束说明的任务。这些任务都是以任务名开始并且至少要包含script部分，<code>.gitlab-ci.yml</code>允许指定无限量 jobs。每个 jobs 必须有一个唯一的名字，且名字不能是下面列出的保留字段：</p>
 <ul>
 <li><code>image</code></li>
@@ -534,12 +546,12 @@
 <tr>
 <td>image</td>
 <td>no</td>
-<td>所使用的docker镜像，查阅<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-image-and-services-from-gitlab-ciyml">使用docker镜像</a></td>
+<td>所使用的docker镜像，查阅<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-image-and-services-from-gitlab-ciyml">使用docker镜像</a></td>
 </tr>
 <tr>
 <td>services</td>
 <td>no</td>
-<td>所使用的docker服务，查阅<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-image-and-services-from-gitlab-ciyml">使用docker镜像</a></td>
+<td>所使用的docker服务，查阅<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/docker/using_docker_images.html#define-image-and-services-from-gitlab-ciyml">使用docker镜像</a></td>
 </tr>
 <tr>
 <td>stage</td>
@@ -625,7 +637,7 @@
 <h3 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h3><blockquote>
 <p>是在 GitLab 11.3 中引入的。</p>
 </blockquote>
-<p><code>extends</code>定义了一个使用<code>extends</code>的作业将继承的条目名称。它是使用<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/yaml/README.html#anchors">YAML锚点</a>的替代方案，并且更加灵活和可读：</p>
+<p><code>extends</code>定义了一个使用<code>extends</code>的作业将继承的条目名称。它是使用<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ee/ci/yaml/README.html#anchors">YAML锚点</a>的替代方案，并且更加灵活和可读：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">.tests</span><span class="token punctuation">:</span>
   <span class="token key atrule">script</span><span class="token punctuation">:</span> rake test
   <span class="token key atrule">stage</span><span class="token punctuation">:</span> test
@@ -633,7 +645,7 @@
     <span class="token key atrule">refs</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> branches
 
-<p><span class="token key atrule">rspec</span><span class="token punctuation">:</span><br>  <span class="token key atrule">extends</span><span class="token punctuation">:</span> .tests<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span> rake rspec<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token key atrule">variables</span><span class="token punctuation">:</span><br>      <span class="token punctuation">-</span> $RSPEC<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-yaml"><span class="token key atrule">rspec</span><span class="token punctuation">:</span><br>  <span class="token key atrule">extends</span><span class="token punctuation">:</span> .tests<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span> rake rspec<br>  <span class="token key atrule">only</span><span class="token punctuation">:</span><br>    <span class="token key atrule">variables</span><span class="token punctuation">:</span><br>      <span class="token punctuation">-</span> $RSPEC<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <p>在上面的示例中，<code>rspec</code>作业继承自<code>.tests</code>模板作业。 GitLab 将根据键执行反向深度合并。 GitLab将：</p>
 <ul>
 <li>将<code>rspec</code>内容以递归方式合并到<code>.tests</code>中。</li>
@@ -651,7 +663,7 @@
 <blockquote>
 <p><strong>注</strong>: <code>rake test</code>已被<code>rake rspec</code>脚本覆盖。</p>
 </blockquote>
-<h3 id="image-和-services"><a href="#image-和-services" class="headerlink" title="image 和 services"></a>image 和 services</h3><p>这两个关键字允许使用一个自定义的 Docker 镜像和一系列的服务，并且可以用于整个 job 周期。详细配置文档请查看<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/docker/README.html">a separate document</a>。</p>
+<h3 id="image-和-services"><a href="#image-和-services" class="headerlink" title="image 和 services"></a>image 和 services</h3><p>这两个关键字允许使用一个自定义的 Docker 镜像和一系列的服务，并且可以用于整个 job 周期。详细配置文档请查看<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ee/ci/docker/README.html">a separate document</a>。</p>
 <h3 id="before-script-和-after-script"><a href="#before-script-和-after-script" class="headerlink" title="before_script 和 after_script"></a>before_script 和 after_script</h3><p><code>before_script</code>用来定义所有 job 之前运行的命令，<code>after_script</code>用来定义所有 job 之后运行的命令。它们可以是一个数组或者是多行字符串。</p>
 <h3 id="stages"><a href="#stages" class="headerlink" title="stages"></a>stages</h3><p>stages 用来定义可以被 job 调用的 stages。stages 的规范允许有灵活的多级 pipelines。</p>
 <p>stages中的元素顺序决定了对应job的执行顺序：</p>
@@ -717,7 +729,7 @@
   DATABASE_URL<span class="token punctuation">:</span><span class="token string">"postgres://postgres@postgres/my_database"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>这些变量可以被后续的命令和脚本使用。</p>
 <p>除了用户自定义的变量外，Runner 也可以定义它自己的变量。<code>CI_COMMIT_REG_NAME</code>就是一个很好的例子，它的值表示用于构建项目的分支或tag名称。除了在<code>.gitlab-ci.yml</code>中设置变量外，还有可以通过 GitLab 的界面上设置私有变量。</p>
-<p>这里有更多关于<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/variables/README.html">variables</a>的介绍。</p>
+<p>这里有更多关于<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/variables/README.html">variables</a>的介绍。</p>
 <h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h3><h4 id="cache-paths"><a href="#cache-paths" class="headerlink" title="cache: paths"></a>cache: paths</h4><p>使用<code>paths</code>指令选择要缓存的文件或目录。也可以使用通配符。</p>
 <p>如果 cache 定义在 jobs 的作用域之外，那么它就是全局缓存，所有 jobs 都可以使用该缓存。</p>
 <p>缓存<code>binaries</code>和<code>.config</code>中的所有文件：</p>
@@ -744,10 +756,10 @@
   <span class="token key atrule">paths</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> my/files
 
-<p><span class="token key atrule">rspec</span><span class="token punctuation">:</span><br>  <span class="token key atrule">script</span><span class="token punctuation">:</span> test<br>  <span class="token key atrule">cache</span><span class="token punctuation">:</span><br>    <span class="token key atrule">key</span><span class="token punctuation">:</span> rspec<br>    <span class="token key atrule">paths</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> binaries&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-yaml"><span class="token key atrule">rspec</span><span class="token punctuation">:</span><br>  <span class="token key atrule">script</span><span class="token punctuation">:</span> test<br>  <span class="token key atrule">cache</span><span class="token punctuation">:</span><br>    <span class="token key atrule">key</span><span class="token punctuation">:</span> rspec<br>    <span class="token key atrule">paths</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> binaries/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <p>注意，缓存是在 jobs 之前进行共享的。如果你不同的 jobs 缓存不同的文件路径，必须设置不同的<code>cache:key</code>，否则缓存内容将被重写。缓存只是尽力而为之，所以别期望缓存会一直存在。</p>
 <h4 id="cache-key"><a href="#cache-key" class="headerlink" title="cache: key"></a>cache: key</h4><p><code>key</code>指令允许我们定义缓存的作用域(亲和性)，可以是所有 jobs 的单个缓存，也可以是每个 job，也可以是每个分支或者是任何你认为合适的地方。它也可以让你很好的调整缓存，允许你设置不同 jobs 的缓存，甚至是不同分支的缓存。</p>
-<p><code>cache:key</code>可以使用任何的<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/variables/README.html">预定义变量</a>。</p>
+<p><code>cache:key</code>可以使用任何的<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/variables/README.html">预定义变量</a>。</p>
 <p>默认key是默认设置的这个项目缓存，因此默认情况下，从GitLab 9.0开始，每个 pipelines 和 jobs 中可以共享一切。</p>
 <p>配置示例</p>
 <p>缓存每个job：</p>
@@ -780,7 +792,7 @@
   <span class="token key atrule">allow_failure</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
 
 <p><span class="token key atrule">job2</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> test<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> execute_script_that_will_succeed</p>
-<p><span class="token key atrule">job3</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> deploy<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> deploy_to_staging<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+</code><p><code class="language-yaml"><span class="token key atrule">job3</span><span class="token punctuation">:</span><br>  <span class="token key atrule">stage</span><span class="token punctuation">:</span> deploy<br>  <span class="token key atrule">script</span><span class="token punctuation">:</span><br>    <span class="token punctuation">-</span> deploy_to_staging<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></p></pre><p></p>
 <h3 id="when"><a href="#when" class="headerlink" title="when"></a>when</h3><p><code>when</code>用于实现在发生故障或尽管失败时运行的作业。when可以设置以下值：</p>
 <ul>
 <li><code>on_success</code> - 只有前面 stages 的所有工作成功时才执行。这是默认值。</li>
@@ -788,7 +800,7 @@
 <li><code>always</code> - 无论前面 stages 中 jobs 状态如何都执行。</li>
 <li><code>manual</code> - 手动执行(GitLab8.10增加)。更多请查看手动操作。</li>
 </ul>
-<h3 id="artifacts"><a href="#artifacts" class="headerlink" title="artifacts"></a>artifacts</h3><p><code>artifacts</code>用于指定成功后应附加到 job 的文件和目录的列表。只能使用项目工作间内的文件或目录路径。在job成功完成后artifacts将会发送到GitLab中，同时也会在 GitLab UI 中提供下载。如果想要在不通的 job 之间传递<code>artifacts</code>，请查阅<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/yaml/README.html#dependencies">依赖关系</a>。以下是一些例子：</p>
+<h3 id="artifacts"><a href="#artifacts" class="headerlink" title="artifacts"></a>artifacts</h3><p><code>artifacts</code>用于指定成功后应附加到 job 的文件和目录的列表。只能使用项目工作间内的文件或目录路径。在job成功完成后artifacts将会发送到GitLab中，同时也会在 GitLab UI 中提供下载。如果想要在不通的 job 之间传递<code>artifacts</code>，请查阅<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/yaml/README.html#dependencies">依赖关系</a>。以下是一些例子：</p>
 <p>发送<code>binaries</code>和<code>.config</code>中的所有文件：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">artifacts</span><span class="token punctuation">:</span>
   <span class="token key atrule">paths</span><span class="token punctuation">:</span>
@@ -803,12 +815,12 @@
   <span class="token key atrule">paths</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> binaries/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="五、其他相关内容"><a href="#五、其他相关内容" class="headerlink" title="五、其他相关内容"></a>五、其他相关内容</h2><h3 id="1-API触发器-Triggers"><a href="#1-API触发器-Triggers" class="headerlink" title="1 API触发器 Triggers"></a>1 API触发器 Triggers</h3><p>Triggers 可用于强制使用API调用重建特定分支，<code>tag</code>或<code>commits</code>。API的使用示例可以在<code>Settings</code> -&gt; <code>CI/CD</code> -&gt; <code>Pipeline triggers</code>中找到。</p>
-<p>在<code>triggers</code>文档中<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/triggers/README.html">查看更多</a>。</p>
+<p>在<code>triggers</code>文档中<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/triggers/README.html">查看更多</a>。</p>
 <h3 id="2-配置定时任务"><a href="#2-配置定时任务" class="headerlink" title="2 配置定时任务"></a>2 配置定时任务</h3><p>GitLab CI 中可以在 GitLab <code>Settings</code> -&gt; <code>CI/CD</code> -&gt; <code>Schedules</code>中配置定时任务，点击<code>New Schedule</code>按钮，可以配置你流水线的定时执行任务，包括：描述信息、定时的Cron表达式、目标分支、变量等信息。</p>
 <p>然后在需要定时执行的作业的<code>only</code>分支写上<code>schedules</code>即可。</p>
 <h3 id="3-校验-gitlab-ci-yml"><a href="#3-校验-gitlab-ci-yml" class="headerlink" title="3 校验 .gitlab-ci.yml"></a>3 校验 .gitlab-ci.yml</h3><p>GitLab CI 的每个实例都有一个名为<code>Lint</code>的嵌入式调试工具。 你可以在 GitLab 实例的<code>-/ci/lint</code>下找到该链接。</p>
 <h3 id="4-配置邮件发送"><a href="#4-配置邮件发送" class="headerlink" title="4 配置邮件发送"></a>4 配置邮件发送</h3><p>如果希望在每次构建完成后（或者在仅构建失败的情况下），想邮件发送给相关开发人员，则可以在 GitLab <code>Settings</code> -&gt; <code>Integrations</code> 中找到<code>Pipelines emails</code>，点击进去就可以配置邮件发送相关的内容了。</p>
-<h3 id="5-GitLab-Pages"><a href="#5-GitLab-Pages" class="headerlink" title="5 GitLab Pages"></a>5 GitLab Pages</h3><p><a target="_blank" rel="noopener" href="https://gitlab.com/pages/">GitLab Pages</a>是用于托管静态文件的服务。而<code>pages</code>是一个特殊的job，用于将静态的内容上传到GitLab，可用于为您的网站提供服务。它有特殊的语法，因此必须满足以下两个要求：</p>
+<h3 id="5-GitLab-Pages"><a href="#5-GitLab-Pages" class="headerlink" title="5 GitLab Pages"></a>5 GitLab Pages</h3><p><a target="_blank" rel="noopener noreferrer external nofollow" href="https://gitlab.com/pages/">GitLab Pages</a>是用于托管静态文件的服务。而<code>pages</code>是一个特殊的job，用于将静态的内容上传到GitLab，可用于为您的网站提供服务。它有特殊的语法，因此必须满足以下两个要求：</p>
 <ul>
 <li>任何静态内容必须放在<code>public/</code>目录下</li>
 <li>artifacts必须定义在<code>public/</code>目录下</li>
@@ -825,17 +837,17 @@
     <span class="token punctuation">-</span> public
   <span class="token key atrule">only</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>更多内容请查看<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/user/project/pages/index.html">GitLab Pages用户文档</a>。</p>
+<p>更多内容请查看<a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/user/project/pages/index.html">GitLab Pages用户文档</a>。</p>
 <h3 id="6-跳过-jobs"><a href="#6-跳过-jobs" class="headerlink" title="6 跳过 jobs"></a>6 跳过 jobs</h3><p>如果你的<code>commit</code>信息中包含<code>[ci skip]</code>或者<code>[skip ci]</code>，不论大小写，那么这个<code>commit</code>将会创建但是 jobs 也会跳过。</p>
 <hr>
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ce/ci/yaml/README.html">官方文档地址</a></li>
-<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000010442764#articleHeader24">segmentfault yaml配置中文翻译</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="https://docs.gitlab.com/ce/ci/yaml/README.html">官方文档地址</a></li>
+<li><a target="_blank" rel="noopener noreferrer external nofollow" href="https://segmentfault.com/a/1190000010442764#articleHeader24">segmentfault yaml配置中文翻译</a></li>
 </ul>
 
                 
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -869,16 +881,16 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">张显达</a>
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
                     !
                 </span>
             </div>
         
     </div>
 
-    <script async defer>
+    <script async="" defer="">
       document.addEventListener("copy", function (e) {
         let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
         M.toast({html: toastHTML})
@@ -942,10 +954,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                 </div>
             </div>
@@ -992,7 +1004,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="软件程序设计原则">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="软件程序设计原则" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">软件程序设计原则</span>
                     </div>
@@ -1049,7 +1061,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Vue 文档风格的 Typora 主题">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Vue 文档风格的 Typora 主题" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">Vue 文档风格的 Typora 主题</span>
                     </div>
@@ -1216,7 +1228,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m8 l8">
-        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        <p>Copyright © 2025 <a href="/">张显达的个人博客</a></p>
         
       </div>
       <div class="col s12 m4 l4 right-align">
@@ -1224,7 +1236,7 @@
         <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
         <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
         <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
-        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
           <i class="fas fa-rss"></i>
         </a>
       </div>
@@ -1239,8 +1251,7 @@
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1392,7 +1403,7 @@ $(function () {
      
         <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
         <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
     
 
     <!-- Baidu Analytics -->
@@ -1417,7 +1428,7 @@ $(function () {
     <script src="/libs/others/clicklove.js" async="async"></script>
     
     
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1436,6 +1447,7 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-</body>
 
-</html>
+
+
+</body></html>

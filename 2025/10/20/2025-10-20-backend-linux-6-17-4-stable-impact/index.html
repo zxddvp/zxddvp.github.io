@@ -1,9 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-
-
-<head>
+<!DOCTYPE html><html lang="zh-CN"><head>
     <meta charset="utf-8">
+    <meta name="author" content="张显达">
     <meta name="keywords" content="2025-10-20 后端内核脉搏：Linux 6.17.4 稳定版（10/19）对服务内核的启示, 张显达|个人|博客|技术|生活">
     <meta name="description" content="导语kernel.org 显示 6.17.4 于 10&amp;#x2F;19 成为最新稳定版本（stable: 6.17.4）。对后端团队而言，10&amp;#x2F;20 是评估“是否&amp;#x2F;如何”采纳该稳定版的好时点。本文给出一份“服务内核升级”">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,8 +11,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5" />
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
     <link rel="canonical" href="https://zhangxianda.com/2025/10/20/2025-10-20-backend-linux-6-17-4-stable-impact/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -27,18 +28,24 @@
     <meta property="og:description" content="导语kernel.org 显示 6.17.4 于 10&amp;#x2F;19 成为最新稳定版本（stable: 6.17.4）。对后端团队而言，10&amp;#x2F;20 是评估“是否&amp;#x2F;如何”采纳该稳定版的好时点。本文给出一份“服务内核升级”">
     <meta property="og:url" content="https://zhangxianda.com/2025/10/20/2025-10-20-backend-linux-6-17-4-stable-impact/">
     <meta property="og:site_name" content="张显达的个人博客">
-    <meta property="og:image" content="/favicon.png">
+    <meta property="og:image" content="https://zhangxianda.com/favicon.png">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2025-10-20T01:23:46.049Z">
+    
+    <meta property="og:image:alt" content="2025-10-20 后端内核脉搏：Linux 6.17.4 稳定版（10/19）对服务内核的启示 | 张显达的个人博客">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="2025-10-20 后端内核脉搏：Linux 6.17.4 稳定版（10/19）对服务内核的启示 | 张显达的个人博客">
     <meta name="twitter:description" content="导语kernel.org 显示 6.17.4 于 10&amp;#x2F;19 成为最新稳定版本（stable: 6.17.4）。对后端团队而言，10&amp;#x2F;20 是评估“是否&amp;#x2F;如何”采纳该稳定版的好时点。本文给出一份“服务内核升级”">
-    <meta name="twitter:image" content="/favicon.png">
+    <meta name="twitter:image" content="https://zhangxianda.com/favicon.png">
+    
 
     
 
     <title>2025-10-20 后端内核脉搏：Linux 6.17.4 稳定版（10/19）对服务内核的启示 | 张显达的个人博客</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
     
 
 
@@ -70,13 +77,12 @@
 
 
 
-    <link rel="alternate" href="/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
 
     
     <script type="application/ld+json">
@@ -88,13 +94,19 @@
       "datePublished": "2025-10-20T03:18:00.000Z",
       "dateModified": "2025-10-20T01:23:46.049Z",
       "author": { "@type": "Person", "name": "张显达" },
-      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
-      "image": "/favicon.png"
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
+      "image": "https://zhangxianda.com/favicon.png"
     }
     </script>
     
+    <meta property="article:published_time" content="2025-10-20T03:18:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2025-10-20T01:23:46.049Z">
+    
+    
 
-<meta name="generator" content="Hexo 8.0.0"></head>
+<meta name="generator" content="Hexo 8.1.0"></head>
 
 
 <body>
@@ -105,7 +117,7 @@
       <div class="brand-logo">
         <a href="/" class="waves-effect waves-light">
           
-            <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
           
           <span class="logo-span">张显达</span>
         </a>
@@ -179,7 +191,7 @@
       <div id="mobile-nav" class="side-nav sidenav">
         <div class="mobile-head bg-color">
           
-            <img src="/medias/logo.png" class="logo-img circle responsive-img">
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
           
           <div class="logo-name">张显达</div>
           <div class="logo-desc">张显达的个人博客</div>
@@ -343,35 +355,35 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>kernel.org 显示 6.17.4 于 10&#x2F;19 成为最新稳定版本（stable: 6.17.4）。对后端团队而言，10&#x2F;20 是评估“是否&#x2F;如何”采纳该稳定版的好时点。本文给出一份“服务内核升级”的工程指南：如何识别受益点与风险点、如何以金丝雀与回滚降低成本、如何把“内核演进”纳入常规节奏。</p>
+                <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>kernel.org 显示 6.17.4 于 10/19 成为最新稳定版本（stable: 6.17.4）。对后端团队而言，10/20 是评估“是否/如何”采纳该稳定版的好时点。本文给出一份“服务内核升级”的工程指南：如何识别受益点与风险点、如何以金丝雀与回滚降低成本、如何把“内核演进”纳入常规节奏。</p>
 <h2 id="为什么关注-6-17-x-稳定版"><a href="#为什么关注-6-17-x-稳定版" class="headerlink" title="为什么关注 6.17.x 稳定版"></a>为什么关注 6.17.x 稳定版</h2><ul>
 <li>修复累计：稳定分支聚合了若干 bugfix 与回归修复；</li>
 <li>性能与可靠性：特定子系统（网络栈、文件系统、调度器）的微优化可能改善尾延迟；</li>
-<li>安全合规：供应链&#x2F;容器&#x2F;虚拟化相关修补降低脆弱面；</li>
-<li>兼容性：与 Docker&#x2F;CRI、eBPF 工具链、驱动版本的配合。</li>
+<li>安全合规：供应链/容器/虚拟化相关修补降低脆弱面；</li>
+<li>兼容性：与 Docker/CRI、eBPF 工具链、驱动版本的配合。</li>
 </ul>
 <h2 id="评估与预演"><a href="#评估与预演" class="headerlink" title="评估与预演"></a>评估与预演</h2><ul>
 <li>变更梳理：阅读 6.17.1–6.17.4 的 ChangeLog，提取与业务相关的子系统；</li>
-<li>影子环境：在预发&#x2F;影子机房使用相同硬件&#x2F;虚拟化环境评估；</li>
-<li>eBPF：检查 BPF 程序&#x2F;探针在新内核的加载与性能；</li>
-<li>I&#x2F;O 栈：文件系统&#x2F;块设备&#x2F;网络驱动的延迟与吞吐回归。</li>
+<li>影子环境：在预发/影子机房使用相同硬件/虚拟化环境评估；</li>
+<li>eBPF：检查 BPF 程序/探针在新内核的加载与性能；</li>
+<li>I/O 栈：文件系统/块设备/网络驱动的延迟与吞吐回归。</li>
 </ul>
 <h2 id="上线与回滚"><a href="#上线与回滚" class="headerlink" title="上线与回滚"></a>上线与回滚</h2><ul>
 <li>金丝雀：从低风险服务开始，逐步扩展至高价值服务；</li>
-<li>观测：延迟分布、软&#x2F;硬中断、上下文切换、队列长度；</li>
+<li>观测：延迟分布、软/硬中断、上下文切换、队列长度；</li>
 <li>回滚：保留旧内核入口，脚本化“批量回退”；</li>
-<li>灰度策略：按机架&#x2F;可用区递进，控制 blast radius。</li>
+<li>灰度策略：按机架/可用区递进，控制 blast radius。</li>
 </ul>
 <h2 id="与用户态的边界"><a href="#与用户态的边界" class="headerlink" title="与用户态的边界"></a>与用户态的边界</h2><ul>
 <li>容器：cgroup v2、命名空间与 seccomp 行为在升级后需复核；</li>
-<li>eBPF：XDP&#x2F;TC 程序、观测探针、可视化与样本率；</li>
-<li>依赖：数据库&#x2F;消息队列&#x2F;反向代理组件在内核变更下的行为差异。</li>
+<li>eBPF：XDP/TC 程序、观测探针、可视化与样本率；</li>
+<li>依赖：数据库/消息队列/反向代理组件在内核变更下的行为差异。</li>
 </ul>
 <h2 id="度量与报告"><a href="#度量与报告" class="headerlink" title="度量与报告"></a>度量与报告</h2><ul>
 <li>升级覆盖率、失败率、回滚次数；</li>
 <li>关键业务 SLO 波动范围；</li>
 <li>内核相关事故数与 MTTR；</li>
-<li>下游团队（DBA&#x2F;网工&#x2F;平台）反馈与问题单关闭时长。</li>
+<li>下游团队（DBA/网工/平台）反馈与问题单关闭时长。</li>
 </ul>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>服务内核的升级不求“第一时间”，但应“第一时间评估”。把 6.17.4 这类稳定分支纳入周期性评估，长期看能降低事故概率与潜在安全风险。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
@@ -380,7 +392,7 @@
 
                 
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -414,16 +426,16 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">张显达</a>
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
                     !
                 </span>
             </div>
         
     </div>
 
-    <script async defer>
+    <script async="" defer="">
       document.addEventListener("copy", function (e) {
         let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
         M.toast({html: toastHTML})
@@ -495,10 +507,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
                     </div>
                 </div>
             </div>
@@ -545,7 +557,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="人工智能速递：多模态与落地并进">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="人工智能速递：多模态与落地并进" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">人工智能速递：多模态与落地并进</span>
                     </div>
@@ -622,7 +634,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="2025-10-20 前端工程：React Compiler 渐进式上线作战图（基线→灰度→规范）">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="2025-10-20 前端工程：React Compiler 渐进式上线作战图（基线→灰度→规范）" loading="lazy" decoding="async" fetchpriority="low">
                         
                         <span class="card-title">2025-10-20 前端工程：React Compiler 渐进式上线作战图（基线→灰度→规范）</span>
                     </div>
@@ -797,7 +809,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m8 l8">
-        <p>Copyright &copy; 2025 <a href="/">张显达的个人博客</a></p>
+        <p>Copyright © 2025 <a href="/">张显达的个人博客</a></p>
         
       </div>
       <div class="col s12 m4 l4 right-align">
@@ -805,7 +817,7 @@
         <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
         <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
         <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
-        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
           <i class="fas fa-rss"></i>
         </a>
       </div>
@@ -820,8 +832,7 @@
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
         </div>
         <div id="searchResult"></div>
     </div>
@@ -973,7 +984,7 @@ $(function () {
      
         <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
         <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
     
 
     <!-- Baidu Analytics -->
@@ -998,7 +1009,7 @@ $(function () {
     <script src="/libs/others/clicklove.js" async="async"></script>
     
     
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1017,6 +1028,7 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-</body>
 
-</html>
+
+
+</body></html>
