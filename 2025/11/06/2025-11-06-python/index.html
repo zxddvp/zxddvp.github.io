@@ -1,0 +1,1013 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="utf-8">
+    <meta name="author" content="张显达">
+    <meta name="keywords" content="2025-11-06 Python 社区深度扫描, 张显达|个人|博客|技术|生活">
+    <meta name="description" content="导语：Python 3.14 正式推出后，社区围绕惰性导入、free-threaded 解释器、__slots__ 优化等特性展开激烈讨论；PyCoder’s Weekly 第 707 期聚焦基础设施与并发；PSF 发布财务健康报告呼吁更多">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
+    <link rel="canonical" href="https://zhangxianda.com/2025/11/06/2025-11-06-python/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="2025-11-06 Python 社区深度扫描 | 张显达的个人博客">
+    <meta property="og:description" content="导语：Python 3.14 正式推出后，社区围绕惰性导入、free-threaded 解释器、__slots__ 优化等特性展开激烈讨论；PyCoder’s Weekly 第 707 期聚焦基础设施与并发；PSF 发布财务健康报告呼吁更多">
+    <meta property="og:url" content="https://zhangxianda.com/2025/11/06/2025-11-06-python/">
+    <meta property="og:site_name" content="张显达的个人博客">
+    <meta property="og:image" content="https://zhangxianda.com/favicon.png">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2025-11-06T00:26:20.960Z">
+    
+    <meta property="og:image:alt" content="2025-11-06 Python 社区深度扫描 | 张显达的个人博客">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="2025-11-06 Python 社区深度扫描 | 张显达的个人博客">
+    <meta name="twitter:description" content="导语：Python 3.14 正式推出后，社区围绕惰性导入、free-threaded 解释器、__slots__ 优化等特性展开激烈讨论；PyCoder’s Weekly 第 707 期聚焦基础设施与并发；PSF 发布财务健康报告呼吁更多">
+    <meta name="twitter:image" content="https://zhangxianda.com/favicon.png">
+    
+
+    
+
+    <title>2025-11-06 Python 社区深度扫描 | 张显达的个人博客</title>
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
+
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "2025-11-06 Python 社区深度扫描",
+      "mainEntityOfPage": "https://zhangxianda.com/2025/11/06/2025-11-06-python/",
+      "datePublished": "2025-11-06T01:30:00.000Z",
+      "dateModified": "2025-11-06T00:26:20.960Z",
+      "author": { "@type": "Person", "name": "张显达" },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
+      "image": "https://zhangxianda.com/favicon.png"
+    }
+    </script>
+    
+    <meta property="article:published_time" content="2025-11-06T01:30:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2025-11-06T00:26:20.960Z">
+    
+    
+
+<meta name="generator" content="Hexo 8.1.0"></head>
+
+
+<body>
+    
+<header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
+          
+          <span class="logo-span">张显达</span>
+        </a>
+      </div>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+      <ul class="right nav-menu">
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/" class="waves-effect waves-light">
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              <span>首页</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/ai" class="waves-effect waves-light">
+              <i class="fas fa-robot" style="zoom: 0.6;"></i>
+              <span>人工智能</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tools" class="waves-effect waves-light">
+              <i class="fas fa-tools" style="zoom: 0.6;"></i>
+              <span>推荐工具</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tags" class="waves-effect waves-light">
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              <span>标签</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/categories" class="waves-effect waves-light">
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              <span>分类</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/archives" class="waves-effect waves-light">
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              <span>归档</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/about" class="waves-effect waves-light">
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              <span>关于</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/friends" class="waves-effect waves-light">
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              <span>友情链接</span>
+            </a>
+          </li>
+        
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div id="mobile-nav" class="side-nav sidenav">
+        <div class="mobile-head bg-color">
+          
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
+          
+          <div class="logo-name">张显达</div>
+          <div class="logo-desc">张显达的个人博客</div>
+        </div>
+        <ul class="menu-list mobile-menu-list">
+          
+            <li class="m-nav-item">
+              <a href="/" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-home"></i>
+                首页
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/ai" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-robot"></i>
+                人工智能
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tools" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tools"></i>
+                推荐工具
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tags" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tags"></i>
+                标签
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/categories" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-bookmark"></i>
+                分类
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/archives" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-archive"></i>
+                归档
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/about" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-user-circle"></i>
+                关于
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/friends" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-address-book"></i>
+                友情链接
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">2025-11-06 Python 社区深度扫描</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python-3-14/">
+                                <span class="chip bg-color">Python 3.14</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%83%B0%E6%80%A7%E5%AF%BC%E5%85%A5/">
+                                <span class="chip bg-color">惰性导入</span>
+                            </a>
+                        
+                            <a href="/tags/free-threaded/">
+                                <span class="chip bg-color">free-threaded</span>
+                            </a>
+                        
+                            <a href="/tags/PSF/">
+                                <span class="chip bg-color">PSF</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-11-06
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>导语：<br>Python 3.14 正式推出后，社区围绕惰性导入、free-threaded 解释器、<code>__slots__</code> 优化等特性展开激烈讨论；PyCoder’s Weekly 第 707 期聚焦基础设施与并发；PSF 发布财务健康报告呼吁更多赞助。在这个节点，企业与开发者必须把握性能与治理的双重机遇，合理规划升级策略。</p>
+<h2 id="惰性导入：冷启动与副作用的博弈"><a href="#惰性导入：冷启动与副作用的博弈" class="headerlink" title="惰性导入：冷启动与副作用的博弈"></a>惰性导入：冷启动与副作用的博弈</h2><p>惰性导入允许模块在首次使用时才执行导入逻辑，能显著降低 Serverless、CLI、微服务的冷启动时间。Zero to Mastery Newsletter 指出，部分场景冷启动时间可下降 20%~40%。但惰性导入也会改变副作用执行顺序，使日志、注册机制、Monkey Patch 发生在不同阶段。企业应通过 AST 分析、静态检查、单元测试确保行为一致，两步走：</p>
+<ol>
+<li>记录导入依赖图，识别存在副作用的模块；</li>
+<li>在测试环境启用惰性导入，执行全量测试、性能基线，确认无异常后分批上线。</li>
+</ol>
+<h2 id="free-threaded-解释器：多核时代的新实验"><a href="#free-threaded-解释器：多核时代的新实验" class="headerlink" title="free-threaded 解释器：多核时代的新实验"></a>free-threaded 解释器：多核时代的新实验</h2><p>free-threaded 解释器移除了 GIL，采用细粒度锁与原子操作，允许 CPU 密集型任务在单进程多线程中发挥多核优势。PyCoder’s Weekly 提醒，虽然性能提升明显，但生态中的 C 扩展尚未普遍兼容。企业应：</p>
+<ul>
+<li>选择 CPU 密集型任务试点，测量吞吐、延迟、资源利用率；</li>
+<li>升级或贡献 C 扩展兼容补丁；</li>
+<li>对无法兼容的模块采用多进程、Rust/Cython 混合方案，避免单点瓶颈。</li>
+</ul>
+<h2 id="slots-与内存优化"><a href="#slots-与内存优化" class="headerlink" title="__slots__ 与内存优化"></a><code>__slots__</code> 与内存优化</h2><p>Python Morsels 演示 <code>__slots__</code> 可减少实例内存占用 30%~50%，适合高并发服务、长生命周期对象。开发者可结合 <code>dataclass(slots=True)</code> 与对象池减少 GC 压力。搭配惰性导入、free-threaded，可构建更高效的 Python 栈。</p>
+<h2 id="社区治理与财务"><a href="#社区治理与财务" class="headerlink" title="社区治理与财务"></a>社区治理与财务</h2><p>PSF 在《Connecting the Dots》报告中强调：</p>
+<ul>
+<li>PyCon US 收入恢复，但基础设施、法律、DEI 项目开支上升；</li>
+<li>需要企业与个人通过捐赠、赞助支持生态；</li>
+<li>鼓励企业贡献代码、文档、培训资源。<br>PyDDF Herbst Sprint 2025、FastAPI 教程、Textual UI 课程等活动显示社区活力。企业在享受 Python 生产力时，也要持续回馈。</li>
+</ul>
+<h2 id="企业升级路线"><a href="#企业升级路线" class="headerlink" title="企业升级路线"></a>企业升级路线</h2><ol>
+<li><strong>版本升级</strong>：制定 3.14 升级路线图，先在开发/测试环境验证依赖库兼容性，再逐步迁移生产。  </li>
+<li><strong>惰性导入试点</strong>：在高冷启动、高内存场景中试点惰性导入，记录性能指标、错误率。  </li>
+<li><strong>free-threaded 评估</strong>：对 CPU 密集型子系统（数据处理、AI 预处理、图像服务）进行 free-threaded 实验，准备兼容性补丁。  </li>
+<li><strong>内存治理</strong>：在对象密集模块中启用 <code>__slots__</code>、<code>dataclass(slots=True)</code>，协同分析器（Scalene、Py-spy）定位热点。  </li>
+<li><strong>生态贡献</strong>：安排工程师参与 PSF、Django、FastAPI、NumPy 等项目的 Issue、PR、Sprint；设立企业赞助计划。</li>
+</ol>
+<h2 id="工具与自动化"><a href="#工具与自动化" class="headerlink" title="工具与自动化"></a>工具与自动化</h2><ul>
+<li><strong>包管理</strong>：使用 uv、Poetry、pip-compile 生成锁文件，配合惰性导入减少依赖加载。  </li>
+<li><strong>测试矩阵</strong>：在 CI 中引入 Python 3.14、free-threaded 构建，使用 pytest、tox、hypothesis 保障兼容性。  </li>
+<li><strong>静态分析</strong>：结合 mypy、ruff、pyright 捕捉导入顺序、类型、样式问题。  </li>
+<li><strong>性能监控</strong>：部署 Prometheus、Grafana、OpenTelemetry，对新特性的性能与资源消耗进行长期追踪。  </li>
+<li><strong>FinOps</strong>：监控 AI 推理、数据处理、第三方 API 成本，将 Python 优化与成本治理对齐。</li>
+</ul>
+<h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul>
+<li>搭建 Python 3.14 测试环境，执行全量测试与性能评估，输出升级报告。  </li>
+<li>选取一到两个模块实测惰性导入与 <code>__slots__</code>，记录收益与风险。  </li>
+<li>在 free-threaded 解释器下运行 CPU 密集型工作负载，评估并向上游提交兼容性反馈。  </li>
+<li>制定年度社区贡献计划，支持 PSF、PyCon、开源项目。  </li>
+<li>更新内部开发指南，总结升级经验、最佳实践、常见坑，让团队共享。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Python 3.14 的新特性不仅带来性能与并发优势，也迫使企业重新审视治理与贡献。抓住这一窗口，既优化自身系统，又能与社区形成健康的互惠关系，是企业在 Python 生态中保持竞争力的关键。</p>
+
+                
+            </div>
+            <hr>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张显达</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangxianda.com/2025/11/06/2025-11-06-python/">https://zhangxianda.com/2025/11/06/2025-11-06-python/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async="" defer="">
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python-3-14/">
+                                    <span class="chip bg-color">Python 3.14</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%83%B0%E6%80%A7%E5%AF%BC%E5%85%A5/">
+                                    <span class="chip bg-color">惰性导入</span>
+                                </a>
+                            
+                                <a href="/tags/free-threaded/">
+                                    <span class="chip bg-color">free-threaded</span>
+                                </a>
+                            
+                                <a href="/tags/PSF/">
+                                    <span class="chip bg-color">PSF</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/11/06/2025-11-06-java/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="2025-11-06 Java 平台趋势盘点" loading="lazy" decoding="async" fetchpriority="low">
+                        
+                        <span class="card-title">2025-11-06 Java 平台趋势盘点</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-11-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/LangChain4j/">
+                        <span class="chip bg-color">LangChain4j</span>
+                    </a>
+                    
+                    <a href="/tags/Spring-Security-7/">
+                        <span class="chip bg-color">Spring Security 7</span>
+                    </a>
+                    
+                    <a href="/tags/Text-to-Speech/">
+                        <span class="chip bg-color">Text-to-Speech</span>
+                    </a>
+                    
+                    <a href="/tags/OpenJDK-26/">
+                        <span class="chip bg-color">OpenJDK 26</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/11/06/2025-11-06-quantum-computing/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="2025-11-06 量子计算战略纵览" loading="lazy" decoding="async" fetchpriority="low">
+                        
+                        <span class="card-title">2025-11-06 量子计算战略纵览</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-11-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/" class="post-category">
+                                    量子计算
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Classiq/">
+                        <span class="chip bg-color">Classiq</span>
+                    </a>
+                    
+                    <a href="/tags/EuQlid/">
+                        <span class="chip bg-color">EuQlid</span>
+                    </a>
+                    
+                    <a href="/tags/Quantum-Brilliance/">
+                        <span class="chip bg-color">Quantum Brilliance</span>
+                    </a>
+                    
+                    <a href="/tags/DOE-%E8%B5%84%E5%8A%A9/">
+                        <span class="chip bg-color">DOE 资助</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 l8">
+        <p>Copyright © 2025 <a href="/">张显达的个人博客</a></p>
+        
+      </div>
+      <div class="col s12 m4 l4 right-align">
+        <a href="/privacy" class="tooltipped" data-tooltip="隐私政策" data-position="top" data-delay="50">隐私</a> |
+        <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
+        <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
+        <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
+          <i class="fas fa-rss"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+
+
+
+</body></html>
