@@ -6,7 +6,7 @@
   <link href="https://zhangxianda.com/atom.xml" rel="self"/>
   
   <link href="https://zhangxianda.com/"/>
-  <updated>2025-11-17T03:40:25.997Z</updated>
+  <updated>2025-11-18T00:24:45.241Z</updated>
   <id>https://zhangxianda.com/</id>
   
   <author>
@@ -15,6 +15,336 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AI 工具链的策略落地手册</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-ai-tooling/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-ai-tooling/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:24:45.241Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 18 日，AI 工具链继续把“策略即代码”推向实操：LangChain 0.4 Workflow Builder&#x2F;Agent Registry GA，LlamaIndex Orion Monitoring 扩展引用&#x2F;成本&#x2F;幻觉告警，PromptOps 发布 Policy DSL 2.0，Databricks Lakehouse IQ Automation 在上下文、缓存、成本策略中加入审批流。智能体生命周期第一次可以像微服务一样被治理。</p><h2 id="1-LangChain-0-4"><a href="#1-LangChain-0-4" class="headerlink" title="1. LangChain 0.4"></a>1. LangChain 0.4</h2><ul><li>Workflow Builder 用 YAML&#x2F;可视化定义多代理流程，内置任务分解、并行、超时、回退；Agent Registry 管理工具元数据、版本、权限与审计。LangServe 支持热更新、流量分级，LangSmith 记录输入、输出、引用、成本、评估。</li></ul><h2 id="2-LlamaIndex-Orion"><a href="#2-LlamaIndex-Orion" class="headerlink" title="2. LlamaIndex Orion"></a>2. LlamaIndex Orion</h2><ul><li>Orion 监控 RAG 链条，输出引用可靠度、事实核验、检索命中率、延迟、成本；异常可推送到 PagerDuty&#x2F;Jira，并通过 OpenInference&#x2F;OTLP 导出。内置 Prompt Diff、数据漂移检测、自动回归测试。</li></ul><h2 id="3-PromptOps-Policy-DSL-2-0"><a href="#3-PromptOps-Policy-DSL-2-0" class="headerlink" title="3. PromptOps Policy DSL 2.0"></a>3. PromptOps Policy DSL 2.0</h2><ul><li>支持敏感词、数据分类、工具白名单、成本预算、审批节点，与 Git&#x2F;CI&#x2F;Jira&#x2F;Slack 集成；违规提示词自动阻断或转人工，策略可版本化并附注释。</li></ul><h2 id="4-Lakehouse-IQ-Automation"><a href="#4-Lakehouse-IQ-Automation" class="headerlink" title="4. Lakehouse IQ Automation"></a>4. Lakehouse IQ Automation</h2><ul><li>Automation 模块为上下文、向量索引、指标设置驻留、缓存、可见性、成本策略，Agent 调用时自动附带水印与引用；超预算自动降级或暂停。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>流程标准化</strong>：把智能体编排迁移到 Workflow Builder&#x2F;Agent Registry，形成可复用模板。</li><li><strong>监控闭环</strong>：部署 Orion + OpenInference，把幻觉、引用、成本、延迟写入监控系统并设告警阈值。</li><li><strong>政策即代码</strong>：用 PromptOps DSL 把安全、合规、品牌策略写成代码，与 CI&#x2F;审批&#x2F;日志联动。</li><li><strong>上下文治理</strong>：通过 Lakehouse IQ Automation 管理知识库驻留、缓存、成本，确保 RAG 数据可追溯。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>梳理所有智能体流程，迁移到 Workflow Builder 并登记工具元数据。</li><li>启用 Orion Monitoring，将异常推送给 SRE&#x2F;产品团队，形成事实核验回路。</li><li>在 PromptOps 中发布策略 DSL，覆盖敏感词、API 访问、成本预算。</li><li>在 Lakehouse IQ Automation 中配置上下文与缓存策略，减少重复查询并记录引用。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>策略漂移</strong>：Workflow&#x2F;Policy 与发布流程脱节会让旧策略继续运行，需版本控制与回滚。</li><li><strong>监控孤岛</strong>：Orion 指标若未同步到企业 Observability 平台，告警会被忽视，需统一接入。</li><li><strong>数据驻留合规</strong>：Lakehouse Automation 跨境缓存需绑定驻留策略与审批链，避免触犯数据主权法规。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>AI 工具链的竞争焦点是“策略能否自动执行”。把流程、监控、政策、上下文治理写成代码，才能在规模化部署智能体时做到安全、可溯源、可控成本。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 18 日，AI 工具链继续把“策略即代码”推向实操：LangChain 0.4 Workflow Builder&amp;#x2F;Agent Registry GA，LlamaIndex Orion Monitoring 扩展引用&amp;#x2F;成本&amp;#x2F</summary>
+      
+    
+    
+    
+    <category term="最新AI开发工具推荐" scheme="https://zhangxianda.com/categories/%E6%9C%80%E6%96%B0AI%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+    <category term="LangChain 0.4" scheme="https://zhangxianda.com/tags/LangChain-0-4/"/>
+    
+    <category term="LlamaIndex Orion" scheme="https://zhangxianda.com/tags/LlamaIndex-Orion/"/>
+    
+    <category term="PromptOps DSL" scheme="https://zhangxianda.com/tags/PromptOps-DSL/"/>
+    
+    <category term="Lakehouse IQ Automation" scheme="https://zhangxianda.com/tags/Lakehouse-IQ-Automation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算力网络的协同博弈</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-artificial-intelligence/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-artificial-intelligence/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:21:03.966Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 18 日，AI 赛道进入“算力网络”的新博弈：OpenAI 预告 GPT-5.2 的安全回放和分段计费模式，Google 让 Gemini 2.1 Orchestrator 与 Apigee&#x2F;Looker 全量打通，微软 Copilot Studio 启用 Connector Policy 强制审批，欧盟与联合国环境署联合呼吁建立“算力 ESG 披露”标准。模型能力之外，谁能把算力、工具、数据、政策织成可信网络，谁就握有主动权。</p><h2 id="1-OpenAI：分段计费与安全回放"><a href="#1-OpenAI：分段计费与安全回放" class="headerlink" title="1. OpenAI：分段计费与安全回放"></a>1. OpenAI：分段计费与安全回放</h2><ul><li>GPT-5.2 将在企业版中上线“分段计费”——模型回答被拆成若干步骤按实际工具调用计费，便于成本回溯；安全回放 API 允许合规团队重放 Prompt→工具→引用→能耗链路，导出不可篡改的证据。</li><li>Tool Budget 支持按业务域设定敏感 API 白名单与费用上限，超限自动降级或转人工。</li></ul><h2 id="2-Google：Orchestrator-Apigee-Looker"><a href="#2-Google：Orchestrator-Apigee-Looker" class="headerlink" title="2. Google：Orchestrator + Apigee&#x2F;Looker"></a>2. Google：Orchestrator + Apigee&#x2F;Looker</h2><ul><li>Gemini 2.1 Orchestrator 可直接调用 Apigee API、Looker 仪表板，并在策略中心配置延迟&#x2F;成本&#x2F;隐私权重；长上下文 3.2M Token 默认带合成媒体水印与引用链。</li><li>Google 推出“Policy Hub”模板，企业可以批量下发合规、驻留、引用策略到 Workspace 全家桶。</li></ul><h2 id="3-Microsoft：Connector-Policy-预设"><a href="#3-Microsoft：Connector-Policy-预设" class="headerlink" title="3. Microsoft：Connector Policy 预设"></a>3. Microsoft：Connector Policy 预设</h2><ul><li>Copilot Studio 默认要求所有连接器绑定审批流、数据分类、引用规则、成本中心；Copilot Analytics 可以按部门输出算力账单与 ROI 报告。</li></ul><h2 id="4-政策信号：算力-ESG"><a href="#4-政策信号：算力-ESG" class="headerlink" title="4. 政策信号：算力 ESG"></a>4. 政策信号：算力 ESG</h2><ul><li>欧盟与联合国环境署提出算力 ESG 披露框架：算力密度、能源来源、冷却方式、碳抵消、数据权利影响五大指标；鼓励企业开放算力账本 API。</li><li>AI Act 最新草案要求高风险模型登记工具清单、算力预算、申诉流程，韩国 AI 基本法同步跟进。</li></ul><h2 id="5-企业策略"><a href="#5-企业策略" class="headerlink" title="5. 企业策略"></a>5. 企业策略</h2><ol><li><strong>调度层建设</strong>：部署 Orchestrator&#x2F;Router，将 GPT、Gemini、Copilot、内部模型统一调度，针对场景设置延迟&#x2F;成本&#x2F;隐私权重。</li><li><strong>工具预算治理</strong>：在 Prompt 平台启用 Tool Budget、敏感 API 白名单、引用校验，异常自动降级并留痕。</li><li><strong>算力账本</strong>：记录 GPU 小时、能耗、碳排、业务价值，输出给 ESG、客户 SLA 与董事会。</li><li><strong>合规模板</strong>：建立行为日志、申诉机制、供应商清单，满足 AI Act、AI ESG、韩国法规。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>启用 GPT-5.2 分段计费与安全回放，接入 FinOps&#x2F;ESG 仪表板。</li><li>在 Workspace&#x2F;Copilot 管理端下发统一策略模板，强制审批与日志留存。</li><li>搭建算力账本 API，向监管与关键客户开放查询。</li><li>高风险模型项目完成工具清单、算力预算、申诉流程并经法务审核。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>策略漂移</strong>：调度层与业务流程脱节会导致旧策略继续运行，需版本控制与回滚。</li><li><strong>账本可信度</strong>：手工填报易被质疑，应采用自动采集或第三方审计。</li><li><strong>跨平台差异</strong>：不同云&#x2F;模型策略语言不一致，需企业级抽象层避免重复维护。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>AI 竞争已经从单点模型转向“算力网络”。能在调度、预算、账本、合规四个维度实现自动化的企业，才有资格参与下一轮智能商业化的博弈。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 18 日，AI 赛道进入“算力网络”的新博弈：OpenAI 预告 GPT-5.2 的安全回放和分段计费模式，Google 让 Gemini 2.1 Orchestrator 与 Apigee&amp;#x2F;Looker 全量打通，微软 Copilot S</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+    <category term="Gemini 2.1" scheme="https://zhangxianda.com/tags/Gemini-2-1/"/>
+    
+    <category term="Copilot Studio" scheme="https://zhangxianda.com/tags/Copilot-Studio/"/>
+    
+    <category term="GPT-5.2" scheme="https://zhangxianda.com/tags/GPT-5-2/"/>
+    
+    <category term="AI ESG" scheme="https://zhangxianda.com/tags/AI-ESG/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据密度下的后端成本控</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-backend/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-backend/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:25:12.890Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 18 日，后端关注点仍是“数据密度 + 成本透明”：PostgreSQL 17 RC2 的并行逻辑复制与跨 Region 拓扑、ClickHouse Cloud 混合存储、Redis 8.0 多租户、OpenTelemetry TraceQL 稳定版构成成本账本的四个支柱。后端团队要把数据库、缓存、实时分析、观测联成一张成本地图。</p><h2 id="1-PostgreSQL-17-RC2"><a href="#1-PostgreSQL-17-RC2" class="headerlink" title="1. PostgreSQL 17 RC2"></a>1. PostgreSQL 17 RC2</h2><ul><li>并行逻辑复制让订阅端按事务顺序分配 worker，延迟下降 40%；<code>pg_distributed</code> 支持跨 Region 拓扑；WAL 压缩 + 增量备份提升存算分离效率。</li><li>行列组合权限与审计扩展满足多租户合规需求。</li></ul><h2 id="2-ClickHouse-Cloud-混合存储"><a href="#2-ClickHouse-Cloud-混合存储" class="headerlink" title="2. ClickHouse Cloud 混合存储"></a>2. ClickHouse Cloud 混合存储</h2><ul><li>热数据留在 NVMe，冷数据下沉对象存储，需要时再拉回；Materialized View Streaming + Iceberg Sink 让实时事件自动写入数据湖或 RAG 索引。</li></ul><h2 id="3-Redis-8-0-多租户"><a href="#3-Redis-8-0-多租户" class="headerlink" title="3. Redis 8.0 多租户"></a>3. Redis 8.0 多租户</h2><ul><li>Multi-tenant Database 提供独立命名空间、配额，命令级限流可控 <code>FT.SEARCH</code>、<code>AI.MODELEXECUTE</code>；Replication Pipeline + 自动 Resharding 降低运维成本。</li></ul><h2 id="4-TraceQL-稳定"><a href="#4-TraceQL-稳定" class="headerlink" title="4. TraceQL 稳定"></a>4. TraceQL 稳定</h2><ul><li>TraceQL 以 SQL 风格查询 Trace，可过滤属性、聚合、异常检测，把请求路径、数据库调用、缓存命中与成本、错误预算挂钩。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>数据分层</strong>：按读写&#x2F;分析&#x2F;向量&#x2F;归档需求组合 PostgreSQL、ClickHouse、Redis，统一 Schema、权限、RPO&#x2F;RTO。</li><li><strong>平台化缓存</strong>：将 Redis&#x2F;Kafka&#x2F;Feature Store 视作平台产品，提供命名空间、限流、成本账单。</li><li><strong>可观测账本</strong>：用 OTel&#x2F;TraceQL 把 API、数据库、缓存调用与成本连接，驱动 FinOps 决策。</li><li><strong>合规审计</strong>：借助 PostgreSQL 审计扩展、SBOM、签名满足 CRA&#x2F;AI Act 要求。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>在预生产部署 PostgreSQL 17 RC2，验证并行逻辑复制与跨 Region 拓扑。</li><li>试用 ClickHouse 混合实例，对比不同热层的成本与延迟。</li><li>升级 Redis 至 8.0，配置 MDB、命令限流，并输出使用报表。</li><li>在 Observability 平台启用 TraceQL，建立“请求—成本”仪表板。</li></ul><h2 id="案例速写"><a href="#案例速写" class="headerlink" title="案例速写"></a>案例速写</h2><ul><li><strong>电商高峰</strong>：一家零售商将 Redis 8.0 MDB 接入收费模型，每个业务线自助申请命名空间并查看命中率&#x2F;成本，促销期间自动限流重操作，缓存命中率提升 10%，成本下降 15%。\n- <strong>金融分析</strong>：某银行用 TraceQL 追踪跨区查询，把慢 SQL 与 ClickHouse 热层切换关联，提前触发 FinOps 告警，避免夜间成本飙升。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>成本回传延迟</strong>：数据同步慢会让 FinOps 决策失真，需实时 ETL 与告警。</li><li><strong>邻居噪声</strong>：多租户缓存若无配额，重载业务可能挤占资源，需要限流与监控。</li><li><strong>合规碎片化</strong>：各团队自建审计导致记录不一致，应由平台统一模板与保留期。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>后端架构正从“堆栈”迈向“账本”。通过 PostgreSQL 17、ClickHouse、Redis 8.0、TraceQL 的组合，团队能在高密度数据场景兼顾性能、透明与合规。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 18 日，后端关注点仍是“数据密度 + 成本透明”：PostgreSQL 17 RC2 的并行逻辑复制与跨 Region 拓扑、ClickHouse Cloud 混合存储、Redis 8.0 多租户、OpenTelemetry TraceQL 稳定版</summary>
+      
+    
+    
+    
+    <category term="后端" scheme="https://zhangxianda.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+    <category term="PostgreSQL 17" scheme="https://zhangxianda.com/tags/PostgreSQL-17/"/>
+    
+    <category term="Redis 8.0" scheme="https://zhangxianda.com/tags/Redis-8-0/"/>
+    
+    <category term="ClickHouse Cloud" scheme="https://zhangxianda.com/tags/ClickHouse-Cloud/"/>
+    
+    <category term="TraceQL" scheme="https://zhangxianda.com/tags/TraceQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算力攻防下的零信任实践</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-cybersecurity/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-cybersecurity/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:21:26.966Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 18 日，安全防线仍被 FortiOS 零日、Okta 会话泄露和 AI 深伪 BEC 持续冲击，英国 NCSC 发布《AI Phishing Response》更新，微软&#x2F;Google&#x2F;CrowdStrike 的自治紫队框架在金融和制造业快速落地。零信任的边界已扩展到“身份 + 会话 + 工具 + 算力”。</p><h2 id="1-FortiOS-零日与会话风险"><a href="#1-FortiOS-零日与会话风险" class="headerlink" title="1. FortiOS 零日与会话风险"></a>1. FortiOS 零日与会话风险</h2><ul><li>APT 利用 LLM 自动生成混淆载荷，通过 ClientHello 触发堆溢出植入“RogueBeacon”，再用 AnyDesk&#x2F;ScreenConnect 持久化。Fortinet 提供热补丁并建议启用客户端证书、IP 白名单、日志镜像、闲置账号清理。</li><li>Okta 旧版 Support Portal Cookie 被恶意扩展窃取，攻击者可直接访问客户后台、重置 MFA。Okta 强制失效旧 Cookie，要求 FIDO2、浏览器完整性检测、扩展黑名单。</li></ul><h2 id="2-AI-BEC-Phishing-新态势"><a href="#2-AI-BEC-Phishing-新态势" class="headerlink" title="2. AI BEC&#x2F;Phishing 新态势"></a>2. AI BEC&#x2F;Phishing 新态势</h2><ul><li>攻击者在 Teams&#x2F;Zoom&#x2F;Meet 中实时扮演 CFO&#x2F;供应商，语音、表情、背景噪声均由模型驱动；脚本自动翻译并适配本地法规语气。</li><li>NCSC 建议为高价值会议启用回拨验证、声纹、会话水印，对财务流程实施延迟支付与双重审批。</li></ul><h2 id="3-自治紫队框架落地"><a href="#3-自治紫队框架落地" class="headerlink" title="3. 自治紫队框架落地"></a>3. 自治紫队框架落地</h2><ul><li>Security Copilot + Chronicle + Charlotte 提供开放 API，自动运行 MITRE 场景、生成检测指标、推送补救任务，并把结果写入 CMDB&#x2F;GRC&#x2F;SIEM。</li><li>制造业用户将紫队结果与 OT 日志对齐，缩短 OT 侧检测时间。</li></ul><h2 id="4-企业策略"><a href="#4-企业策略" class="headerlink" title="4. 企业策略"></a>4. 企业策略</h2><ol><li><strong>身份&#x2F;会话治理</strong>：启用硬件密钥、Token Binding、设备指纹，限制扩展读取敏感 Cookie；VPN&#x2F;防火墙启用客户端证书与地理限制。</li><li><strong>AI 滥用检测</strong>：部署语音&#x2F;视频水印、声纹、行为分析；定期开展 AI BEC 演练，强化延迟支付与二次确认。</li><li><strong>紫队常态化</strong>：用 Copilot&#x2F;Chronicle&#x2F;Cortex 自动执行攻击脚本，统计 MTTD&#x2F;MTTR，输出整改任务。</li><li><strong>供应链责任</strong>：在合同中写入 SBOM、日志访问、补丁 SLA，满足 CRA&#x2F;NIS2 要求。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>清理历史 Okta 会话，启用 FIDO2、浏览器完整性、扩展黑名单。</li><li>为 FortiOS&#x2F;Citrix&#x2F;Palo Alto 等边界设备部署补丁、客户端证书、IP 白名单。</li><li>建立自治紫队流水线，每周运行至少一个场景，并将结果写入 GRC。</li><li>针对财务&#x2F;供应链开展 AI BEC 实战演练，完善延迟支付与回拨确认。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>扩展生态复杂</strong>：未集中管理浏览器策略，恶意扩展仍可窃取会话；需 MDM + 浏览器策略双控。</li><li><strong>AI 检测误判</strong>：水印&#x2F;声纹可能影响正常会议，需要人工复核通道。</li><li><strong>数据孤岛</strong>：紫队演练若未写入 CMDB&#x2F;GRC，整改无法追踪；需要统一数据管道。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>算力加速了攻防，对策必须落在身份、会话、工具、算力的全链治理上。把 AI 滥用检测与紫队自动化纳入日常运营，是新一代零信任的核心。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 18 日，安全防线仍被 FortiOS 零日、Okta 会话泄露和 AI 深伪 BEC 持续冲击，英国 NCSC 发布《AI Phishing Response》更新，微软&amp;#x2F;Google&amp;#x2F;CrowdStrike 的自治紫队框架在金</summary>
+      
+    
+    
+    
+    <category term="网络安全" scheme="https://zhangxianda.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="AI BEC" scheme="https://zhangxianda.com/tags/AI-BEC/"/>
+    
+    <category term="Purple Team" scheme="https://zhangxianda.com/tags/Purple-Team/"/>
+    
+    <category term="FortiOS CVE-2025-44701" scheme="https://zhangxianda.com/tags/FortiOS-CVE-2025-44701/"/>
+    
+    <category term="Okta Session" scheme="https://zhangxianda.com/tags/Okta-Session/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>互信账本的执行元年</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-digital-governance/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-digital-governance/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:26:57.757Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>G20 《Digital Charter》执行路线、欧盟 CRA 抽检时间表、联合国环境署《AI ESG 指标》问卷、澳大利亚&#x2F;新加坡&#x2F;阿联酋跨境数据沙盒互认在 11 月 18 日叠加发酵。数字治理从宣言进入“执行元年”：企业必须拿出算力账本、数据契约、身份互操作的落地方案。</p><h2 id="1-Charter-执行仪表板"><a href="#1-Charter-执行仪表板" class="headerlink" title="1. Charter 执行仪表板"></a>1. Charter 执行仪表板</h2><ul><li>Charter 要求 2026~2027 年完成 AI 行为日志、合成媒体标签、紧急数据协同的互认；大型算力服务商需提供算力调度日志与合规 API。</li><li>建议企业建立政策映射矩阵，把 Charter 条款映射到数据、算力、身份资产，指定负责人与到期提醒。</li></ul><h2 id="2-CRA-抽检路径"><a href="#2-CRA-抽检路径" class="headerlink" title="2. CRA 抽检路径"></a>2. CRA 抽检路径</h2><ul><li>欧盟确认 2026 年起抽检联网设备；高风险设备需提交 SBOM、安全评估、补丁 SLA，包装附安全标签；基础设备需承诺 5 年更新与漏洞披露窗口。</li></ul><h2 id="3-AI-ESG-指标"><a href="#3-AI-ESG-指标" class="headerlink" title="3. AI ESG 指标"></a>3. AI ESG 指标</h2><ul><li>指标涵盖算力密度、能源来源、碳抵消计划、数据权利影响，鼓励企业开放算力账本 API 给监管、客户、投资者。</li></ul><h2 id="4-数据沙盒互认"><a href="#4-数据沙盒互认" class="headerlink" title="4. 数据沙盒互认"></a>4. 数据沙盒互认</h2><ul><li>澳大利亚 OAIC、新加坡 PDPC、阿联酋 TRA 允许一次审批、多地互认，前提是脱敏、用途限制、可撤回、实时审计接口。</li></ul><h2 id="5-企业策略"><a href="#5-企业策略" class="headerlink" title="5. 企业策略"></a>5. 企业策略</h2><ol><li><strong>法规映射平台</strong>：建立知识库，将 Charter、CRA、AI ESG、沙盒要求映射到数据&#x2F;算力&#x2F;身份资产。</li><li><strong>算力账本</strong>：记录 GPU 小时、能耗、碳排、业务价值，生成 ESG 报告与客户 SLA；对接监管 API。</li><li><strong>身份互操作</strong>：让 IAM 支持 eIDAS、UAE Pass、FIDO2、韩国 DID，日志可审计。</li><li><strong>数据协定</strong>：签署跨境数据协议，写入脱敏、用途限制、撤回条款，并对接沙盒 API。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>制定 Charter 差距分析，明确负责人和截止时间。</li><li>为欧盟业务准备 CRA：SBOM、漏洞披露、补丁 SLA、包装标签。</li><li>搭建算力 ESG 仪表板，把 GPU 数据与财务&#x2F;可持续发展系统同步。</li><li>申请沙盒试点，演练脱敏、授权、撤回流程并记录审计。</li></ul><h2 id="案例速写"><a href="#案例速写" class="headerlink" title="案例速写"></a>案例速写</h2><ul><li><strong>跨国银行</strong>：将算力账本 API 开放给监管与客户，可实时查询模型能耗、引用链；在沙盒试点中验证“72 小时可撤回”方案，删除操作带签名和审计日志。\n- <strong>消费电子厂商</strong>：在韩国登记高风险模型并开放本地审计接口，监管可实时抽取日志；在欧盟项目用 CRA 模板自动生成 SBOM、漏洞披露邮件、包装标签，合规周期缩短 40%。</li></ul><h2 id="落地建议"><a href="#落地建议" class="headerlink" title="落地建议"></a>落地建议</h2><ul><li><strong>政策—资产映射库</strong>：为数据集、算力集群、身份系统打上 Charter&#x2F;CRA&#x2F;AI ESG 标签，变更时自动同步，避免遗漏。\n- <strong>可信账本</strong>：引入第三方能源审计或签名日志，提升算力账本的证据力，为 ESG 与客户询证提供依据。\n- <strong>沙盒退出</strong>：实现“删除 + 审计 + 通知”自动化流程，并在合同里写明时限与责任，防止跨境数据残留。</li></ul><h2 id="案例与风险"><a href="#案例与风险" class="headerlink" title="案例与风险"></a>案例与风险</h2><ul><li><strong>案例</strong>：跨国银行开放算力账本 API 供客户与监管查询；消费电子厂商在韩国登记高风险模型并开放本地审计接口。</li><li><strong>风险</strong>：法规差异导致模板不可复用；供应链未签 CRA&#x2F;ESG 条款时，事故仍由主体承担；多地上报若无自动化会出现数据不一致。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>数字治理进入执行期，核心在于把政策转化为数据、算力、身份的可验证资产。谁能率先搭建互信账本，谁就在多法域运营中占得主动。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;G20 《Digital Charter》执行路线、欧盟 CRA 抽检时间表、联合国环境署《AI ESG 指标》问卷、澳大利亚&amp;#x2F;新加坡&amp;#x2F;阿联酋跨境数据沙盒互认在 11 月 18 日叠加发酵。数字治理从宣言进入“执行元年”：企业必须拿出算力账</summary>
+      
+    
+    
+    
+    <category term="数字治理" scheme="https://zhangxianda.com/categories/%E6%95%B0%E5%AD%97%E6%B2%BB%E7%90%86/"/>
+    
+    
+    <category term="G20 Digital Charter" scheme="https://zhangxianda.com/tags/G20-Digital-Charter/"/>
+    
+    <category term="EU CRA" scheme="https://zhangxianda.com/tags/EU-CRA/"/>
+    
+    <category term="Data Sandbox" scheme="https://zhangxianda.com/tags/Data-Sandbox/"/>
+    
+    <category term="AI ESG" scheme="https://zhangxianda.com/tags/AI-ESG/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端体验的算力预算实战</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-frontend/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-frontend/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:24:06.024Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>React 19 GA、Angular 19 稳定通道、WebGPU 1.1 与 WebAssembly Component Model、Vercel&#x2F;Cloudflare&#x2F;Netlify Edge GPU 推理让 11 月 18 日的前端讨论集中在“算力预算”。前端团队要像运营后端一样运营算力与隐私。</p><h2 id="1-React-19"><a href="#1-React-19" class="headerlink" title="1. React 19"></a>1. React 19</h2><ul><li>Server Actions 把副作用放回服务器，并自动处理乐观 UI、重试、错误边界；Server Components + <code>use</code> API 降低客户端 JS；Partial Prerender + Edge Runtime 提供低 TTFB。</li><li>React Compiler 自动识别可 memoize 子树，减少重渲染。</li></ul><h2 id="2-Angular-19"><a href="#2-Angular-19" class="headerlink" title="2. Angular 19"></a>2. Angular 19</h2><ul><li>Zoned Signals 将响应式系统与 Zone.js 解耦，精准控制刷新范围；SSR Streaming 提供渐进式 HTML；NG Deploy CLI 自动生成 Edge 配置。</li></ul><h2 id="3-WebGPU-1-1-Wasm-Component-Model"><a href="#3-WebGPU-1-1-Wasm-Component-Model" class="headerlink" title="3. WebGPU 1.1 + Wasm Component Model"></a>3. WebGPU 1.1 + Wasm Component Model</h2><ul><li>WebGPU 新增 Video Pipeline、FP16、共享内存，适合浏览器内多模态 AI；Component Model 让 Rust&#x2F;Go&#x2F;C#&#x2F;Kotlin 模块组合运行，Edge Workers AI 已支持。</li></ul><h2 id="4-隐私与治理"><a href="#4-隐私与治理" class="headerlink" title="4. 隐私与治理"></a>4. 隐私与治理</h2><ul><li>Chrome 132 默认启用 Privacy Sandbox Protected Audience；Safari 18.2 提升反指纹；CMP 需与 Server Actions&#x2F;Edge 日志联动记录同意与用途。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>框架规划</strong>：制定 React&#x2F;Angular&#x2F;Svelte&#x2F;Nuxt 的组件规范、设计 token、数据访问策略，避免重复造轮子。</li><li><strong>算力编排</strong>：利用 Edge Runtime、WebGPU、Wasm 将 AI、视频、图像处理放在最合适的位置。</li><li><strong>体验预算</strong>：设定 TTFB、交互延迟、JS 体积、GPU 时间指标，借助 Vercel&#x2F;Cloudflare Profiling 监控并触发告警。</li><li><strong>隐私合规</strong>：把 CMP 决策、数据用途、AI 引用写入 Server Actions&#x2F;Edge 日志，满足 Privacy Sandbox 与地区法规。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>升级核心项目到 React 19&#x2F;Angular 19，验证 Actions、Signals、Partial Prerender。</li><li>构建 WebGPU + Wasm 组件，把图像&#x2F;视频&#x2F;AI 逻辑在浏览器或边缘执行，记录性能收益。</li><li>在 Edge 平台建立体验预算仪表板，监控 TTFB、GPU 时间、缓存命中率。</li><li>更新隐私策略与日志，确保前端数据收集、AI 推理可审计。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>算力成本不可见</strong>：若 Edge&#x2F;GPU 成本未与 FinOps 打通，团队难以设预算；需跨部门仪表板。</li><li><strong>隐私策略漂移</strong>：CMP 决策与代码不同步会触发合规风险，需要自动化测试验证。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>前端已成算力与治理的交汇点。掌握框架升级、算力编排、体验预算、隐私治理，才能在多终端时代交付高质量体验。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;React 19 GA、Angular 19 稳定通道、WebGPU 1.1 与 WebAssembly Component Model、Vercel&amp;#x2F;Cloudflare&amp;#x2F;Netlify Edge GPU 推理让 11 月 18 日的前端</summary>
+      
+    
+    
+    
+    <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="React 19" scheme="https://zhangxianda.com/tags/React-19/"/>
+    
+    <category term="Edge Runtime" scheme="https://zhangxianda.com/tags/Edge-Runtime/"/>
+    
+    <category term="Angular 19" scheme="https://zhangxianda.com/tags/Angular-19/"/>
+    
+    <category term="WebGPU 1.1" scheme="https://zhangxianda.com/tags/WebGPU-1-1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>空天地一体的物联网执行方案</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-iot/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-iot/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:25:42.800Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 18 日，IoT 焦点仍是“空天地协同 + CRA 合规”：Matter 1.4 最终稿扩展储能、门禁、工业语义；3GPP 公布 RedCap + NTN 切片数据；AWS IoT Mission Control 统一地面、卫星、边缘算力；欧盟 CRA 抽检时间表敲定。物联网不再是把设备接上云，而是要让通信、算力、治理形成可证明的闭环。</p><h2 id="1-Matter-1-4"><a href="#1-Matter-1-4" class="headerlink" title="1. Matter 1.4"></a>1. Matter 1.4</h2><ul><li>增加能源曲线、负荷控制、门禁事件模型，让住宅、楼宇、工业设备共用语义；OTA 通道强化签名、证书撤销、匿名遥测，满足 CRA 风险要求。</li></ul><h2 id="2-RedCap-NTN-切片"><a href="#2-RedCap-NTN-切片" class="headerlink" title="2. RedCap + NTN 切片"></a>2. RedCap + NTN 切片</h2><ul><li>瑞典&#x2F;阿联酋试点表明 RedCap 终端可在卫星与地面网络间无缝切换，切片策略可设延迟、带宽、地域、加密等级，适用于海上、矿区、灾害恢复。</li></ul><h2 id="3-AWS-IoT-Mission-Control"><a href="#3-AWS-IoT-Mission-Control" class="headerlink" title="3. AWS IoT Mission Control"></a>3. AWS IoT Mission Control</h2><ul><li>统一编排地面网关、LEO 卫星、边缘 GPU，提供 SBOM、策略、成本仪表板，与 FleetWise、TwinMaker、Bedrock 联动，形成“设备—孪生—AI”闭环。</li></ul><h2 id="4-CRA-抽检"><a href="#4-CRA-抽检" class="headerlink" title="4. CRA 抽检"></a>4. CRA 抽检</h2><ul><li>欧盟自 2026 年起抽检联网产品，要求 5 年安全更新、SBOM、漏洞披露，2027 年前完成高风险抽检，不符合者禁止销售。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>多网络调度</strong>：设计“蜂窝 + 卫星 + Wi-Fi + Thread”冗余网络，利用 Slicing API 控制带宽、安全策略。</li><li><strong>标准统一</strong>：采用 Matter 1.4、OPC UA、MQTT5，减少多协议整合成本，为数字孪生提供统一语义。</li><li><strong>治理平台</strong>：部署 IoT Mission Control&#x2F;EdgeOps 管理 OTA、证书、SBOM、成本，对接 CRA 审计接口。</li><li><strong>安全生命周期</strong>：把设备身份、固件签名、日志、补丁纳入 DevSecOps，与云安全团队共享。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>评估 Matter 1.4 对现有产品的影响，制定认证与互操作计划。</li><li>与运营商试点 RedCap + NTN 切片，为关键场景准备备用链路。</li><li>启用 IoT Mission Control，建立地面与卫星资产一体化看板与成本报表。</li><li>按 CRA 要求完善 SBOM、漏洞披露、补丁 SLA，更新供应链合同。</li></ul><h2 id="案例与风险"><a href="#案例与风险" class="headerlink" title="案例与风险"></a>案例与风险</h2><ul><li><strong>车队管理商</strong>：使用 Mission Control 为 5 万车辆推送 OTA，并随版本生成 SBOM 交付客户，满足 CRA 抽检；在北极线路启用卫星切片保障冬季遥测。\n- <strong>能源企业</strong>：在偏远油田部署 RedCap + NTN 备份链路，断网时自动切到卫星；Matter 1.4 统一储能与站控语义，让数字孪生模型直接引用现场数据。\n- <strong>风险</strong>：频谱许可未提前规划可能导致卫星直连被关停；芯片供应商若不提供完整 SBOM 难以通过 CRA；多网络协同缺少遥测会拖慢故障定位。</li></ul><h2 id="案例与风险-1"><a href="#案例与风险-1" class="headerlink" title="案例与风险"></a>案例与风险</h2><ul><li><strong>案例</strong>：车队管理商用 Mission Control 为 5 万车辆推送 OTA，并随版本生成 SBOM 满足 CRA；北极线路启用卫星切片保证冬季遥测。能源企业在偏远油田用 RedCap + NTN 备份链路，断网时自动切到卫星，Matter 1.4 统一储能与站控语义。</li><li><strong>风险</strong>：频谱许可未提前规划会导致卫星链路被关停；芯片供应商未提供完整 SBOM 难以通过 CRA；多网络协同缺少遥测会增加故障定位时间。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>IoT 的胜负已转向“连接 + 算力 + 治理”。用标准语义、多网络切片、治理平台、生命周期安全构成闭环，才能在下一代智能基础设施中站稳。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 18 日，IoT 焦点仍是“空天地协同 + CRA 合规”：Matter 1.4 最终稿扩展储能、门禁、工业语义；3GPP 公布 RedCap + NTN 切片数据；AWS IoT Mission Control 统一地面、卫星、边缘算力；欧盟 CR</summary>
+      
+    
+    
+    
+    <category term="物联网" scheme="https://zhangxianda.com/categories/%E7%89%A9%E8%81%94%E7%BD%91/"/>
+    
+    
+    <category term="5G RedCap" scheme="https://zhangxianda.com/tags/5G-RedCap/"/>
+    
+    <category term="Matter 1.4" scheme="https://zhangxianda.com/tags/Matter-1-4/"/>
+    
+    <category term="AWS IoT Mission Control" scheme="https://zhangxianda.com/tags/AWS-IoT-Mission-Control/"/>
+    
+    <category term="CRA" scheme="https://zhangxianda.com/tags/CRA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java 平台的低延迟合规模板</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-java/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-java/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:22:16.600Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 18 日，Project Leyden、Spring Boot 3.5.0-M2、Quarkus 3.13、GraalVM 24.2 继续在“低延迟 + AI + 合规”上迭代。官方工具链已经让企业可以在同一流水线中同时满足性能、治理与可观测需求。</p><h2 id="1-Leyden-静态镜像"><a href="#1-Leyden-静态镜像" class="headerlink" title="1. Leyden 静态镜像"></a>1. Leyden 静态镜像</h2><ul><li>Static Image Profiles 支持声明类初始化、反射、动态代理，生成的镜像保留诊断钩子；Layered Images 减少容器增量推送与冷启动时间。</li></ul><h2 id="2-Spring-Boot-3-5-0-M2"><a href="#2-Spring-Boot-3-5-0-M2" class="headerlink" title="2. Spring Boot 3.5.0-M2"></a>2. Spring Boot 3.5.0-M2</h2><ul><li>集成 Spring AI Starter、Observation API、Prompt Template Registry，允许在 MVC&#x2F;Reactor&#x2F;Loom 场景统一调用模型、输出 OTLP Trace、记录成本与引用；搭配 Authorization Server 1.3 RC 支持 FAPI 2.0、PAR&#x2F;JAR、密钥托管。</li></ul><h2 id="3-Quarkus-3-13-GraalVM-24-2"><a href="#3-Quarkus-3-13-GraalVM-24-2" class="headerlink" title="3. Quarkus 3.13 + GraalVM 24.2"></a>3. Quarkus 3.13 + GraalVM 24.2</h2><ul><li>Quarkus 优化虚拟线程、Reactive Messaging、gRPC、Hibernate，Unified Config 简化环境管理；GraalVM 提供 PGO、Memory Layout、JFR Export、自动反射配置收集。</li></ul><h2 id="4-实践策略"><a href="#4-实践策略" class="headerlink" title="4. 实践策略"></a>4. 实践策略</h2><ol><li><strong>运行时矩阵</strong>：为关键服务生成 HotSpot、Leyden Static、GraalVM Native 产物，记录延迟&#x2F;内存&#x2F;诊断能力，形成决策表。</li><li><strong>AI 工具化</strong>：用 Spring AI、LangChain4j、Micronaut MCP 将业务 API 工具化，并通过 Observation&#x2F;OTel 输出引用、成本、审计日志。</li><li><strong>DevSecOps</strong>：在 CI&#x2F;CD 中生成 SBOM、签名、漏洞扫描报告，满足 CRA&#x2F;AI Act；运行时记录 Feature Flag 与配置变更。</li><li><strong>平台样板</strong>：平台团队提供 Maven&#x2F;Gradle BOM、Helm Chart、Terraform、GitHub Actions 模板，减少团队差异。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>在性能敏感服务中比较 Leyden Static 与 GraalVM Native 的启动和诊断指标。</li><li>升级核心服务到 Spring Boot 3.5.0-M2 + Authorization Server 1.3 RC，启用 Observation 与 Prompt Registry。</li><li>在 Quarkus 3.13 + GraalVM 24.2 上开启 PGO，测量延迟&#x2F;资源下降。</li><li>将 SBOM、签名、合规报告写入 CI&#x2F;CD，自动推送给安全团队。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>运行模式切换成本</strong>：不同运行时调试体验不同，需统一 Observability 方案。</li><li><strong>AI 日志敏感性</strong>：Observation 日志可能包含敏感数据，需结合 DLP 策略。</li><li><strong>模板老化</strong>：黄金路径不更新会阻碍创新，平台团队应设 KPI 定期迭代。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Java 官方工具链已让“低延迟 + AI + 合规”成为可执行目标。掌握 Leyden、Spring、Quarkus、GraalVM 的组合，企业就能在多云时代构建可靠的平台能力。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 18 日，Project Leyden、Spring Boot 3.5.0-M2、Quarkus 3.13、GraalVM 24.2 继续在“低延迟 + AI + 合规”上迭代。官方工具链已经让企业可以在同一流水线中同时满足性能、治理与可观测需求。&lt;</summary>
+      
+    
+    
+    
+    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
+    
+    
+    <category term="Spring Boot 3.5" scheme="https://zhangxianda.com/tags/Spring-Boot-3-5/"/>
+    
+    <category term="Project Leyden" scheme="https://zhangxianda.com/tags/Project-Leyden/"/>
+    
+    <category term="Quarkus 3.13" scheme="https://zhangxianda.com/tags/Quarkus-3-13/"/>
+    
+    <category term="GraalVM 24.2" scheme="https://zhangxianda.com/tags/GraalVM-24-2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python 算力闭环的实战攻略</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-python/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-python/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:22:47.542Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 18 日，Python 社区继续把“语言 + 训练 + 数据 + 质量”串成闭环：Python 3.14 Beta2 扩大 <code>--disable-gil</code> 子解释器测试范围；PyTorch 3.0 Skyline 调度器上线跨云成本 API 与 Job Budget；Polars 1.7.0 深度整合 Delta&#x2F;BigQuery；Ruff 0.7.5 将 Typed Rules 默认纳入 IDE&#x2F;CI。团队可以在单一语言栈里完成算力治理。</p><h2 id="1-Python-3-14-Beta2"><a href="#1-Python-3-14-Beta2" class="headerlink" title="1. Python 3.14 Beta2"></a>1. Python 3.14 Beta2</h2><ul><li>无 GIL 子解释器允许单进程运行多个隔离解释器并共享只读对象，IO&#x2F;CPU 混合负载吞吐提升 2~4 倍；PEP 738 扩展让 TypedDict、Pydantic、DataFrame 可以直接模式匹配。</li><li>Tiered Compilation 计划将在 3.14 引入 copy-and-patch 热路径 JIT，配合可插拔 Profiler。</li></ul><h2 id="2-PyTorch-3-0-Skyline"><a href="#2-PyTorch-3-0-Skyline" class="headerlink" title="2. PyTorch 3.0 Skyline"></a>2. PyTorch 3.0 Skyline</h2><ul><li>Skyline 根据成本、延迟、能耗调度多云 GPU&#x2F;TPU；Job Budget API 允许 FinOps 限制每个训练任务的费用&#x2F;能耗&#x2F;碳排，默认记录 KV Cache、PagedAttention、Device Mesh 配置。</li><li>Skyline 把作业能耗写入 OpenTelemetry 事件，便于 ESG 披露。</li></ul><h2 id="3-Polars-1-7-0"><a href="#3-Polars-1-7-0" class="headerlink" title="3. Polars 1.7.0"></a>3. Polars 1.7.0</h2><ul><li>与 Delta Lake、BigQuery Storage API 双向互通，零拷贝切到 Arrow；Feature Store 操作符管理特征版本、血缘、数据质量规则，适合 RAG&#x2F;BI&#x2F;ML 统一上下文。</li></ul><h2 id="4-Ruff-0-7-5"><a href="#4-Ruff-0-7-5" class="headerlink" title="4. Ruff 0.7.5"></a>4. Ruff 0.7.5</h2><ul><li>Typed Rules 利用 Pyright&#x2F;mypy 输出进行静态分析，捕捉协程误用、不可达代码、数据类缺失；Ruff Server 支持增量分析，CI 耗时下降 40%。</li></ul><h2 id="5-实践策略"><a href="#5-实践策略" class="headerlink" title="5. 实践策略"></a>5. 实践策略</h2><ol><li><strong>语言升级</strong>：在测试环境启用 <code>python3.14 --disable-gil</code>，评估多线程服务与 C 扩展兼容性，制定迁移计划。</li><li><strong>训练治理</strong>：将训练流水线迁移到 Skyline，配置 Job Budget、能耗告警，把指标写入 OTel；结合 Ray&#x2F;K8s 做弹性调度。</li><li><strong>数据互通</strong>：用 Polars + Delta&#x2F;BigQuery + Feature Store 建立统一数据血缘，支撑 RAG、BI、ML；对敏感列加标签。</li><li><strong>质量闭环</strong>：在 CI 中启用 Ruff Typed Rules、Pyright、Pandera，形成“代码 + 数据”双契约，并把结果写回 PR。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>选取 IO 密集服务测试无 GIL 模式，记录吞吐、延迟与兼容性。</li><li>将训练作业迁移到 Skyline，启用 Job Budget、能耗监控，与 FinOps 仪表板同步。</li><li>构建 Polars 1.7.0 数据流水线，验证 Delta&#x2F;BigQuery 互通与 Feature Store 功能。</li><li>在仓库启用 Ruff 0.7.5 Typed Rules，与 IDE&#x2F;CI 集成设阻断阈值。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>多版本并存</strong>：无 GIL 模式与旧 C 扩展不兼容，需逐一评估依赖。</li><li><strong>预算滞后</strong>：Skyline 数据若未实时同步，FinOps 决策会失真，需要事件流。</li><li><strong>数据治理冲突</strong>：Polars Feature Store 与传统仓库规则可能冲突，需要统一治理。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Python 通过语言内核、训练调度、数据栈、质量工具完成了工程闭环。把这些能力纳入平台治理，才能在算力竞争中保持高效与可控。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 18 日，Python 社区继续把“语言 + 训练 + 数据 + 质量”串成闭环：Python 3.14 Beta2 扩大 &lt;code&gt;--disable-gil&lt;/code&gt; 子解释器测试范围；PyTorch 3.0 Skyline 调度器上线跨云</summary>
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangxianda.com/categories/Python/"/>
+    
+    
+    <category term="Python 3.14" scheme="https://zhangxianda.com/tags/Python-3-14/"/>
+    
+    <category term="Ruff 0.7" scheme="https://zhangxianda.com/tags/Ruff-0-7/"/>
+    
+    <category term="Polars 1.7" scheme="https://zhangxianda.com/tags/Polars-1-7/"/>
+    
+    <category term="PyTorch 3.0 Skyline" scheme="https://zhangxianda.com/tags/PyTorch-3-0-Skyline/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>量子算力协奏的落地指南</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-quantum-computing/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-quantum-computing/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:25:56.544Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 18 日，量子计算的主旋律是“协奏落地”：IBM 展示 1564 量子位的 Kookaburra 模块化系统，Google 向合作伙伴开放 Sycamore-X 动态电路 API，Xanadu 与 AWS Braket 上线 Borealis+ 光量子服务，NIST&#x2F;ETSI 发布 PQC 迁移指南 2.0。企业需要在硬件多样化、混合工作流、供应链透明、量子安全上同步行动。</p><h2 id="1-IBM-Kookaburra"><a href="#1-IBM-Kookaburra" class="headerlink" title="1. IBM Kookaburra"></a>1. IBM Kookaburra</h2><ul><li>采用 3D 封装与玻璃互连，将 196 Qubit 单元拼接成网格，支持纠错单元共享；IBM 计划 2026 年交付 4000+ 量子位系统。</li><li>Qiskit 1.4 的 Layout Advisor、噪声预测、LLM 辅助调优帮助开发者针对硬件布置电路。</li></ul><h2 id="2-Google-Sycamore-X"><a href="#2-Google-Sycamore-X" class="headerlink" title="2. Google Sycamore-X"></a>2. Google Sycamore-X</h2><ul><li>动态电路允许测量结果实时影响后续门操作，结合 TPU 混合训练环境，可以降低 VQE、量子机器学习迭代成本；Google 提供能耗&#x2F;碳排标签，便于 ESG 披露。</li></ul><h2 id="3-Xanadu-Borealis"><a href="#3-Xanadu-Borealis" class="headerlink" title="3. Xanadu Borealis+"></a>3. Xanadu Borealis+</h2><ul><li>通过 AWS Braket 提供可编程光量子电路、连续变量算法、量子差分隐私，PennyLane 用户可直接调用，适合组合优化与采样问题。</li></ul><h2 id="4-PQC-迁移-2-0"><a href="#4-PQC-迁移-2-0" class="headerlink" title="4. PQC 迁移 2.0"></a>4. PQC 迁移 2.0</h2><ul><li>指南强调“资产清单 → 风险评估 → 混合模式 → 全面切换”，提醒关注长寿命数据（证书、合同、医疗记录）；多国计划 2027 年前完成 PQC 试点。</li></ul><h2 id="5-企业策略"><a href="#5-企业策略" class="headerlink" title="5. 企业策略"></a>5. 企业策略</h2><ol><li><strong>多供应商布局</strong>：同时使用 IBM、Google、Xanadu、IonQ，记录延迟、噪声、队列、成本，避免单点依赖。</li><li><strong>混合工作流</strong>：用 Qiskit&#x2F;Cirq&#x2F;PennyLane&#x2F;Braket Workflow 将量子算法与经典 AI&#x2F;优化协同，并把日志写入 MLOps&#x2F;FinOps。</li><li><strong>供应链透明</strong>：识别芯片、冷却、控制系统供应商与出口限制，把安全条款写入合同。</li><li><strong>PQC 迁移</strong>：成立跨部门项目，规划根证书、VPN、签名、区块链、数据存档的量子安全改造。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>在 Kookaburra 模拟器测试纠错电路，记录噪声、性能与成本。</li><li>构建 Sycamore-X 动态电路工作流，与传统 VQE 对比迭代效率。</li><li>在 Braket 体验 Borealis+，评估光量子采样对物流&#x2F;供应链优化的价值。</li><li>启动 PQC 路线图，优先迁移证书&#x2F;VPN，并评估嵌入式设备改造。</li></ul><h2 id="案例速写"><a href="#案例速写" class="headerlink" title="案例速写"></a>案例速写</h2><ul><li><strong>航空制造商</strong>：结合 Kookaburra 模拟器与 Qiskit 噪声预测优化复合材料铺层顺序，把结果写入 PLM，与经典优化器并行验证，验证周期缩短 25%。\n- <strong>物流独角兽</strong>：在 Braket 上用 Sycamore-X 动态电路做实时调度，Borealis+ 光量子采样用于验证最优性，油耗降低 9%，作业日志同步至 ESG 报告。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>排队资源</strong>：量子云队列长，需准备备选平台以防延误。</li><li><strong>数据主权</strong>：量子作业若含敏感数据，必须确认驻留与加密策略。</li><li><strong>PQC 技术债</strong>：只更换证书而忽略嵌入式设备与长期存档，仍会暴露“收割后解密”风险。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>量子算力的协奏需要硬件、软件、供应链、安全四线并进。越早搭建多供应商与 PQC 双轨路线，越能在量子过渡期掌握主动权。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 18 日，量子计算的主旋律是“协奏落地”：IBM 展示 1564 量子位的 Kookaburra 模块化系统，Google 向合作伙伴开放 Sycamore-X 动态电路 API，Xanadu 与 AWS Braket 上线 Borealis+ 光量</summary>
+      
+    
+    
+    
+    <category term="量子计算" scheme="https://zhangxianda.com/categories/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/"/>
+    
+    
+    <category term="PQC" scheme="https://zhangxianda.com/tags/PQC/"/>
+    
+    <category term="Xanadu Borealis" scheme="https://zhangxianda.com/tags/Xanadu-Borealis/"/>
+    
+    <category term="IBM Kookaburra" scheme="https://zhangxianda.com/tags/IBM-Kookaburra/"/>
+    
+    <category term="Google Sycamore-X" scheme="https://zhangxianda.com/tags/Google-Sycamore-X/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>指标驱动工程的闭环再进化</title>
+    <link href="https://zhangxianda.com/2025/11/18/2025-11-18-software-engineering/"/>
+    <id>https://zhangxianda.com/2025/11/18/2025-11-18-software-engineering/</id>
+    <published>2025-11-18T01:30:00.000Z</published>
+    <updated>2025-11-18T00:26:08.256Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 18 日，工程平台继续把 AI 与指标融合：Copilot Workspace 审批模板新增性能预算与合规摘要，Compass SRS 2.1 增加 Runbook 完整度与 On-call 负荷评分，LaunchDarkly Feature Risk API 支持自动审批链，ServiceNow + Nobl9 将 SLO&#x2F;错误预算直接嵌入变更流程。效率、质量、成本、责任在同一套闭环里被衡量。</p><h2 id="1-Copilot-Workspace-审批模板"><a href="#1-Copilot-Workspace-审批模板" class="headerlink" title="1. Copilot Workspace 审批模板"></a>1. Copilot Workspace 审批模板</h2><ul><li>PR 页面自动输出“变更意图、依赖树、测试矩阵、威胁模型、性能预算”，提示词与建议写入审计日志；敏感目录要求人工复核。</li></ul><h2 id="2-Compass-SRS-2-1"><a href="#2-Compass-SRS-2-1" class="headerlink" title="2. Compass SRS 2.1"></a>2. Compass SRS 2.1</h2><ul><li>SRS 综合部署频率、恢复时间、变更失败率、错误预算、On-call 健康度、Runbook 完整度，低于阈值自动创建 Jira 任务并触发 Opsgenie 值班。</li></ul><h2 id="3-LaunchDarkly-风险矩阵"><a href="#3-LaunchDarkly-风险矩阵" class="headerlink" title="3. LaunchDarkly 风险矩阵"></a>3. LaunchDarkly 风险矩阵</h2><ul><li>产品团队可为每个 Flag 设业务影响、技术复杂度、用户范围、依赖，系统按风险级别决定灰度策略与审批链；风险数据可导出至 Tableau&#x2F;Grafana。</li></ul><h2 id="4-SLO-Change-Bridge"><a href="#4-SLO-Change-Bridge" class="headerlink" title="4. SLO + Change Bridge"></a>4. SLO + Change Bridge</h2><ul><li>ServiceNow + Nobl9 将实时 SLO&#x2F;错误预算写入变更审批，预测超限则阻断或降级；Incident 复盘自动附带 SLO、Feature 状态、成本。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>指标一体化</strong>：把 DORA、SRS、SLO、Feature 风险、成本整合到统一仪表板。</li><li><strong>AI 可追溯</strong>：启用 Copilot 日志与提示词留存，满足 SOC 2、AI 合规需求。</li><li><strong>平台产品化</strong>：平台团队运营 Compass 模型、LaunchDarkly 模板、SLO Catalog、Runbook，并定期更新。</li><li><strong>事件文化</strong>：建立 Incident 指挥官制度、复盘模板，让 AI 辅助分析成为默认流程。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>在核心仓库启用 Copilot Workspace 模板，要求 PR 自动生成风险、测试、性能摘要。</li><li>将服务接入 Compass SRS 2.1，设定阈值并自动触发整改任务。</li><li>发布 Feature Risk Matrix 模板，所有新功能必须填写并走审批。</li><li>把 SLO&#x2F;错误预算接入变更管理，实现“指标驱动发布”。</li></ul><h2 id="案例与风险"><a href="#案例与风险" class="headerlink" title="案例与风险"></a>案例与风险</h2><ul><li><strong>案例</strong>：SaaS 团队将 SRS 阈值与合并管道绑定，低于 80 分禁止发版；金融机构要求高风险 Flag 附带 Copilot 审批日志以满足 SOX 审计。</li><li><strong>风险</strong>：指标未与权限系统绑定时，团队可能绕过检查；AI 生成内容若未审查即合并会带来合规风险，需坚持“AI 建议 + 人审”。</li><li><strong>实现要点</strong>：把 Compass&#x2F;LaunchDarkly 输出映射到 CMDB 字段，方便安全&#x2F;运营&#x2F;审计共享；设置“指标失联告警”，若服务 24 小时未上报 SLO 或 Copilot 审批日志则阻断发版。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>工程效率的未来是“AI + 指标 + 平台”的协奏。通过 Copilot、Compass、LaunchDarkly、SLO 平台形成闭环，团队才能在 AI 时代持续交付可审计的高质量产品。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 18 日，工程平台继续把 AI 与指标融合：Copilot Workspace 审批模板新增性能预算与合规摘要，Compass SRS 2.1 增加 Runbook 完整度与 On-call 负荷评分，LaunchDarkly Feature Ris</summary>
+      
+    
+    
+    
+    <category term="软件工程" scheme="https://zhangxianda.com/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
+    
+    
+    <category term="Atlassian Compass" scheme="https://zhangxianda.com/tags/Atlassian-Compass/"/>
+    
+    <category term="Copilot Workspace" scheme="https://zhangxianda.com/tags/Copilot-Workspace/"/>
+    
+    <category term="LaunchDarkly" scheme="https://zhangxianda.com/tags/LaunchDarkly/"/>
+    
+    <category term="SLO Platform" scheme="https://zhangxianda.com/tags/SLO-Platform/"/>
+    
+  </entry>
   
   <entry>
     <title>AI 工具链的策略执行范式</title>
@@ -270,336 +600,6 @@
       
       
     <summary type="html">&lt;p&gt;导语：&lt;br&gt;Python 生态在 11 月 17 日把语言、分布式训练、数据工程、质量控制拉到同一张图：Python 3.14 Beta2 扩大 &lt;code&gt;--disable-gil&lt;/code&gt; 子解释器覆盖面，PyTorch 3.0 Skyline 调度器上线跨云成</summary>
-      
-    
-    
-    
-    <category term="Python" scheme="https://zhangxianda.com/categories/Python/"/>
-    
-    
-    <category term="Python 3.14" scheme="https://zhangxianda.com/tags/Python-3-14/"/>
-    
-    <category term="Ruff 0.7" scheme="https://zhangxianda.com/tags/Ruff-0-7/"/>
-    
-    <category term="Polars 1.7" scheme="https://zhangxianda.com/tags/Polars-1-7/"/>
-    
-    <category term="PyTorch 3.0 Skyline" scheme="https://zhangxianda.com/tags/PyTorch-3-0-Skyline/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>量子算力协奏的执行指南</title>
-    <link href="https://zhangxianda.com/2025/11/17/2025-11-17-quantum-computing/"/>
-    <id>https://zhangxianda.com/2025/11/17/2025-11-17-quantum-computing/</id>
-    <published>2025-11-17T01:30:00.000Z</published>
-    <updated>2025-11-17T03:42:08.229Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>IBM Kookaburra 模块化芯片、Google Sycamore-X 动态电路、Xanadu Borealis+ 光量子服务、NIST&#x2F;ETSI PQC 迁移指南 2.0 在 11 月 17 日共同描绘了“量子协奏”路线：硬件扩展、云化服务与量子安全要同步推进。</p><h2 id="1-IBM-Kookaburra"><a href="#1-IBM-Kookaburra" class="headerlink" title="1. IBM Kookaburra"></a>1. IBM Kookaburra</h2><ul><li>1564 量子位的模块化设计采用 3D 封装与玻璃互连，196 Qubit 单元可以组合并共享纠错资源；IBM 计划 2026 年交付 4000+ 量子位系统。</li><li>Qiskit 1.4 的 Layout Advisor、噪声预测与 LLM 辅助调优让电路布局更贴合硬件。</li></ul><h2 id="2-Google-Sycamore-X"><a href="#2-Google-Sycamore-X" class="headerlink" title="2. Google Sycamore-X"></a>2. Google Sycamore-X</h2><ul><li>动态电路允许测量结果实时影响后续门操作，TPU 混合训练环境降低 VQE、量子机器学习迭代成本；Google 还为量子作业提供能耗、碳排标签，方便 ESG 披露。</li></ul><h2 id="3-Xanadu-Borealis"><a href="#3-Xanadu-Borealis" class="headerlink" title="3. Xanadu Borealis+"></a>3. Xanadu Borealis+</h2><ul><li>通过 AWS Braket 提供可编程光量子电路、连续变量算法、量子差分隐私；PennyLane 用户可直接调用，适合组合优化、采样问题。</li></ul><h2 id="4-PQC-迁移-2-0"><a href="#4-PQC-迁移-2-0" class="headerlink" title="4. PQC 迁移 2.0"></a>4. PQC 迁移 2.0</h2><ul><li>指南强调资产清单、风险评估、混合模式、全面切换四步，提醒关注长寿命数据（证书、合同、医疗记录）；多国计划 2027 年前完成 PQC 试点。</li></ul><h2 id="5-企业策略"><a href="#5-企业策略" class="headerlink" title="5. 企业策略"></a>5. 企业策略</h2><ol><li><strong>多供应商</strong>：在 IBM、Google、Xanadu、IonQ 等平台建立共享指标，避免单一依赖。</li><li><strong>混合工作流</strong>：用 Qiskit&#x2F;Cirq&#x2F;PennyLane&#x2F;Braket Workflow 将量子算法与经典优化、AI 协同，并把日志写入 MLOps&#x2F;FinOps。</li><li><strong>供应链透明</strong>：识别芯片、冷却、控制系统供应商和出口限制，把安全条款写入合同。</li><li><strong>PQC 迁移</strong>：成立跨部门项目，规划根证书、VPN、签名、区块链、数据存档的量子安全改造。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>在 Kookaburra 模拟器测试纠错电路，记录噪声与性能。</li><li>构建 Sycamore-X 动态电路工作流，与传统 VQE 对比迭代成本。</li><li>在 Braket 体验 Borealis+，评估光量子采样对物流优化的价值。</li><li>启动 PQC 路线图，优先迁移证书&#x2F;VPN，并评估嵌入式设备。</li></ul><h2 id="案例速写"><a href="#案例速写" class="headerlink" title="案例速写"></a>案例速写</h2><ul><li><strong>航空制造商</strong>：结合 Kookaburra 模拟器与 Qiskit 噪声预测优化复合材料铺层顺序，将实验结果写入 PLM，与经典优化器并行验证，缩短验证周期 25%。\n- <strong>物流独角兽</strong>：在 Braket 工作流中使用 Sycamore-X 动态电路做实时调度，再用 Borealis+ 光量子采样验证最优性，油耗降低 9%，并把作业日志写入 ESG 报告。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>排队资源</strong>：量子云队列长，需准备备选平台。</li><li><strong>数据主权</strong>：量子作业若包含敏感数据需确认驻留与加密策略。</li><li><strong>PQC 技术债</strong>：仅换证书而忽略嵌入式设备与长期存档仍会被“收割后解密”。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>量子算力竞争的本质是协奏。硬件多样化、混合工作流、供应链治理与 PQC 迁移缺一不可，谁先把四条路线打通，谁就拥有更高话语权。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;IBM Kookaburra 模块化芯片、Google Sycamore-X 动态电路、Xanadu Borealis+ 光量子服务、NIST&amp;#x2F;ETSI PQC 迁移指南 2.0 在 11 月 17 日共同描绘了“量子协奏”路线：硬件扩展、云化服务与</summary>
-      
-    
-    
-    
-    <category term="量子计算" scheme="https://zhangxianda.com/categories/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/"/>
-    
-    
-    <category term="PQC" scheme="https://zhangxianda.com/tags/PQC/"/>
-    
-    <category term="Xanadu Borealis" scheme="https://zhangxianda.com/tags/Xanadu-Borealis/"/>
-    
-    <category term="IBM Kookaburra" scheme="https://zhangxianda.com/tags/IBM-Kookaburra/"/>
-    
-    <category term="Google Sycamore-X" scheme="https://zhangxianda.com/tags/Google-Sycamore-X/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>指标驱动工程的闭环运营</title>
-    <link href="https://zhangxianda.com/2025/11/17/2025-11-17-software-engineering/"/>
-    <id>https://zhangxianda.com/2025/11/17/2025-11-17-software-engineering/</id>
-    <published>2025-11-17T01:30:00.000Z</published>
-    <updated>2025-11-17T03:43:20.535Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>GitHub 把 Copilot Workspace 审批模板扩展到性能预算与威胁摘要，Atlassian Compass 发布 Service Reliability Score（SRS）2.1，LaunchDarkly Feature Risk Matrix API 支持自动审批链，ServiceNow + Nobl9 把 SLO&#x2F;错误预算直接写入变更流程。工程效率、质量、成本、责任在同一个闭环内被衡量。</p><h2 id="1-Copilot-Workspace-审批模板"><a href="#1-Copilot-Workspace-审批模板" class="headerlink" title="1. Copilot Workspace 审批模板"></a>1. Copilot Workspace 审批模板</h2><ul><li>PR 页面默认输出“变更意图、依赖树、测试矩阵、威胁模型、性能预算”，提示词写入审计日志；敏感目录必须人工复核。</li></ul><h2 id="2-Compass-SRS-2-1"><a href="#2-Compass-SRS-2-1" class="headerlink" title="2. Compass SRS 2.1"></a>2. Compass SRS 2.1</h2><ul><li>SRS 综合部署频率、恢复时间、变更失败率、错误预算、On-call 健康度、Runbook 完整度，低于阈值自动创建 Jira 任务并触发 Opsgenie 值班。</li></ul><h2 id="3-LaunchDarkly-风险矩阵"><a href="#3-LaunchDarkly-风险矩阵" class="headerlink" title="3. LaunchDarkly 风险矩阵"></a>3. LaunchDarkly 风险矩阵</h2><ul><li>产品团队可为每个 Flag 设置业务影响、技术复杂度、用户范围、依赖，系统按风险级别决定灰度策略与审批链；风险数据可导出至 Tableau&#x2F;Grafana。</li></ul><h2 id="4-SLO-Change-Bridge"><a href="#4-SLO-Change-Bridge" class="headerlink" title="4. SLO + Change Bridge"></a>4. SLO + Change Bridge</h2><ul><li>ServiceNow + Nobl9 将实时 SLO&#x2F;错误预算嵌入变更审批，预测超限则阻断或降级；Incident 复盘自动附带 SLO、Feature 状态、成本。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>指标一体化</strong>：把 DORA、SRS、SLO、Feature 风险、成本整合在同一仪表板。</li><li><strong>AI 可追溯</strong>：启用 Copilot 日志与提示词留存，满足 SOC 2、AI 合规需求。</li><li><strong>平台产品化</strong>：平台团队维护 Compass 模型、LaunchDarkly 模板、SLO Catalog、Runbook，像产品经理一样运营。</li><li><strong>事件文化</strong>：建立 Incident 指挥官制度、复盘模板，并让 AI 辅助分析成为标准操作。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>在核心仓库启用 Copilot Workspace 模板，要求 PR 自动生成风险、测试、性能摘要。</li><li>将服务接入 Compass SRS 2.1，设定阈值并自动触发整改任务。</li><li>发布 Feature Risk Matrix 模板，所有新功能必须填写并走审批。</li><li>把 SLO&#x2F;错误预算接入变更管理，实现“指标驱动发布”。</li></ul><h2 id="案例与风险"><a href="#案例与风险" class="headerlink" title="案例与风险"></a>案例与风险</h2><ul><li><strong>成功案例</strong>：SaaS 企业将 SRS 阈值与发版管道绑定，低于 80 分的服务禁止合并；金融机构要求高风险 Flag 附带 Copilot 审批日志供 SOX 审查。</li><li><strong>风险</strong>：指标与权限系统未打通会让团队绕过检查；AI 生成内容若未审查即合并会产生合规风险，必须落实“AI 建议 + 人审”。</li><li><strong>落地技巧</strong>：把 Compass&#x2F;LaunchDarkly 的输出映射到统一 CMDB 字段，方便运营&#x2F;安全&#x2F;审计共用；设置“指标失联告警”，若某服务 24 小时未上报 SLO 或 AI 审批日志则禁止发版。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>工程效率来自“AI + 指标 + 平台”的协奏。通过 Copilot、Compass、LaunchDarkly、SLO 平台打通从编码到运营的链路，团队才能在 AI 时代交付高质量且可审计的产品。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;GitHub 把 Copilot Workspace 审批模板扩展到性能预算与威胁摘要，Atlassian Compass 发布 Service Reliability Score（SRS）2.1，LaunchDarkly Feature Risk Matri</summary>
-      
-    
-    
-    
-    <category term="软件工程" scheme="https://zhangxianda.com/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
-    
-    
-    <category term="Atlassian Compass" scheme="https://zhangxianda.com/tags/Atlassian-Compass/"/>
-    
-    <category term="Copilot Workspace" scheme="https://zhangxianda.com/tags/Copilot-Workspace/"/>
-    
-    <category term="LaunchDarkly" scheme="https://zhangxianda.com/tags/LaunchDarkly/"/>
-    
-    <category term="SLO Platform" scheme="https://zhangxianda.com/tags/SLO-Platform/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AI 工具链将策略写成可执行管线</title>
-    <link href="https://zhangxianda.com/2025/11/16/2025-11-16-ai-tooling/"/>
-    <id>https://zhangxianda.com/2025/11/16/2025-11-16-ai-tooling/</id>
-    <published>2025-11-16T01:30:00.000Z</published>
-    <updated>2025-11-17T01:24:46.883Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>11 月 16 日，AI 工具链继续把“策略即代码”付诸实践：LangChain 0.4 Workflow Builder&#x2F;Agent Registry 面向企业 GA，LlamaIndex Orion Monitoring 为 RAG 提供引用可靠度、事实核验、成本告警，PromptOps 发布 Policy DSL 2.0，Databricks Lakehouse IQ Automation 将上下文、缓存、成本策略与审批流绑定。智能体不只要跑，更要可控、可审计、可降本。</p><h2 id="1-LangChain-0-4"><a href="#1-LangChain-0-4" class="headerlink" title="1. LangChain 0.4"></a>1. LangChain 0.4</h2><ul><li>Workflow Builder 允许用 YAML&#x2F;可视化定义多代理流程，内置任务分解、并行、超时、回退；Agent Registry 管理工具元数据、版本、权限与审计。</li><li>LangServe 支持热更新与流量分级，LangSmith 自动记录输入、输出、引用、成本、评估结果。</li></ul><h2 id="2-LlamaIndex-Orion"><a href="#2-LlamaIndex-Orion" class="headerlink" title="2. LlamaIndex Orion"></a>2. LlamaIndex Orion</h2><ul><li>Orion 监控 RAG 链条，输出引用可靠度、事实核验、检索命中率、延迟、成本；异常可推送至 PagerDuty&#x2F;Jira，并通过 OpenInference&#x2F;OTLP 导出。</li><li>提供 Prompt Diff、数据漂移检测、自动回归测试，帮助团队评估改动影响。</li></ul><h2 id="3-PromptOps-DSL-2-0"><a href="#3-PromptOps-DSL-2-0" class="headerlink" title="3. PromptOps DSL 2.0"></a>3. PromptOps DSL 2.0</h2><ul><li>语言支持敏感词、数据分类、工具白名单、成本预算、审批节点，与 Git&#x2F;CI&#x2F;Jira&#x2F;Slack 集成；违规提示词自动阻断或转人工。</li></ul><h2 id="4-Lakehouse-IQ-Automation"><a href="#4-Lakehouse-IQ-Automation" class="headerlink" title="4. Lakehouse IQ Automation"></a>4. Lakehouse IQ Automation</h2><ul><li>Automation 模块允许为上下文数据、向量索引、指标设置驻留、缓存、可见性、成本策略，Agent 调用时自动附带水印与引用；超预算时自动降级。</li></ul><h2 id="5-企业策略"><a href="#5-企业策略" class="headerlink" title="5. 企业策略"></a>5. 企业策略</h2><ol><li><strong>流程标准化</strong>：迁移智能体编排到 Workflow Builder&#x2F;Agent Registry，消除 ad-hoc 脚本，形成可复用模板。</li><li><strong>监控闭环</strong>：部署 Orion + OpenInference，将幻觉、引用、成本、延迟写入监控系统，并设置阈值。</li><li><strong>政策即代码</strong>：用 PromptOps DSL 把安全、合规、品牌策略写成代码，与 CI&#x2F;审批&#x2F;日志联动。</li><li><strong>上下文治理</strong>：借助 Lakehouse IQ Automation 管理知识库驻留、缓存、成本，确保 RAG 数据可追溯。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>梳理所有智能体流程，迁移到 LangChain Workflow Builder 并登记工具元数据。</li><li>启用 Orion Monitoring，将异常推送给 SRE&#x2F;产品团队，建立事实核验回路。</li><li>在 PromptOps 中发布策略 DSL，覆盖敏感词、API 访问、成本预算。</li><li>在 Lakehouse IQ Automation 中配置上下文与缓存策略，减少重复查询并记录引用。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>策略漂移</strong>：Workflow&#x2F;Policy 版本若与发布流程脱节，旧策略会继续运行；需建立版本控制与回滚机制。</li><li><strong>监控孤岛</strong>：Orion 指标若未同步到企业 Observability 平台，告警可能被忽视；需统一接入。</li><li><strong>数据驻留合规</strong>：Lakehouse Automation 跨境缓存需绑定驻留策略与审批链，避免触犯数据主权法规。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>AI 工具链的竞争在于“策略能否自动执行”。只有把流程、监控、政策、上下文治理写成代码，企业才能在大规模部署智能体时做到安全、可溯源、可控成本。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 16 日，AI 工具链继续把“策略即代码”付诸实践：LangChain 0.4 Workflow Builder&amp;#x2F;Agent Registry 面向企业 GA，LlamaIndex Orion Monitoring 为 RAG 提供引用可靠</summary>
-      
-    
-    
-    
-    <category term="最新AI开发工具推荐" scheme="https://zhangxianda.com/categories/%E6%9C%80%E6%96%B0AI%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
-    
-    
-    <category term="LangChain 0.4" scheme="https://zhangxianda.com/tags/LangChain-0-4/"/>
-    
-    <category term="LlamaIndex Orion" scheme="https://zhangxianda.com/tags/LlamaIndex-Orion/"/>
-    
-    <category term="PromptOps DSL" scheme="https://zhangxianda.com/tags/PromptOps-DSL/"/>
-    
-    <category term="Lakehouse IQ Automation" scheme="https://zhangxianda.com/tags/Lakehouse-IQ-Automation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>智能协作迈向可信算力网络</title>
-    <link href="https://zhangxianda.com/2025/11/16/2025-11-16-artificial-intelligence/"/>
-    <id>https://zhangxianda.com/2025/11/16/2025-11-16-artificial-intelligence/</id>
-    <published>2025-11-16T01:30:00.000Z</published>
-    <updated>2025-11-17T01:22:19.272Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>11 月 16 日，AI 行业的核心不再是谁参数更大，而是谁能把算力作为可信网络来运营：OpenAI 推出 GPT-5.2 的“工具预算 + 行为回放”测试计划，Google 宣布 Gemini 2.1 Orchestrator 在 Workspace 与 Apigee 之间打通，微软 Copilot Studio 将 Connector Policy 模板置入所有租户，联合国环境署与 WEF 则发布《AI ESG 影响指标 1.0》实施指南。模型、算力、工具、治理之间的协作进入新阶段。</p><h2 id="1-OpenAI：工具预算-API-行为回放"><a href="#1-OpenAI：工具预算-API-行为回放" class="headerlink" title="1. OpenAI：工具预算 API + 行为回放"></a>1. OpenAI：工具预算 API + 行为回放</h2><ul><li>GPT-5.2 允许企业通过 Tool Budget API 为每次回答设置最大工具调用次数、费用上限、引用验证策略；若超限将自动降级或中止。</li><li>Audit Replay 让合规团队重放 Prompt→工具→答案→成本→能耗的链路，并导出 JSON 证据包，满足审计与客户查询。</li></ul><h2 id="2-Google：Gemini-2-1-Orchestrator-深度嵌入"><a href="#2-Google：Gemini-2-1-Orchestrator-深度嵌入" class="headerlink" title="2. Google：Gemini 2.1 Orchestrator 深度嵌入"></a>2. Google：Gemini 2.1 Orchestrator 深度嵌入</h2><ul><li>Orchestrator 现可把 Workspace 工作流与 Apigee API 网关直接联动，管理员通过 Policy Hub 设定“延迟&#x2F;成本&#x2F;隐私”三维权重，并限制某些 API 仅由本地小模型调用。</li><li>长上下文被扩展到 3 百万 Token，配合 Vertex AI 的合成媒体水印，为法务审计、代码检索、研发知识库提供支撑。</li></ul><h2 id="3-Microsoft：Copilot-Studio-Connector-Policy-by-Default"><a href="#3-Microsoft：Copilot-Studio-Connector-Policy-by-Default" class="headerlink" title="3. Microsoft：Copilot Studio Connector Policy by Default"></a>3. Microsoft：Copilot Studio Connector Policy by Default</h2><ul><li>所有 E5&#x2F;E3 客户默认开启 Connector Policy 模板，要求在连接 SharePoint、SAP、ServiceNow、GitHub 前完成审批、数据分类、引用策略和成本中心映射，Copilot Analytics 可按部门导出算力账单。</li></ul><h2 id="4-治理信号：AI-ESG-指标"><a href="#4-治理信号：AI-ESG-指标" class="headerlink" title="4. 治理信号：AI ESG 指标"></a>4. 治理信号：AI ESG 指标</h2><ul><li>《AI ESG 影响指标 1.0》要求企业披露算力密度、能源来源、碳抵消计划、数据权利影响，并建议建立“算力账本 API”供监管、客户、投资者查询。</li><li>欧盟 AI Act、韩国 AI 基本法同步要求高风险模型登记工具清单、算力预算、申诉流程。</li></ul><h2 id="5-企业策略"><a href="#5-企业策略" class="headerlink" title="5. 企业策略"></a>5. 企业策略</h2><ol><li><strong>建设模型调度层</strong>：通过 Router&#x2F;Orchestrator 将 GPT、Gemini、Copilot、内部小模型统一接入，根据场景设定延迟、成本、隐私权重。</li><li><strong>工具预算治理</strong>：在 Prompt 管理平台中配置 Tool Budget、敏感 API 白名单、引用校验，发生异常时自动降级或转人工。</li><li><strong>算力 ESG 账本</strong>：记录每次模型调用的 GPU 小时、能耗、碳排、业务价值，把数据同步到 ESG 报告、客户 SLA 与董事会仪表板。</li><li><strong>合规模板</strong>：与法务、合规、IT 构建 AI 行为日志、申诉机制、供应商清单，为 AI Act &#x2F; AI ESG &#x2F; 韩国法规做好准备。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>启用 GPT-5.2 Tool Budget，联动 FinOps&#x2F;ESG 仪表板，并为高风险业务设置双重审批。</li><li>在 Workspace、Copilot 管理端配置 Orchestrator&#x2F;Connector 策略模板，确保审批与日志留痕。</li><li>搭建算力 ESG 服务，把 GPU 数据、能源来源、碳排公开给客户与监管。</li><li>为高风险模型输出行为日志、引用链、申诉流程，完成法务复核。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>策略漂移</strong>：调度层与业务流程脱节会导致旧策略持续运行，需建立版本控制与回滚机制。</li><li><strong>算力账本可靠性</strong>：若数据采集依赖人工填报，可信度不足，应引入自动监测与第三方审计。</li><li><strong>跨平台差异</strong>：不同模型平台的策略语言不一致，建议在企业层面建立统一策略抽象再下发。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>大模型竞争已经进入“可信运营”阶段。谁能在模型调度、工具治理、算力透明、政策对齐上同步发力，谁就能在下一轮智能商业化中掌握主动权。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 16 日，AI 行业的核心不再是谁参数更大，而是谁能把算力作为可信网络来运营：OpenAI 推出 GPT-5.2 的“工具预算 + 行为回放”测试计划，Google 宣布 Gemini 2.1 Orchestrator 在 Workspace 与 A</summary>
-      
-    
-    
-    
-    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    
-    <category term="Gemini 2.1" scheme="https://zhangxianda.com/tags/Gemini-2-1/"/>
-    
-    <category term="Copilot Studio" scheme="https://zhangxianda.com/tags/Copilot-Studio/"/>
-    
-    <category term="GPT-5.2" scheme="https://zhangxianda.com/tags/GPT-5-2/"/>
-    
-    <category term="AI ESG" scheme="https://zhangxianda.com/tags/AI-ESG/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据密度时代的后端成本账本</title>
-    <link href="https://zhangxianda.com/2025/11/16/2025-11-16-backend/"/>
-    <id>https://zhangxianda.com/2025/11/16/2025-11-16-backend/</id>
-    <published>2025-11-16T01:30:00.000Z</published>
-    <updated>2025-11-17T01:25:04.175Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>11 月 16 日，PostgreSQL 17 RC2、ClickHouse Cloud 混合存储、Redis 8.0 多租户、OpenTelemetry TraceQL 继续构建“数据密度 + 成本透明”组合拳。后端团队要把数据库、缓存、实时分析、观测纳入同一账本，才能支撑日益增长的 AI&#x2F;数据产品。</p><h2 id="1-PostgreSQL-17-RC2"><a href="#1-PostgreSQL-17-RC2" class="headerlink" title="1. PostgreSQL 17 RC2"></a>1. PostgreSQL 17 RC2</h2><ul><li>并行逻辑复制让订阅端按事务顺序分配 worker，延迟降低 40%；<code>pg_distributed</code> 扩展支持跨 Region 拓扑；WAL 压缩 + 增量备份提高存算分离效率。</li><li>行列组合权限与审计扩展满足多租户合规。</li></ul><h2 id="2-ClickHouse-Cloud-混合存储"><a href="#2-ClickHouse-Cloud-混合存储" class="headerlink" title="2. ClickHouse Cloud 混合存储"></a>2. ClickHouse Cloud 混合存储</h2><ul><li>新实例把热数据留在 NVMe，冷数据下沉对象存储，必要时再拉回；Materialized View Streaming + Iceberg Sink 让实时事件自动进入数据湖或 RAG 索引。</li></ul><h2 id="3-Redis-8-0-多租户"><a href="#3-Redis-8-0-多租户" class="headerlink" title="3. Redis 8.0 多租户"></a>3. Redis 8.0 多租户</h2><ul><li>Multi-tenant Database (MDB) 为每个业务提供独立命名空间与配额，命令级限流可控制 <code>FT.SEARCH</code>、<code>AI.MODELEXECUTE</code>；Replication Pipeline + 自动 Resharding 降低运维成本。</li></ul><h2 id="4-TraceQL-稳定"><a href="#4-TraceQL-稳定" class="headerlink" title="4. TraceQL 稳定"></a>4. TraceQL 稳定</h2><ul><li>TraceQL 以 SQL 风格查询 Trace，支持属性过滤、聚合、异常检测，可将请求路径、数据库调用、缓存命中与成本、错误预算挂钩。</li></ul><h2 id="5-企业策略"><a href="#5-企业策略" class="headerlink" title="5. 企业策略"></a>5. 企业策略</h2><ol><li><strong>数据分层</strong>：根据读写、分析、向量、归档需求组合 PostgreSQL、ClickHouse、Redis，统一 Schema 与权限。</li><li><strong>平台化缓存</strong>：将 Redis&#x2F;Kafka&#x2F;Feature Store 视作平台产品，提供命名空间、限流、成本账单。</li><li><strong>可观测账本</strong>：用 OTel&#x2F;TraceQL 将 API、数据库、缓存调用与成本绑定，驱动 FinOps 决策。</li><li><strong>合规审计</strong>：利用 PostgreSQL 审计扩展、SBOM、签名满足 CRA&#x2F;AI Act 要求。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>在预生产部署 PostgreSQL 17 RC2，验证并行逻辑复制与跨 Region 拓扑。</li><li>试用 ClickHouse 混合实例，比较不同热层的成本与延迟。</li><li>升级 Redis 至 8.0，配置 MDB、命令限流，并输出使用报表。</li><li>在 Observability 平台启用 TraceQL，建立“请求—成本”仪表板。</li></ul><h2 id="案例速写"><a href="#案例速写" class="headerlink" title="案例速写"></a>案例速写</h2><ul><li><strong>零售平台</strong>：将 Redis 8.0 MDB 接入计费系统后，实现“缓存即服务”，各业务线可自助申请命名空间并查看命中率&#x2F;成本，上线两周削减 18% 高峰消耗。</li><li><strong>金融机构</strong>：在跨区域 PostgreSQL 拓扑中使用 <code>pg_distributed</code> 定义读写路由，把 TraceQL 数据与 FinOps 仪表板打通，使“昂贵查询”即时可见，平均分析延迟减少 35%。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>成本回传延迟</strong>：若数据同步慢，FinOps 决策会基于旧指标，需搭建实时 ETL 与告警。</li><li><strong>邻居噪声</strong>：多租户缓存若无配额限制，容易被大客户拖垮，需要限流与监控。</li><li><strong>合规碎片化</strong>：各业务自建审计导致记录不一致，应由平台统一模板与保留期。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>后端架构已经从“堆栈”转为“账本”。通过 PostgreSQL 17、ClickHouse、Redis 8.0、TraceQL 的组合，团队可以在高密度数据场景中兼顾性能、透明与合规。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 16 日，PostgreSQL 17 RC2、ClickHouse Cloud 混合存储、Redis 8.0 多租户、OpenTelemetry TraceQL 继续构建“数据密度 + 成本透明”组合拳。后端团队要把数据库、缓存、实时分析、观测纳入同</summary>
-      
-    
-    
-    
-    <category term="后端" scheme="https://zhangxianda.com/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    
-    <category term="PostgreSQL 17" scheme="https://zhangxianda.com/tags/PostgreSQL-17/"/>
-    
-    <category term="Redis 8.0" scheme="https://zhangxianda.com/tags/Redis-8-0/"/>
-    
-    <category term="ClickHouse Cloud" scheme="https://zhangxianda.com/tags/ClickHouse-Cloud/"/>
-    
-    <category term="TraceQL" scheme="https://zhangxianda.com/tags/TraceQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>算力攻防驱动的零信任再造</title>
-    <link href="https://zhangxianda.com/2025/11/16/2025-11-16-cybersecurity/"/>
-    <id>https://zhangxianda.com/2025/11/16/2025-11-16-cybersecurity/</id>
-    <published>2025-11-16T01:30:00.000Z</published>
-    <updated>2025-11-17T01:22:38.009Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>11 月 16 日，安全圈仍在应对 FortiOS SSL-VPN 零日、Okta 会话泄露与 AI 深伪 BEC 的余波。英国 NCSC 发布《AI Phishing Response》指南，微软&#x2F;Google&#x2F;CrowdStrike 的自治紫队框架开始被金融客户采纳。零信任正在从“身份”扩展到“会话 + 工具 + 算力”。</p><h2 id="1-事件速览"><a href="#1-事件速览" class="headerlink" title="1. 事件速览"></a>1. 事件速览</h2><ul><li><strong>FortiOS CVE-2025-44701</strong>：APT 利用 AI 自动生成多语言混淆载荷，通过 ClientHello 触发堆溢出，植入 “RogueBeacon” 并借 AnyDesk、ScreenConnect 持久化。Fortinet 发布热补丁，建议启用客户端证书、IP 白名单、日志镜像。</li><li><strong>Okta 会话泄露</strong>：旧版 Support Portal Cookie 被恶意扩展窃取，攻击者直接访问客户后台、下载 SAML 元数据。Okta 强制失效旧 Cookie 并要求 FIDO2 + 浏览器完整性检测。</li></ul><h2 id="2-AI-BEC-Phishing"><a href="#2-AI-BEC-Phishing" class="headerlink" title="2. AI BEC&#x2F;Phishing"></a>2. AI BEC&#x2F;Phishing</h2><ul><li>NCSC 指出攻击者在 Teams&#x2F;Zoom 中实时扮演 CFO&#x2F;供应商，语音、表情、背景一致；脚本由 LLM 自动生成并实时翻译。建议对高价值会议启用回拨验证、声纹、会话水印，并对财务流程实施延迟支付与双重审批。</li></ul><h2 id="3-自治紫队框架"><a href="#3-自治紫队框架" class="headerlink" title="3. 自治紫队框架"></a>3. 自治紫队框架</h2><ul><li>微软 Security Copilot、Google Chronicle、CrowdStrike Charlotte 联合开放 API，自动运行 MITRE 场景、生成检测指标、推送补救计划，结果写入 CMDB&#x2F;GRC&#x2F;SIEM。</li></ul><h2 id="4-企业策略"><a href="#4-企业策略" class="headerlink" title="4. 企业策略"></a>4. 企业策略</h2><ol><li><strong>身份 + 会话治理</strong>：启用硬件密钥、Token Binding、设备指纹，限制扩展访问敏感 Cookie；VPN&#x2F;防火墙启用客户端证书和地理限制。</li><li><strong>AI 滥用检测</strong>：部署语音&#x2F;视频水印、声纹、行为分析，对财务&#x2F;法务&#x2F;供应链开展 AI BEC 演练，设置延迟支付与二次确认。</li><li><strong>紫队常态化</strong>：利用 Copilot&#x2F;Chronicle&#x2F;Cortex 自动运行攻击脚本，统计 MTTD&#x2F;MTTR，并把结果写入安全 OKR。</li><li><strong>供应链问责</strong>：在合同中写入 SBOM、日志访问、补丁 SLA，满足 CRA&#x2F;NIS2 审查。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>清理历史 Okta 会话，启用 FIDO2、浏览器完整性、扩展黑名单。</li><li>为 FortiOS&#x2F;Citrix&#x2F;Palo Alto 等设备部署补丁、客户端证书、IP 白名单。</li><li>建立自治紫队流水线，每周运行至少一个场景并自动生成整改任务。</li><li>对财务与关键采购流程实施 AI BEC 演练，完善延迟支付与回拨认证。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>扩展生态复杂</strong>：若未统一浏览器策略，恶意扩展仍可窃取会话；需结合 MDM+浏览器策略集中管控。</li><li><strong>AI 检测误判</strong>：语音&#x2F;视频水印可能导致误判，必须设人工复核通道，以免阻断正常业务。</li><li><strong>紫队结果孤岛</strong>：若演练结果未写入 GRC&#x2F;CMDB，整改难以跟踪，需要建立跨系统数据管道。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>算力攻防迫使零信任升级。只有把身份、会话、AI 滥用检测、紫队自动化、供应链责任整合为常态机制，企业才能在持久战中保持韧性。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 16 日，安全圈仍在应对 FortiOS SSL-VPN 零日、Okta 会话泄露与 AI 深伪 BEC 的余波。英国 NCSC 发布《AI Phishing Response》指南，微软&amp;#x2F;Google&amp;#x2F;CrowdStrike 的</summary>
-      
-    
-    
-    
-    <category term="网络安全" scheme="https://zhangxianda.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="FortiOS 零日" scheme="https://zhangxianda.com/tags/FortiOS-%E9%9B%B6%E6%97%A5/"/>
-    
-    <category term="Purple Team" scheme="https://zhangxianda.com/tags/Purple-Team/"/>
-    
-    <category term="Okta 会话泄露" scheme="https://zhangxianda.com/tags/Okta-%E4%BC%9A%E8%AF%9D%E6%B3%84%E9%9C%B2/"/>
-    
-    <category term="AI Phishing" scheme="https://zhangxianda.com/tags/AI-Phishing/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>多边数字治理的执行清单</title>
-    <link href="https://zhangxianda.com/2025/11/16/2025-11-16-digital-governance/"/>
-    <id>https://zhangxianda.com/2025/11/16/2025-11-16-digital-governance/</id>
-    <published>2025-11-16T01:30:00.000Z</published>
-    <updated>2025-11-17T01:25:12.430Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>11 月 16 日，G20 《Digital Charter》执行路线、欧盟 CRA 抽检安排、联合国环境署《AI ESG 指标》指南、澳大利亚&#x2F;新加坡&#x2F;阿联酋数据沙盒互认项目陆续落地。数字治理不再停留在宣言，而是要求企业为算力、数据、身份建立“互信账本”。</p><h2 id="1-Digital-Charter-执行路线"><a href="#1-Digital-Charter-执行路线" class="headerlink" title="1. Digital Charter 执行路线"></a>1. Digital Charter 执行路线</h2><ul><li>Charter 要求成员国在 2026~2027 年间完成 AI 行为日志、合成媒体标签、紧急数据协同标准化；大型算力服务商需提供算力调度日志与 ESG 披露。</li><li>企业需要构建政策映射矩阵，把 Charter 要求映射到具体业务、数据、算力资产。</li></ul><h2 id="2-CRA-抽检计划"><a href="#2-CRA-抽检计划" class="headerlink" title="2. CRA 抽检计划"></a>2. CRA 抽检计划</h2><ul><li>欧盟确定 2026 年起对联网产品开展抽检，高风险产品（医疗、能源、工业控制）需提交 SBOM、安全评估、补丁 SLA；基础设备需承诺 5 年更新与漏洞披露窗口。</li></ul><h2 id="3-AI-ESG-指标"><a href="#3-AI-ESG-指标" class="headerlink" title="3. AI ESG 指标"></a>3. AI ESG 指标</h2><ul><li>指标涵盖算力密度、能源来源、碳抵消计划、数据权利影响，鼓励构建“算力账本 API”以供监管、客户、投资者查询。</li></ul><h2 id="4-数据沙盒互认"><a href="#4-数据沙盒互认" class="headerlink" title="4. 数据沙盒互认"></a>4. 数据沙盒互认</h2><ul><li>澳大利亚 OAIC、新加坡 PDPC、阿联酋 TRA 建立互认沙盒，一次审批即可在三地流转实验数据，前提是有脱敏、用途限制、可撤回、实时审计接口。</li></ul><h2 id="5-企业策略"><a href="#5-企业策略" class="headerlink" title="5. 企业策略"></a>5. 企业策略</h2><ol><li><strong>政策映射平台</strong>：建设法规知识库，将 Charter、CRA、AI ESG、沙盒要求映射到数据、算力、身份资产，并设到期提醒。</li><li><strong>算力账本</strong>：记录模型训练&#x2F;推理的 GPU 小时、能源、碳排、业务价值，输出给 ESG 报告与客户 SLA。</li><li><strong>身份互操作</strong>：让 IAM 同时支持 eIDAS、UAE Pass、FIDO2、韩国 DID，并留存可审计日志。</li><li><strong>数据协定与沙盒</strong>：签署跨境数据协议，写入脱敏、用途限制、撤回条款，与沙盒 API 对接。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>制定 Charter 差距分析，明确各业务线负责的政策与截止时间。</li><li>为欧盟产品线完成 CRA 准备：SBOM、漏洞披露、补丁 SLA、包装标签。</li><li>搭建算力 ESG 仪表板，把 GPU 数据与财务&#x2F;可持续发展系统同步。</li><li>申请跨境沙盒试点，演练脱敏、授权、撤回机制并记录审计日志。</li></ul><h2 id="经验谈"><a href="#经验谈" class="headerlink" title="经验谈"></a>经验谈</h2><ul><li><strong>跨国银行</strong>：把算力账本做成自助 API，客户与监管可查看 GPU 能耗、引用链、行为日志；同时在沙盒项目中验证“可撤回”机制，确保 72 小时内删除并提供证据。</li><li><strong>消费电子企业</strong>：在韩国登记高风险模型并开放本地审计接口，监管可实时抽取行为日志；在欧盟产品线上使用 CRA 模板生成 SBOM、漏洞披露邮件与包装标签，大幅压缩合规周期。</li></ul><h2 id="实施难点"><a href="#实施难点" class="headerlink" title="实施难点"></a>实施难点</h2><ul><li><strong>数据分类差异</strong>：不同市场对数据定义不同，应在数据平台引入标签继承与冲突检测机制。</li><li><strong>算力证明可信度</strong>：建议引入第三方能源审计或区块链式签名记录 GPU 使用，提升证据力。</li><li><strong>沙盒退出</strong>：需系统化“删除 + 审计 + 告警”流程，并在合同中写明时限与责任。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>法规差异</strong>：复制模板易违规，必须建立本地差异库。</li><li><strong>供应链责任</strong>：未与供应商签 CRA&#x2F;ESG 条款时，事故仍由主体负责。</li><li><strong>数据疲劳</strong>：多地要求频繁上报，缺少自动化会出现数据不一致。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>互信账本时代要求企业把政策、算力、数据、身份整合到平台。谁能把这些元素转化为可执行的清单，谁就能在多法域运营中保持合规与效率。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 16 日，G20 《Digital Charter》执行路线、欧盟 CRA 抽检安排、联合国环境署《AI ESG 指标》指南、澳大利亚&amp;#x2F;新加坡&amp;#x2F;阿联酋数据沙盒互认项目陆续落地。数字治理不再停留在宣言，而是要求企业为算力、数据、身份</summary>
-      
-    
-    
-    
-    <category term="数字治理" scheme="https://zhangxianda.com/categories/%E6%95%B0%E5%AD%97%E6%B2%BB%E7%90%86/"/>
-    
-    
-    <category term="G20 Digital Charter" scheme="https://zhangxianda.com/tags/G20-Digital-Charter/"/>
-    
-    <category term="EU CRA" scheme="https://zhangxianda.com/tags/EU-CRA/"/>
-    
-    <category term="Data Sandbox" scheme="https://zhangxianda.com/tags/Data-Sandbox/"/>
-    
-    <category term="AI ESG" scheme="https://zhangxianda.com/tags/AI-ESG/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>前端体验的算力治理公式</title>
-    <link href="https://zhangxianda.com/2025/11/16/2025-11-16-frontend/"/>
-    <id>https://zhangxianda.com/2025/11/16/2025-11-16-frontend/</id>
-    <published>2025-11-16T01:30:00.000Z</published>
-    <updated>2025-11-17T01:24:23.506Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>11 月 16 日，前端工程继续把“体验 + 算力 + 治理”拉到一个层级：React 19 GA 的 Server Actions、Partial Prerender、React Compiler 在企业级项目落地，Angular 19 的 Zoned Signals 与 SSR Streaming 进入稳定渠道，W3C 批准 WebGPU 1.1 与 WebAssembly Component Model，Vercel&#x2F;Cloudflare&#x2F;Netlify Edge Functions 支持 GPU 推理与零信任执行。前端团队必须像运营后端一样运营算力。</p><h2 id="1-React-19-与算力分层"><a href="#1-React-19-与算力分层" class="headerlink" title="1. React 19 与算力分层"></a>1. React 19 与算力分层</h2><ul><li>Server Actions 将副作用放回服务器并提供乐观 UI、重试、错误边界；Server Components + <code>use</code> API 降低客户端 JS；Partial Prerender + Edge Runtime 带来低 TTFB。</li><li>React Compiler 自动识别可 memoize 子树，减少重渲染，适合多语言&#x2F;多代理页面。</li></ul><h2 id="2-Angular-19"><a href="#2-Angular-19" class="headerlink" title="2. Angular 19"></a>2. Angular 19</h2><ul><li>Zoned Signals 把响应式系统与 Zone.js 分离，精准控制刷新范围；SSR Streaming 提供渐进式 HTML；NG Deploy CLI 自动生成 Edge 平台配置。</li></ul><h2 id="3-WebGPU-1-1-Wasm-Component-Model"><a href="#3-WebGPU-1-1-Wasm-Component-Model" class="headerlink" title="3. WebGPU 1.1 + Wasm Component Model"></a>3. WebGPU 1.1 + Wasm Component Model</h2><ul><li>WebGPU 新增 Video Pipeline、FP16、共享内存，适合浏览器内多模态 AI；Component Model 让 Rust&#x2F;Go&#x2F;C#&#x2F;Kotlin 模块组合运行，Edge Workers AI 已支持。</li></ul><h2 id="4-隐私与治理"><a href="#4-隐私与治理" class="headerlink" title="4. 隐私与治理"></a>4. 隐私与治理</h2><ul><li>Chrome 132 默认启用 Privacy Sandbox Protected Audience；Safari 18.2 加强反指纹；CMP 需与 Server Actions&#x2F;Edge 日志联动记录用户同意与数据用途。</li></ul><h2 id="5-企业策略"><a href="#5-企业策略" class="headerlink" title="5. 企业策略"></a>5. 企业策略</h2><ol><li><strong>框架规划</strong>：制定 React&#x2F;Angular&#x2F;Svelte&#x2F;Nuxt 的组件规范、设计 token、数据访问策略，避免重复造轮子。</li><li><strong>算力编排</strong>：利用 Edge Runtime、WebGPU、Wasm 将 AI&#x2F;视频&#x2F;图像处理布置在最合适的位置。</li><li><strong>体验预算</strong>：设定 TTFB、交互延迟、JS 体积、GPU 时间指标，借助 Vercel&#x2F;Cloudflare Profiling 监控并触发告警。</li><li><strong>隐私合规</strong>：把 CMP 决策、数据用途、AI 引用写入 Server Actions&#x2F;Edge 日志，满足 Privacy Sandbox 与地区法规。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>升级核心项目到 React 19&#x2F;Angular 19，重点验证 Actions、Signals、Partial Prerender。</li><li>构建 WebGPU + Wasm 组件，把图像&#x2F;视频&#x2F;AI 逻辑在浏览器或边缘执行，记录性能收益。</li><li>在 Edge 平台建立体验预算仪表板，监控 TTFB、GPU 时间、缓存命中率。</li><li>更新隐私策略与日志，确保前端数据收集、AI 推理可审计。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>算力成本不可见</strong>：若 Edge&#x2F;GPU 成本不透明，前端会被误判；需与 FinOps 数据打通。</li><li><strong>隐私策略漂移</strong>：CMP 决策与代码不同步会引发合规风险，需自动化测试验证。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>前端工程已成为算力与治理的交汇点。掌握框架升级、算力编排、体验预算、隐私治理，才能在多终端时代交付真正高质量的体验。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 16 日，前端工程继续把“体验 + 算力 + 治理”拉到一个层级：React 19 GA 的 Server Actions、Partial Prerender、React Compiler 在企业级项目落地，Angular 19 的 Zoned Si</summary>
-      
-    
-    
-    
-    <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-    <category term="WebGPU" scheme="https://zhangxianda.com/tags/WebGPU/"/>
-    
-    <category term="React 19" scheme="https://zhangxianda.com/tags/React-19/"/>
-    
-    <category term="Edge Runtime" scheme="https://zhangxianda.com/tags/Edge-Runtime/"/>
-    
-    <category term="Angular 19" scheme="https://zhangxianda.com/tags/Angular-19/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>空天地协同的物联网范式</title>
-    <link href="https://zhangxianda.com/2025/11/16/2025-11-16-iot/"/>
-    <id>https://zhangxianda.com/2025/11/16/2025-11-16-iot/</id>
-    <published>2025-11-16T01:30:00.000Z</published>
-    <updated>2025-11-17T01:25:22.526Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>11 月 16 日，IoT 行业被“空天地协同 + CRA 合规”两条主线牵引：CSA 发布 Matter 1.4 最终稿，扩展到储能、门禁、工业语义；3GPP 披露 RedCap + 非地面网络（NTN）切片试点数据；AWS IoT Mission Control 允许企业统一调度地面网关、卫星、边缘 AI；欧盟 CRA 公布联网设备抽检计划。IoT 不再是“接入即价值”，而是“连接 + 算力 + 治理”的系统工程。</p><h2 id="1-Matter-1-4"><a href="#1-Matter-1-4" class="headerlink" title="1. Matter 1.4"></a>1. Matter 1.4</h2><ul><li>加入能源曲线、负荷控制、门禁事件模型，让住宅、楼宇、工业设备共用语义；OTA 机制强化签名、证书撤销、匿名遥测，满足 CRA 风险要求。</li></ul><h2 id="2-RedCap-NTN-切片"><a href="#2-RedCap-NTN-切片" class="headerlink" title="2. RedCap + NTN 切片"></a>2. RedCap + NTN 切片</h2><ul><li>瑞典&#x2F;阿联酋试点表明 RedCap 终端可在卫星与地面网络间无缝切换，切片策略可设延迟、带宽、地域、加密等级，适合海上、矿区、灾害恢复。</li></ul><h2 id="3-AWS-IoT-Mission-Control"><a href="#3-AWS-IoT-Mission-Control" class="headerlink" title="3. AWS IoT Mission Control"></a>3. AWS IoT Mission Control</h2><ul><li>平台统一管理地面网关、LEO 卫星、边缘 GPU，提供 SBOM、策略、成本仪表板，与 FleetWise、TwinMaker、Bedrock 联动，形成“设备—数字孪生—AI”闭环。</li></ul><h2 id="4-CRA-抽检"><a href="#4-CRA-抽检" class="headerlink" title="4. CRA 抽检"></a>4. CRA 抽检</h2><ul><li>欧盟计划 2026 年起抽检联网产品，要求 5 年安全更新、SBOM、漏洞披露，2027 年前完成高风险抽检，不达标产品禁止销售。</li></ul><h2 id="5-企业策略"><a href="#5-企业策略" class="headerlink" title="5. 企业策略"></a>5. 企业策略</h2><ol><li><strong>多网络调度</strong>：设计“蜂窝 + 卫星 + Wi-Fi + Thread”冗余网络，利用 Slicing API 控制带宽与安全策略。</li><li><strong>标准统一</strong>：采用 Matter 1.4、OPC UA、MQTT5，减少多协议整合成本，并为数字孪生提供统一语义。</li><li><strong>治理平台</strong>：部署 IoT Mission Control&#x2F;EdgeOps 管理 OTA、证书、SBOM、成本，与 CRA 审计接口对接。</li><li><strong>安全生命周期</strong>：把设备身份、固件签名、日志、补丁纳入 DevSecOps，与云安全团队共享。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>评估 Matter 1.4 对现有产品的影响，制定认证与互操作计划。</li><li>与运营商开展 RedCap + NTN 切片试点，为关键场景准备备用链路。</li><li>启用 IoT Mission Control，建立地面与卫星资产的一体化看板。</li><li>按 CRA 要求完善 SBOM、漏洞披露、补丁 SLA，更新供应链合同。</li></ul><h2 id="案例速写"><a href="#案例速写" class="headerlink" title="案例速写"></a>案例速写</h2><ul><li><strong>欧洲车队管理商</strong>：依靠 Mission Control 为 5 万辆卡车推送 OTA，并为每个固件版本生成 CRA 需要的 SBOM；在北极航线使用卫星切片保障遥测带宽，避免冬季断联。</li><li><strong>东南亚能源企业</strong>：在偏远油田部署 RedCap + NTN 备份链路，断网时自动切至卫星；Matter 1.4 统一储能与站控语义，使数字孪生模型可以直接引用现场数据。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>频谱许可</strong>：卫星直连涉及多国审批，需提前规划。</li><li><strong>供应链透明度</strong>：Matter&#x2F;CRA 需要完整 SBOM，但部分芯片供应商仍不提供，需要合同约束。</li><li><strong>运维复杂度</strong>：多网络协同增加故障定位难度，必须投资跨网络遥测与自动告警。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>IoT 竞争正转向“连接 + 算力 + 治理”的协奏。掌握标准、网络、平台、生命周期安全，才能在下一代智能基础设施中占据主动。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 16 日，IoT 行业被“空天地协同 + CRA 合规”两条主线牵引：CSA 发布 Matter 1.4 最终稿，扩展到储能、门禁、工业语义；3GPP 披露 RedCap + 非地面网络（NTN）切片试点数据；AWS IoT Mission Cont</summary>
-      
-    
-    
-    
-    <category term="物联网" scheme="https://zhangxianda.com/categories/%E7%89%A9%E8%81%94%E7%BD%91/"/>
-    
-    
-    <category term="Matter 1.4" scheme="https://zhangxianda.com/tags/Matter-1-4/"/>
-    
-    <category term="5G Network Slicing" scheme="https://zhangxianda.com/tags/5G-Network-Slicing/"/>
-    
-    <category term="AWS IoT Mission Control" scheme="https://zhangxianda.com/tags/AWS-IoT-Mission-Control/"/>
-    
-    <category term="CRA" scheme="https://zhangxianda.com/tags/CRA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java 平台的低延迟合规管线</title>
-    <link href="https://zhangxianda.com/2025/11/16/2025-11-16-java/"/>
-    <id>https://zhangxianda.com/2025/11/16/2025-11-16-java/</id>
-    <published>2025-11-16T01:30:00.000Z</published>
-    <updated>2025-11-17T01:23:08.830Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>11 月 16 日，Project Leyden、Spring Boot 3.5、Quarkus 3.13、GraalVM 24.2 再次证明 Java 在“低延迟 + AI + 合规”上的执行力：Leyden Static Image Profiles 进入新一轮测试，Spring Boot 3.5.0-M2 落地 Observation + Prompt Registry，Quarkus 与 GraalVM 带来虚拟线程与 PGO 的组合拳。Java 团队终于可以用官方工具构建性能与治理双赢的流水线。</p><h2 id="1-Leyden：多运行时战略"><a href="#1-Leyden：多运行时战略" class="headerlink" title="1. Leyden：多运行时战略"></a>1. Leyden：多运行时战略</h2><ul><li>静态镜像配置允许开发者声明类初始化、反射、动态代理，生成的镜像保留诊断钩子；Layered Images 减少容器增量推送与冷启动时间。</li><li>Leyden 与 GraalVM Native Image 并行存在，一个强调可调试性，一个追求极致性能。</li></ul><h2 id="2-Spring-Boot-3-5-0-M2"><a href="#2-Spring-Boot-3-5-0-M2" class="headerlink" title="2. Spring Boot 3.5.0-M2"></a>2. Spring Boot 3.5.0-M2</h2><ul><li>集成 Spring AI Starter、Observation API、Prompt Template Registry，开发者可在 MVC&#x2F;Reactor&#x2F;Loom 场景统一调用模型、输出 OTLP Trace、记录成本。</li><li>Spring Authorization Server 1.3 RC 增加 FAPI 2.0、PAR&#x2F;JAR、密钥托管，联合 Boot 3.5 打造“AI + 合规”模板。</li></ul><h2 id="3-Quarkus-3-13-GraalVM-24-2"><a href="#3-Quarkus-3-13-GraalVM-24-2" class="headerlink" title="3. Quarkus 3.13 + GraalVM 24.2"></a>3. Quarkus 3.13 + GraalVM 24.2</h2><ul><li>Quarkus 为虚拟线程、Reactive Messaging、gRPC、Hibernate 提供统一接口，Unified Config 简化环境管理；GraalVM 提供 Profile-Guided Optimization、Memory Layout、JFR Export、自动反射配置。</li></ul><h2 id="4-实践策略"><a href="#4-实践策略" class="headerlink" title="4. 实践策略"></a>4. 实践策略</h2><ol><li><strong>运行时矩阵</strong>：为每个服务定义 HotSpot、Leyden Static、GraalVM Native 的适用场景，定期基准测试，记录延迟、内存、诊断能力。</li><li><strong>AI 工具化</strong>：利用 Spring AI、LangChain4j、Micronaut MCP 将业务 API 工具化，并通过 Observation&#x2F;OTel 输出引用、成本、审计日志。</li><li><strong>DevSecOps</strong>：在 CI&#x2F;CD 中生成 SBOM、签名、漏洞扫描结果，满足 CRA&#x2F;AI Act；运行时记录 Feature Flag、配置变更。</li><li><strong>平台模板</strong>：平台团队提供 Maven&#x2F;Gradle BOM、Helm Chart、GitHub Actions、Terraform 模板，形成黄金路径。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>在性能敏感服务中比较 Leyden Static 与 GraalVM Native 的启动&#x2F;诊断指标。</li><li>升级核心服务到 Spring Boot 3.5.0-M2 + Authorization Server 1.3 RC，启用 Observation、Prompt Registry。</li><li>在 Quarkus 3.13 + GraalVM 24.2 上跑实时 API，开启 PGO 并记录资源节省。</li><li>将 SBOM、签名、合规报告写入 CI&#x2F;CD，自动推送给安全团队。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>运行模式切换成本</strong>：不同运行时的调试体验差异大，需提供统一可观测方案。</li><li><strong>AI 日志敏感性</strong>：Observation 日志可能包含敏感数据，需结合 DLP 策略。</li><li><strong>模板老化</strong>：黄金路径若不随框架更新，将成为阻力，平台团队需设 KPI 定期迭代。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Java 官方工具链已让“低延迟 + AI + 合规”成为可执行的工程目标。掌握 Leyden、Spring、Quarkus、GraalVM 的协奏，就能在多云时代构建可靠的平台能力。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 16 日，Project Leyden、Spring Boot 3.5、Quarkus 3.13、GraalVM 24.2 再次证明 Java 在“低延迟 + AI + 合规”上的执行力：Leyden Static Image Profiles 进入</summary>
-      
-    
-    
-    
-    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
-    
-    
-    <category term="Spring Boot 3.5" scheme="https://zhangxianda.com/tags/Spring-Boot-3-5/"/>
-    
-    <category term="Project Leyden" scheme="https://zhangxianda.com/tags/Project-Leyden/"/>
-    
-    <category term="Quarkus 3.13" scheme="https://zhangxianda.com/tags/Quarkus-3-13/"/>
-    
-    <category term="GraalVM 24.2" scheme="https://zhangxianda.com/tags/GraalVM-24-2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python 算力闭环的工程打法</title>
-    <link href="https://zhangxianda.com/2025/11/16/2025-11-16-python/"/>
-    <id>https://zhangxianda.com/2025/11/16/2025-11-16-python/</id>
-    <published>2025-11-16T01:30:00.000Z</published>
-    <updated>2025-11-17T01:23:21.466Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>Python 社区 11 月 16 日把“语言 + 训练 + 数据 + 质量”再次串联：Python 3.14 Beta2 在主干启用 <code>--disable-gil</code> 子解释器实验，PyTorch 3.0 Skyline 调度器上线作业预算 API，Polars 1.7.0 发布 Delta&#x2F;BigQuery 互通补丁，Ruff 0.7.5 将 Typed Rules 与 IDE&#x2F;CI 默认集成。团队可以在单一语言内实现算力闭环治理。</p><h2 id="1-Python-3-14-Beta2"><a href="#1-Python-3-14-Beta2" class="headerlink" title="1. Python 3.14 Beta2"></a>1. Python 3.14 Beta2</h2><ul><li>无 GIL 子解释器允许单进程运行多个隔离解释器共享只读对象，IO&#x2F;CPU 混合负载吞吐提升 2~4 倍；PEP 738 扩展支持 TypedDict、Pydantic、DataFrame 模式匹配。</li><li>Tiered Compilation 计划将在 3.14 引入 copy-and-patch 热路径 JIT。</li></ul><h2 id="2-PyTorch-3-0-Skyline"><a href="#2-PyTorch-3-0-Skyline" class="headerlink" title="2. PyTorch 3.0 Skyline"></a>2. PyTorch 3.0 Skyline</h2><ul><li>Skyline 根据成本、延迟、能耗调度多云 GPU&#x2F;TPU；Job Budget API 允许 FinOps 控制训练作业支出；KV Cache、PagedAttention、Device Mesh API 默认化，统一推理与训练配置。</li><li>Skyline 还将作业能耗、碳排写入 OpenTelemetry 事件，方便 ESG 报告。</li></ul><h2 id="3-Polars-1-7-0"><a href="#3-Polars-1-7-0" class="headerlink" title="3. Polars 1.7.0"></a>3. Polars 1.7.0</h2><ul><li>与 Delta Lake、BigQuery Storage API 双向互通，可零拷贝转换到 Arrow；新增 Feature Store 操作符与数据质量规则，帮助 ML 团队统一特征治理。</li></ul><h2 id="4-Ruff-0-7-5"><a href="#4-Ruff-0-7-5" class="headerlink" title="4. Ruff 0.7.5"></a>4. Ruff 0.7.5</h2><ul><li>Typed Rules 利用 Pyright&#x2F;mypy 输出进行静态分析，捕捉协程误用、不可达代码、数据类缺失；Ruff Server 支持增量分析，CI 耗时下降 40%。</li></ul><h2 id="5-实践策略"><a href="#5-实践策略" class="headerlink" title="5. 实践策略"></a>5. 实践策略</h2><ol><li><strong>语言升级</strong>：在测试环境启用 <code>python3.14 --disable-gil</code>，评估多线程服务与 C 扩展兼容性，制定迁移计划。</li><li><strong>训练治理</strong>：迁移到 Skyline，配置 Job Budget、能耗告警，把指标写入 OTel；结合 Ray&#x2F;K8s 做弹性调度。</li><li><strong>数据互通</strong>：利用 Polars + Delta&#x2F;BigQuery + Feature Store 构建统一数据血缘，支持 RAG、BI、ML；引入策略标签。</li><li><strong>质量闭环</strong>：在 CI 中启用 Ruff Typed Rules、Pyright、Pandera，形成“代码 + 数据”双契约，并把结果写回 PR。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>选取 IO 密集服务测试无 GIL 模式，记录吞吐、延迟与兼容性情况。</li><li>将训练作业迁移到 Skyline，启用 Job Budget、能耗监控，与 FinOps 仪表板同步。</li><li>构建 Polars 1.7.0 数据流水线，验证 Delta&#x2F;BigQuery 互通与 Feature Store 功能。</li><li>在仓库启用 Ruff 0.7.5 Typed Rules，与 IDE&#x2F;CI 集成并设定阻断阈值。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>多版本并存</strong>：无 GIL 模式与传统扩展不兼容，需逐一评估依赖。</li><li><strong>预算策略滞后</strong>：Skyline 数据若未实时同步，FinOps 决策可能滞后，需建立事件流管道。</li><li><strong>数据质量规则冲突</strong>：Polars Feature Store 与传统数据仓库规则可能冲突，需要中央治理。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Python 通过语言内核、训练调度、数据栈、质量工具完成了工程化闭环。把这些能力纳入平台治理，才能在算力竞争中保持高效与可控。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;Python 社区 11 月 16 日把“语言 + 训练 + 数据 + 质量”再次串联：Python 3.14 Beta2 在主干启用 &lt;code&gt;--disable-gil&lt;/code&gt; 子解释器实验，PyTorch 3.0 Skyline 调度器上线作业预</summary>
       
     
     
