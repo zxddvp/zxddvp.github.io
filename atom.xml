@@ -197,36 +197,6 @@
   </entry>
   
   <entry>
-    <title>启动镜像、虚拟线程与签名流水线</title>
-    <link href="https://zhangxianda.com/2025/11/25/2025-11-25-java/"/>
-    <id>https://zhangxianda.com/2025/11/25/2025-11-25-java/</id>
-    <published>2025-11-25T01:30:00.000Z</published>
-    <updated>2025-11-25T00:27:03.444Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>11 月 25 日，Java 生态把“启动镜像 + 虚拟线程 + 签名”当作交付基线：JDK 24 EA2 将 Scoped Values 定型并完善 Profile Capture；Project Leyden 发布镜像签名&#x2F;SBOM 参考实现；Spring Boot 3.4 RC2 默认虚拟线程与 Startup Timeline；GraalVM Native Image 增量 Profile Builder 与 MUSL 预设降低冷启动与攻击面。企业需要把镜像、并发、观测与签名纳入流水线。</p><h2 id="1-JDK-24-EA2：并发与配置定型"><a href="#1-JDK-24-EA2：并发与配置定型" class="headerlink" title="1. JDK 24 EA2：并发与配置定型"></a>1. JDK 24 EA2：并发与配置定型</h2><ul><li>Scoped Values 退出预览，配合 Loom 结构化并发提供 Deadline&#x2F;Rate 控制；ThreadLocal 向 Scoped Values 迁移。</li><li>Profile Capture 把 JVM 参数&#x2F;系统属性&#x2F;模块图写入可签名文件，便于镜像复现与审计。</li><li>JFR 增加 Startup markers，精确标注初始化阶段。</li></ul><h2 id="2-Project-Leyden：镜像签名与-SBOM"><a href="#2-Project-Leyden：镜像签名与-SBOM" class="headerlink" title="2. Project Leyden：镜像签名与 SBOM"></a>2. Project Leyden：镜像签名与 SBOM</h2><ul><li>启动镜像包含 CDS、JIT Profile、反射&#x2F;代理元数据、SBOM 与签名；运行时验证哈希保证镜像可信。</li><li>镜像差异报告显示热路径&#x2F;反射&#x2F;资源变化，帮助回归与性能对比。</li></ul><h2 id="3-Spring-Boot-3-4-RC2：现代栈默认化"><a href="#3-Spring-Boot-3-4-RC2：现代栈默认化" class="headerlink" title="3. Spring Boot 3.4 RC2：现代栈默认化"></a>3. Spring Boot 3.4 RC2：现代栈默认化</h2><ul><li><code>spring.threads.virtual.enabled=true</code> 默认开启；Observability Starter 打包 Micrometer&#x2F;OTel&#x2F;Actuator，Startup Timeline 可视化冷启动。</li><li>Native Build Tools 生成 Leyden&#x2F;Native 双工件，附反射清单与签名。</li></ul><h2 id="4-GraalVM-Native-Image：增量-Profile-MUSL"><a href="#4-GraalVM-Native-Image：增量-Profile-MUSL" class="headerlink" title="4. GraalVM Native Image：增量 Profile + MUSL"></a>4. GraalVM Native Image：增量 Profile + MUSL</h2><ul><li>Incremental Profile Builder 可重用上次 profile，编译时间缩短 30-40%；MUSL 基础镜像减小体积并强化隔离。</li><li><code>--trace-class-initialization</code> 报告可导出到 OTel，定位初始化热点。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>镜像基线</strong>：核心服务生成 Leyden&#x2F;Native 双工件，附哈希&#x2F;签名&#x2F;SBOM&#x2F;反射清单，入库可追溯。</li><li><strong>并发升级</strong>：默认虚拟线程 + Scoped Values，列出阻塞 IO 白名单与替代；结构化并发统一超时&#x2F;取消语义。</li><li><strong>冷启动观测</strong>：JFR + Startup Timeline + OTel 输出冷启动链路，结合弹性&#x2F;成本决策。</li><li><strong>CI&#x2F;CD 适配</strong>：缓存 Profile&#x2F;反射配置，自动比较镜像差异；签名校验做为门禁。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>升级预生产到 JDK 24 EA2，压测虚拟线程 + Scoped Values 与传统线程池；</li><li>生成 Leyden 镜像并签名，验证运行时哈希与差异报告；</li><li>启用 Spring Boot 3.4 RC2 Observability Starter，建立冷启动仪表盘；</li><li>在 Native 构建启用增量 Profile 与 MUSL，记录编译&#x2F;启动改进。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>阻塞风险</strong>：旧驱动在虚拟线程下可能阻塞；</li><li><strong>签名缺失</strong>：镜像未签名&#x2F;未校验易被篡改；</li><li><strong>Profile 漂移</strong>：Profile 与代码不匹配会导致性能回退。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Java 交付进入“镜像 + 并发 + 观测 + 签名”阶段。标准化这些能力，才能在多云与边缘场景保持低延迟与高可信。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 25 日，Java 生态把“启动镜像 + 虚拟线程 + 签名”当作交付基线：JDK 24 EA2 将 Scoped Values 定型并完善 Profile Capture；Project Leyden 发布镜像签名&amp;#x2F;SBOM 参考实现；S</summary>
-      
-    
-    
-    
-    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
-    
-    
-    <category term="GraalVM" scheme="https://zhangxianda.com/tags/GraalVM/"/>
-    
-    <category term="Project Leyden" scheme="https://zhangxianda.com/tags/Project-Leyden/"/>
-    
-    <category term="Spring Boot 3.4" scheme="https://zhangxianda.com/tags/Spring-Boot-3-4/"/>
-    
-    <category term="JDK 24" scheme="https://zhangxianda.com/tags/JDK-24/"/>
-    
-  </entry>
-  
-  <entry>
     <title>物联韧性、能源账本与硬件信任的合奏</title>
     <link href="https://zhangxianda.com/2025/11/25/2025-11-25-iot/"/>
     <id>https://zhangxianda.com/2025/11/25/2025-11-25-iot/</id>
@@ -253,6 +223,36 @@
     <category term="Azure IoT Operations" scheme="https://zhangxianda.com/tags/Azure-IoT-Operations/"/>
     
     <category term="RoT" scheme="https://zhangxianda.com/tags/RoT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>启动镜像、虚拟线程与签名流水线</title>
+    <link href="https://zhangxianda.com/2025/11/25/2025-11-25-java/"/>
+    <id>https://zhangxianda.com/2025/11/25/2025-11-25-java/</id>
+    <published>2025-11-25T01:30:00.000Z</published>
+    <updated>2025-11-25T00:27:03.444Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 25 日，Java 生态把“启动镜像 + 虚拟线程 + 签名”当作交付基线：JDK 24 EA2 将 Scoped Values 定型并完善 Profile Capture；Project Leyden 发布镜像签名&#x2F;SBOM 参考实现；Spring Boot 3.4 RC2 默认虚拟线程与 Startup Timeline；GraalVM Native Image 增量 Profile Builder 与 MUSL 预设降低冷启动与攻击面。企业需要把镜像、并发、观测与签名纳入流水线。</p><h2 id="1-JDK-24-EA2：并发与配置定型"><a href="#1-JDK-24-EA2：并发与配置定型" class="headerlink" title="1. JDK 24 EA2：并发与配置定型"></a>1. JDK 24 EA2：并发与配置定型</h2><ul><li>Scoped Values 退出预览，配合 Loom 结构化并发提供 Deadline&#x2F;Rate 控制；ThreadLocal 向 Scoped Values 迁移。</li><li>Profile Capture 把 JVM 参数&#x2F;系统属性&#x2F;模块图写入可签名文件，便于镜像复现与审计。</li><li>JFR 增加 Startup markers，精确标注初始化阶段。</li></ul><h2 id="2-Project-Leyden：镜像签名与-SBOM"><a href="#2-Project-Leyden：镜像签名与-SBOM" class="headerlink" title="2. Project Leyden：镜像签名与 SBOM"></a>2. Project Leyden：镜像签名与 SBOM</h2><ul><li>启动镜像包含 CDS、JIT Profile、反射&#x2F;代理元数据、SBOM 与签名；运行时验证哈希保证镜像可信。</li><li>镜像差异报告显示热路径&#x2F;反射&#x2F;资源变化，帮助回归与性能对比。</li></ul><h2 id="3-Spring-Boot-3-4-RC2：现代栈默认化"><a href="#3-Spring-Boot-3-4-RC2：现代栈默认化" class="headerlink" title="3. Spring Boot 3.4 RC2：现代栈默认化"></a>3. Spring Boot 3.4 RC2：现代栈默认化</h2><ul><li><code>spring.threads.virtual.enabled=true</code> 默认开启；Observability Starter 打包 Micrometer&#x2F;OTel&#x2F;Actuator，Startup Timeline 可视化冷启动。</li><li>Native Build Tools 生成 Leyden&#x2F;Native 双工件，附反射清单与签名。</li></ul><h2 id="4-GraalVM-Native-Image：增量-Profile-MUSL"><a href="#4-GraalVM-Native-Image：增量-Profile-MUSL" class="headerlink" title="4. GraalVM Native Image：增量 Profile + MUSL"></a>4. GraalVM Native Image：增量 Profile + MUSL</h2><ul><li>Incremental Profile Builder 可重用上次 profile，编译时间缩短 30-40%；MUSL 基础镜像减小体积并强化隔离。</li><li><code>--trace-class-initialization</code> 报告可导出到 OTel，定位初始化热点。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>镜像基线</strong>：核心服务生成 Leyden&#x2F;Native 双工件，附哈希&#x2F;签名&#x2F;SBOM&#x2F;反射清单，入库可追溯。</li><li><strong>并发升级</strong>：默认虚拟线程 + Scoped Values，列出阻塞 IO 白名单与替代；结构化并发统一超时&#x2F;取消语义。</li><li><strong>冷启动观测</strong>：JFR + Startup Timeline + OTel 输出冷启动链路，结合弹性&#x2F;成本决策。</li><li><strong>CI&#x2F;CD 适配</strong>：缓存 Profile&#x2F;反射配置，自动比较镜像差异；签名校验做为门禁。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>升级预生产到 JDK 24 EA2，压测虚拟线程 + Scoped Values 与传统线程池；</li><li>生成 Leyden 镜像并签名，验证运行时哈希与差异报告；</li><li>启用 Spring Boot 3.4 RC2 Observability Starter，建立冷启动仪表盘；</li><li>在 Native 构建启用增量 Profile 与 MUSL，记录编译&#x2F;启动改进。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>阻塞风险</strong>：旧驱动在虚拟线程下可能阻塞；</li><li><strong>签名缺失</strong>：镜像未签名&#x2F;未校验易被篡改；</li><li><strong>Profile 漂移</strong>：Profile 与代码不匹配会导致性能回退。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Java 交付进入“镜像 + 并发 + 观测 + 签名”阶段。标准化这些能力，才能在多云与边缘场景保持低延迟与高可信。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 25 日，Java 生态把“启动镜像 + 虚拟线程 + 签名”当作交付基线：JDK 24 EA2 将 Scoped Values 定型并完善 Profile Capture；Project Leyden 发布镜像签名&amp;#x2F;SBOM 参考实现；S</summary>
+      
+    
+    
+    
+    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
+    
+    
+    <category term="GraalVM" scheme="https://zhangxianda.com/tags/GraalVM/"/>
+    
+    <category term="Project Leyden" scheme="https://zhangxianda.com/tags/Project-Leyden/"/>
+    
+    <category term="Spring Boot 3.4" scheme="https://zhangxianda.com/tags/Spring-Boot-3-4/"/>
+    
+    <category term="JDK 24" scheme="https://zhangxianda.com/tags/JDK-24/"/>
     
   </entry>
   
@@ -497,36 +497,6 @@
   </entry>
   
   <entry>
-    <title>编译驱动与观测默认的前端基线</title>
-    <link href="https://zhangxianda.com/2025/11/24/2025-11-24-frontend/"/>
-    <id>https://zhangxianda.com/2025/11/24/2025-11-24-frontend/</id>
-    <published>2025-11-24T01:30:00.000Z</published>
-    <updated>2025-11-24T00:43:22.124Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>11 月 24 日，前端继续把“编译驱动 + 观测默认”推到基线：React Compiler 预览版在 Next.js 15 Canary 全量开放，支持 Server Actions&#x2F;Streaming；Vite 6 RC 增加 <code>vite inspect</code> 可视化与并行 chunk 优化；Chrome 132 开启 WebGPU Compute 默认、Speculation Rules v2 支持优先级预取；Safari TP 强化 Container Queries 与 HDR Canvas。性能不再靠经验，而靠编译期提示 + 运行时观测闭环。</p><h2 id="1-React-Compiler-Next-js-15"><a href="#1-React-Compiler-Next-js-15" class="headerlink" title="1. React Compiler + Next.js 15"></a>1. React Compiler + Next.js 15</h2><ul><li>Compiler 自动插入 memo&#x2F;依赖分析，输出重渲染来源报告，可导出 OTel；Server Actions 支持 Streaming，Compiler 标注服务端&#x2F;客户端边界，减少水合。</li><li>Next Trace 联动，提供渲染阶段与数据依赖的时序视图。</li></ul><h2 id="2-Vite-6-RC：观测与并行"><a href="#2-Vite-6-RC：观测与并行" class="headerlink" title="2. Vite 6 RC：观测与并行"></a>2. Vite 6 RC：观测与并行</h2><ul><li><code>vite inspect</code> 提供依赖图、插件耗时、bundle 分布；Rollup 4 并行 treeshake&#x2F;智能 chunk 合并，默认 modulePreload。</li><li>Dev Server 支持 React&#x2F;Vue&#x2F;Svelte&#x2F;Preact&#x2F;solid 共存，统一 HMR。</li></ul><h2 id="3-浏览器能力：WebGPU-预取"><a href="#3-浏览器能力：WebGPU-预取" class="headerlink" title="3. 浏览器能力：WebGPU + 预取"></a>3. 浏览器能力：WebGPU + 预取</h2><ul><li>WebGPU Compute 默认开启，WGSL lint API 可提示着色器问题；Speculation Rules v2 支持优先级 + streaming 预取，提升首屏。</li><li>Safari TP 优化 Container Queries 性能并完善 HDR Canvas 色彩管理。</li></ul><h2 id="4-观测闭环"><a href="#4-观测闭环" class="headerlink" title="4. 观测闭环"></a>4. 观测闭环</h2><ul><li>OTel JS 1.10 增加“阻塞时间、渲染阶段、预取命中率”语义，可与 React Profiler&#x2F;Next Trace 对齐；错误监控厂商推出生成式交互回放。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>编译驱动优化</strong>：在 Next.js 15 Canary 开启 React Compiler，结合 <code>vite inspect</code> 形成性能报告与整改清单。</li><li><strong>流式与边界管理</strong>：使用 Server Actions + Streaming 减少客户端 JS，明确服务端&#x2F;客户端边界，防止过度水合。</li><li><strong>观测默认化</strong>：接入 OTel JS 新语义与交互回放，建立渲染&#x2F;预取基线与告警，覆盖生成式组件。</li><li><strong>跨端一致</strong>：验证 WebGPU&#x2F;HDR&#x2F;Container Queries 在高低端设备表现，提供降级策略与 Feature Flags。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>升级试验分支到 Next.js 15 + React Compiler，记录重渲染下降幅度；</li><li>启用 Vite 6 RC <code>vite inspect</code>，定期输出依赖&#x2F;插件耗时图并清理冗余包；</li><li>为数据密集型模块启用 WebGPU Compute，准备 Canvas&#x2F;HDR 降级方案；</li><li>在监控中接入 OTel 1.10 语义与交互回放，设定性能阈值。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>自动 memo 冲突</strong>：Compiler 与自定义 hooks&#x2F;状态管理可能冲突，需白名单&#x2F;黑名单；</li><li><strong>数据边界</strong>：Server Actions 边界不当可能泄露数据；</li><li><strong>兼容性</strong>：WebGPU&#x2F;HDR 在低端设备需降级，否则闪退或耗电过高。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>前端优化正在进入“编译默认 + 观测默认”时代。把 Compiler、流式渲染、观测语义与降级策略写入工程基线，才能在生成式和数据密集体验中持续领先。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 24 日，前端继续把“编译驱动 + 观测默认”推到基线：React Compiler 预览版在 Next.js 15 Canary 全量开放，支持 Server Actions&amp;#x2F;Streaming；Vite 6 RC 增加 &lt;code&gt;vi</summary>
-      
-    
-    
-    
-    <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-    <category term="WebGPU" scheme="https://zhangxianda.com/tags/WebGPU/"/>
-    
-    <category term="React Compiler" scheme="https://zhangxianda.com/tags/React-Compiler/"/>
-    
-    <category term="Next.js 15" scheme="https://zhangxianda.com/tags/Next-js-15/"/>
-    
-    <category term="Vite 6 RC" scheme="https://zhangxianda.com/tags/Vite-6-RC/"/>
-    
-  </entry>
-  
-  <entry>
     <title>物联韧性与能源账本的双轨升级</title>
     <link href="https://zhangxianda.com/2025/11/24/2025-11-24-iot/"/>
     <id>https://zhangxianda.com/2025/11/24/2025-11-24-iot/</id>
@@ -557,32 +527,32 @@
   </entry>
   
   <entry>
-    <title>Java启动镜像与并发控制的落地指南</title>
-    <link href="https://zhangxianda.com/2025/11/24/2025-11-24-java/"/>
-    <id>https://zhangxianda.com/2025/11/24/2025-11-24-java/</id>
+    <title>编译驱动与观测默认的前端基线</title>
+    <link href="https://zhangxianda.com/2025/11/24/2025-11-24-frontend/"/>
+    <id>https://zhangxianda.com/2025/11/24/2025-11-24-frontend/</id>
     <published>2025-11-24T01:30:00.000Z</published>
-    <updated>2025-11-24T00:42:09.708Z</updated>
+    <updated>2025-11-24T00:43:22.124Z</updated>
     
-    <content type="html"><![CDATA[<p>导语：<br>11 月 24 日，Java 社区继续把“启动镜像 + 并发控制”推向落地：JDK 24 EA2 将 Scoped Values 退出预览并完善 Profile Capture；Project Leyden 提交启动镜像签名&#x2F;SBOM 参考实现；Spring Boot 3.4 RC2 默认虚拟线程与 Observability Starter，新增 Startup Timeline；GraalVM Native Image 发布增量 Profile Builder 与 MUSL 容器预设。冷启动、可观测与签名成为 Java 平台的交付基线。</p><h2 id="1-JDK-24-EA2：配置与并发定型"><a href="#1-JDK-24-EA2：配置与并发定型" class="headerlink" title="1. JDK 24 EA2：配置与并发定型"></a>1. JDK 24 EA2：配置与并发定型</h2><ul><li>Scoped Values 成为正式特性，配合 Loom 结构化并发，提供 Deadline&#x2F;Rate 限制；ThreadLocal 逐步被替换。</li><li>Profile Capture 将 JVM 参数、系统属性、模块图写入可签名文件，便于复现与镜像绑定。</li><li>JFR 增加 per-scope 事件与 Startup markers，便于冷启动剖析。</li></ul><h2 id="2-Project-Leyden：镜像签名与-SBOM"><a href="#2-Project-Leyden：镜像签名与-SBOM" class="headerlink" title="2. Project Leyden：镜像签名与 SBOM"></a>2. Project Leyden：镜像签名与 SBOM</h2><ul><li>启动镜像包含 CDS、JIT Profile、反射&#x2F;代理元数据、SBOM 与签名；运行时验证哈希保证镜像可信。</li><li>镜像差异报告展示热路径&#x2F;反射&#x2F;资源变化，辅助回归。</li></ul><h2 id="3-Spring-Boot-3-4-RC2：现代栈默认化"><a href="#3-Spring-Boot-3-4-RC2：现代栈默认化" class="headerlink" title="3. Spring Boot 3.4 RC2：现代栈默认化"></a>3. Spring Boot 3.4 RC2：现代栈默认化</h2><ul><li><code>spring.threads.virtual.enabled=true</code> 默认开启；Observability Starter 集成 Micrometer&#x2F;OTel&#x2F;Actuator，提供 Startup Timeline。</li><li>Native Build Tools 生成 Leyden&#x2F;Native 双工件，自动导出反射配置与镜像签名。</li></ul><h2 id="4-GraalVM-Native-Image：增量-Profile-与-MUSL"><a href="#4-GraalVM-Native-Image：增量-Profile-与-MUSL" class="headerlink" title="4. GraalVM Native Image：增量 Profile 与 MUSL"></a>4. GraalVM Native Image：增量 Profile 与 MUSL</h2><ul><li>Incremental Profile Builder 可重用上次 profile，编译时缩短 30-40%；MUSL 基础镜像减少体积与攻击面。</li><li><code>--trace-class-initialization</code> 报告可导出到 OTel，定位初始化热点。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>启动镜像基线</strong>：核心服务生成 Leyden&#x2F;Native 双工件，附哈希&#x2F;签名&#x2F;SBOM&#x2F;反射清单，存入制品库。</li><li><strong>并发升级</strong>：默认虚拟线程 + Scoped Values，列出阻塞 IO 白名单与替代；结构化并发统一超时&#x2F;取消。</li><li><strong>冷启动观测</strong>：JFR + Actuator Startup Timeline + OTel 输出冷启动链路，建立成本&#x2F;弹性仪表板。</li><li><strong>CI&#x2F;CD 适配</strong>：缓存 Profile&#x2F;反射配置，自动比较镜像差异；签名校验作为流水线门禁。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>在预生产升级 JDK 24 EA2，压测虚拟线程 + Scoped Values 场景，对比线程池方案；</li><li>生成 Leyden 镜像并签名，验证运行时哈希与差异报告；</li><li>升级到 Spring Boot 3.4 RC2，启用 Observability Starter 与 Startup Timeline；</li><li>在 Native 构建启用增量 Profile 与 MUSL，记录编译时与启动改进。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>阻塞风险</strong>：旧版驱动在虚拟线程下可能阻塞；</li><li><strong>签名缺失</strong>：镜像未签名&#x2F;未校验可能被篡改；</li><li><strong>Profile 漂移</strong>：Profile 与代码不匹配会导致性能回退。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Java 交付已进入“镜像 + 并发 + 观测 + 签名”的组合时代。把这些能力标准化进流水线，才能在多云与边缘场景保持低延迟和高可信。</p>]]></content>
+    <content type="html"><![CDATA[<p>导语：<br>11 月 24 日，前端继续把“编译驱动 + 观测默认”推到基线：React Compiler 预览版在 Next.js 15 Canary 全量开放，支持 Server Actions&#x2F;Streaming；Vite 6 RC 增加 <code>vite inspect</code> 可视化与并行 chunk 优化；Chrome 132 开启 WebGPU Compute 默认、Speculation Rules v2 支持优先级预取；Safari TP 强化 Container Queries 与 HDR Canvas。性能不再靠经验，而靠编译期提示 + 运行时观测闭环。</p><h2 id="1-React-Compiler-Next-js-15"><a href="#1-React-Compiler-Next-js-15" class="headerlink" title="1. React Compiler + Next.js 15"></a>1. React Compiler + Next.js 15</h2><ul><li>Compiler 自动插入 memo&#x2F;依赖分析，输出重渲染来源报告，可导出 OTel；Server Actions 支持 Streaming，Compiler 标注服务端&#x2F;客户端边界，减少水合。</li><li>Next Trace 联动，提供渲染阶段与数据依赖的时序视图。</li></ul><h2 id="2-Vite-6-RC：观测与并行"><a href="#2-Vite-6-RC：观测与并行" class="headerlink" title="2. Vite 6 RC：观测与并行"></a>2. Vite 6 RC：观测与并行</h2><ul><li><code>vite inspect</code> 提供依赖图、插件耗时、bundle 分布；Rollup 4 并行 treeshake&#x2F;智能 chunk 合并，默认 modulePreload。</li><li>Dev Server 支持 React&#x2F;Vue&#x2F;Svelte&#x2F;Preact&#x2F;solid 共存，统一 HMR。</li></ul><h2 id="3-浏览器能力：WebGPU-预取"><a href="#3-浏览器能力：WebGPU-预取" class="headerlink" title="3. 浏览器能力：WebGPU + 预取"></a>3. 浏览器能力：WebGPU + 预取</h2><ul><li>WebGPU Compute 默认开启，WGSL lint API 可提示着色器问题；Speculation Rules v2 支持优先级 + streaming 预取，提升首屏。</li><li>Safari TP 优化 Container Queries 性能并完善 HDR Canvas 色彩管理。</li></ul><h2 id="4-观测闭环"><a href="#4-观测闭环" class="headerlink" title="4. 观测闭环"></a>4. 观测闭环</h2><ul><li>OTel JS 1.10 增加“阻塞时间、渲染阶段、预取命中率”语义，可与 React Profiler&#x2F;Next Trace 对齐；错误监控厂商推出生成式交互回放。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>编译驱动优化</strong>：在 Next.js 15 Canary 开启 React Compiler，结合 <code>vite inspect</code> 形成性能报告与整改清单。</li><li><strong>流式与边界管理</strong>：使用 Server Actions + Streaming 减少客户端 JS，明确服务端&#x2F;客户端边界，防止过度水合。</li><li><strong>观测默认化</strong>：接入 OTel JS 新语义与交互回放，建立渲染&#x2F;预取基线与告警，覆盖生成式组件。</li><li><strong>跨端一致</strong>：验证 WebGPU&#x2F;HDR&#x2F;Container Queries 在高低端设备表现，提供降级策略与 Feature Flags。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>升级试验分支到 Next.js 15 + React Compiler，记录重渲染下降幅度；</li><li>启用 Vite 6 RC <code>vite inspect</code>，定期输出依赖&#x2F;插件耗时图并清理冗余包；</li><li>为数据密集型模块启用 WebGPU Compute，准备 Canvas&#x2F;HDR 降级方案；</li><li>在监控中接入 OTel 1.10 语义与交互回放，设定性能阈值。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>自动 memo 冲突</strong>：Compiler 与自定义 hooks&#x2F;状态管理可能冲突，需白名单&#x2F;黑名单；</li><li><strong>数据边界</strong>：Server Actions 边界不当可能泄露数据；</li><li><strong>兼容性</strong>：WebGPU&#x2F;HDR 在低端设备需降级，否则闪退或耗电过高。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>前端优化正在进入“编译默认 + 观测默认”时代。把 Compiler、流式渲染、观测语义与降级策略写入工程基线，才能在生成式和数据密集体验中持续领先。</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 24 日，Java 社区继续把“启动镜像 + 并发控制”推向落地：JDK 24 EA2 将 Scoped Values 退出预览并完善 Profile Capture；Project Leyden 提交启动镜像签名&amp;#x2F;SBOM 参考实现；Sp</summary>
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 24 日，前端继续把“编译驱动 + 观测默认”推到基线：React Compiler 预览版在 Next.js 15 Canary 全量开放，支持 Server Actions&amp;#x2F;Streaming；Vite 6 RC 增加 &lt;code&gt;vi</summary>
       
     
     
     
-    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
+    <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-    <category term="GraalVM" scheme="https://zhangxianda.com/tags/GraalVM/"/>
+    <category term="WebGPU" scheme="https://zhangxianda.com/tags/WebGPU/"/>
     
-    <category term="Project Leyden" scheme="https://zhangxianda.com/tags/Project-Leyden/"/>
+    <category term="React Compiler" scheme="https://zhangxianda.com/tags/React-Compiler/"/>
     
-    <category term="JDK 24 EA2" scheme="https://zhangxianda.com/tags/JDK-24-EA2/"/>
+    <category term="Next.js 15" scheme="https://zhangxianda.com/tags/Next-js-15/"/>
     
-    <category term="Spring Boot 3.4 RC2" scheme="https://zhangxianda.com/tags/Spring-Boot-3-4-RC2/"/>
+    <category term="Vite 6 RC" scheme="https://zhangxianda.com/tags/Vite-6-RC/"/>
     
   </entry>
   
@@ -613,6 +583,36 @@
     <category term="uv" scheme="https://zhangxianda.com/tags/uv/"/>
     
     <category term="Sigstore" scheme="https://zhangxianda.com/tags/Sigstore/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java启动镜像与并发控制的落地指南</title>
+    <link href="https://zhangxianda.com/2025/11/24/2025-11-24-java/"/>
+    <id>https://zhangxianda.com/2025/11/24/2025-11-24-java/</id>
+    <published>2025-11-24T01:30:00.000Z</published>
+    <updated>2025-11-24T00:42:09.708Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>11 月 24 日，Java 社区继续把“启动镜像 + 并发控制”推向落地：JDK 24 EA2 将 Scoped Values 退出预览并完善 Profile Capture；Project Leyden 提交启动镜像签名&#x2F;SBOM 参考实现；Spring Boot 3.4 RC2 默认虚拟线程与 Observability Starter，新增 Startup Timeline；GraalVM Native Image 发布增量 Profile Builder 与 MUSL 容器预设。冷启动、可观测与签名成为 Java 平台的交付基线。</p><h2 id="1-JDK-24-EA2：配置与并发定型"><a href="#1-JDK-24-EA2：配置与并发定型" class="headerlink" title="1. JDK 24 EA2：配置与并发定型"></a>1. JDK 24 EA2：配置与并发定型</h2><ul><li>Scoped Values 成为正式特性，配合 Loom 结构化并发，提供 Deadline&#x2F;Rate 限制；ThreadLocal 逐步被替换。</li><li>Profile Capture 将 JVM 参数、系统属性、模块图写入可签名文件，便于复现与镜像绑定。</li><li>JFR 增加 per-scope 事件与 Startup markers，便于冷启动剖析。</li></ul><h2 id="2-Project-Leyden：镜像签名与-SBOM"><a href="#2-Project-Leyden：镜像签名与-SBOM" class="headerlink" title="2. Project Leyden：镜像签名与 SBOM"></a>2. Project Leyden：镜像签名与 SBOM</h2><ul><li>启动镜像包含 CDS、JIT Profile、反射&#x2F;代理元数据、SBOM 与签名；运行时验证哈希保证镜像可信。</li><li>镜像差异报告展示热路径&#x2F;反射&#x2F;资源变化，辅助回归。</li></ul><h2 id="3-Spring-Boot-3-4-RC2：现代栈默认化"><a href="#3-Spring-Boot-3-4-RC2：现代栈默认化" class="headerlink" title="3. Spring Boot 3.4 RC2：现代栈默认化"></a>3. Spring Boot 3.4 RC2：现代栈默认化</h2><ul><li><code>spring.threads.virtual.enabled=true</code> 默认开启；Observability Starter 集成 Micrometer&#x2F;OTel&#x2F;Actuator，提供 Startup Timeline。</li><li>Native Build Tools 生成 Leyden&#x2F;Native 双工件，自动导出反射配置与镜像签名。</li></ul><h2 id="4-GraalVM-Native-Image：增量-Profile-与-MUSL"><a href="#4-GraalVM-Native-Image：增量-Profile-与-MUSL" class="headerlink" title="4. GraalVM Native Image：增量 Profile 与 MUSL"></a>4. GraalVM Native Image：增量 Profile 与 MUSL</h2><ul><li>Incremental Profile Builder 可重用上次 profile，编译时缩短 30-40%；MUSL 基础镜像减少体积与攻击面。</li><li><code>--trace-class-initialization</code> 报告可导出到 OTel，定位初始化热点。</li></ul><h2 id="企业策略"><a href="#企业策略" class="headerlink" title="企业策略"></a>企业策略</h2><ol><li><strong>启动镜像基线</strong>：核心服务生成 Leyden&#x2F;Native 双工件，附哈希&#x2F;签名&#x2F;SBOM&#x2F;反射清单，存入制品库。</li><li><strong>并发升级</strong>：默认虚拟线程 + Scoped Values，列出阻塞 IO 白名单与替代；结构化并发统一超时&#x2F;取消。</li><li><strong>冷启动观测</strong>：JFR + Actuator Startup Timeline + OTel 输出冷启动链路，建立成本&#x2F;弹性仪表板。</li><li><strong>CI&#x2F;CD 适配</strong>：缓存 Profile&#x2F;反射配置，自动比较镜像差异；签名校验作为流水线门禁。</li></ol><h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ul><li>在预生产升级 JDK 24 EA2，压测虚拟线程 + Scoped Values 场景，对比线程池方案；</li><li>生成 Leyden 镜像并签名，验证运行时哈希与差异报告；</li><li>升级到 Spring Boot 3.4 RC2，启用 Observability Starter 与 Startup Timeline；</li><li>在 Native 构建启用增量 Profile 与 MUSL，记录编译时与启动改进。</li></ul><h2 id="风险提示"><a href="#风险提示" class="headerlink" title="风险提示"></a>风险提示</h2><ul><li><strong>阻塞风险</strong>：旧版驱动在虚拟线程下可能阻塞；</li><li><strong>签名缺失</strong>：镜像未签名&#x2F;未校验可能被篡改；</li><li><strong>Profile 漂移</strong>：Profile 与代码不匹配会导致性能回退。</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Java 交付已进入“镜像 + 并发 + 观测 + 签名”的组合时代。把这些能力标准化进流水线，才能在多云与边缘场景保持低延迟和高可信。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;11 月 24 日，Java 社区继续把“启动镜像 + 并发控制”推向落地：JDK 24 EA2 将 Scoped Values 退出预览并完善 Profile Capture；Project Leyden 提交启动镜像签名&amp;#x2F;SBOM 参考实现；Sp</summary>
+      
+    
+    
+    
+    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
+    
+    
+    <category term="GraalVM" scheme="https://zhangxianda.com/tags/GraalVM/"/>
+    
+    <category term="Project Leyden" scheme="https://zhangxianda.com/tags/Project-Leyden/"/>
+    
+    <category term="JDK 24 EA2" scheme="https://zhangxianda.com/tags/JDK-24-EA2/"/>
+    
+    <category term="Spring Boot 3.4 RC2" scheme="https://zhangxianda.com/tags/Spring-Boot-3-4-RC2/"/>
     
   </entry>
   
