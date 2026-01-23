@@ -215,39 +215,6 @@
   </entry>
   
   <entry>
-    <title>Java低延迟服务的稳态交付：虚拟线程、ZGC与依赖舱壁</title>
-    <link href="https://zhangxianda.com/2026/01/22/2026-01-22-java/"/>
-    <id>https://zhangxianda.com/2026/01/22/2026-01-22-java/</id>
-    <published>2026-01-22T01:30:00.000Z</published>
-    <updated>2026-01-23T07:55:56.981Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>JDK21 的虚拟线程和 ZGC 让 Java 低延迟服务有了新工具，但真正稳定需要“线程模型 + GC + 依赖舱壁 + 观测与回滚”组合。本文提供实操方案与核查清单。</p><h2 id="1-线程模型"><a href="#1-线程模型" class="headerlink" title="1. 线程模型"></a>1. 线程模型</h2><ul><li>虚拟线程适用：阻塞 IO&#x2F;短任务；长计算&#x2F;锁冲突仍用平台线程。</li><li>规范：避免在虚拟线程中持有重锁；选择 Loom 兼容的连接池&#x2F;驱动。</li><li>观测：线程数、调度延迟、阻塞栈；异常时快速回退到平台线程。</li></ul><h2 id="2-GC-策略"><a href="#2-GC-策略" class="headerlink" title="2. GC 策略"></a>2. GC 策略</h2><ul><li>首选 ZGC（JDK17+），参数示例：<code>-XX:+UseZGC -XX:+ZGenerational -XX:ConcGCThreads=4 -XX:ZCollectionInterval=1</code>。</li><li>看板：GC 暂停&#x2F;并发时间、晋升失败、堆占用；超阈值告警。</li><li>压测对比：记录 ZGC vs G1 的 P99、CPU，选型入 Runbook。</li></ul><h2 id="3-IO-与协议"><a href="#3-IO-与协议" class="headerlink" title="3. IO 与协议"></a>3. IO 与协议</h2><ul><li>Netty：EPOLL&#x2F;KQueue，<code>write_buffer_water_mark</code> 控制背压；大文件用 <code>FileRegion/sendfile</code>。</li><li>HTTP&#x2F;2：流控与头压缩白名单；大响应分块&#x2F;流式。</li><li>序列化：优先零拷贝解码，减少对象分配。</li></ul><h2 id="4-依赖舱壁与超时"><a href="#4-依赖舱壁与超时" class="headerlink" title="4. 依赖舱壁与超时"></a>4. 依赖舱壁与超时</h2><ul><li>舱壁：每个依赖独立线程池&#x2F;超时&#x2F;断路器；熔断降级到缓存或静态响应。</li><li>重试：带抖动，禁止级联重试；记录重试原因与次数。</li><li>兜底：高风险接口预置缓存&#x2F;静态模板，熔断时直接返回。</li></ul><h2 id="5-队列与背压"><a href="#5-队列与背压" class="headerlink" title="5. 队列与背压"></a>5. 队列与背压</h2><ul><li>线程池分级（计算&#x2F;IO&#x2F;阻塞）；队列长度基于压测设置。</li><li>消费端自适应拉取，超过延迟阈值自动降级为小批量。</li><li>返回排队信息，避免重试风暴。</li></ul><h2 id="6-缓存与数据路径"><a href="#6-缓存与数据路径" class="headerlink" title="6. 缓存与数据路径"></a>6. 缓存与数据路径</h2><ul><li>热点缓存：本地&#x2F;分布式缓存 + 版本号；防穿透&#x2F;击穿；写路径幂等。</li><li>读写隔离：写走主库，读走只读副本&#x2F;搜索；读失败回退主库要有限流。</li><li>CDC：Binlog&#x2F;CDC 更新缓存与搜索；监控复制延迟。</li></ul><h2 id="7-容量与压测"><a href="#7-容量与压测" class="headerlink" title="7. 容量与压测"></a>7. 容量与压测</h2><ul><li>容量模型：QPS、P99、CPU&#x2F;内存、依赖时延；按增长率预估 buffer。</li><li>压测：核心路由验证背压&#x2F;限流&#x2F;降级效果；记录容量基线。</li><li>成本：高成本接口设配额与预算，防刷爆。</li></ul><h2 id="8-部署与回滚"><a href="#8-部署与回滚" class="headerlink" title="8. 部署与回滚"></a>8. 部署与回滚</h2><ul><li>灰度：1%-10%-50%-全量，覆盖高峰；观察 P99&#x2F;错误&#x2F;GC&#x2F;线程池水位。</li><li>回滚：镜像+配置双通道；回滚后 30 分钟验证指标。</li><li>证据包：参数、压测、容量、限流&#x2F;熔断配置、回滚记录。</li></ul><h2 id="9-快速核查"><a href="#9-快速核查" class="headerlink" title="9. 快速核查"></a>9. 快速核查</h2><ul><li>虚拟线程适用性评估与开关就绪；ZGC 参数与监控上线。</li><li>线程池&#x2F;队列&#x2F;限流&#x2F;断路器配置明确，压测基线完成。</li><li>灰度&#x2F;回滚脚本可用，证据包沉淀。</li></ul><h2 id="10-操作示例"><a href="#10-操作示例" class="headerlink" title="10. 操作示例"></a>10. 操作示例</h2><ul><li>虚拟线程灰度：为阻塞型接口开启虚拟线程，观察线程数与 P99；异常快速关闭开关。</li><li>GC 对比：压测同一场景下 ZGC 与 G1，记录暂停&#x2F;CPU&#x2F;P99，选型入 Runbook。</li><li>回滚演练：<code>rollback.sh version</code> 一键切换，30 分钟内抓取 P99&#x2F;GC&#x2F;线程池&#x2F;队列水位快照。</li></ul><p>结语：<br>用“虚拟线程 + ZGC + 舱壁&#x2F;背压 + 观测”形成固定套路，Java 低延迟服务才能在高峰期稳定可回滚。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;JDK21 的虚拟线程和 ZGC 让 Java 低延迟服务有了新工具，但真正稳定需要“线程模型 + GC + 依赖舱壁 + 观测与回滚”组合。本文提供实操方案与核查清单。&lt;/p&gt;
-&lt;h2 id=&quot;1-线程模型&quot;&gt;&lt;a href=&quot;#1-线程模型&quot; class=</summary>
-      
-    
-    
-    
-    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
-    
-    
-    <category term="Observability" scheme="https://zhangxianda.com/tags/Observability/"/>
-    
-    <category term="ZGC" scheme="https://zhangxianda.com/tags/ZGC/"/>
-    
-    <category term="Virtual Threads" scheme="https://zhangxianda.com/tags/Virtual-Threads/"/>
-    
-    <category term="Resilience" scheme="https://zhangxianda.com/tags/Resilience/"/>
-    
-    <category term="Netty" scheme="https://zhangxianda.com/tags/Netty/"/>
-    
-  </entry>
-  
-  <entry>
     <title>工业物联网的韧性运行：分级OTA、算力调度与数据合规</title>
     <link href="https://zhangxianda.com/2026/01/22/2026-01-22-iot/"/>
     <id>https://zhangxianda.com/2026/01/22/2026-01-22-iot/</id>
@@ -277,6 +244,39 @@
     <category term="Orchestration" scheme="https://zhangxianda.com/tags/Orchestration/"/>
     
     <category term="IoT" scheme="https://zhangxianda.com/tags/IoT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java低延迟服务的稳态交付：虚拟线程、ZGC与依赖舱壁</title>
+    <link href="https://zhangxianda.com/2026/01/22/2026-01-22-java/"/>
+    <id>https://zhangxianda.com/2026/01/22/2026-01-22-java/</id>
+    <published>2026-01-22T01:30:00.000Z</published>
+    <updated>2026-01-23T07:55:56.981Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>JDK21 的虚拟线程和 ZGC 让 Java 低延迟服务有了新工具，但真正稳定需要“线程模型 + GC + 依赖舱壁 + 观测与回滚”组合。本文提供实操方案与核查清单。</p><h2 id="1-线程模型"><a href="#1-线程模型" class="headerlink" title="1. 线程模型"></a>1. 线程模型</h2><ul><li>虚拟线程适用：阻塞 IO&#x2F;短任务；长计算&#x2F;锁冲突仍用平台线程。</li><li>规范：避免在虚拟线程中持有重锁；选择 Loom 兼容的连接池&#x2F;驱动。</li><li>观测：线程数、调度延迟、阻塞栈；异常时快速回退到平台线程。</li></ul><h2 id="2-GC-策略"><a href="#2-GC-策略" class="headerlink" title="2. GC 策略"></a>2. GC 策略</h2><ul><li>首选 ZGC（JDK17+），参数示例：<code>-XX:+UseZGC -XX:+ZGenerational -XX:ConcGCThreads=4 -XX:ZCollectionInterval=1</code>。</li><li>看板：GC 暂停&#x2F;并发时间、晋升失败、堆占用；超阈值告警。</li><li>压测对比：记录 ZGC vs G1 的 P99、CPU，选型入 Runbook。</li></ul><h2 id="3-IO-与协议"><a href="#3-IO-与协议" class="headerlink" title="3. IO 与协议"></a>3. IO 与协议</h2><ul><li>Netty：EPOLL&#x2F;KQueue，<code>write_buffer_water_mark</code> 控制背压；大文件用 <code>FileRegion/sendfile</code>。</li><li>HTTP&#x2F;2：流控与头压缩白名单；大响应分块&#x2F;流式。</li><li>序列化：优先零拷贝解码，减少对象分配。</li></ul><h2 id="4-依赖舱壁与超时"><a href="#4-依赖舱壁与超时" class="headerlink" title="4. 依赖舱壁与超时"></a>4. 依赖舱壁与超时</h2><ul><li>舱壁：每个依赖独立线程池&#x2F;超时&#x2F;断路器；熔断降级到缓存或静态响应。</li><li>重试：带抖动，禁止级联重试；记录重试原因与次数。</li><li>兜底：高风险接口预置缓存&#x2F;静态模板，熔断时直接返回。</li></ul><h2 id="5-队列与背压"><a href="#5-队列与背压" class="headerlink" title="5. 队列与背压"></a>5. 队列与背压</h2><ul><li>线程池分级（计算&#x2F;IO&#x2F;阻塞）；队列长度基于压测设置。</li><li>消费端自适应拉取，超过延迟阈值自动降级为小批量。</li><li>返回排队信息，避免重试风暴。</li></ul><h2 id="6-缓存与数据路径"><a href="#6-缓存与数据路径" class="headerlink" title="6. 缓存与数据路径"></a>6. 缓存与数据路径</h2><ul><li>热点缓存：本地&#x2F;分布式缓存 + 版本号；防穿透&#x2F;击穿；写路径幂等。</li><li>读写隔离：写走主库，读走只读副本&#x2F;搜索；读失败回退主库要有限流。</li><li>CDC：Binlog&#x2F;CDC 更新缓存与搜索；监控复制延迟。</li></ul><h2 id="7-容量与压测"><a href="#7-容量与压测" class="headerlink" title="7. 容量与压测"></a>7. 容量与压测</h2><ul><li>容量模型：QPS、P99、CPU&#x2F;内存、依赖时延；按增长率预估 buffer。</li><li>压测：核心路由验证背压&#x2F;限流&#x2F;降级效果；记录容量基线。</li><li>成本：高成本接口设配额与预算，防刷爆。</li></ul><h2 id="8-部署与回滚"><a href="#8-部署与回滚" class="headerlink" title="8. 部署与回滚"></a>8. 部署与回滚</h2><ul><li>灰度：1%-10%-50%-全量，覆盖高峰；观察 P99&#x2F;错误&#x2F;GC&#x2F;线程池水位。</li><li>回滚：镜像+配置双通道；回滚后 30 分钟验证指标。</li><li>证据包：参数、压测、容量、限流&#x2F;熔断配置、回滚记录。</li></ul><h2 id="9-快速核查"><a href="#9-快速核查" class="headerlink" title="9. 快速核查"></a>9. 快速核查</h2><ul><li>虚拟线程适用性评估与开关就绪；ZGC 参数与监控上线。</li><li>线程池&#x2F;队列&#x2F;限流&#x2F;断路器配置明确，压测基线完成。</li><li>灰度&#x2F;回滚脚本可用，证据包沉淀。</li></ul><h2 id="10-操作示例"><a href="#10-操作示例" class="headerlink" title="10. 操作示例"></a>10. 操作示例</h2><ul><li>虚拟线程灰度：为阻塞型接口开启虚拟线程，观察线程数与 P99；异常快速关闭开关。</li><li>GC 对比：压测同一场景下 ZGC 与 G1，记录暂停&#x2F;CPU&#x2F;P99，选型入 Runbook。</li><li>回滚演练：<code>rollback.sh version</code> 一键切换，30 分钟内抓取 P99&#x2F;GC&#x2F;线程池&#x2F;队列水位快照。</li></ul><p>结语：<br>用“虚拟线程 + ZGC + 舱壁&#x2F;背压 + 观测”形成固定套路，Java 低延迟服务才能在高峰期稳定可回滚。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;JDK21 的虚拟线程和 ZGC 让 Java 低延迟服务有了新工具，但真正稳定需要“线程模型 + GC + 依赖舱壁 + 观测与回滚”组合。本文提供实操方案与核查清单。&lt;/p&gt;
+&lt;h2 id=&quot;1-线程模型&quot;&gt;&lt;a href=&quot;#1-线程模型&quot; class=</summary>
+      
+    
+    
+    
+    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
+    
+    
+    <category term="Observability" scheme="https://zhangxianda.com/tags/Observability/"/>
+    
+    <category term="ZGC" scheme="https://zhangxianda.com/tags/ZGC/"/>
+    
+    <category term="Virtual Threads" scheme="https://zhangxianda.com/tags/Virtual-Threads/"/>
+    
+    <category term="Resilience" scheme="https://zhangxianda.com/tags/Resilience/"/>
+    
+    <category term="Netty" scheme="https://zhangxianda.com/tags/Netty/"/>
     
   </entry>
   
@@ -413,39 +413,6 @@
   </entry>
   
   <entry>
-    <title>企业级多模态RAG 2.0：检索增强、可验证引用与反馈闭环</title>
-    <link href="https://zhangxianda.com/2026/01/21/2026-01-21-artificial-intelligence/"/>
-    <id>https://zhangxianda.com/2026/01/21/2026-01-21-artificial-intelligence/</id>
-    <published>2026-01-21T01:30:00.000Z</published>
-    <updated>2026-01-22T00:31:06.306Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>多模态 RAG 正在从“能用”走向“可验证”。核心是三件事：高质量检索增强、可验证引用与拒答、安全与成本护栏。本文结合近期技术趋势，给出企业落地路径与操作清单。</p><h2 id="1-场景分级与目标"><a href="#1-场景分级与目标" class="headerlink" title="1. 场景分级与目标"></a>1. 场景分级与目标</h2><ul><li>P0（安全&#x2F;合规）：必须有人机共审，输出带引用和置信度，低置信度强制人工。</li><li>P1（运营效率）：设置信心阈值与兜底模板；引用率未达标不自动发布。</li><li>P2（探索）：限流与预算，标记实验标签，数据与日志隔离。</li></ul><h2 id="2-数据与检索设计"><a href="#2-数据与检索设计" class="headerlink" title="2. 数据与检索设计"></a>2. 数据与检索设计</h2><ul><li>切分：文本按语义+结构混合切分；表格保留键列和单位；图像提取区域特征；音频转文本再切分。</li><li>索引：多模态向量库 + 关键词 BM25 + 结构化检索（SQL&#x2F;DSL）；支持分片、冷热分层。</li><li>版本：嵌入模型&#x2F;索引版本写入元数据；检索日志记录 <code>query/ctx/index_version/model_version/latency</code>。</li></ul><h2 id="3-生成与对齐"><a href="#3-生成与对齐" class="headerlink" title="3. 生成与对齐"></a>3. 生成与对齐</h2><ul><li>路由：按模态选择模型（文-only&#x2F;多模态）与工具；高风险场景双模型交叉验证。</li><li>提示：强制引用、拒答、格式化输出；对表格&#x2F;代码用 JSON&#x2F;SQL 约束。</li><li>安全：输入做注入&#x2F;敏感词检测；输出做事实性校验（引用对齐）、敏感遮罩。</li></ul><h2 id="4-评测与基线"><a href="#4-评测与基线" class="headerlink" title="4. 评测与基线"></a>4. 评测与基线</h2><ul><li>集合：覆盖文本、图文、表格、长上下文、多轮；包含拒答与越权样本。</li><li>指标：准确&#x2F;引用率&#x2F;拒答率&#x2F;事实性抽检、延迟、成本；检索召回与 NDCG。</li><li>CI：模型&#x2F;提示&#x2F;索引变更必跑基线；低于阈值阻断。</li></ul><h2 id="5-成本与性能"><a href="#5-成本与性能" class="headerlink" title="5. 成本与性能"></a>5. 成本与性能</h2><ul><li>监控：tokens、上下文长度、检索延迟、缓存与批处理命中、KV Cache。</li><li>优化：分层索引、截断+检索补充、批处理&#x2F;流式、轻量模型兜底。</li><li>预算：接口与租户配额；超限自动降级或切轻量模型，并写入审计。</li></ul><h2 id="6-反馈与回溯"><a href="#6-反馈与回溯" class="headerlink" title="6. 反馈与回溯"></a>6. 反馈与回溯</h2><ul><li>反馈池：用户纠错、低置信&#x2F;低引用&#x2F;拒答样本、人工审核数据。</li><li>回流：定期标注高价值样本，刷新基线与提示；对检索重排或微调。</li><li>回溯索引：按 <code>scene/model/index/dataset</code> 版本存档；请求可重放对比。</li></ul><h2 id="7-安全与合规"><a href="#7-安全与合规" class="headerlink" title="7. 安全与合规"></a>7. 安全与合规</h2><ul><li>输入：注入&#x2F;越权&#x2F;隐私检测；图片涉政&#x2F;涉黄&#x2F;人脸过滤。</li><li>输出：事实性与引用校验；敏感信息遮罩；拒答策略；记录决策日志。</li><li>审计：请求&#x2F;检索结果&#x2F;引用片段&#x2F;模型&amp;索引版本&#x2F;安全判定全链路可导出。</li></ul><h2 id="8-部署与灰度"><a href="#8-部署与灰度" class="headerlink" title="8. 部署与灰度"></a>8. 部署与灰度</h2><ul><li>流程：评测→灰度 1%-5%-20%-全量；覆盖高峰时段。</li><li>观察：准确&#x2F;引用&#x2F;拒答&#x2F;延迟&#x2F;成本&#x2F;安全拦截；停止条件触发自动回滚。</li><li>回滚：模型&#x2F;索引&#x2F;提示版本可一键回退；30 分钟内验证核心指标。</li></ul><h2 id="9-看板与周报"><a href="#9-看板与周报" class="headerlink" title="9. 看板与周报"></a>9. 看板与周报</h2><ul><li>质量：准确&#x2F;引用&#x2F;拒答&#x2F;事实抽检、低分样本 TopN。</li><li>检索：召回&#x2F;NDCG、延迟、缓存命中、索引版本分布。</li><li>成本：token&#x2F;请求、批处理&#x2F;缓存命中、降级次数。</li><li>安全：拦截类型、误报&#x2F;漏报、审计导出次数。</li></ul><h2 id="10-操作示例"><a href="#10-操作示例" class="headerlink" title="10. 操作示例"></a>10. 操作示例</h2><ul><li>CI 集成：<code>make eval</code> 跑基线，低于阈值直接失败；安全测试脚本覆盖注入&#x2F;隐私&#x2F;越权。</li><li>成本降级：当 token 或延迟超阈值时，自动切轻量模型或缩短上下文并记录事件。</li><li>证据包：灰度阶段记录评测结果、模型&#x2F;索引&#x2F;提示版本、引用样本、拦截与降级日志，可导出 CSV&#x2F;PDF。</li></ul><p>结语：<br>把“检索对齐 + 评测基线 + 反馈回路 + 成本与安全护栏”做成默认流程，多模态 RAG 才能稳定、可审计地扩展业务。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;多模态 RAG 正在从“能用”走向“可验证”。核心是三件事：高质量检索增强、可验证引用与拒答、安全与成本护栏。本文结合近期技术趋势，给出企业落地路径与操作清单。&lt;/p&gt;
-&lt;h2 id=&quot;1-场景分级与目标&quot;&gt;&lt;a href=&quot;#1-场景分级与目标&quot; class</summary>
-      
-    
-    
-    
-    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    
-    <category term="RAG" scheme="https://zhangxianda.com/tags/RAG/"/>
-    
-    <category term="Cost Control" scheme="https://zhangxianda.com/tags/Cost-Control/"/>
-    
-    <category term="Safety" scheme="https://zhangxianda.com/tags/Safety/"/>
-    
-    <category term="Evaluation" scheme="https://zhangxianda.com/tags/Evaluation/"/>
-    
-    <category term="Multi-modal" scheme="https://zhangxianda.com/tags/Multi-modal/"/>
-    
-  </entry>
-  
-  <entry>
     <title>高吞吐后端的韧性设计：流控背压、读写隔离与多活演练</title>
     <link href="https://zhangxianda.com/2026/01/21/2026-01-21-backend/"/>
     <id>https://zhangxianda.com/2026/01/21/2026-01-21-backend/</id>
@@ -508,6 +475,39 @@
     <category term="API Security" scheme="https://zhangxianda.com/tags/API-Security/"/>
     
     <category term="Risk Control" scheme="https://zhangxianda.com/tags/Risk-Control/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>企业级多模态RAG 2.0：检索增强、可验证引用与反馈闭环</title>
+    <link href="https://zhangxianda.com/2026/01/21/2026-01-21-artificial-intelligence/"/>
+    <id>https://zhangxianda.com/2026/01/21/2026-01-21-artificial-intelligence/</id>
+    <published>2026-01-21T01:30:00.000Z</published>
+    <updated>2026-01-22T00:31:06.306Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>多模态 RAG 正在从“能用”走向“可验证”。核心是三件事：高质量检索增强、可验证引用与拒答、安全与成本护栏。本文结合近期技术趋势，给出企业落地路径与操作清单。</p><h2 id="1-场景分级与目标"><a href="#1-场景分级与目标" class="headerlink" title="1. 场景分级与目标"></a>1. 场景分级与目标</h2><ul><li>P0（安全&#x2F;合规）：必须有人机共审，输出带引用和置信度，低置信度强制人工。</li><li>P1（运营效率）：设置信心阈值与兜底模板；引用率未达标不自动发布。</li><li>P2（探索）：限流与预算，标记实验标签，数据与日志隔离。</li></ul><h2 id="2-数据与检索设计"><a href="#2-数据与检索设计" class="headerlink" title="2. 数据与检索设计"></a>2. 数据与检索设计</h2><ul><li>切分：文本按语义+结构混合切分；表格保留键列和单位；图像提取区域特征；音频转文本再切分。</li><li>索引：多模态向量库 + 关键词 BM25 + 结构化检索（SQL&#x2F;DSL）；支持分片、冷热分层。</li><li>版本：嵌入模型&#x2F;索引版本写入元数据；检索日志记录 <code>query/ctx/index_version/model_version/latency</code>。</li></ul><h2 id="3-生成与对齐"><a href="#3-生成与对齐" class="headerlink" title="3. 生成与对齐"></a>3. 生成与对齐</h2><ul><li>路由：按模态选择模型（文-only&#x2F;多模态）与工具；高风险场景双模型交叉验证。</li><li>提示：强制引用、拒答、格式化输出；对表格&#x2F;代码用 JSON&#x2F;SQL 约束。</li><li>安全：输入做注入&#x2F;敏感词检测；输出做事实性校验（引用对齐）、敏感遮罩。</li></ul><h2 id="4-评测与基线"><a href="#4-评测与基线" class="headerlink" title="4. 评测与基线"></a>4. 评测与基线</h2><ul><li>集合：覆盖文本、图文、表格、长上下文、多轮；包含拒答与越权样本。</li><li>指标：准确&#x2F;引用率&#x2F;拒答率&#x2F;事实性抽检、延迟、成本；检索召回与 NDCG。</li><li>CI：模型&#x2F;提示&#x2F;索引变更必跑基线；低于阈值阻断。</li></ul><h2 id="5-成本与性能"><a href="#5-成本与性能" class="headerlink" title="5. 成本与性能"></a>5. 成本与性能</h2><ul><li>监控：tokens、上下文长度、检索延迟、缓存与批处理命中、KV Cache。</li><li>优化：分层索引、截断+检索补充、批处理&#x2F;流式、轻量模型兜底。</li><li>预算：接口与租户配额；超限自动降级或切轻量模型，并写入审计。</li></ul><h2 id="6-反馈与回溯"><a href="#6-反馈与回溯" class="headerlink" title="6. 反馈与回溯"></a>6. 反馈与回溯</h2><ul><li>反馈池：用户纠错、低置信&#x2F;低引用&#x2F;拒答样本、人工审核数据。</li><li>回流：定期标注高价值样本，刷新基线与提示；对检索重排或微调。</li><li>回溯索引：按 <code>scene/model/index/dataset</code> 版本存档；请求可重放对比。</li></ul><h2 id="7-安全与合规"><a href="#7-安全与合规" class="headerlink" title="7. 安全与合规"></a>7. 安全与合规</h2><ul><li>输入：注入&#x2F;越权&#x2F;隐私检测；图片涉政&#x2F;涉黄&#x2F;人脸过滤。</li><li>输出：事实性与引用校验；敏感信息遮罩；拒答策略；记录决策日志。</li><li>审计：请求&#x2F;检索结果&#x2F;引用片段&#x2F;模型&amp;索引版本&#x2F;安全判定全链路可导出。</li></ul><h2 id="8-部署与灰度"><a href="#8-部署与灰度" class="headerlink" title="8. 部署与灰度"></a>8. 部署与灰度</h2><ul><li>流程：评测→灰度 1%-5%-20%-全量；覆盖高峰时段。</li><li>观察：准确&#x2F;引用&#x2F;拒答&#x2F;延迟&#x2F;成本&#x2F;安全拦截；停止条件触发自动回滚。</li><li>回滚：模型&#x2F;索引&#x2F;提示版本可一键回退；30 分钟内验证核心指标。</li></ul><h2 id="9-看板与周报"><a href="#9-看板与周报" class="headerlink" title="9. 看板与周报"></a>9. 看板与周报</h2><ul><li>质量：准确&#x2F;引用&#x2F;拒答&#x2F;事实抽检、低分样本 TopN。</li><li>检索：召回&#x2F;NDCG、延迟、缓存命中、索引版本分布。</li><li>成本：token&#x2F;请求、批处理&#x2F;缓存命中、降级次数。</li><li>安全：拦截类型、误报&#x2F;漏报、审计导出次数。</li></ul><h2 id="10-操作示例"><a href="#10-操作示例" class="headerlink" title="10. 操作示例"></a>10. 操作示例</h2><ul><li>CI 集成：<code>make eval</code> 跑基线，低于阈值直接失败；安全测试脚本覆盖注入&#x2F;隐私&#x2F;越权。</li><li>成本降级：当 token 或延迟超阈值时，自动切轻量模型或缩短上下文并记录事件。</li><li>证据包：灰度阶段记录评测结果、模型&#x2F;索引&#x2F;提示版本、引用样本、拦截与降级日志，可导出 CSV&#x2F;PDF。</li></ul><p>结语：<br>把“检索对齐 + 评测基线 + 反馈回路 + 成本与安全护栏”做成默认流程，多模态 RAG 才能稳定、可审计地扩展业务。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;多模态 RAG 正在从“能用”走向“可验证”。核心是三件事：高质量检索增强、可验证引用与拒答、安全与成本护栏。本文结合近期技术趋势，给出企业落地路径与操作清单。&lt;/p&gt;
+&lt;h2 id=&quot;1-场景分级与目标&quot;&gt;&lt;a href=&quot;#1-场景分级与目标&quot; class</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+    <category term="RAG" scheme="https://zhangxianda.com/tags/RAG/"/>
+    
+    <category term="Cost Control" scheme="https://zhangxianda.com/tags/Cost-Control/"/>
+    
+    <category term="Safety" scheme="https://zhangxianda.com/tags/Safety/"/>
+    
+    <category term="Evaluation" scheme="https://zhangxianda.com/tags/Evaluation/"/>
+    
+    <category term="Multi-modal" scheme="https://zhangxianda.com/tags/Multi-modal/"/>
     
   </entry>
   
@@ -611,39 +611,6 @@
   </entry>
   
   <entry>
-    <title>低延迟Java服务组合拳：虚拟线程、ZGC与依赖舱壁</title>
-    <link href="https://zhangxianda.com/2026/01/21/2026-01-21-java/"/>
-    <id>https://zhangxianda.com/2026/01/21/2026-01-21-java/</id>
-    <published>2026-01-21T01:30:00.000Z</published>
-    <updated>2026-01-22T00:32:13.799Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>JDK21 的虚拟线程与 ZGC 为低延迟服务提供了新工具，但真正稳定要靠“线程模型+GC+依赖舱壁+观测与回滚”组合拳。本文给出实操方案与核查清单。</p><h2 id="1-线程模型"><a href="#1-线程模型" class="headerlink" title="1. 线程模型"></a>1. 线程模型</h2><ul><li>适用：大量阻塞 IO 或短任务优先虚拟线程；长计算&#x2F;锁冲突使用平台线程。</li><li>规范：禁止在虚拟线程中持有重锁；I&#x2F;O 驱动与连接池选择 Loom 兼容实现。</li><li>观测：线程数、调度延迟、阻塞堆栈；异常时回退到平台线程。</li></ul><h2 id="2-GC-策略"><a href="#2-GC-策略" class="headerlink" title="2. GC 策略"></a>2. GC 策略</h2><ul><li>ZGC 首选（JDK17+），参数示例：<code>-XX:+UseZGC -XX:+ZGenerational -XX:ConcGCThreads=4 -XX:ZCollectionInterval=1</code>。</li><li>看板：GC 暂停&#x2F;并发时间、晋升失败、堆占用；超阈值告警。</li><li>压测对比：记录 ZGC vs G1 的 P99、CPU，占 Runbook。</li></ul><h2 id="3-IO-与协议"><a href="#3-IO-与协议" class="headerlink" title="3. IO 与协议"></a>3. IO 与协议</h2><ul><li>Netty：EPOLL&#x2F;KQueue，<code>write_buffer_water_mark</code> 控制背压；大文件用 <code>FileRegion/sendfile</code>。</li><li>HTTP&#x2F;2：流量控制与头压缩白名单；大响应分块&#x2F;流式。</li><li>序列化：优先零拷贝解码、减少对象分配。</li></ul><h2 id="4-依赖舱壁与超时"><a href="#4-依赖舱壁与超时" class="headerlink" title="4. 依赖舱壁与超时"></a>4. 依赖舱壁与超时</h2><ul><li>舱壁：每个依赖独立线程池&#x2F;超时&#x2F;断路器；熔断可降级到缓存或静态响应。</li><li>重试：带抖动，禁止级联重试；记录重试原因与次数。</li><li>兜底：高风险接口预置缓存&#x2F;静态模板，熔断时直接返回。</li></ul><h2 id="5-队列与背压"><a href="#5-队列与背压" class="headerlink" title="5. 队列与背压"></a>5. 队列与背压</h2><ul><li>线程池分级（计算&#x2F;IO&#x2F;阻塞）；队列长度基于压测设置。</li><li>消费端自适应拉取，超过延迟阈值自动降级为小批量。</li><li>返回排队位置或延迟提示，避免重试风暴。</li></ul><h2 id="6-缓存与数据路径"><a href="#6-缓存与数据路径" class="headerlink" title="6. 缓存与数据路径"></a>6. 缓存与数据路径</h2><ul><li>热点缓存：本地&#x2F;分布式缓存 + 版本号；防穿透&#x2F;击穿；写路径幂等。</li><li>读写隔离：写走主库，读走只读副本&#x2F;搜索；读失败回退主库要有限流。</li><li>CDC：Binlog&#x2F;CDC 更新缓存与搜索，监控复制延迟。</li></ul><h2 id="7-容量与压测"><a href="#7-容量与压测" class="headerlink" title="7. 容量与压测"></a>7. 容量与压测</h2><ul><li>模型：QPS、P99、CPU&#x2F;内存、依赖时延；按增长率预估 buffer。</li><li>压测：核心路由验证背压&#x2F;限流&#x2F;降级效果；记录容量基线。</li><li>成本：高成本接口设配额，监控调用与预算。</li></ul><h2 id="8-部署与回滚"><a href="#8-部署与回滚" class="headerlink" title="8. 部署与回滚"></a>8. 部署与回滚</h2><ul><li>灰度：1%-10%-50%-全量，覆盖高峰；观察 P99&#x2F;错误率&#x2F;GC&#x2F;线程池水位。</li><li>回滚：镜像+配置双通道；回滚后 30 分钟验证指标。</li><li>证据包：参数、压测、容量、限流&#x2F;熔断配置、回滚记录。</li></ul><h2 id="9-快速核查"><a href="#9-快速核查" class="headerlink" title="9. 快速核查"></a>9. 快速核查</h2><ul><li>虚拟线程适用性评估与开关就绪；ZGC 参数与监控上线。</li><li>线程池&#x2F;队列&#x2F;限流&#x2F;断路器配置明确，压测基线完成。</li><li>灰度&#x2F;回滚脚本可用，证据包沉淀。</li></ul><h2 id="10-操作示例"><a href="#10-操作示例" class="headerlink" title="10. 操作示例"></a>10. 操作示例</h2><ul><li>虚拟线程灰度：为阻塞型接口开启虚拟线程，观察线程数与 P99；异常快速关闭开关。</li><li>GC 对比：压测同一场景下 ZGC 与 G1，记录暂停&#x2F;CPU&#x2F;P99，选型入 Runbook。</li><li>回滚演练：<code>rollback.sh version</code> 一键切换，30 分钟内抓取 P99&#x2F;GC&#x2F;线程池&#x2F;队列水位快照。</li></ul><p>结语：<br>用“虚拟线程 + ZGC + 舱壁&#x2F;背压 + 观测”形成固定套路，低延迟 Java 服务才能在高峰期保持稳定与可回滚。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;JDK21 的虚拟线程与 ZGC 为低延迟服务提供了新工具，但真正稳定要靠“线程模型+GC+依赖舱壁+观测与回滚”组合拳。本文给出实操方案与核查清单。&lt;/p&gt;
-&lt;h2 id=&quot;1-线程模型&quot;&gt;&lt;a href=&quot;#1-线程模型&quot; class=&quot;headerlin</summary>
-      
-    
-    
-    
-    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
-    
-    
-    <category term="Observability" scheme="https://zhangxianda.com/tags/Observability/"/>
-    
-    <category term="ZGC" scheme="https://zhangxianda.com/tags/ZGC/"/>
-    
-    <category term="Virtual Threads" scheme="https://zhangxianda.com/tags/Virtual-Threads/"/>
-    
-    <category term="Resilience" scheme="https://zhangxianda.com/tags/Resilience/"/>
-    
-    <category term="Netty" scheme="https://zhangxianda.com/tags/Netty/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Python数据与AI流水线的可信交付：锁文件、签名镜像与成本降级</title>
     <link href="https://zhangxianda.com/2026/01/21/2026-01-21-python/"/>
     <id>https://zhangxianda.com/2026/01/21/2026-01-21-python/</id>
@@ -673,6 +640,39 @@
     <category term="Cost Control" scheme="https://zhangxianda.com/tags/Cost-Control/"/>
     
     <category term="Data Pipeline" scheme="https://zhangxianda.com/tags/Data-Pipeline/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>可靠性交付的运营化：SLO预算、动作化告警与证据化复盘</title>
+    <link href="https://zhangxianda.com/2026/01/21/2026-01-21-software-engineering/"/>
+    <id>https://zhangxianda.com/2026/01/21/2026-01-21-software-engineering/</id>
+    <published>2026-01-21T01:30:00.000Z</published>
+    <updated>2026-01-22T00:33:16.815Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>可靠性不只是技术问题，更是运营问题。要做到“可见预算、可执行告警、可追责复盘”，需要 SLO&#x2F;预算运营、动作化告警、证据化复盘三件套。本文提供落地路径与核查清单。</p><h2 id="1-SLO-与预算"><a href="#1-SLO-与预算" class="headerlink" title="1. SLO 与预算"></a>1. SLO 与预算</h2><ul><li>分层：核心旅程&#x2F;租户&#x2F;地域定义成功率与尾延迟 SLO。</li><li>预算看板：显示预算剩余、消耗速率、预计耗尽时间；异常触发冻结或降级。</li><li>标签：日志&#x2F;指标&#x2F;Trace 带版本、区域、租户，便于对比。</li></ul><h2 id="2-动作化告警"><a href="#2-动作化告警" class="headerlink" title="2. 动作化告警"></a>2. 动作化告警</h2><ul><li>模板：诊断链接（Trace&#x2F;日志&#x2F;指标）、处置预案（脚本&#x2F;Runbook）、回滚入口。</li><li>分级：P1 自动动作（限速&#x2F;降级&#x2F;切流）；P2 人工指引；静默窗口与抖动合并。</li><li>噪声治理：Top 误报治理，例外有时限。</li></ul><h2 id="3-发布与灰度"><a href="#3-发布与灰度" class="headerlink" title="3. 发布与灰度"></a>3. 发布与灰度</h2><ul><li>门禁：单测&#x2F;静态扫描&#x2F;依赖与 SBOM&#x2F;契约测试&#x2F;性能基线。</li><li>灰度：1%-10%-50%-全量，覆盖高峰；停止条件绑定预算与错误率&#x2F;尾延迟。</li><li>回滚：镜像+配置双通道；回滚后 30 分钟验证指标。</li></ul><h2 id="4-证据化复盘"><a href="#4-证据化复盘" class="headerlink" title="4. 证据化复盘"></a>4. 证据化复盘</h2><ul><li>Evidence Pack：时间线、影响、检测方式、指标&#x2F;日志&#x2F;Trace 证据、发布&#x2F;配置记录、处置动作、根因、行动项、预算影响。</li><li>时效：P1&#x2F;P2 事故 24 小时内提交；行动项跟踪到完成。</li><li>存储：结构化可检索，支持导出。</li></ul><h2 id="5-运营与改进"><a href="#5-运营与改进" class="headerlink" title="5. 运营与改进"></a>5. 运营与改进</h2><ul><li>周报：预算消耗、Top 告警、回滚&#x2F;降级、未闭环行动项；噪声与门禁缺口列入改进。</li><li>资产库：高频问题→改进资产（行动项&#x2F;负责人&#x2F;截止&#x2F;复查）；Runbook 持续演练。</li><li>演练：按月演练 P1&#x2F;P2，验证告警动作、回滚、证据包完整性。</li></ul><h2 id="6-看板与报表"><a href="#6-看板与报表" class="headerlink" title="6. 看板与报表"></a>6. 看板与报表</h2><ul><li>看板：SLO&#x2F;预算、告警、灰度&#x2F;停止条件、回滚状态。</li><li>报表：质量页（SLO、预算、告警）、动作页（行动项完成度、责任人）、审计页（证据包导出）。</li><li>例外：到期提醒，过期自动关闭。</li></ul><h2 id="7-落地步骤"><a href="#7-落地步骤" class="headerlink" title="7. 落地步骤"></a>7. 落地步骤</h2><ol><li>定义 SLO 与预算，建立标签规范与看板。</li><li>接入动作化告警模板与 Runbook，绑定回滚入口。</li><li>发布门禁与灰度&#x2F;停止条件上线；回滚脚本演练。</li><li>建证据包模板与存储；周报与资产库滚动更新。</li></ol><h2 id="8-快速核查"><a href="#8-快速核查" class="headerlink" title="8. 快速核查"></a>8. 快速核查</h2><ul><li>看板在线：SLO&#x2F;预算、告警、灰度&#x2F;停止条件、回滚。</li><li>门禁与回滚脚本可执行，演练有记录。</li><li>证据包模板可导出，行动项跟踪到完成。</li></ul><h2 id="9-报表与演练"><a href="#9-报表与演练" class="headerlink" title="9. 报表与演练"></a>9. 报表与演练</h2><ul><li>报表：质量页（SLO、预算、告警）、动作页（行动项完成度、责任人）、审计页（证据包导出与时效）。</li><li>周演练：选一条核心链路演练 P1&#x2F;P2，验证告警动作、回滚与证据包完整性。</li><li>噪声治理：Top 误报治理清单，每周收敛并记录改动与效果。</li></ul><h2 id="10-操作示例"><a href="#10-操作示例" class="headerlink" title="10. 操作示例"></a>10. 操作示例</h2><ul><li>Error Budget 看板：显示剩余、消耗速率、预计耗尽时间，超阈值自动冻结变更或降级。</li><li>动作化告警：告警模板附 Trace&#x2F;日志链接、Runbook 与回滚入口，P1 自动执行降级&#x2F;切流脚本。</li><li>证据包：<code>who/when/where/impact/metrics/logs/trace/change/rollback/actions/root_cause/action_items</code> 结构化存储，支持导出。</li></ul><p>结语：<br>让 SLO 预算、动作化告警和证据化复盘成为日常习惯，可靠性交付才能既快又可追责。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;可靠性不只是技术问题，更是运营问题。要做到“可见预算、可执行告警、可追责复盘”，需要 SLO&amp;#x2F;预算运营、动作化告警、证据化复盘三件套。本文提供落地路径与核查清单。&lt;/p&gt;
+&lt;h2 id=&quot;1-SLO-与预算&quot;&gt;&lt;a href=&quot;#1-SLO-与预算&quot;</summary>
+      
+    
+    
+    
+    <category term="软件工程" scheme="https://zhangxianda.com/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
+    
+    
+    <category term="SLO" scheme="https://zhangxianda.com/tags/SLO/"/>
+    
+    <category term="Evidence Pack" scheme="https://zhangxianda.com/tags/Evidence-Pack/"/>
+    
+    <category term="Incident Response" scheme="https://zhangxianda.com/tags/Incident-Response/"/>
+    
+    <category term="Reliability" scheme="https://zhangxianda.com/tags/Reliability/"/>
+    
+    <category term="Budget" scheme="https://zhangxianda.com/tags/Budget/"/>
     
   </entry>
   
