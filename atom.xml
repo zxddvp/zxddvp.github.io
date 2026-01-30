@@ -39,9 +39,9 @@
     
     <category term="Safety" scheme="https://zhangxianda.com/tags/Safety/"/>
     
-    <category term="Evaluation" scheme="https://zhangxianda.com/tags/Evaluation/"/>
-    
     <category term="AI Tooling" scheme="https://zhangxianda.com/tags/AI-Tooling/"/>
+    
+    <category term="Evaluation" scheme="https://zhangxianda.com/tags/Evaluation/"/>
     
     <category term="Alignment" scheme="https://zhangxianda.com/tags/Alignment/"/>
     
@@ -74,9 +74,9 @@
     
     <category term="Safety" scheme="https://zhangxianda.com/tags/Safety/"/>
     
-    <category term="Multi-modal" scheme="https://zhangxianda.com/tags/Multi-modal/"/>
-    
     <category term="Evaluation" scheme="https://zhangxianda.com/tags/Evaluation/"/>
+    
+    <category term="Multi-modal" scheme="https://zhangxianda.com/tags/Multi-modal/"/>
     
     <category term="Orchestration" scheme="https://zhangxianda.com/tags/Orchestration/"/>
     
@@ -380,39 +380,6 @@
   </entry>
   
   <entry>
-    <title>最新AI开发工具链精选：评测、对齐、安全与成本的落地组合</title>
-    <link href="https://zhangxianda.com/2026/01/28/2026-01-28-ai-tooling/"/>
-    <id>https://zhangxianda.com/2026/01/28/2026-01-28-ai-tooling/</id>
-    <published>2026-01-28T01:30:00.000Z</published>
-    <updated>2026-01-29T00:38:16.434Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>多模态与企业合规并行推进，AI 工具链必须覆盖“评测、对齐、安全、成本”四个维度。本文精选组合方案，附落地顺序与操作清单，帮助快速搭建可运营的生产链路。</p><h2 id="1-评测与数据集"><a href="#1-评测与数据集" class="headerlink" title="1. 评测与数据集"></a>1. 评测与数据集</h2><ul><li>工具：连续评测框架（lighteval 类）、合成数据与半自动标注工具。</li><li>要点：多模态&#x2F;多语言支持；指标含准确&#x2F;引用&#x2F;拒答&#x2F;安全；基线与阈值可配置。</li><li>实践：模型&#x2F;提示&#x2F;检索变更必跑基线，结果入看板，低分样本回流标注。</li></ul><h2 id="2-检索与向量库"><a href="#2-检索与向量库" class="headerlink" title="2. 检索与向量库"></a>2. 检索与向量库</h2><ul><li>工具：企业级向量库（多租户、冷热分层、混合检索）+ 嵌入服务版本化。</li><li>要点：索引压缩、分片&#x2F;副本、日志可追溯；检索延迟与召回可观测。</li><li>实践：检索日志用于高质样本挖掘与安全审计；向量库与检索服务分版本。</li></ul><h2 id="3-安全与拒答"><a href="#3-安全与拒答" class="headerlink" title="3. 安全与拒答"></a>3. 安全与拒答</h2><ul><li>工具：输入输出安全评估、提示防护（Prompt Shield）、内容安全模型。</li><li>要点：覆盖注入&#x2F;越权&#x2F;隐私&#x2F;涉政涉黄版权；拒答策略与引用校验。</li><li>实践：高危场景双模型交叉验证；触发拒答时生成证据包。</li></ul><h2 id="4-对齐与人反馈"><a href="#4-对齐与人反馈" class="headerlink" title="4. 对齐与人反馈"></a>4. 对齐与人反馈</h2><ul><li>工具：RLHF&#x2F;指令对齐平台、偏好收集与打分工具、主动学习队列。</li><li>要点：数据集分桶与版本化；偏好数据安全隔离；打分一致性校验。</li><li>实践：低置信样本进入偏好标注；对齐模型与基线对比。</li></ul><h2 id="5-编排与代理"><a href="#5-编排与代理" class="headerlink" title="5. 编排与代理"></a>5. 编排与代理</h2><ul><li>工具：可视化&#x2F;DSL 工作流编排、代理框架，支持工具路由与回放。</li><li>要点：节点可版本化与复用，链路可观测并产出审计日志。</li><li>实践：高价值流程设灰度与止损，自动生成证据包。</li></ul><h2 id="6-成本与性能"><a href="#6-成本与性能" class="headerlink" title="6. 成本与性能"></a>6. 成本与性能</h2><ul><li>工具：Token&#x2F;延迟监控、缓存（KV&#x2F;向量）、批量与流式推理组件、KV Cache 服务。</li><li>要点：预算与配额、降级策略；长上下文截断+检索；动态批大小。</li><li>实践：超预算自动切轻量模型或启用批量&#x2F;缓存；成本报表按租户&#x2F;场景。</li></ul><h2 id="7-数据与合规"><a href="#7-数据与合规" class="headerlink" title="7. 数据与合规"></a>7. 数据与合规</h2><ul><li>工具：脱敏&#x2F;水印、访问控制与审计、合规导出模板。</li><li>要点：数据&#x2F;模型&#x2F;提示&#x2F;评测版本化；敏感字段遮罩；审计可回放。</li><li>实践：高风险样本人工复核，合规导出可生成 PDF&#x2F;CSV。</li></ul><h2 id="8-落地顺序"><a href="#8-落地顺序" class="headerlink" title="8. 落地顺序"></a>8. 落地顺序</h2><ol><li>建评测基线与阈值，接入 CI。</li><li>部署向量库与检索日志，打通审计。</li><li>启动输入&#x2F;输出安全与拒答策略，验证误报。</li><li>打开 Token&#x2F;延迟&#x2F;成本看板，设预算与降级。</li><li>用编排工具搭首个生产工作流，灰度放量并记录证据包。</li></ol><h2 id="9-周报要点"><a href="#9-周报要点" class="headerlink" title="9. 周报要点"></a>9. 周报要点</h2><ul><li>质量：准确&#x2F;引用&#x2F;拒答&#x2F;安全评测结果与趋势，低分样本。</li><li>成本：Token&#x2F;请求、缓存&#x2F;批处理命中、降级&#x2F;熔断次数。</li><li>安全：拦截类型、误报&#x2F;漏报、审计导出与证据包。</li><li>运营：对齐&#x2F;标注数据量、基线刷新次数、工具变更。</li></ul><h2 id="10-快速核查"><a href="#10-快速核查" class="headerlink" title="10. 快速核查"></a>10. 快速核查</h2><ul><li>评测与安全基线已接入 CI，低分阻断。</li><li>检索&#x2F;向量库分版本，日志可追溯；安全与拒答策略生效。</li><li>成本看板在线，预算与降级策略可执行；工作流可灰度与回滚。</li></ul><h2 id="11-操作示例"><a href="#11-操作示例" class="headerlink" title="11. 操作示例"></a>11. 操作示例</h2><ul><li>CI 集成：<code>make eval</code> 跑基线，低于阈值退出非零；安全脚本覆盖注入&#x2F;越权&#x2F;隐私样本。</li><li>成本看板：按租户&#x2F;场景展示 token、延迟、缓存&#x2F;批量命中；自动生成超限告警与降级动作记录。</li><li>证据包：每次灰度记录评测结果、检索&#x2F;模型&#x2F;提示版本、拒答&#x2F;拦截样本、成本与降级日志，可导出 PDF&#x2F;CSV。</li></ul><p>结语：<br>把评测、对齐、安全、成本融入一站式工具链，并让灰度、审计和回滚可执行，才能在多模态时代稳定扩展 AI 业务。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;多模态与企业合规并行推进，AI 工具链必须覆盖“评测、对齐、安全、成本”四个维度。本文精选组合方案，附落地顺序与操作清单，帮助快速搭建可运营的生产链路。&lt;/p&gt;
-&lt;h2 id=&quot;1-评测与数据集&quot;&gt;&lt;a href=&quot;#1-评测与数据集&quot; class=&quot;head</summary>
-      
-    
-    
-    
-    <category term="最新AI开发工具推荐" scheme="https://zhangxianda.com/categories/%E6%9C%80%E6%96%B0AI%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
-    
-    
-    <category term="Safety" scheme="https://zhangxianda.com/tags/Safety/"/>
-    
-    <category term="Evaluation" scheme="https://zhangxianda.com/tags/Evaluation/"/>
-    
-    <category term="AI Tooling" scheme="https://zhangxianda.com/tags/AI-Tooling/"/>
-    
-    <category term="Alignment" scheme="https://zhangxianda.com/tags/Alignment/"/>
-    
-    <category term="Cost" scheme="https://zhangxianda.com/tags/Cost/"/>
-    
-  </entry>
-  
-  <entry>
     <title>多模态智能的生产SOP：检索增强、工具编排、评测基线与成本护栏</title>
     <link href="https://zhangxianda.com/2026/01/28/2026-01-28-artificial-intelligence/"/>
     <id>https://zhangxianda.com/2026/01/28/2026-01-28-artificial-intelligence/</id>
@@ -437,11 +404,44 @@
     
     <category term="Safety" scheme="https://zhangxianda.com/tags/Safety/"/>
     
+    <category term="Evaluation" scheme="https://zhangxianda.com/tags/Evaluation/"/>
+    
     <category term="Multi-modal" scheme="https://zhangxianda.com/tags/Multi-modal/"/>
+    
+    <category term="Orchestration" scheme="https://zhangxianda.com/tags/Orchestration/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>最新AI开发工具链精选：评测、对齐、安全与成本的落地组合</title>
+    <link href="https://zhangxianda.com/2026/01/28/2026-01-28-ai-tooling/"/>
+    <id>https://zhangxianda.com/2026/01/28/2026-01-28-ai-tooling/</id>
+    <published>2026-01-28T01:30:00.000Z</published>
+    <updated>2026-01-29T00:38:16.434Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>多模态与企业合规并行推进，AI 工具链必须覆盖“评测、对齐、安全、成本”四个维度。本文精选组合方案，附落地顺序与操作清单，帮助快速搭建可运营的生产链路。</p><h2 id="1-评测与数据集"><a href="#1-评测与数据集" class="headerlink" title="1. 评测与数据集"></a>1. 评测与数据集</h2><ul><li>工具：连续评测框架（lighteval 类）、合成数据与半自动标注工具。</li><li>要点：多模态&#x2F;多语言支持；指标含准确&#x2F;引用&#x2F;拒答&#x2F;安全；基线与阈值可配置。</li><li>实践：模型&#x2F;提示&#x2F;检索变更必跑基线，结果入看板，低分样本回流标注。</li></ul><h2 id="2-检索与向量库"><a href="#2-检索与向量库" class="headerlink" title="2. 检索与向量库"></a>2. 检索与向量库</h2><ul><li>工具：企业级向量库（多租户、冷热分层、混合检索）+ 嵌入服务版本化。</li><li>要点：索引压缩、分片&#x2F;副本、日志可追溯；检索延迟与召回可观测。</li><li>实践：检索日志用于高质样本挖掘与安全审计；向量库与检索服务分版本。</li></ul><h2 id="3-安全与拒答"><a href="#3-安全与拒答" class="headerlink" title="3. 安全与拒答"></a>3. 安全与拒答</h2><ul><li>工具：输入输出安全评估、提示防护（Prompt Shield）、内容安全模型。</li><li>要点：覆盖注入&#x2F;越权&#x2F;隐私&#x2F;涉政涉黄版权；拒答策略与引用校验。</li><li>实践：高危场景双模型交叉验证；触发拒答时生成证据包。</li></ul><h2 id="4-对齐与人反馈"><a href="#4-对齐与人反馈" class="headerlink" title="4. 对齐与人反馈"></a>4. 对齐与人反馈</h2><ul><li>工具：RLHF&#x2F;指令对齐平台、偏好收集与打分工具、主动学习队列。</li><li>要点：数据集分桶与版本化；偏好数据安全隔离；打分一致性校验。</li><li>实践：低置信样本进入偏好标注；对齐模型与基线对比。</li></ul><h2 id="5-编排与代理"><a href="#5-编排与代理" class="headerlink" title="5. 编排与代理"></a>5. 编排与代理</h2><ul><li>工具：可视化&#x2F;DSL 工作流编排、代理框架，支持工具路由与回放。</li><li>要点：节点可版本化与复用，链路可观测并产出审计日志。</li><li>实践：高价值流程设灰度与止损，自动生成证据包。</li></ul><h2 id="6-成本与性能"><a href="#6-成本与性能" class="headerlink" title="6. 成本与性能"></a>6. 成本与性能</h2><ul><li>工具：Token&#x2F;延迟监控、缓存（KV&#x2F;向量）、批量与流式推理组件、KV Cache 服务。</li><li>要点：预算与配额、降级策略；长上下文截断+检索；动态批大小。</li><li>实践：超预算自动切轻量模型或启用批量&#x2F;缓存；成本报表按租户&#x2F;场景。</li></ul><h2 id="7-数据与合规"><a href="#7-数据与合规" class="headerlink" title="7. 数据与合规"></a>7. 数据与合规</h2><ul><li>工具：脱敏&#x2F;水印、访问控制与审计、合规导出模板。</li><li>要点：数据&#x2F;模型&#x2F;提示&#x2F;评测版本化；敏感字段遮罩；审计可回放。</li><li>实践：高风险样本人工复核，合规导出可生成 PDF&#x2F;CSV。</li></ul><h2 id="8-落地顺序"><a href="#8-落地顺序" class="headerlink" title="8. 落地顺序"></a>8. 落地顺序</h2><ol><li>建评测基线与阈值，接入 CI。</li><li>部署向量库与检索日志，打通审计。</li><li>启动输入&#x2F;输出安全与拒答策略，验证误报。</li><li>打开 Token&#x2F;延迟&#x2F;成本看板，设预算与降级。</li><li>用编排工具搭首个生产工作流，灰度放量并记录证据包。</li></ol><h2 id="9-周报要点"><a href="#9-周报要点" class="headerlink" title="9. 周报要点"></a>9. 周报要点</h2><ul><li>质量：准确&#x2F;引用&#x2F;拒答&#x2F;安全评测结果与趋势，低分样本。</li><li>成本：Token&#x2F;请求、缓存&#x2F;批处理命中、降级&#x2F;熔断次数。</li><li>安全：拦截类型、误报&#x2F;漏报、审计导出与证据包。</li><li>运营：对齐&#x2F;标注数据量、基线刷新次数、工具变更。</li></ul><h2 id="10-快速核查"><a href="#10-快速核查" class="headerlink" title="10. 快速核查"></a>10. 快速核查</h2><ul><li>评测与安全基线已接入 CI，低分阻断。</li><li>检索&#x2F;向量库分版本，日志可追溯；安全与拒答策略生效。</li><li>成本看板在线，预算与降级策略可执行；工作流可灰度与回滚。</li></ul><h2 id="11-操作示例"><a href="#11-操作示例" class="headerlink" title="11. 操作示例"></a>11. 操作示例</h2><ul><li>CI 集成：<code>make eval</code> 跑基线，低于阈值退出非零；安全脚本覆盖注入&#x2F;越权&#x2F;隐私样本。</li><li>成本看板：按租户&#x2F;场景展示 token、延迟、缓存&#x2F;批量命中；自动生成超限告警与降级动作记录。</li><li>证据包：每次灰度记录评测结果、检索&#x2F;模型&#x2F;提示版本、拒答&#x2F;拦截样本、成本与降级日志，可导出 PDF&#x2F;CSV。</li></ul><p>结语：<br>把评测、对齐、安全、成本融入一站式工具链，并让灰度、审计和回滚可执行，才能在多模态时代稳定扩展 AI 业务。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;多模态与企业合规并行推进，AI 工具链必须覆盖“评测、对齐、安全、成本”四个维度。本文精选组合方案，附落地顺序与操作清单，帮助快速搭建可运营的生产链路。&lt;/p&gt;
+&lt;h2 id=&quot;1-评测与数据集&quot;&gt;&lt;a href=&quot;#1-评测与数据集&quot; class=&quot;head</summary>
+      
+    
+    
+    
+    <category term="最新AI开发工具推荐" scheme="https://zhangxianda.com/categories/%E6%9C%80%E6%96%B0AI%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+    <category term="Safety" scheme="https://zhangxianda.com/tags/Safety/"/>
+    
+    <category term="AI Tooling" scheme="https://zhangxianda.com/tags/AI-Tooling/"/>
     
     <category term="Evaluation" scheme="https://zhangxianda.com/tags/Evaluation/"/>
     
-    <category term="Orchestration" scheme="https://zhangxianda.com/tags/Orchestration/"/>
+    <category term="Alignment" scheme="https://zhangxianda.com/tags/Alignment/"/>
+    
+    <category term="Cost" scheme="https://zhangxianda.com/tags/Cost/"/>
     
   </entry>
   
