@@ -50,39 +50,6 @@
   </entry>
   
   <entry>
-    <title>多模态智能的稳定交付：检索增强、工具编排、评测基线与安全护栏</title>
-    <link href="https://zhangxianda.com/2026/01/29/2026-01-29-artificial-intelligence/"/>
-    <id>https://zhangxianda.com/2026/01/29/2026-01-29-artificial-intelligence/</id>
-    <published>2026-01-29T01:30:00.000Z</published>
-    <updated>2026-01-30T00:47:47.316Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>多模态模型快速迭代，但生产落地要解决“可验证、可回溯、可控成本”。本文给出检索增强、工具编排、评测与安全护栏的工程 SOP，并附操作清单。</p><h2 id="1-场景分级与目标"><a href="#1-场景分级与目标" class="headerlink" title="1. 场景分级与目标"></a>1. 场景分级与目标</h2><ul><li>P0（合规&#x2F;资金&#x2F;隐私）：人机共审，输出必须带引用与置信度；低置信度强制人工。</li><li>P1（效率）：设置信心阈值与兜底模板，引用率达标才自动发布。</li><li>P2（探索）：限流与预算，实验标签隔离日志与数据。</li></ul><h2 id="2-数据与检索增强"><a href="#2-数据与检索增强" class="headerlink" title="2. 数据与检索增强"></a>2. 数据与检索增强</h2><ul><li>切分：文档语义+结构混合；表格保留键列&#x2F;单位；图像区域特征；音频转文本再切分。</li><li>检索：向量（多模态）+ BM25 + 结构化 DSL 融合排序；索引冷热分层、分片。</li><li>版本：嵌入&#x2F;索引版本写入元数据；检索日志含 <code>query/ctx/index_version/model_version/latency</code>，可回放。</li></ul><h2 id="3-工具编排与路由"><a href="#3-工具编排与路由" class="headerlink" title="3. 工具编排与路由"></a>3. 工具编排与路由</h2><ul><li>路由：按模态与意图选择文-only&#x2F;多模态模型、搜索&#x2F;代码&#x2F;数据库&#x2F;计算工具；高风险双模型交叉验证。</li><li>编排：DSL&#x2F;可视化工作流，节点可复用与版本化；链路可观测并产出审计。</li><li>记忆：高频问法缓存；长流程按“计划-执行-回顾”记录中间态。</li></ul><h2 id="4-提示、对齐与安全"><a href="#4-提示、对齐与安全" class="headerlink" title="4. 提示、对齐与安全"></a>4. 提示、对齐与安全</h2><ul><li>模板：强制引用、拒答、格式化；表格&#x2F;代码用 JSON&#x2F;SQL 约束；工具调用上限与温度控制。</li><li>安全：输入注入&#x2F;越权&#x2F;隐私检测；输出事实校验、敏感遮罩、拒答策略；外部接口限速与成本配额。</li><li>对齐：偏好数据分桶；拒答与安全基线纳入 CI，低于阈值阻断。</li></ul><h2 id="5-评测与基线"><a href="#5-评测与基线" class="headerlink" title="5. 评测与基线"></a>5. 评测与基线</h2><ul><li>集合：文本、图文、表格、多轮、长上下文，含拒答&#x2F;越权样本。</li><li>指标：准确&#x2F;引用率&#x2F;拒答率&#x2F;事实抽检、延迟、成本；召回&#x2F;NDCG；工具成功率。</li><li>CI：模型&#x2F;提示&#x2F;检索&#x2F;编排变更必跑；结果入看板，低分阻断。</li></ul><h2 id="6-成本与性能"><a href="#6-成本与性能" class="headerlink" title="6. 成本与性能"></a>6. 成本与性能</h2><ul><li>监控：tokens、上下文长度、检索延迟、缓存&#x2F;批处理&#x2F;KV Cache 命中、工具耗时。</li><li>优化：分层索引、截断+检索补充、批处理&#x2F;流式、轻量模型兜底、复用中间结果。</li><li>预算：接口&#x2F;租户配额；超限自动降级或切轻量模型，事件写审计。</li></ul><h2 id="7-部署与灰度"><a href="#7-部署与灰度" class="headerlink" title="7. 部署与灰度"></a>7. 部署与灰度</h2><ul><li>流程：评测→灰度 1%-5%-20%-全量，覆盖高峰。</li><li>观察：准确&#x2F;引用&#x2F;拒答&#x2F;延迟&#x2F;成本&#x2F;安全拦截&#x2F;工具成功率；停止条件自动回滚。</li><li>回滚：模型&#x2F;索引&#x2F;提示&#x2F;工作流版本一键回退；30 分钟内验证核心指标。</li></ul><h2 id="8-反馈与回溯"><a href="#8-反馈与回溯" class="headerlink" title="8. 反馈与回溯"></a>8. 反馈与回溯</h2><ul><li>反馈池：用户纠错、低置信&#x2F;低引用&#x2F;拒答样本、人工审核；定期标注回流。</li><li>回溯索引：按 <code>scene/model/index/workflow/dataset</code> 版本存档；请求可重放对比。</li><li>提示迭代：低引用样本驱动提示或重排；评测刷新后再灰度。</li></ul><h2 id="9-安全与合规"><a href="#9-安全与合规" class="headerlink" title="9. 安全与合规"></a>9. 安全与合规</h2><ul><li>输入：注入&#x2F;隐私&#x2F;涉政涉黄检测；图片人脸与敏感区域过滤。</li><li>输出：引用校验、敏感遮罩、拒答；高风险场景双模型交叉验证。</li><li>审计：请求→检索→引用→模型→工具→安全判定全链路可导出。</li></ul><h2 id="10-周报与看板"><a href="#10-周报与看板" class="headerlink" title="10. 周报与看板"></a>10. 周报与看板</h2><ul><li>质量：准确&#x2F;引用&#x2F;拒答&#x2F;事实抽检，低分样本 TopN。</li><li>检索：召回&#x2F;NDCG、延迟、缓存命中、索引版本。</li><li>成本：token&#x2F;请求、批处理&#x2F;缓存命中、降级次数与效果。</li><li>安全：拦截类型、误报&#x2F;漏报、审计导出次数。</li></ul><h2 id="11-操作示例"><a href="#11-操作示例" class="headerlink" title="11. 操作示例"></a>11. 操作示例</h2><ul><li>CI 集成：<code>make eval</code> 跑基线+安全集，低于阈值退出非零；结果推送看板。</li><li>成本降级：监控 token 与延迟，超阈值自动切轻量模型或缩短上下文并记录事件。</li><li>证据包：灰度期间记录评测结果、模型&#x2F;索引&#x2F;提示&#x2F;工作流版本、引用样本、拦截与降级日志，可导出。</li></ul><p>结语：<br>把“检索增强 + 编排 + 评测基线 + 成本&#x2F;安全护栏 + 回溯”做成默认动作，多模态智能才能在合规和成本可控下持续演进。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;多模态模型快速迭代，但生产落地要解决“可验证、可回溯、可控成本”。本文给出检索增强、工具编排、评测与安全护栏的工程 SOP，并附操作清单。&lt;/p&gt;
-&lt;h2 id=&quot;1-场景分级与目标&quot;&gt;&lt;a href=&quot;#1-场景分级与目标&quot; class=&quot;headerlin</summary>
-      
-    
-    
-    
-    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    
-    <category term="RAG" scheme="https://zhangxianda.com/tags/RAG/"/>
-    
-    <category term="Safety" scheme="https://zhangxianda.com/tags/Safety/"/>
-    
-    <category term="Evaluation" scheme="https://zhangxianda.com/tags/Evaluation/"/>
-    
-    <category term="Multi-modal" scheme="https://zhangxianda.com/tags/Multi-modal/"/>
-    
-    <category term="Orchestration" scheme="https://zhangxianda.com/tags/Orchestration/"/>
-    
-  </entry>
-  
-  <entry>
     <title>高吞吐后端的韧性架构：流控背压、读写隔离与多活演练</title>
     <link href="https://zhangxianda.com/2026/01/29/2026-01-29-backend/"/>
     <id>https://zhangxianda.com/2026/01/29/2026-01-29-backend/</id>
@@ -116,6 +83,39 @@
   </entry>
   
   <entry>
+    <title>多模态智能的稳定交付：检索增强、工具编排、评测基线与安全护栏</title>
+    <link href="https://zhangxianda.com/2026/01/29/2026-01-29-artificial-intelligence/"/>
+    <id>https://zhangxianda.com/2026/01/29/2026-01-29-artificial-intelligence/</id>
+    <published>2026-01-29T01:30:00.000Z</published>
+    <updated>2026-01-30T00:47:47.316Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>多模态模型快速迭代，但生产落地要解决“可验证、可回溯、可控成本”。本文给出检索增强、工具编排、评测与安全护栏的工程 SOP，并附操作清单。</p><h2 id="1-场景分级与目标"><a href="#1-场景分级与目标" class="headerlink" title="1. 场景分级与目标"></a>1. 场景分级与目标</h2><ul><li>P0（合规&#x2F;资金&#x2F;隐私）：人机共审，输出必须带引用与置信度；低置信度强制人工。</li><li>P1（效率）：设置信心阈值与兜底模板，引用率达标才自动发布。</li><li>P2（探索）：限流与预算，实验标签隔离日志与数据。</li></ul><h2 id="2-数据与检索增强"><a href="#2-数据与检索增强" class="headerlink" title="2. 数据与检索增强"></a>2. 数据与检索增强</h2><ul><li>切分：文档语义+结构混合；表格保留键列&#x2F;单位；图像区域特征；音频转文本再切分。</li><li>检索：向量（多模态）+ BM25 + 结构化 DSL 融合排序；索引冷热分层、分片。</li><li>版本：嵌入&#x2F;索引版本写入元数据；检索日志含 <code>query/ctx/index_version/model_version/latency</code>，可回放。</li></ul><h2 id="3-工具编排与路由"><a href="#3-工具编排与路由" class="headerlink" title="3. 工具编排与路由"></a>3. 工具编排与路由</h2><ul><li>路由：按模态与意图选择文-only&#x2F;多模态模型、搜索&#x2F;代码&#x2F;数据库&#x2F;计算工具；高风险双模型交叉验证。</li><li>编排：DSL&#x2F;可视化工作流，节点可复用与版本化；链路可观测并产出审计。</li><li>记忆：高频问法缓存；长流程按“计划-执行-回顾”记录中间态。</li></ul><h2 id="4-提示、对齐与安全"><a href="#4-提示、对齐与安全" class="headerlink" title="4. 提示、对齐与安全"></a>4. 提示、对齐与安全</h2><ul><li>模板：强制引用、拒答、格式化；表格&#x2F;代码用 JSON&#x2F;SQL 约束；工具调用上限与温度控制。</li><li>安全：输入注入&#x2F;越权&#x2F;隐私检测；输出事实校验、敏感遮罩、拒答策略；外部接口限速与成本配额。</li><li>对齐：偏好数据分桶；拒答与安全基线纳入 CI，低于阈值阻断。</li></ul><h2 id="5-评测与基线"><a href="#5-评测与基线" class="headerlink" title="5. 评测与基线"></a>5. 评测与基线</h2><ul><li>集合：文本、图文、表格、多轮、长上下文，含拒答&#x2F;越权样本。</li><li>指标：准确&#x2F;引用率&#x2F;拒答率&#x2F;事实抽检、延迟、成本；召回&#x2F;NDCG；工具成功率。</li><li>CI：模型&#x2F;提示&#x2F;检索&#x2F;编排变更必跑；结果入看板，低分阻断。</li></ul><h2 id="6-成本与性能"><a href="#6-成本与性能" class="headerlink" title="6. 成本与性能"></a>6. 成本与性能</h2><ul><li>监控：tokens、上下文长度、检索延迟、缓存&#x2F;批处理&#x2F;KV Cache 命中、工具耗时。</li><li>优化：分层索引、截断+检索补充、批处理&#x2F;流式、轻量模型兜底、复用中间结果。</li><li>预算：接口&#x2F;租户配额；超限自动降级或切轻量模型，事件写审计。</li></ul><h2 id="7-部署与灰度"><a href="#7-部署与灰度" class="headerlink" title="7. 部署与灰度"></a>7. 部署与灰度</h2><ul><li>流程：评测→灰度 1%-5%-20%-全量，覆盖高峰。</li><li>观察：准确&#x2F;引用&#x2F;拒答&#x2F;延迟&#x2F;成本&#x2F;安全拦截&#x2F;工具成功率；停止条件自动回滚。</li><li>回滚：模型&#x2F;索引&#x2F;提示&#x2F;工作流版本一键回退；30 分钟内验证核心指标。</li></ul><h2 id="8-反馈与回溯"><a href="#8-反馈与回溯" class="headerlink" title="8. 反馈与回溯"></a>8. 反馈与回溯</h2><ul><li>反馈池：用户纠错、低置信&#x2F;低引用&#x2F;拒答样本、人工审核；定期标注回流。</li><li>回溯索引：按 <code>scene/model/index/workflow/dataset</code> 版本存档；请求可重放对比。</li><li>提示迭代：低引用样本驱动提示或重排；评测刷新后再灰度。</li></ul><h2 id="9-安全与合规"><a href="#9-安全与合规" class="headerlink" title="9. 安全与合规"></a>9. 安全与合规</h2><ul><li>输入：注入&#x2F;隐私&#x2F;涉政涉黄检测；图片人脸与敏感区域过滤。</li><li>输出：引用校验、敏感遮罩、拒答；高风险场景双模型交叉验证。</li><li>审计：请求→检索→引用→模型→工具→安全判定全链路可导出。</li></ul><h2 id="10-周报与看板"><a href="#10-周报与看板" class="headerlink" title="10. 周报与看板"></a>10. 周报与看板</h2><ul><li>质量：准确&#x2F;引用&#x2F;拒答&#x2F;事实抽检，低分样本 TopN。</li><li>检索：召回&#x2F;NDCG、延迟、缓存命中、索引版本。</li><li>成本：token&#x2F;请求、批处理&#x2F;缓存命中、降级次数与效果。</li><li>安全：拦截类型、误报&#x2F;漏报、审计导出次数。</li></ul><h2 id="11-操作示例"><a href="#11-操作示例" class="headerlink" title="11. 操作示例"></a>11. 操作示例</h2><ul><li>CI 集成：<code>make eval</code> 跑基线+安全集，低于阈值退出非零；结果推送看板。</li><li>成本降级：监控 token 与延迟，超阈值自动切轻量模型或缩短上下文并记录事件。</li><li>证据包：灰度期间记录评测结果、模型&#x2F;索引&#x2F;提示&#x2F;工作流版本、引用样本、拦截与降级日志，可导出。</li></ul><p>结语：<br>把“检索增强 + 编排 + 评测基线 + 成本&#x2F;安全护栏 + 回溯”做成默认动作，多模态智能才能在合规和成本可控下持续演进。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;多模态模型快速迭代，但生产落地要解决“可验证、可回溯、可控成本”。本文给出检索增强、工具编排、评测与安全护栏的工程 SOP，并附操作清单。&lt;/p&gt;
+&lt;h2 id=&quot;1-场景分级与目标&quot;&gt;&lt;a href=&quot;#1-场景分级与目标&quot; class=&quot;headerlin</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+    <category term="RAG" scheme="https://zhangxianda.com/tags/RAG/"/>
+    
+    <category term="Safety" scheme="https://zhangxianda.com/tags/Safety/"/>
+    
+    <category term="Evaluation" scheme="https://zhangxianda.com/tags/Evaluation/"/>
+    
+    <category term="Multi-modal" scheme="https://zhangxianda.com/tags/Multi-modal/"/>
+    
+    <category term="Orchestration" scheme="https://zhangxianda.com/tags/Orchestration/"/>
+    
+  </entry>
+  
+  <entry>
     <title>API与账户安全的闭环运营：强身份、签名防重放与自适应风控</title>
     <link href="https://zhangxianda.com/2026/01/29/2026-01-29-cybersecurity/"/>
     <id>https://zhangxianda.com/2026/01/29/2026-01-29-cybersecurity/</id>
@@ -145,39 +145,6 @@
     <category term="API Security" scheme="https://zhangxianda.com/tags/API-Security/"/>
     
     <category term="Risk Control" scheme="https://zhangxianda.com/tags/Risk-Control/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据与AI治理的证据化落地：分级、血缘、访问证明与合规导出</title>
-    <link href="https://zhangxianda.com/2026/01/29/2026-01-29-digital-governance/"/>
-    <id>https://zhangxianda.com/2026/01/29/2026-01-29-digital-governance/</id>
-    <published>2026-01-29T01:30:00.000Z</published>
-    <updated>2026-01-30T00:48:48.869Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>生成式 AI 让数据与模型流转更频繁。要实现可审计治理，必须把“分级、血缘、访问证明、合规导出”做成日常工程能力，并覆盖模型全生命周期。本文提供落地路径与清单。</p><h2 id="1-资产与分级"><a href="#1-资产与分级" class="headerlink" title="1. 资产与分级"></a>1. 资产与分级</h2><ul><li>范围：数据集&#x2F;特征&#x2F;模型&#x2F;提示&#x2F;评测集&#x2F;Notebook&#x2F;ETL 作业。</li><li>分级：公开&#x2F;内部&#x2F;敏感&#x2F;严格，对应存储、访问、传输、脱敏要求。</li><li>目标：分级覆盖率、超期权限收敛率、审计检索成功率、违规响应时效。</li></ul><h2 id="2-血缘与影响分析"><a href="#2-血缘与影响分析" class="headerlink" title="2. 血缘与影响分析"></a>2. 血缘与影响分析</h2><ul><li>采集：ETL&#x2F;ELT&#x2F;SQL&#x2F;BI&#x2F;Notebook 自动血缘，手工补充关键口径。</li><li>展示：按主题&#x2F;租户&#x2F;敏感级别查看上下游；Schema 变更自动生成影响报告。</li><li>AI 血缘：模型&#x2F;提示&#x2F;数据&#x2F;特征&#x2F;评测集版本写入元数据，可回放。</li></ul><h2 id="3-访问与审批"><a href="#3-访问与审批" class="headerlink" title="3. 访问与审批"></a>3. 访问与审批</h2><ul><li>RBAC+ABAC：角色管粗粒度，属性管租户&#x2F;区域&#x2F;数据级别。</li><li>审批：敏感&#x2F;严格需审批，权限有到期时间；定期自动收敛。</li><li>访问证明：记录 <code>who/when/where/dataset/model/purpose/result/policy_version</code>，可索引与导出。</li></ul><h2 id="4-脱敏与最小化"><a href="#4-脱敏与最小化" class="headerlink" title="4. 脱敏与最小化"></a>4. 脱敏与最小化</h2><ul><li>静态脱敏：开发&#x2F;测试用脱敏或子集数据，带水印。</li><li>动态脱敏：按角色&#x2F;行&#x2F;列策略；命中日志可检索。</li><li>最小化：API&#x2F;查询只返回必要字段；导出需审批与水印。</li></ul><h2 id="5-模型治理与责任"><a href="#5-模型治理与责任" class="headerlink" title="5. 模型治理与责任"></a>5. 模型治理与责任</h2><ul><li>版本：模型&#x2F;提示&#x2F;评测集版本化；上线需评测基线与审计留痕。</li><li>责任：Owner、风险级别、使用范围、撤销条件；拒答与引用策略明确。</li><li>运行日志：推理日志&#x2F;引用片段&#x2F;拒答记录可回放；高风险模型需人工复核。</li></ul><h2 id="6-审计与合规导出"><a href="#6-审计与合规导出" class="headerlink" title="6. 审计与合规导出"></a>6. 审计与合规导出</h2><ul><li>索引：按租户&#x2F;数据集&#x2F;模型&#x2F;操作人&#x2F;敏感级别索引；支持时间段回放。</li><li>导出：CSV&#x2F;PDF 取证包，包含审批、策略版本、访问&#x2F;推理记录。</li><li>生命周期：保留&#x2F;删除策略按分级执行，过期自动清理并生成报告。</li></ul><h2 id="7-跨境与事件响应"><a href="#7-跨境与事件响应" class="headerlink" title="7. 跨境与事件响应"></a>7. 跨境与事件响应</h2><ul><li>出境：跨境&#x2F;跨域访问需审批与水印；记录出口清单。</li><li>事件：违规访问自动告警；取证包包含请求、策略、审批、结果；处置时效可检索。</li><li>隐私：敏感字段遮罩，最小化收集；日志脱敏。</li></ul><h2 id="8-落地步骤"><a href="#8-落地步骤" class="headerlink" title="8. 落地步骤"></a>8. 落地步骤</h2><ol><li>建台账与分级策略，设覆盖率目标。</li><li>接入血缘采集与 Schema 影响分析；AI 血缘写入元数据。</li><li>RBAC+ABAC 与审批上线，权限到期自动收敛。</li><li>脱敏与最小化策略生效；审计与导出可用。</li><li>模型上线需评测与责任声明，日志可回放；周期性演练违规访问与取证导出。</li></ol><h2 id="9-看板与周报"><a href="#9-看板与周报" class="headerlink" title="9. 看板与周报"></a>9. 看板与周报</h2><ul><li>治理健康：分级覆盖率、敏感访问量、超期权限收敛率、审批时效。</li><li>风险：违规访问、跨境&#x2F;跨域访问、脱敏命中率、导出次数与耗时。</li><li>模型：评测通过率、拒答&#x2F;引用率、审计导出与回放次数。</li></ul><h2 id="10-操作示例"><a href="#10-操作示例" class="headerlink" title="10. 操作示例"></a>10. 操作示例</h2><ul><li>权限收敛：定时任务扫描超期权限，自动下线并通知 Owner，失败计入周报。</li><li>影响分析：Schema 变更 PR 自动生成影响报告，列出下游任务&#x2F;报表&#x2F;指标与责任人。</li><li>取证导出：违规访问或模型越权时一键导出取证包（请求&#x2F;策略&#x2F;审批&#x2F;结果&#x2F;日志），满足审计。</li></ul><p>结语：<br>让分级、血缘、访问证明与合规导出成为日常动作，治理才能在高频迭代中保持可证明、可回放。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;生成式 AI 让数据与模型流转更频繁。要实现可审计治理，必须把“分级、血缘、访问证明、合规导出”做成日常工程能力，并覆盖模型全生命周期。本文提供落地路径与清单。&lt;/p&gt;
-&lt;h2 id=&quot;1-资产与分级&quot;&gt;&lt;a href=&quot;#1-资产与分级&quot; class=&quot;he</summary>
-      
-    
-    
-    
-    <category term="数字治理" scheme="https://zhangxianda.com/categories/%E6%95%B0%E5%AD%97%E6%B2%BB%E7%90%86/"/>
-    
-    
-    <category term="AI Governance" scheme="https://zhangxianda.com/tags/AI-Governance/"/>
-    
-    <category term="Audit" scheme="https://zhangxianda.com/tags/Audit/"/>
-    
-    <category term="Access Control" scheme="https://zhangxianda.com/tags/Access-Control/"/>
-    
-    <category term="Data Governance" scheme="https://zhangxianda.com/tags/Data-Governance/"/>
-    
-    <category term="Lineage" scheme="https://zhangxianda.com/tags/Lineage/"/>
     
   </entry>
   
@@ -248,6 +215,39 @@
   </entry>
   
   <entry>
+    <title>数据与AI治理的证据化落地：分级、血缘、访问证明与合规导出</title>
+    <link href="https://zhangxianda.com/2026/01/29/2026-01-29-digital-governance/"/>
+    <id>https://zhangxianda.com/2026/01/29/2026-01-29-digital-governance/</id>
+    <published>2026-01-29T01:30:00.000Z</published>
+    <updated>2026-01-30T00:48:48.869Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>生成式 AI 让数据与模型流转更频繁。要实现可审计治理，必须把“分级、血缘、访问证明、合规导出”做成日常工程能力，并覆盖模型全生命周期。本文提供落地路径与清单。</p><h2 id="1-资产与分级"><a href="#1-资产与分级" class="headerlink" title="1. 资产与分级"></a>1. 资产与分级</h2><ul><li>范围：数据集&#x2F;特征&#x2F;模型&#x2F;提示&#x2F;评测集&#x2F;Notebook&#x2F;ETL 作业。</li><li>分级：公开&#x2F;内部&#x2F;敏感&#x2F;严格，对应存储、访问、传输、脱敏要求。</li><li>目标：分级覆盖率、超期权限收敛率、审计检索成功率、违规响应时效。</li></ul><h2 id="2-血缘与影响分析"><a href="#2-血缘与影响分析" class="headerlink" title="2. 血缘与影响分析"></a>2. 血缘与影响分析</h2><ul><li>采集：ETL&#x2F;ELT&#x2F;SQL&#x2F;BI&#x2F;Notebook 自动血缘，手工补充关键口径。</li><li>展示：按主题&#x2F;租户&#x2F;敏感级别查看上下游；Schema 变更自动生成影响报告。</li><li>AI 血缘：模型&#x2F;提示&#x2F;数据&#x2F;特征&#x2F;评测集版本写入元数据，可回放。</li></ul><h2 id="3-访问与审批"><a href="#3-访问与审批" class="headerlink" title="3. 访问与审批"></a>3. 访问与审批</h2><ul><li>RBAC+ABAC：角色管粗粒度，属性管租户&#x2F;区域&#x2F;数据级别。</li><li>审批：敏感&#x2F;严格需审批，权限有到期时间；定期自动收敛。</li><li>访问证明：记录 <code>who/when/where/dataset/model/purpose/result/policy_version</code>，可索引与导出。</li></ul><h2 id="4-脱敏与最小化"><a href="#4-脱敏与最小化" class="headerlink" title="4. 脱敏与最小化"></a>4. 脱敏与最小化</h2><ul><li>静态脱敏：开发&#x2F;测试用脱敏或子集数据，带水印。</li><li>动态脱敏：按角色&#x2F;行&#x2F;列策略；命中日志可检索。</li><li>最小化：API&#x2F;查询只返回必要字段；导出需审批与水印。</li></ul><h2 id="5-模型治理与责任"><a href="#5-模型治理与责任" class="headerlink" title="5. 模型治理与责任"></a>5. 模型治理与责任</h2><ul><li>版本：模型&#x2F;提示&#x2F;评测集版本化；上线需评测基线与审计留痕。</li><li>责任：Owner、风险级别、使用范围、撤销条件；拒答与引用策略明确。</li><li>运行日志：推理日志&#x2F;引用片段&#x2F;拒答记录可回放；高风险模型需人工复核。</li></ul><h2 id="6-审计与合规导出"><a href="#6-审计与合规导出" class="headerlink" title="6. 审计与合规导出"></a>6. 审计与合规导出</h2><ul><li>索引：按租户&#x2F;数据集&#x2F;模型&#x2F;操作人&#x2F;敏感级别索引；支持时间段回放。</li><li>导出：CSV&#x2F;PDF 取证包，包含审批、策略版本、访问&#x2F;推理记录。</li><li>生命周期：保留&#x2F;删除策略按分级执行，过期自动清理并生成报告。</li></ul><h2 id="7-跨境与事件响应"><a href="#7-跨境与事件响应" class="headerlink" title="7. 跨境与事件响应"></a>7. 跨境与事件响应</h2><ul><li>出境：跨境&#x2F;跨域访问需审批与水印；记录出口清单。</li><li>事件：违规访问自动告警；取证包包含请求、策略、审批、结果；处置时效可检索。</li><li>隐私：敏感字段遮罩，最小化收集；日志脱敏。</li></ul><h2 id="8-落地步骤"><a href="#8-落地步骤" class="headerlink" title="8. 落地步骤"></a>8. 落地步骤</h2><ol><li>建台账与分级策略，设覆盖率目标。</li><li>接入血缘采集与 Schema 影响分析；AI 血缘写入元数据。</li><li>RBAC+ABAC 与审批上线，权限到期自动收敛。</li><li>脱敏与最小化策略生效；审计与导出可用。</li><li>模型上线需评测与责任声明，日志可回放；周期性演练违规访问与取证导出。</li></ol><h2 id="9-看板与周报"><a href="#9-看板与周报" class="headerlink" title="9. 看板与周报"></a>9. 看板与周报</h2><ul><li>治理健康：分级覆盖率、敏感访问量、超期权限收敛率、审批时效。</li><li>风险：违规访问、跨境&#x2F;跨域访问、脱敏命中率、导出次数与耗时。</li><li>模型：评测通过率、拒答&#x2F;引用率、审计导出与回放次数。</li></ul><h2 id="10-操作示例"><a href="#10-操作示例" class="headerlink" title="10. 操作示例"></a>10. 操作示例</h2><ul><li>权限收敛：定时任务扫描超期权限，自动下线并通知 Owner，失败计入周报。</li><li>影响分析：Schema 变更 PR 自动生成影响报告，列出下游任务&#x2F;报表&#x2F;指标与责任人。</li><li>取证导出：违规访问或模型越权时一键导出取证包（请求&#x2F;策略&#x2F;审批&#x2F;结果&#x2F;日志），满足审计。</li></ul><p>结语：<br>让分级、血缘、访问证明与合规导出成为日常动作，治理才能在高频迭代中保持可证明、可回放。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;生成式 AI 让数据与模型流转更频繁。要实现可审计治理，必须把“分级、血缘、访问证明、合规导出”做成日常工程能力，并覆盖模型全生命周期。本文提供落地路径与清单。&lt;/p&gt;
+&lt;h2 id=&quot;1-资产与分级&quot;&gt;&lt;a href=&quot;#1-资产与分级&quot; class=&quot;he</summary>
+      
+    
+    
+    
+    <category term="数字治理" scheme="https://zhangxianda.com/categories/%E6%95%B0%E5%AD%97%E6%B2%BB%E7%90%86/"/>
+    
+    
+    <category term="AI Governance" scheme="https://zhangxianda.com/tags/AI-Governance/"/>
+    
+    <category term="Audit" scheme="https://zhangxianda.com/tags/Audit/"/>
+    
+    <category term="Access Control" scheme="https://zhangxianda.com/tags/Access-Control/"/>
+    
+    <category term="Data Governance" scheme="https://zhangxianda.com/tags/Data-Governance/"/>
+    
+    <category term="Lineage" scheme="https://zhangxianda.com/tags/Lineage/"/>
+    
+  </entry>
+  
+  <entry>
     <title>虚拟线程与ZGC下的Java稳态交付：线程模型、舱壁与回滚</title>
     <link href="https://zhangxianda.com/2026/01/29/2026-01-29-java/"/>
     <id>https://zhangxianda.com/2026/01/29/2026-01-29-java/</id>
@@ -301,9 +301,9 @@
     <category term="Python" scheme="https://zhangxianda.com/categories/Python/"/>
     
     
-    <category term="Packaging" scheme="https://zhangxianda.com/tags/Packaging/"/>
-    
     <category term="Reproducibility" scheme="https://zhangxianda.com/tags/Reproducibility/"/>
+    
+    <category term="Packaging" scheme="https://zhangxianda.com/tags/Packaging/"/>
     
     <category term="CI" scheme="https://zhangxianda.com/tags/CI/"/>
     
@@ -545,39 +545,6 @@
   </entry>
   
   <entry>
-    <title>前端体验稳定性的落地手册：RUM基线、第三方熔断与A/B回滚</title>
-    <link href="https://zhangxianda.com/2026/01/28/2026-01-28-frontend/"/>
-    <id>https://zhangxianda.com/2026/01/28/2026-01-28-frontend/</id>
-    <published>2026-01-28T01:30:00.000Z</published>
-    <updated>2026-01-29T00:37:27.170Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>高频上线与多版本并行让前端容易体验回归。本文提供工程手册：RUM 基线、构建差分、第三方隔离&#x2F;熔断、A&#x2F;B 校准与回滚，确保体验可控。</p><h2 id="1-RUM-基线与告警"><a href="#1-RUM-基线与告警" class="headerlink" title="1. RUM 基线与告警"></a>1. RUM 基线与告警</h2><ul><li>指标：INP&#x2F;LCP&#x2F;CLS、白屏率、JS 错误率、资源失败率。</li><li>维度：<code>app_version/route/device/region/is_canary</code>，新旧版本并排。</li><li>基线：按 P75&#x2F;P95 设阈值；核心路由与长尾分别管理。</li><li>告警：阈值+环比异常，附 Trace&#x2F;日志链接。</li></ul><h2 id="2-构建差分与体积预算"><a href="#2-构建差分与体积预算" class="headerlink" title="2. 构建差分与体积预算"></a>2. 构建差分与体积预算</h2><ul><li>预算：主包&#x2F;路由包、图片&#x2F;字体&#x2F;第三方脚本；超预算阻断。</li><li>差分：CI 生成 bundle 与依赖 diff，记录新增&#x2F;移除依赖、API schema 变化。</li><li>资源策略：懒加载、分包、预加载模板化，避免随意漂移。</li></ul><h2 id="3-第三方隔离与熔断"><a href="#3-第三方隔离与熔断" class="headerlink" title="3. 第三方隔离与熔断"></a>3. 第三方隔离与熔断</h2><ul><li>加载：延迟或按路由加载；使用 iframe 沙箱&#x2F;CSP&#x2F;独立域名。</li><li>熔断：P95&gt;2s 或错误率&gt;3% → 熔断 10 分钟并降级 UI；记录告警。</li><li>资产：关键第三方的兜底占位&#x2F;本地替代，版本与变更记录。</li></ul><h2 id="4-A-B-与实验"><a href="#4-A-B-与实验" class="headerlink" title="4. A&#x2F;B 与实验"></a>4. A&#x2F;B 与实验</h2><ul><li>设计：明确指标与最短时长，样本量评估。</li><li>校准：对照&#x2F;实验组在设备&#x2F;地域&#x2F;网络分布一致；采集实验标签。</li><li>判定：达到统计显著后再全量；失败回滚并记录原因。</li></ul><h2 id="5-灰度与止损"><a href="#5-灰度与止损" class="headerlink" title="5. 灰度与止损"></a>5. 灰度与止损</h2><ul><li>流量：1%-10%-50%-全量，覆盖峰值。</li><li>观察：INP&#x2F;LCP&#x2F;错误率&#x2F;白屏率、第三方耗时&#x2F;错误、转化率。</li><li>止损：任一核心指标超阈值自动暂停&#x2F;回滚；切换到稳定配置。</li></ul><h2 id="6-回滚与证据"><a href="#6-回滚与证据" class="headerlink" title="6. 回滚与证据"></a>6. 回滚与证据</h2><ul><li>回滚：保留上一版产物与配置；一键回滚后 30 分钟验证指标。</li><li>证据包：变更、构建差分、RUM 快照、第三方熔断记录、A&#x2F;B 结果。</li><li>知识库：高频问题与修复方案沉淀，附责任人与复查时间。</li></ul><h2 id="7-无障碍与质量"><a href="#7-无障碍与质量" class="headerlink" title="7. 无障碍与质量"></a>7. 无障碍与质量</h2><ul><li>无障碍：键盘&#x2F;屏幕阅读支持，定期跑无障碍检查。</li><li>冒烟：关键路径自动化（登录&#x2F;下单&#x2F;支付&#x2F;配置），结合 RUM 验证。</li></ul><h2 id="8-落地步骤"><a href="#8-落地步骤" class="headerlink" title="8. 落地步骤"></a>8. 落地步骤</h2><ol><li>建 RUM 看板与阈值，接入告警。</li><li>配置体积预算与构建差分；第三方隔离与熔断开关上线。</li><li>灰度+实验流程标准化，A&#x2F;B 标签与校准。</li><li>回滚脚本与证据包模板固化；知识库更新。</li></ol><h2 id="9-周报要点"><a href="#9-周报要点" class="headerlink" title="9. 周报要点"></a>9. 周报要点</h2><ul><li>质量：INP&#x2F;LCP&#x2F;CLS、白屏率、JS 错误率、第三方熔断记录。</li><li>变更：构建差分、体积预算超标、A&#x2F;B 结论与动作。</li><li>运维：回滚&#x2F;降级次数、告警误报处理、无障碍问题与修复进展。</li></ul><h2 id="10-快速核查"><a href="#10-快速核查" class="headerlink" title="10. 快速核查"></a>10. 快速核查</h2><ul><li>RUM&#x2F;体积&#x2F;错误&#x2F;第三方看板在线；告警附诊断链接。</li><li>灰度&#x2F;实验&#x2F;回滚流程可执行，证据包可导出。</li><li>无障碍与冒烟脚本可用。</li></ul><h2 id="11-操作示例"><a href="#11-操作示例" class="headerlink" title="11. 操作示例"></a>11. 操作示例</h2><ul><li>体积阻断：CI 对比 bundle 报告，超预算自动失败；报告上传看板。</li><li>A&#x2F;B 校准：实验前对齐设备&#x2F;地域&#x2F;网络分布，结束生成显著性报告并归档。</li><li>回滚演练：<code>rollback.sh version</code> 一键切换上一版，30 分钟内抓取 RUM 快照确认恢复。</li></ul><p>结语：<br>让 RUM 基线、第三方熔断、A&#x2F;B 校准与回滚成为默认动作，前端才能在高频迭代中稳住体验。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;高频上线与多版本并行让前端容易体验回归。本文提供工程手册：RUM 基线、构建差分、第三方隔离&amp;#x2F;熔断、A&amp;#x2F;B 校准与回滚，确保体验可控。&lt;/p&gt;
-&lt;h2 id=&quot;1-RUM-基线与告警&quot;&gt;&lt;a href=&quot;#1-RUM-基线与告警&quot; clas</summary>
-      
-    
-    
-    
-    <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-    <category term="RUM" scheme="https://zhangxianda.com/tags/RUM/"/>
-    
-    <category term="Third-party" scheme="https://zhangxianda.com/tags/Third-party/"/>
-    
-    <category term="Performance" scheme="https://zhangxianda.com/tags/Performance/"/>
-    
-    <category term="Rollback" scheme="https://zhangxianda.com/tags/Rollback/"/>
-    
-    <category term="A/B Test" scheme="https://zhangxianda.com/tags/A-B-Test/"/>
-    
-  </entry>
-  
-  <entry>
     <title>工业物联网的韧性运行：分级OTA、算力调度与数据合规</title>
     <link href="https://zhangxianda.com/2026/01/28/2026-01-28-iot/"/>
     <id>https://zhangxianda.com/2026/01/28/2026-01-28-iot/</id>
@@ -607,6 +574,39 @@
     <category term="Orchestration" scheme="https://zhangxianda.com/tags/Orchestration/"/>
     
     <category term="IoT" scheme="https://zhangxianda.com/tags/IoT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端体验稳定性的落地手册：RUM基线、第三方熔断与A/B回滚</title>
+    <link href="https://zhangxianda.com/2026/01/28/2026-01-28-frontend/"/>
+    <id>https://zhangxianda.com/2026/01/28/2026-01-28-frontend/</id>
+    <published>2026-01-28T01:30:00.000Z</published>
+    <updated>2026-01-29T00:37:27.170Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>高频上线与多版本并行让前端容易体验回归。本文提供工程手册：RUM 基线、构建差分、第三方隔离&#x2F;熔断、A&#x2F;B 校准与回滚，确保体验可控。</p><h2 id="1-RUM-基线与告警"><a href="#1-RUM-基线与告警" class="headerlink" title="1. RUM 基线与告警"></a>1. RUM 基线与告警</h2><ul><li>指标：INP&#x2F;LCP&#x2F;CLS、白屏率、JS 错误率、资源失败率。</li><li>维度：<code>app_version/route/device/region/is_canary</code>，新旧版本并排。</li><li>基线：按 P75&#x2F;P95 设阈值；核心路由与长尾分别管理。</li><li>告警：阈值+环比异常，附 Trace&#x2F;日志链接。</li></ul><h2 id="2-构建差分与体积预算"><a href="#2-构建差分与体积预算" class="headerlink" title="2. 构建差分与体积预算"></a>2. 构建差分与体积预算</h2><ul><li>预算：主包&#x2F;路由包、图片&#x2F;字体&#x2F;第三方脚本；超预算阻断。</li><li>差分：CI 生成 bundle 与依赖 diff，记录新增&#x2F;移除依赖、API schema 变化。</li><li>资源策略：懒加载、分包、预加载模板化，避免随意漂移。</li></ul><h2 id="3-第三方隔离与熔断"><a href="#3-第三方隔离与熔断" class="headerlink" title="3. 第三方隔离与熔断"></a>3. 第三方隔离与熔断</h2><ul><li>加载：延迟或按路由加载；使用 iframe 沙箱&#x2F;CSP&#x2F;独立域名。</li><li>熔断：P95&gt;2s 或错误率&gt;3% → 熔断 10 分钟并降级 UI；记录告警。</li><li>资产：关键第三方的兜底占位&#x2F;本地替代，版本与变更记录。</li></ul><h2 id="4-A-B-与实验"><a href="#4-A-B-与实验" class="headerlink" title="4. A&#x2F;B 与实验"></a>4. A&#x2F;B 与实验</h2><ul><li>设计：明确指标与最短时长，样本量评估。</li><li>校准：对照&#x2F;实验组在设备&#x2F;地域&#x2F;网络分布一致；采集实验标签。</li><li>判定：达到统计显著后再全量；失败回滚并记录原因。</li></ul><h2 id="5-灰度与止损"><a href="#5-灰度与止损" class="headerlink" title="5. 灰度与止损"></a>5. 灰度与止损</h2><ul><li>流量：1%-10%-50%-全量，覆盖峰值。</li><li>观察：INP&#x2F;LCP&#x2F;错误率&#x2F;白屏率、第三方耗时&#x2F;错误、转化率。</li><li>止损：任一核心指标超阈值自动暂停&#x2F;回滚；切换到稳定配置。</li></ul><h2 id="6-回滚与证据"><a href="#6-回滚与证据" class="headerlink" title="6. 回滚与证据"></a>6. 回滚与证据</h2><ul><li>回滚：保留上一版产物与配置；一键回滚后 30 分钟验证指标。</li><li>证据包：变更、构建差分、RUM 快照、第三方熔断记录、A&#x2F;B 结果。</li><li>知识库：高频问题与修复方案沉淀，附责任人与复查时间。</li></ul><h2 id="7-无障碍与质量"><a href="#7-无障碍与质量" class="headerlink" title="7. 无障碍与质量"></a>7. 无障碍与质量</h2><ul><li>无障碍：键盘&#x2F;屏幕阅读支持，定期跑无障碍检查。</li><li>冒烟：关键路径自动化（登录&#x2F;下单&#x2F;支付&#x2F;配置），结合 RUM 验证。</li></ul><h2 id="8-落地步骤"><a href="#8-落地步骤" class="headerlink" title="8. 落地步骤"></a>8. 落地步骤</h2><ol><li>建 RUM 看板与阈值，接入告警。</li><li>配置体积预算与构建差分；第三方隔离与熔断开关上线。</li><li>灰度+实验流程标准化，A&#x2F;B 标签与校准。</li><li>回滚脚本与证据包模板固化；知识库更新。</li></ol><h2 id="9-周报要点"><a href="#9-周报要点" class="headerlink" title="9. 周报要点"></a>9. 周报要点</h2><ul><li>质量：INP&#x2F;LCP&#x2F;CLS、白屏率、JS 错误率、第三方熔断记录。</li><li>变更：构建差分、体积预算超标、A&#x2F;B 结论与动作。</li><li>运维：回滚&#x2F;降级次数、告警误报处理、无障碍问题与修复进展。</li></ul><h2 id="10-快速核查"><a href="#10-快速核查" class="headerlink" title="10. 快速核查"></a>10. 快速核查</h2><ul><li>RUM&#x2F;体积&#x2F;错误&#x2F;第三方看板在线；告警附诊断链接。</li><li>灰度&#x2F;实验&#x2F;回滚流程可执行，证据包可导出。</li><li>无障碍与冒烟脚本可用。</li></ul><h2 id="11-操作示例"><a href="#11-操作示例" class="headerlink" title="11. 操作示例"></a>11. 操作示例</h2><ul><li>体积阻断：CI 对比 bundle 报告，超预算自动失败；报告上传看板。</li><li>A&#x2F;B 校准：实验前对齐设备&#x2F;地域&#x2F;网络分布，结束生成显著性报告并归档。</li><li>回滚演练：<code>rollback.sh version</code> 一键切换上一版，30 分钟内抓取 RUM 快照确认恢复。</li></ul><p>结语：<br>让 RUM 基线、第三方熔断、A&#x2F;B 校准与回滚成为默认动作，前端才能在高频迭代中稳住体验。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;高频上线与多版本并行让前端容易体验回归。本文提供工程手册：RUM 基线、构建差分、第三方隔离&amp;#x2F;熔断、A&amp;#x2F;B 校准与回滚，确保体验可控。&lt;/p&gt;
+&lt;h2 id=&quot;1-RUM-基线与告警&quot;&gt;&lt;a href=&quot;#1-RUM-基线与告警&quot; clas</summary>
+      
+    
+    
+    
+    <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="RUM" scheme="https://zhangxianda.com/tags/RUM/"/>
+    
+    <category term="Third-party" scheme="https://zhangxianda.com/tags/Third-party/"/>
+    
+    <category term="Performance" scheme="https://zhangxianda.com/tags/Performance/"/>
+    
+    <category term="Rollback" scheme="https://zhangxianda.com/tags/Rollback/"/>
+    
+    <category term="A/B Test" scheme="https://zhangxianda.com/tags/A-B-Test/"/>
     
   </entry>
   
@@ -664,9 +664,9 @@
     <category term="Python" scheme="https://zhangxianda.com/categories/Python/"/>
     
     
-    <category term="Packaging" scheme="https://zhangxianda.com/tags/Packaging/"/>
-    
     <category term="Reproducibility" scheme="https://zhangxianda.com/tags/Reproducibility/"/>
+    
+    <category term="Packaging" scheme="https://zhangxianda.com/tags/Packaging/"/>
     
     <category term="CI" scheme="https://zhangxianda.com/tags/CI/"/>
     
