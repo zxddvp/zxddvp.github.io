@@ -1,0 +1,992 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="utf-8">
+    <meta name="author" content="张显达">
+    <meta name="keywords" content="量子计算真正开始像平台工程：参考架构、函数目录与优势追踪该如何协同, 张显达|个人|博客|技术|生活">
+    <meta name="description" content="导语：截至 2026 年 3 月 29 日，量子计算圈最值得反复咀嚼的，不是某条“优势已至”的标题，而是 IBM 这一个多月连续抛出的三块拼图：3 月 12 日发布量子中心超算参考架构，2 月 23 日继续推进 Quantum Advant">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
+    <link rel="canonical" href="https://zhangxianda.com/2026/03/29/2026-03-29-quantum-computing/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="量子计算真正开始像平台工程：参考架构、函数目录与优势追踪该如何协同 | 张显达的个人博客">
+    <meta property="og:description" content="导语：截至 2026 年 3 月 29 日，量子计算圈最值得反复咀嚼的，不是某条“优势已至”的标题，而是 IBM 这一个多月连续抛出的三块拼图：3 月 12 日发布量子中心超算参考架构，2 月 23 日继续推进 Quantum Advant">
+    <meta property="og:url" content="https://zhangxianda.com/2026/03/29/2026-03-29-quantum-computing/">
+    <meta property="og:site_name" content="张显达的个人博客">
+    <meta property="og:image" content="https://zhangxianda.com/favicon.png">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2026-03-30T00:46:58.757Z">
+    
+    <meta property="og:image:alt" content="量子计算真正开始像平台工程：参考架构、函数目录与优势追踪该如何协同 | 张显达的个人博客">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="量子计算真正开始像平台工程：参考架构、函数目录与优势追踪该如何协同 | 张显达的个人博客">
+    <meta name="twitter:description" content="导语：截至 2026 年 3 月 29 日，量子计算圈最值得反复咀嚼的，不是某条“优势已至”的标题，而是 IBM 这一个多月连续抛出的三块拼图：3 月 12 日发布量子中心超算参考架构，2 月 23 日继续推进 Quantum Advant">
+    <meta name="twitter:image" content="https://zhangxianda.com/favicon.png">
+    
+
+    
+
+    <title>量子计算真正开始像平台工程：参考架构、函数目录与优势追踪该如何协同 | 张显达的个人博客</title>
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
+
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "量子计算真正开始像平台工程：参考架构、函数目录与优势追踪该如何协同",
+      "mainEntityOfPage": "https://zhangxianda.com/2026/03/29/2026-03-29-quantum-computing/",
+      "datePublished": "2026-03-29T01:30:00.000Z",
+      "dateModified": "2026-03-30T00:46:58.757Z",
+      "author": { "@type": "Person", "name": "张显达" },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
+      "image": "https://zhangxianda.com/favicon.png"
+    }
+    </script>
+    
+    <meta property="article:published_time" content="2026-03-29T01:30:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2026-03-30T00:46:58.757Z">
+    
+    
+
+<meta name="generator" content="Hexo 8.1.0"></head>
+
+
+<body>
+    
+<header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
+          
+          <span class="logo-span">张显达</span>
+        </a>
+      </div>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+      <ul class="right nav-menu">
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/" class="waves-effect waves-light">
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              <span>首页</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/ai" class="waves-effect waves-light">
+              <i class="fas fa-robot" style="zoom: 0.6;"></i>
+              <span>人工智能</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tools" class="waves-effect waves-light">
+              <i class="fas fa-tools" style="zoom: 0.6;"></i>
+              <span>推荐工具</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tags" class="waves-effect waves-light">
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              <span>标签</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/categories" class="waves-effect waves-light">
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              <span>分类</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/archives" class="waves-effect waves-light">
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              <span>归档</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/about" class="waves-effect waves-light">
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              <span>关于</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/friends" class="waves-effect waves-light">
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              <span>友情链接</span>
+            </a>
+          </li>
+        
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div id="mobile-nav" class="side-nav sidenav">
+        <div class="mobile-head bg-color">
+          
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
+          
+          <div class="logo-name">张显达</div>
+          <div class="logo-desc">张显达的个人博客</div>
+        </div>
+        <ul class="menu-list mobile-menu-list">
+          
+            <li class="m-nav-item">
+              <a href="/" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-home"></i>
+                首页
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/ai" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-robot"></i>
+                人工智能
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tools" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tools"></i>
+                推荐工具
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tags" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tags"></i>
+                标签
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/categories" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-bookmark"></i>
+                分类
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/archives" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-archive"></i>
+                归档
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/about" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-user-circle"></i>
+                关于
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/friends" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-address-book"></i>
+                友情链接
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">量子计算真正开始像平台工程：参考架构、函数目录与优势追踪该如何协同</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Quantum/">
+                                <span class="chip bg-color">Quantum</span>
+                            </a>
+                        
+                            <a href="/tags/Qiskit/">
+                                <span class="chip bg-color">Qiskit</span>
+                            </a>
+                        
+                            <a href="/tags/HPC/">
+                                <span class="chip bg-color">HPC</span>
+                            </a>
+                        
+                            <a href="/tags/IBM-Quantum/">
+                                <span class="chip bg-color">IBM Quantum</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/" class="post-category">
+                                量子计算
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-03-29
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>导语：<br>截至 2026 年 3 月 29 日，量子计算圈最值得反复咀嚼的，不是某条“优势已至”的标题，而是 IBM 这一个多月连续抛出的三块拼图：3 月 12 日发布量子中心超算参考架构，2 月 23 日继续推进 Quantum Advantage Tracker，2 月 11 日更新 Qiskit Functions。把它们拼起来看，量子计算正在从“单次实验能不能跑出来”走向“整条工作流能不能被工程团队稳定复现”。</p>
+<h2 id="1-为什么参考架构才是量子落地的主战场"><a href="#1-为什么参考架构才是量子落地的主战场" class="headerlink" title="1. 为什么参考架构才是量子落地的主战场"></a>1. 为什么参考架构才是量子落地的主战场</h2><p>很多人一提量子计算就先问 qubit 数、门保真度、采样速度。这些指标当然重要，但企业和科研机构真要落地，第一关其实不是算法，而是架构。IBM 这次给出的 QCSC 参考架构，重点并不是推翻现有 HPC 中心，而是告诉你 QPU 怎么和 CPU、GPU、调度器、网络和数据系统串起来。</p>
+<p>这一步很重要，因为真实世界里的量子任务从来不是“扔进 QPU，等结果”。预处理在经典侧，映射和优化在经典侧，QPU 执行后还有后处理、误差缓解和结果筛选。没有架构图，所谓量子落地只能停在演示机房。</p>
+<h2 id="2-Qiskit-Functions-解决的是“谁来干重活”"><a href="#2-Qiskit-Functions-解决的是“谁来干重活”" class="headerlink" title="2. Qiskit Functions 解决的是“谁来干重活”"></a>2. Qiskit Functions 解决的是“谁来干重活”</h2><p>Qiskit Functions 的价值，在于它把大段复杂量子工作流封装成可调用函数，让没有深度量子背景的团队也能运行大规模实验。官方这次更新尤其值得注意的，是并发实验能力、资源使用摘要和更友好的调试信息。资源使用摘要里直接给出 CPU、GPU、QPU 的使用情况，这对做容量规划和实验成本复盘太关键了。</p>
+<p>过去很多团队跑完一次量子实验，只会记住“成没成功”。现在你至少应该能回答：哪一段时间在等 QPU，哪一段时间耗 CPU，后处理占了多久。这才像平台工程，而不是科研现场的手工记录。</p>
+<h2 id="3-Advantage-Tracker-告诉我们：验证必须常态化"><a href="#3-Advantage-Tracker-告诉我们：验证必须常态化" class="headerlink" title="3. Advantage Tracker 告诉我们：验证必须常态化"></a>3. Advantage Tracker 告诉我们：验证必须常态化</h2><p>Quantum Advantage Tracker 最有价值的地方，是它把“量子领先了吗”这件事从一次性的论文判定，变成了一个持续修正的公开过程。BlueQubit 的案例已经很能说明问题：量子和经典方法可以反复追平、反超。今天的领先，不等于明天还能站住。</p>
+<p>这对工程团队的启发非常直接：不要把单次好结果当成路线确定。真正应该建立的是可重复 benchmark 和外部可核查证据。</p>
+<h2 id="4-一套适合机构落地的实操流程"><a href="#4-一套适合机构落地的实操流程" class="headerlink" title="4. 一套适合机构落地的实操流程"></a>4. 一套适合机构落地的实操流程</h2><p>第一步，先挑一个经典基线扎实的问题。<br>化学、优化、PDE、材料仿真都可以，但必须先有清楚的经典方法和评价指标。</p>
+<p>第二步，把闭环流程跑通。<br>不是只跑量子部分，而是完整跑通数据准备、调用函数、执行、结果回收、资源统计。</p>
+<p>第三步，记录资源和等待时间。<br>如果你的实验 80% 时间都在等 QPU，说明优化重点不在算法，而在排队和作业拆分。</p>
+<p>第四步，把 benchmark 对外部化。<br>至少做到能被内部第二团队复现；更进一步，参考 Advantage Tracker 的思路，把问题定义和结果验证开放出来。</p>
+<p>第五步，再谈是否值得下沉到底层优化。<br>很多团队一开始就想自己写量子底层编排，结果把时间耗在 plumbing 上。先用函数目录把工作流跑顺，再决定哪里值得深挖。</p>
+<h2 id="5-现在最容易犯的两个错误"><a href="#5-现在最容易犯的两个错误" class="headerlink" title="5. 现在最容易犯的两个错误"></a>5. 现在最容易犯的两个错误</h2><p>一个错误是把量子项目当成科研秀场，只重视某次公开结果。另一个错误是把平台问题全留给基础设施团队，算法团队只关心线路图。量子计算真正难的地方恰恰在中间地带：工作流谁编排、资源怎么记账、结果怎么复核、经典和量子怎么协同。</p>
+<p>这几件事没人负责，项目很快就会变成一堆互相看不懂的 notebook。</p>
+<h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>到 2026 年 3 月底，量子计算最有价值的进步，并不是一句“更接近优势”，而是工程路径终于更像路径了：有参考架构，有函数目录，有持续追踪。量子领域真正值得投入的人，不会只盯着 headline，而会先把闭环流程、资源观测和验证方法建起来。因为未来谁能复现，谁才有资格谈价值。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>IBM Quantum Blog: How IBM is helping the world realize Richard Feynman’s vision for the future of simulation<br><a target="_blank" rel="noopener noreferrer external nofollow" href="https://www.ibm.com/quantum/blog/qcsc-reference-architecture">https://www.ibm.com/quantum/blog/qcsc-reference-architecture</a></li>
+<li>IBM Quantum Blog: Qiskit Functions updates accelerate research for the year of quantum advantage<br><a target="_blank" rel="noopener noreferrer external nofollow" href="https://www.ibm.com/quantum/blog/functions-2026">https://www.ibm.com/quantum/blog/functions-2026</a></li>
+<li>IBM Quantum Blog: Quantum Advantage Tracker: the race to advantage<br><a target="_blank" rel="noopener noreferrer external nofollow" href="https://www.ibm.com/quantum/blog/quantum-advantage-tracker">https://www.ibm.com/quantum/blog/quantum-advantage-tracker</a></li>
+</ul>
+
+                
+            </div>
+            <hr>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张显达</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangxianda.com/2026/03/29/2026-03-29-quantum-computing/">https://zhangxianda.com/2026/03/29/2026-03-29-quantum-computing/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async="" defer="">
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Quantum/">
+                                    <span class="chip bg-color">Quantum</span>
+                                </a>
+                            
+                                <a href="/tags/Qiskit/">
+                                    <span class="chip bg-color">Qiskit</span>
+                                </a>
+                            
+                                <a href="/tags/HPC/">
+                                    <span class="chip bg-color">HPC</span>
+                                </a>
+                            
+                                <a href="/tags/IBM-Quantum/">
+                                    <span class="chip bg-color">IBM Quantum</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/03/29/2026-03-29-software-engineering/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="PR 不只是代码差异页了：冲突解决、收件箱和 Agent 会话正在重写协作方式" loading="lazy" decoding="async" fetchpriority="low">
+                        
+                        <span class="card-title">PR 不只是代码差异页了：冲突解决、收件箱和 Agent 会话正在重写协作方式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-03-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="post-category">
+                                    软件工程
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Copilot/">
+                        <span class="chip bg-color">Copilot</span>
+                    </a>
+                    
+                    <a href="/tags/Software-Engineering/">
+                        <span class="chip bg-color">Software Engineering</span>
+                    </a>
+                    
+                    <a href="/tags/Pull-Request/">
+                        <span class="chip bg-color">Pull Request</span>
+                    </a>
+                    
+                    <a href="/tags/Collaboration/">
+                        <span class="chip bg-color">Collaboration</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/03/24/2026-03-24-backend/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="后端平台治理正在从“能部署”走向“可编排”：Actions 与 Node 发布节奏给出的信号" loading="lazy" decoding="async" fetchpriority="low">
+                        
+                        <span class="card-title">后端平台治理正在从“能部署”走向“可编排”：Actions 与 Node 发布节奏给出的信号</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                    后端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Backend/">
+                        <span class="chip bg-color">Backend</span>
+                    </a>
+                    
+                    <a href="/tags/Platform/">
+                        <span class="chip bg-color">Platform</span>
+                    </a>
+                    
+                    <a href="/tags/Actions/">
+                        <span class="chip bg-color">Actions</span>
+                    </a>
+                    
+                    <a href="/tags/Node-js/">
+                        <span class="chip bg-color">Node.js</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 l8">
+        <p>Copyright © 2026 <a href="/">张显达的个人博客</a></p>
+        
+      </div>
+      <div class="col s12 m4 l4 right-align">
+        <a href="/privacy" class="tooltipped" data-tooltip="隐私政策" data-position="top" data-delay="50">隐私</a> |
+        <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
+        <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
+        <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
+          <i class="fas fa-rss"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+
+
+
+</body></html>
