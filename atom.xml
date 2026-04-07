@@ -6,7 +6,7 @@
   <link href="https://zhangxianda.com/atom.xml" rel="self"/>
   
   <link href="https://zhangxianda.com/"/>
-  <updated>2026-04-01T01:56:56.349Z</updated>
+  <updated>2026-04-07T00:35:22.613Z</updated>
   <id>https://zhangxianda.com/</id>
   
   <author>
@@ -17,18 +17,78 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>配置中心不是内网就安全：Spring Cloud Config 这次 CVE 之后，后端团队该怎么收紧配置面</title>
-    <link href="https://zhangxianda.com/2026/03/31/2026-03-31-backend/"/>
-    <id>https://zhangxianda.com/2026/03/31/2026-03-31-backend/</id>
-    <published>2026-03-31T01:30:00.000Z</published>
-    <updated>2026-04-01T01:56:56.349Z</updated>
+    <title>AI 代码评审终于能分清“覆盖率”和“参与度”：这条新指标为什么很关键</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-artificial-intelligence/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-artificial-intelligence/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
     
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 31 日，后端团队很应该认真复盘的一条官方更新，是 Spring 在 <code>2026-03-23</code> 发布的 <code>Spring Cloud Config 5.0.2, 4.3.2, 4.2.6, 4.1.9, 3.1.13 Released, includes fix for CVE-2026-22739</code>。这次漏洞的核心问题非常典型：<code>profile</code> 参数替换可能导致越出配置目录访问文件，在某些 source control backend 场景下还会带来 SSRF 风险。<br>这类问题为什么值得单独写一篇？因为它恰好戳中了很多后端团队最容易放松警惕的一层：配置中心和内部配置服务。</p><p>很多团队默认觉得配置中心在内网、给应用用、路径固定、调用方可控，所以风险不高。现实里，配置面一旦被默认信任，就特别容易长成一块没人持续审计、但权限又很大的区域。</p><h2 id="1-这次问题最值得警惕的是什么"><a href="#1-这次问题最值得警惕的是什么" class="headerlink" title="1. 这次问题最值得警惕的是什么"></a>1. 这次问题最值得警惕的是什么</h2><p>不是“某个版本有个洞”，而是它暴露了一个常见思维错误：<br>很多人把 profile、label、application 这种配置维度当成纯业务参数，却忘了这些参数最后会参与到文件系统路径、仓库 URL、后端定位逻辑里。</p><p>一旦这层映射没有被严格约束，配置中心就会从“发配置”的系统，变成“帮人探路径、探地址、探内部资源”的跳板。</p><p>尤其在 Cloud Config 这种场景里，风险并不一定来自外部互联网。更多时候，问题来自内部错误调用、越权调用或本应隔离的环境被串起来。</p><h2 id="2-为什么“升级版本”只是第一步"><a href="#2-为什么“升级版本”只是第一步" class="headerlink" title="2. 为什么“升级版本”只是第一步"></a>2. 为什么“升级版本”只是第一步</h2><p>当然，升级到修复版本是必须的。<br>但后端团队如果只把这件事理解成一次补丁升级，就太可惜了。</p><p>这个漏洞提醒我们，配置面至少要重新检查三件事：</p><ol><li>参数到资源的映射是否足够收口。  </li><li>配置服务是否被过度暴露给不必要的调用方。  </li><li>配置系统有没有最小权限和最小可见性。</li></ol><p>如果这三件事不补，后面就算换成别的实现，也还是会重复类似问题。</p><h2 id="3-一套更靠谱的配置面加固流程"><a href="#3-一套更靠谱的配置面加固流程" class="headerlink" title="3. 一套更靠谱的配置面加固流程"></a>3. 一套更靠谱的配置面加固流程</h2><p>第一步，缩小调用面。<br>确认哪些服务、哪些环境、哪些网络区域真的需要访问配置中心。不要让“反正都在内网”成为默认开放理由。</p><p>第二步，限制参数自由度。<br>像 <code>profile</code>、<code>label</code> 这类参数，不应该被当成任意字符串自由穿透。应当建立 allowlist、命名规范和映射规则。</p><p>第三步，分离后端来源。<br>文件系统后端和源码仓库后端面对的风险类型不同。越是关键环境，越不应该把多种来源和动态拼接混在一起。</p><p>第四步，给配置请求留审计。<br>谁请求了哪个应用、哪个 profile、哪个 label、命中了哪个后端资源，都应该能追。</p><p>第五步，补一轮越权和 SSRF 测试。<br>别只测“配置能拿到”，还要测“拿不到不该拿的东西”。</p><h2 id="4-后端团队最容易犯的配置面误区"><a href="#4-后端团队最容易犯的配置面误区" class="headerlink" title="4. 后端团队最容易犯的配置面误区"></a>4. 后端团队最容易犯的配置面误区</h2><p>一个误区是“配置中心属于平台，不算业务暴露面”。<br>错。只要它决定服务行为，它就是高价值攻击面。</p><p>另一个误区是“只要放在内网就够安全”。<br>内网从来不是免检通行证。很多问题正是因为默认信任太强，才越滚越大。</p><p>还有一个老问题，是把配置系统当成“只需稳定、不需迭代治理”的基础设施。实际上配置面和网关、身份、密钥一样，都需要持续收紧。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>检查所有 Spring Cloud Config 部署是否已升级到修复版本。  </li><li>审核 <code>profile</code>、<code>label</code> 等参数是否有 allowlist。  </li><li>复盘配置中心是否暴露给了不必要的调用方。  </li><li>为文件系统后端和源码仓库后端分别做一次安全检查。  </li><li>把配置请求审计和异常访问告警接进平台周报。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>后端团队最容易低估的系统，往往就是每天都在默默工作、几乎没人打开看的那些基础服务。配置中心就是典型之一。Spring Cloud Config 这次 CVE 的价值，不只在于告诉你该升级了，更在于提醒你：配置面如果一直按“内部系统”对待，迟早会出事。真正成熟的团队，会趁这次修复窗口，把配置中心当成一块正式的攻击面重新治理。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Spring Blog: Spring Cloud Config 5.0.2, 4.3.2, 4.2.6, 4.1.9, 3.1.13 Released, includes fix for CVE-2026-22739<br><a href="https://spring.io/blog/2026/03/23/spring-cloud-config-5-0-2-4-3-2-4-2-6-4-1-9-3-1-13-released">https://spring.io/blog/2026/03/23/spring-cloud-config-5-0-2-4-3-2-4-2-6-4-1-9-3-1-13-released</a></li><li>Spring Security Advisory: CVE-2026-22739<br><a href="https://spring.io/security/cve-2026-22739">https://spring.io/security/cve-2026-22739</a></li><li>Spring Blog: This Week in Spring - March 31st, 2026<br><a href="https://spring.io/blog/2026/03/31/this-week-in-spring-march-31st-2026">https://spring.io/blog/2026/03/31/this-week-in-spring-march-31st-2026</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，AI 团队最该重视的一条更新，不是某个模型又多会写几行代码，而是 GitHub 当天把 Copilot code review 的使用数据拆成了 <code>active</code> 和 <code>passive</code> 两种信号。这个变化看起来很小，实际上非常关键。因为很多组织这两年在 Copilot code review 上都有同一个幻觉：仓库里“开了”自动审查，就等于团队“在用”自动审查。现在这个幻觉终于有了可量化的拆分。</p><p>GitHub 这次写得很清楚：<br><code>used_copilot_code_review_active</code> 代表用户主动与 Copilot code review 交互，比如手动把 Copilot 设为 reviewer、再次请求 review、或者应用 Copilot 建议；<br><code>used_copilot_code_review_passive</code> 则代表仓库级策略触发了自动 review，但用户本人没有对它做任何互动。<br>这组拆分，等于第一次把“覆盖率”和“参与度”分开了。</p><h2 id="1-为什么这个拆分比想象中更重要"><a href="#1-为什么这个拆分比想象中更重要" class="headerlink" title="1. 为什么这个拆分比想象中更重要"></a>1. 为什么这个拆分比想象中更重要</h2><p>很多企业做 AI 推广时，天然会先看覆盖率。这个仓库开没开、那个功能配没配、多少 PR 经过了自动 review。覆盖率当然重要，但它有个致命问题：它并不能说明团队是否真的把 AI review 纳入了工作流。</p><p>一个仓库 100% 覆盖，不代表工程师真的看过、采纳过、信任过 Copilot review。<br>如果用户只是“被动收到”，组织却把这当成“已经落地”，后面的所有判断都会失真。</p><p>现在有了 active&#x2F;passive 区分，组织终于能更老实地面对现实：<br>开功能不等于用功能。<br>用功能也不等于形成习惯。<br>形成习惯更不等于形成收益。</p><h2 id="2-组织最该用这组指标回答什么问题"><a href="#2-组织最该用这组指标回答什么问题" class="headerlink" title="2. 组织最该用这组指标回答什么问题"></a>2. 组织最该用这组指标回答什么问题</h2><p>第一，哪些团队只是被动覆盖，没有主动参与？<br>如果一个部门的 passive 很高、active 很低，问题通常不在许可证，而在流程和信任。</p><p>第二，哪些仓库的 review 策略已经过度自动化？<br>有些仓库一旦强推自动 review，开发者反而会把它当背景噪音。指标一拆，就能看出来。</p><p>第三，AI review 到底是在帮忙，还是在占版面？<br>如果 active 一直上不去，说明当前 review 结果可能对团队没有实质价值，或者至少没有被用户感知到价值。</p><h2 id="3-一套更靠谱的落地流程"><a href="#3-一套更靠谱的落地流程" class="headerlink" title="3. 一套更靠谱的落地流程"></a>3. 一套更靠谱的落地流程</h2><p>第一步，先别急着做横向对比。<br>不同团队、不同语言、不同仓库阶段的 review 习惯差异很大。先在单个团队内部比较一段时间内的 active&#x2F;passive 变化，意义更大。</p><p>第二步，把数据和 review 规则一起看。<br>是仓库级自动 review 打开的？还是评审人手动触发的？不同触发方式带来的行为差异很大。</p><p>第三步，把 active 指标和“采纳率”一起看。<br>主动请求 review 并不一定等于有价值。还要看建议有没有被接受，接受后是不是减少了返工。</p><p>第四步，把 AI review 从“功能开关”变成“评审动作”。<br>如果团队内部没有规定什么时候该主动请求 Copilot review、什么时候该再次请求、什么场景下建议值得优先看，那 active 指标也不会自然变好。</p><p>第五步，别忽略被动信号。<br>passive 不代表没用。它可能说明组织正在做底层覆盖，只是还没进入参与阶段。问题在于，不能把这一步误当成终点。</p><h2 id="4-现在最容易犯的误判"><a href="#4-现在最容易犯的误判" class="headerlink" title="4. 现在最容易犯的误判"></a>4. 现在最容易犯的误判</h2><p>一个常见误判是“被动覆盖够高，后面主动使用自然会上来”。<br>很多时候并不会。没有场景设计、没有习惯塑造、没有对建议质量的持续修正，active 往往会长期低迷。</p><p>另一个误判是“active 越高越好”。<br>如果开发者被迫频繁重新请求 review，可能反而说明第一次输出质量不稳，或者流程设计有问题。</p><h2 id="5-建议本周就执行的动作"><a href="#5-建议本周就执行的动作" class="headerlink" title="5. 建议本周就执行的动作"></a>5. 建议本周就执行的动作</h2><ol><li>先拉一版团队级 active&#x2F;passive CCR 使用报表。  </li><li>按仓库类型区分自动策略和主动触发策略。  </li><li>给高被动低主动的团队做一次访谈，而不是只看表。  </li><li>把主动使用场景写进评审规范。  </li><li>联动 PR 返工率和建议采纳率做复盘。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>AI 团队这两年最容易高估的一件事，就是“我们已经把功能铺开了”。4 月 6 日这条指标更新，等于直接把这种自我感觉拆开了。真正成熟的组织，不会满足于“仓库都开了”，而会追问“人有没有真的在用，为什么用，结果怎样”。只有到了这一步，AI 代码评审才算从配置项变成了实际能力。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>GitHub Changelog: Copilot usage metrics now identify active and passive Copilot code review users<br><a href="https://github.blog/changelog/2026-04-06-copilot-usage-metrics-now-identify-active-and-passive-copilot-code-review-users/">https://github.blog/changelog/2026-04-06-copilot-usage-metrics-now-identify-active-and-passive-copilot-code-review-users/</a></li><li>GitHub Changelog: Copilot usage metrics now includes per-user GitHub Copilot CLI activity in organization reports<br><a href="https://github.blog/changelog/2026-04-02-copilot-usage-metrics-now-includes-per-user-github-copilot-cli-activity-in-organization-reports/">https://github.blog/changelog/2026-04-02-copilot-usage-metrics-now-includes-per-user-github-copilot-cli-activity-in-organization-reports/</a></li><li>GitHub Changelog: Copilot organization custom instructions are generally available<br><a href="https://github.blog/changelog/2026-04-02-copilot-organization-custom-instructions-are-generally-available/">https://github.blog/changelog/2026-04-02-copilot-organization-custom-instructions-are-generally-available/</a></li></ul>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 31 日，后端团队很应该认真复盘的一条官方更新，是 Spring 在 &lt;code&gt;2026-03-23&lt;/code&gt; 发布的 &lt;code&gt;Spring Cloud Config 5.0.2, 4.3.2, 4.2.6, 4.1.9,</summary>
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，AI 团队最该重视的一条更新，不是某个模型又多会写几行代码，而是 GitHub 当天把 Copilot code review 的使用数据拆成了 &lt;code&gt;active&lt;/code&gt; 和 &lt;code&gt;passive&lt;/co</summary>
+      
+    
+    
+    
+    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+    <category term="Copilot" scheme="https://zhangxianda.com/tags/Copilot/"/>
+    
+    <category term="AI" scheme="https://zhangxianda.com/tags/AI/"/>
+    
+    <category term="Code Review" scheme="https://zhangxianda.com/tags/Code-Review/"/>
+    
+    <category term="Metrics" scheme="https://zhangxianda.com/tags/Metrics/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>最新AI开发工具推荐：真正值得试的，是能直接复用 Copilot 运行时而不是自己重造编排层</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-ai-tooling/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-ai-tooling/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，这周最值得推荐的 AI 开发工具，不是某个又多会聊天的模型，而是 GitHub 在 4 月 2 日放出的 <code>Copilot SDK in public preview</code>。这套 SDK 真正让我觉得值钱的地方，不是“又多了一个 SDK”，而是它直接把 Copilot cloud agent 和 Copilot CLI 背后的那套 production-tested agent runtime 拿出来给开发者用。<br>如果你过去半年一直在自己拼 agent orchestration，看到这条更新时最该先问的不是“它支不支持某个小功能”，而是“我还有没有必要继续自己造一层低配运行时”。</p><h2 id="1-这套-SDK-为什么值得关注"><a href="#1-这套-SDK-为什么值得关注" class="headerlink" title="1. 这套 SDK 为什么值得关注"></a>1. 这套 SDK 为什么值得关注</h2><p>GitHub 这次讲得很直白：Copilot SDK 提供的不是一个简单 API wrapper，而是现成的 agent runtime。<br>工具调用、流式响应、文件操作、多轮会话、权限框架、OpenTelemetry 追踪、BYOK，这些你原本要自己拼的东西，它都一起带出来了。</p><p>更关键的是它已经是多语言可用：</p><ul><li>Node.js &#x2F; TypeScript  </li><li>Python  </li><li>Go  </li><li>.NET  </li><li>Java</li></ul><p>这意味着它不只是给某一个客户端生态准备的，而是真的在朝“组织级 agent runtime”走。</p><h2 id="2-现在最值得买单的，不是模型，而是运行时"><a href="#2-现在最值得买单的，不是模型，而是运行时" class="headerlink" title="2. 现在最值得买单的，不是模型，而是运行时"></a>2. 现在最值得买单的，不是模型，而是运行时</h2><p>很多团队在过去一年里都做过类似事情：<br>找个模型 SDK，挂几个工具，自己写一层 system prompt 组合，再加一点 tracing、审批和文件处理。短期里能跑，但一到第二个项目、第三个项目，就会开始觉得疲惫。</p><p>问题不在于大家不会做，而在于这层东西太像平台，不适合每个团队都各自重写一份。<br>一个真正值钱的 AI 开发工具，应该尽量减少你重复造“运行时基础设施”的次数。</p><p>Copilot SDK 的意义就在这里。<br>你当然还是要做自己的 domain tools、自己的审批逻辑、自己的系统提示词；但那些通用层，比如多轮会话、流式、权限拦截、追踪、二进制附件，就没必要每次从头开始。</p><h2 id="3-一套更靠谱的试用方式"><a href="#3-一套更靠谱的试用方式" class="headerlink" title="3. 一套更靠谱的试用方式"></a>3. 一套更靠谱的试用方式</h2><p>第一步，别拿它做 demo，对准内部工具或平台服务试。<br>只有真实系统里，运行时层的价值才会充分暴露出来。</p><p>第二步，优先验证它替代了你多少“基础编排代码”。<br>如果最后你只是换了个 SDK 名字，但 orchestration 仍然全是自己手搓，那它的价值就打了折。</p><p>第三步，把 tracing 和权限框架用起来。<br>GitHub 特别强调了 OpenTelemetry 和 permission framework，这两条都不是装饰，它们直接关系到后续能不能扩到组织级。</p><p>第四步，别忽略模型生命周期。<br>4 月 3 日 GitHub 又退役了一批 GPT-5.1 Codex 变体。运行时既然准备长期用，就必须把模型替换和策略控制当成一等问题，而不是附属配置。</p><p>第五步，先用最少工具链验证闭环。<br>不要一上来挂十个 tool。先证明一条简单链路能稳定跑，再往上叠加。</p><h2 id="4-这类工具最容易被误用的地方"><a href="#4-这类工具最容易被误用的地方" class="headerlink" title="4. 这类工具最容易被误用的地方"></a>4. 这类工具最容易被误用的地方</h2><p>一个误区是“SDK 出来了，那就等于平台问题解决了”。<br>不是。SDK 解决的是通用运行时，不会替你解决域建模、权限设计和组织治理。</p><p>另一个误区是“既然它自带运行时，那就把所有东西都交给它”。<br>真正成熟的用法应该是：通用层尽量复用，业务边界和风险边界仍然自己掌握。</p><h2 id="5-我现在会优先推荐的工具组合"><a href="#5-我现在会优先推荐的工具组合" class="headerlink" title="5. 我现在会优先推荐的工具组合"></a>5. 我现在会优先推荐的工具组合</h2><h3 id="组合一：Copilot-SDK-组织-custom-instructions"><a href="#组合一：Copilot-SDK-组织-custom-instructions" class="headerlink" title="组合一：Copilot SDK + 组织 custom instructions"></a>组合一：Copilot SDK + 组织 custom instructions</h3><p>适合想在组织内部快速做出第一批 agent 服务的团队。</p><h3 id="组合二：Copilot-SDK-signed-commits-runner-firewall-controls"><a href="#组合二：Copilot-SDK-signed-commits-runner-firewall-controls" class="headerlink" title="组合二：Copilot SDK + signed commits + runner&#x2F;firewall controls"></a>组合二：Copilot SDK + signed commits + runner&#x2F;firewall controls</h3><p>适合需要把 agent 拉进真实仓库与企业边界的团队。</p><h3 id="组合三：Copilot-SDK-usage-metrics"><a href="#组合三：Copilot-SDK-usage-metrics" class="headerlink" title="组合三：Copilot SDK + usage metrics"></a>组合三：Copilot SDK + usage metrics</h3><p>适合已经进入扩面阶段、需要回答“谁在用、怎么用、值不值”的组织。</p><h2 id="6-建议本周就做的动作"><a href="#6-建议本周就做的动作" class="headerlink" title="6. 建议本周就做的动作"></a>6. 建议本周就做的动作</h2><ol><li>选一个内部工具场景试用 Copilot SDK。  </li><li>统计现有 agent 项目里重复造了哪些运行时能力。  </li><li>优先接入 tracing 和 permission framework。  </li><li>为未来模型替换预留策略层。  </li><li>一周后复盘它到底替代了多少基础设施代码。</li></ol><h2 id="7-结语"><a href="#7-结语" class="headerlink" title="7. 结语"></a>7. 结语</h2><p>AI 工具这两年看得太多以后，你会发现真正难复用的从来不是 Prompt，而是那层默默支撑一切的运行时。Copilot SDK 之所以值得认真看，正是因为它在帮团队少造这一层轮子。到 2026 年 4 月，真正值得买单的，不再只是“更强的模型”，而是能让你把平台化工作做少一点、把治理和业务做扎实一点的那套工具。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>GitHub Changelog: Copilot SDK in public preview<br><a href="https://github.blog/changelog/2026-04-02-copilot-sdk-in-public-preview/">https://github.blog/changelog/2026-04-02-copilot-sdk-in-public-preview/</a></li><li>GitHub Changelog: GPT-5.1 Codex, GPT-5.1-Codex-Max, and GPT-5.1-Codex-Mini deprecated<br><a href="https://github.blog/changelog/2026-04-03-gpt-5-1-codex-gpt-5-1-codex-max-and-gpt-5-1-codex-mini-deprecated/">https://github.blog/changelog/2026-04-03-gpt-5-1-codex-gpt-5-1-codex-max-and-gpt-5-1-codex-mini-deprecated/</a></li><li>GitHub Changelog: Copilot organization custom instructions are generally available<br><a href="https://github.blog/changelog/2026-04-02-copilot-organization-custom-instructions-are-generally-available/">https://github.blog/changelog/2026-04-02-copilot-organization-custom-instructions-are-generally-available/</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，这周最值得推荐的 AI 开发工具，不是某个又多会聊天的模型，而是 GitHub 在 4 月 2 日放出的 &lt;code&gt;Copilot SDK in public preview&lt;/code&gt;。这套 SDK 真正让我觉得值钱的</summary>
+      
+    
+    
+    
+    <category term="最新AI开发工具推荐" scheme="https://zhangxianda.com/categories/%E6%9C%80%E6%96%B0AI%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+    <category term="Workflow" scheme="https://zhangxianda.com/tags/Workflow/"/>
+    
+    <category term="Agent" scheme="https://zhangxianda.com/tags/Agent/"/>
+    
+    <category term="AI Tools" scheme="https://zhangxianda.com/tags/AI-Tools/"/>
+    
+    <category term="Copilot SDK" scheme="https://zhangxianda.com/tags/Copilot-SDK/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>后端流水线终于少了一层 Hack：Actions 早 4 月更新给平台团队的三个实用点</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-backend/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-backend/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，后端平台团队这周最值得看的，不是某个新框架，而是 GitHub Actions 在 4 月 2 日那组很务实的更新：service containers 终于支持自定义 <code>entrypoint</code> 和 <code>command</code>，OIDC token 里的 repository custom properties 正式 GA，Azure private networking 还补上了 VNET failover。<br>这三条更新放在一起看，几乎都在解决平台团队日常最烦的那类问题：为了绕过工具限制，不得不写一堆 Hack。</p><p>很多平台问题不是不会做，而是总得多拐一道弯。能少一道弯，后面维护成本就会少一层。</p><h2 id="1-为什么这组更新对后端团队特别实用"><a href="#1-为什么这组更新对后端团队特别实用" class="headerlink" title="1. 为什么这组更新对后端团队特别实用"></a>1. 为什么这组更新对后端团队特别实用</h2><p>先看 service containers。<br>过去 GitHub Actions 用户一直很别扭的一点，就是 service container 没法像 Docker Compose 那样直接覆写 entrypoint 和 command。结果很多团队要么自己封镜像，要么写一堆旁路脚本，维护起来非常烦。现在这个能力补齐以后，很多“为了 CI 才硬做”的封装终于可以开始清理。</p><p>再看 OIDC custom properties。<br>它正式 GA 以后，仓库自定义属性可以直接进 token claim，云侧策略终于不必再靠列举仓库名和 ID 来维护。对大型组织来说，这不是小便利，而是角色配置方式的变化。</p><p>最后看 Azure private networking 的 VNET failover。<br>对用 GitHub-hosted runners 跑关键工作流的团队来说，这个改动非常现实。私有网络一旦遇到区域问题，不至于整个流水线直接趴窝。</p><h2 id="2-这三条能力分别该怎么用"><a href="#2-这三条能力分别该怎么用" class="headerlink" title="2. 这三条能力分别该怎么用"></a>2. 这三条能力分别该怎么用</h2><h3 id="1-把-service-container-Hack-清一遍"><a href="#1-把-service-container-Hack-清一遍" class="headerlink" title="1. 把 service container Hack 清一遍"></a>1. 把 service container Hack 清一遍</h3><p>如果你们的 workflow 里有那种为了 service container 启动方式写的 wrapper 脚本、二次封装镜像、临时容器初始化逻辑，现在就值得回头清一次。不是所有 Hack 都该删，但至少能先看哪些已经没必要继续养。</p><h3 id="2-用仓库属性重写云访问策略"><a href="#2-用仓库属性重写云访问策略" class="headerlink" title="2. 用仓库属性重写云访问策略"></a>2. 用仓库属性重写云访问策略</h3><p>OIDC custom properties 这一条，平台团队最容易错过。<br>真正值钱的不是“又多了个 claim”，而是你终于可以按 <code>team</code>, <code>environment</code>, <code>compliance tier</code> 这类属性做信任策略，而不是维护越来越长的仓库白名单。</p><h3 id="3-把网络韧性当成平台设计的一部分"><a href="#3-把网络韧性当成平台设计的一部分" class="headerlink" title="3. 把网络韧性当成平台设计的一部分"></a>3. 把网络韧性当成平台设计的一部分</h3><p>VNET failover 看起来只跟 Azure 用户有关，但它提醒平台团队一个更普遍的问题：流水线也有区域故障，也应该有 failover 设计。</p><h2 id="3-一套更稳妥的落地流程"><a href="#3-一套更稳妥的落地流程" class="headerlink" title="3. 一套更稳妥的落地流程"></a>3. 一套更稳妥的落地流程</h2><p>第一步，盘点当前 workaround。<br>特别是 service container 相关的启动脚本和自定义镜像，先确认哪些是因为平台限制而存在。</p><p>第二步，盘点仓库属性。<br>如果组织还没认真使用 repository custom properties，现在正是补这块元数据的好时机。没有属性，OIDC claim 也发挥不了真正价值。</p><p>第三步，把云侧策略改成属性驱动。<br>别在一版策略里同时保留新旧两套逻辑太久，否则复杂度只会叠加。</p><p>第四步，为私有网络工作流评估 failover。<br>关键不是 Azure 专属功能，而是平台团队是否开始系统性看待流水线韧性。</p><p>第五步，把这些改动做成平台模板。<br>只有少量仓库用上不够，平台能力要沉淀到模板和标准里才真正省事。</p><h2 id="4-最容易被忽略的误区"><a href="#4-最容易被忽略的误区" class="headerlink" title="4. 最容易被忽略的误区"></a>4. 最容易被忽略的误区</h2><p>一个误区是“这些更新只是让配置更方便”。<br>不对。它们实际上在减少组织对脚本、手工和白名单的依赖。</p><p>另一个误区是“先让个别项目试试就行”。<br>如果这些能力最后没有收敛成平台默认做法，收益会很有限。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>盘点所有 service container 相关的 workaround。  </li><li>给核心仓库补齐 custom properties。  </li><li>在云侧试做一条基于属性的 OIDC trust policy。  </li><li>评估关键 Actions 工作流是否需要私网 failover 方案。  </li><li>把新的用法写进平台模板和内部文档。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>平台团队最需要珍惜的，往往不是大而全的新系统，而是这类能切实减少日常折腾的小更新。4 月 2 日这组 Actions 变化就是典型。它们的真正价值，不在于你今天能多写一个配置项，而在于后面能少维护一层 Hack、少背一层白名单、少扛一次网络单点。对后端平台来说，这种收益比炫技更值钱。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>GitHub Changelog: GitHub Actions: Early April 2026 updates<br><a href="https://github.blog/changelog/2026-04-02-github-actions-early-april-2026/">https://github.blog/changelog/2026-04-02-github-actions-early-april-2026/</a></li><li>GitHub Changelog: View Agentic Workflow configs in the Actions run summary<br><a href="https://github.blog/changelog/2026-03-26-view-agentic-workflow-configs-in-the-actions-run-summary/">https://github.blog/changelog/2026-03-26-view-agentic-workflow-configs-in-the-actions-run-summary/</a></li><li>GitHub Changelog: Custom images for GitHub-hosted runners are now generally available<br><a href="https://github.blog/changelog/2026-03-26-custom-images-for-github-hosted-runners-are-now-generally-available/">https://github.blog/changelog/2026-03-26-custom-images-for-github-hosted-runners-are-now-generally-available/</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，后端平台团队这周最值得看的，不是某个新框架，而是 GitHub Actions 在 4 月 2 日那组很务实的更新：service containers 终于支持自定义 &lt;code&gt;entrypoint&lt;/code&gt; 和 &lt;</summary>
       
     
     
@@ -38,11 +98,251 @@
     
     <category term="Backend" scheme="https://zhangxianda.com/tags/Backend/"/>
     
-    <category term="Spring Cloud Config" scheme="https://zhangxianda.com/tags/Spring-Cloud-Config/"/>
+    <category term="Platform" scheme="https://zhangxianda.com/tags/Platform/"/>
     
-    <category term="SSRF" scheme="https://zhangxianda.com/tags/SSRF/"/>
+    <category term="GitHub Actions" scheme="https://zhangxianda.com/tags/GitHub-Actions/"/>
     
-    <category term="Configuration" scheme="https://zhangxianda.com/tags/Configuration/"/>
+    <category term="OIDC" scheme="https://zhangxianda.com/tags/OIDC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Agent 真正进仓库以后，安全边界得跟着前移：防火墙、runner 和签名提交要一起上</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-cybersecurity/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-cybersecurity/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，网络安全里最值得组织认真看的一组更新，来自 GitHub 在 4 月 3 日围绕 Copilot cloud agent 连续补上的三块控制面：组织级 runner controls、组织级 agent firewall 设置、以及 cloud agent 提交自动签名。把这三件事放在一起看，会发现一个过去常被忽略的事实已经摆到桌面上了：当 agent 真的开始在仓库里执行任务时，安全边界不能再只盯“它会不会生成危险代码”，而要明确它在哪跑、能出网到哪里、提交是不是可信。</p><p>这件事之所以重要，是因为 agent 和传统 IDE 助手不一样。传统助手只在开发者本地给建议，而 cloud agent 真正在远端环境里执行、调用工具、生成分支、提交代码。执行一旦发生，安全问题就不再是纯文本问题，而是环境安全、网络访问和产物可信性问题。</p><h2 id="1-这三条更新拼起来意味着什么"><a href="#1-这三条更新拼起来意味着什么" class="headerlink" title="1. 这三条更新拼起来意味着什么"></a>1. 这三条更新拼起来意味着什么</h2><p>先看 runner controls。<br>GitHub 现在允许组织管理员统一为 Copilot cloud agent 设默认 runner，甚至锁死，禁止仓库级覆盖。换句话说，组织终于能决定 agent 默认在哪跑，而不是把这件事分散给每个仓库自己处理。</p><p>再看 firewall。<br>agent firewall 现在也可以组织级配置。管理员不仅能统一开关，还能控制推荐 allowlist、组织级 custom allowlist，以及仓库管理员是否允许自己加白名单条目。</p><p>最后看 signed commits。<br>cloud agent 现在会给自己生成的 commit 自动签名，提交会显示 <code>Verified</code>，而且可以在启用了“Require signed commits”的仓库里正常工作。</p><p>这三条能力连起来，就是一套很完整的安全问题拆解：</p><ol><li>它在哪个执行环境里跑。  </li><li>它能连到哪些网络资源。  </li><li>它产生的代码提交是否可验证。</li></ol><h2 id="2-为什么组织不能只选其中一项"><a href="#2-为什么组织不能只选其中一项" class="headerlink" title="2. 为什么组织不能只选其中一项"></a>2. 为什么组织不能只选其中一项</h2><p>很多团队会天然想先上最简单的一项，比如先把签名打开，感觉“至少产物可信”。这不够。</p><p>如果提交可验证，但执行环境随仓库各自配置，安全边界仍然是碎的。<br>如果环境统一了，但 firewall 还允许各个仓库自由出网，prompt injection 和数据外泄风险仍然很高。<br>如果 firewall 很严，但 commit 不可验证，后续审计链条又会出现问题。</p><p>这三条能力真正值钱的地方，不在单点，而在组合。它们共同把 cloud agent 从“能跑”往“可控”推了一步。</p><h2 id="3-一套更稳妥的组织落地流程"><a href="#3-一套更稳妥的组织落地流程" class="headerlink" title="3. 一套更稳妥的组织落地流程"></a>3. 一套更稳妥的组织落地流程</h2><p>第一步，先给 agent 分等级。<br>不是所有仓库都该同样对待。至少要区分：可公开仓库、普通内部仓库、敏感生产仓库、高合规仓库。不同等级对应不同 runner、不同 firewall 和不同签名规则。</p><p>第二步，先锁 runner，再谈扩面。<br>组织级 runner default 非常关键。建议先指定统一执行基线，再考虑是否允许少量仓库申请特殊 runner。</p><p>第三步，定义组织 allowlist。<br>哪些外部域名、内部包仓、文档站点、制品源是 agent 真正需要访问的，先定义清楚。别等仓库自己加白名单加成一锅粥。</p><p>第四步，把签名提交纳入分支保护。<br>既然 cloud agent 现在能兼容 signed commits，就应该把原本因为 agent 受限而放松的规则重新补回来。</p><p>第五步，保留安全证据。<br>runner 选择、出网策略、提交签名状态、异常 override，都要进审计报表。没有证据，后面出了事只剩猜。</p><h2 id="4-现在最容易踩的坑"><a href="#4-现在最容易踩的坑" class="headerlink" title="4. 现在最容易踩的坑"></a>4. 现在最容易踩的坑</h2><p>一个坑是“让仓库管理员自己决定就好”。<br>在普通仓库时代这还凑合，但 cloud agent 一旦横跨多个仓库，分散配置几乎注定会把边界做碎。</p><p>另一个坑是“先开了再慢慢补安全”。<br>这套逻辑对 agent 特别危险。因为 agent 的价值恰恰来自规模化使用，而一旦先开后补，后面的收口成本会很高。</p><h2 id="5-建议本周就做的动作"><a href="#5-建议本周就做的动作" class="headerlink" title="5. 建议本周就做的动作"></a>5. 建议本周就做的动作</h2><ol><li>列出现有使用或计划使用 cloud agent 的仓库分级。  </li><li>为 agent 设组织级默认 runner。  </li><li>建一版组织级 agent firewall allowlist。  </li><li>将 signed commits 重新纳入适用仓库的保护规则。  </li><li>对所有 override 做审计留痕。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>安全团队过去常说“AI 最大的问题是它说错话”。到了 2026 年 4 月，这个问题已经太浅了。真正值得担心的，是 agent 真正进仓库以后，它到底在哪跑、能碰到什么、留下的产物怎么证明可信。GitHub 4 月 3 日这一组更新，第一次把这条控制链补得比较像样。组织如果准备认真用 agent，就该趁现在把这三层一起立住。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>GitHub Changelog: Organization runner controls for Copilot cloud agent<br><a href="https://github.blog/changelog/2026-04-03-organization-runner-controls-for-copilot-cloud-agent/">https://github.blog/changelog/2026-04-03-organization-runner-controls-for-copilot-cloud-agent/</a></li><li>GitHub Changelog: Organization firewall settings for Copilot cloud agent<br><a href="https://github.blog/changelog/2026-04-03-organization-firewall-settings-for-copilot-cloud-agent/">https://github.blog/changelog/2026-04-03-organization-firewall-settings-for-copilot-cloud-agent/</a></li><li>GitHub Changelog: Copilot cloud agent signs its commits<br><a href="https://github.blog/changelog/2026-04-03-copilot-cloud-agent-signs-its-commits/">https://github.blog/changelog/2026-04-03-copilot-cloud-agent-signs-its-commits/</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，网络安全里最值得组织认真看的一组更新，来自 GitHub 在 4 月 3 日围绕 Copilot cloud agent 连续补上的三块控制面：组织级 runner controls、组织级 agent firewall 设</summary>
+      
+    
+    
+    
+    <category term="网络安全" scheme="https://zhangxianda.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="Copilot" scheme="https://zhangxianda.com/tags/Copilot/"/>
+    
+    <category term="Agent" scheme="https://zhangxianda.com/tags/Agent/"/>
+    
+    <category term="Cybersecurity" scheme="https://zhangxianda.com/tags/Cybersecurity/"/>
+    
+    <category term="Firewall" scheme="https://zhangxianda.com/tags/Firewall/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>把 Security 和 Quality 放到一块以后，治理就不该再各自为政了</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-digital-governance/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-digital-governance/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，数字治理里一个很值得反复咀嚼的变化，是 GitHub 在 4 月 2 日把顶层 <code>Security</code> 导航正式改成了 <code>Security &amp; quality</code>。从表面看，这只是导航改名；从治理角度看，它其实很像一个清晰的表态：安全问题和代码质量问题不该再被拆成两套彼此独立的流程。<br>这条变化又正好和另外两组更新撞到一起了。4 月 2 日，Copilot organization custom instructions 正式 GA；4 月 6 日，代码评审指标又能区分 active&#x2F;passive。三条消息放在一起，组织已经很难再维持原来的分工方式了：安全、质量、AI 使用习惯、组织规则，本质上都在一条链上。</p><h2 id="1-为什么这次导航改名值得认真看"><a href="#1-为什么这次导航改名值得认真看" class="headerlink" title="1. 为什么这次导航改名值得认真看"></a>1. 为什么这次导航改名值得认真看</h2><p>如果只是界面换个标签，当然没必要大书特书。<br>但 GitHub 这次明确写了：它是在为即将到来的 GitHub Code Quality GA 做铺垫，目的是把 code quality findings 和 security alerts 放到同一个问题治理面里。</p><p>这说明平台方的判断已经很清楚：<br>一个仓库的风险，不该只看漏洞数，也不该只看 lint 通过率，更不该把两者分别交给两个完全割裂的小组处理。</p><p>现实里的很多问题本来就跨界。<br>配置错误会演变成安全问题。<br>低质量代码会放大安全漏洞修复成本。<br>AI 生成的差异如果没有质量护栏，也会迅速变成安全负担。</p><h2 id="2-组织为什么总把治理做碎"><a href="#2-组织为什么总把治理做碎" class="headerlink" title="2. 组织为什么总把治理做碎"></a>2. 组织为什么总把治理做碎</h2><p>因为碎着做在短期里看上去更容易管理。<br>安全团队管安全规则，平台团队管质量规则，开发团队管 AI 使用规范，法务团队管条款和数据边界。每个小块都能写出自己的制度，但落到仓库里时，开发者面对的却是一堆互相不对齐的约束。</p><p>这会导致两个后果：</p><ol><li>开发者把规则视为多个独立噪音。  </li><li>组织永远拿不到一张完整的治理图。</li></ol><p>现在 <code>Security &amp; quality</code> 这个入口被明确放在一起，其实是在提醒组织：问题已经不再允许你这么拆。</p><h2 id="3-一套更现实的治理收口方式"><a href="#3-一套更现实的治理收口方式" class="headerlink" title="3. 一套更现实的治理收口方式"></a>3. 一套更现实的治理收口方式</h2><p>第一步，改视图。<br>别再只看安全工单或只看质量报表。真正有价值的是把安全发现、质量发现、代码评审使用数据和 AI 规则命中情况放到一个周报里。</p><p>第二步，改规则归属。<br>像 Copilot organization custom instructions 这种能力，本身就是治理工具。它不该只归某个单独工具管理员管理，而应该和代码规范、安全规则、质量门禁一起制定。</p><p>第三步，改度量。<br>4 月 6 日 active&#x2F;passive CCR 指标说明了一个很重要的事：组织不能只统计“策略开了没有”，还得统计“人到底有没有参与”。这一点对安全和质量同样适用。</p><p>第四步，改协作机制。<br>安全团队、平台团队、质量团队至少要共享一部分规则库和复盘机制，而不是各做各的季度回顾。</p><h2 id="4-具体该怎么落地"><a href="#4-具体该怎么落地" class="headerlink" title="4. 具体该怎么落地"></a>4. 具体该怎么落地</h2><ol><li>先列出现有安全、质量、AI 规则分别由谁维护。  </li><li>找出其中重复、冲突、口径不一的部分。  </li><li>选几个高风险仓库试行统一视图。  </li><li>把 code review active&#x2F;passive、代码质量发现、安全发现、AI 自定义指令一起纳入仓库健康度。  </li><li>对规则命中率低、覆盖率高但参与度低的场景做专项访谈。</li></ol><h2 id="5-最容易被忽略的误区"><a href="#5-最容易被忽略的误区" class="headerlink" title="5. 最容易被忽略的误区"></a>5. 最容易被忽略的误区</h2><p>一个误区是“放到一起看会让责任不清”。<br>恰恰相反。责任不清往往来自视图分散，而不是来自统一视图。</p><p>另一个误区是“安全和质量不是一回事”。<br>它们当然不是一回事，但在仓库治理层面，它们早就共享同一批人、同一套流程、同一段代码和同一条修复路径了。</p><h2 id="6-建议本周执行的动作"><a href="#6-建议本周执行的动作" class="headerlink" title="6. 建议本周执行的动作"></a>6. 建议本周执行的动作</h2><ol><li>把安全和质量周报合并成一版联合视图。  </li><li>将 Copilot custom instructions 纳入治理规则清单。  </li><li>对 active&#x2F;passive code review 数据做第一次解释型复盘。  </li><li>为高风险仓库定义统一的治理健康度指标。  </li><li>停止用分散报表来描述同一批仓库。</li></ol><h2 id="7-结语"><a href="#7-结语" class="headerlink" title="7. 结语"></a>7. 结语</h2><p>治理最容易做成什么样？制度很多，视图很碎，人人有报表，没人有全貌。GitHub 把 <code>Security</code> 改成 <code>Security &amp; quality</code>，本质上是在替大家把这层窗户纸捅破。到了 2026 年 4 月，真正成熟的组织不会再满足于“每个团队各管一段”，而是会开始把安全、质量和 AI 行为放在同一张地图上看。只有先把地图拼起来，治理才不会继续碎下去。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>GitHub Changelog: The Security tab is now Security &amp; quality<br><a href="https://github.blog/changelog/2026-04-02-the-security-tab-is-now-security-quality/">https://github.blog/changelog/2026-04-02-the-security-tab-is-now-security-quality/</a></li><li>GitHub Changelog: Copilot organization custom instructions are generally available<br><a href="https://github.blog/changelog/2026-04-02-copilot-organization-custom-instructions-are-generally-available/">https://github.blog/changelog/2026-04-02-copilot-organization-custom-instructions-are-generally-available/</a></li><li>GitHub Changelog: Copilot usage metrics now identify active and passive Copilot code review users<br><a href="https://github.blog/changelog/2026-04-06-copilot-usage-metrics-now-identify-active-and-passive-copilot-code-review-users/">https://github.blog/changelog/2026-04-06-copilot-usage-metrics-now-identify-active-and-passive-copilot-code-review-users/</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，数字治理里一个很值得反复咀嚼的变化，是 GitHub 在 4 月 2 日把顶层 &lt;code&gt;Security&lt;/code&gt; 导航正式改成了 &lt;code&gt;Security &amp;amp; quality&lt;/code&gt;。从表面看，这</summary>
+      
+    
+    
+    
+    <category term="数字治理" scheme="https://zhangxianda.com/categories/%E6%95%B0%E5%AD%97%E6%B2%BB%E7%90%86/"/>
+    
+    
+    <category term="GitHub" scheme="https://zhangxianda.com/tags/GitHub/"/>
+    
+    <category term="Governance" scheme="https://zhangxianda.com/tags/Governance/"/>
+    
+    <category term="Security" scheme="https://zhangxianda.com/tags/Security/"/>
+    
+    <category term="Quality" scheme="https://zhangxianda.com/tags/Quality/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Chrome 双周发布节奏已定，前端团队该把 beta 验证变成例行动作了</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-frontend/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-frontend/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，前端团队最该开始调整的，已经不只是组件写法，而是浏览器验证的组织节奏。Chrome 在 3 月 3 日明确宣布，从 <code>Chrome 153</code> 稳定版开始会切到两周发布节奏；而 <code>Chrome 147 beta</code> 已经展示了这意味着什么：新 CSS 能力、网络限制变化、origin trials、性能和安全相关更新，会更频繁地进入日常。<br>如果团队现在还按“一个月看一次浏览器变化”的方式工作，后面很容易持续慢半拍。</p><h2 id="1-为什么双周发布是组织问题，不只是平台新闻"><a href="#1-为什么双周发布是组织问题，不只是平台新闻" class="headerlink" title="1. 为什么双周发布是组织问题，不只是平台新闻"></a>1. 为什么双周发布是组织问题，不只是平台新闻</h2><p>浏览器团队说“我们发得更快了”，前端团队如果只把这理解成“多看点 release notes”，就会低估影响。<br>真正变化的是：</p><ul><li>beta 和 stable 之间的缓冲期更短；  </li><li>单次变更更小，但累计变化更频繁；  </li><li>兼容验证会更像持续动作，而不是大版本动作。</li></ul><p>这对拥有组件库、设计系统、公共页面框架的团队尤其明显。因为浏览器变得越快，你越不能指望项目组自己各自抽空去看。</p><h2 id="2-Chrome-147-beta-已经给了一个很好的预演"><a href="#2-Chrome-147-beta-已经给了一个很好的预演" class="headerlink" title="2. Chrome 147 beta 已经给了一个很好的预演"></a>2. Chrome 147 beta 已经给了一个很好的预演</h2><p>这次 beta 里，前端团队真正值得留意的东西很多：</p><ul><li><code>contrast-color()</code> 可以减少一部分对比色补丁。  </li><li><code>scroll</code> named range 会影响滚动驱动动画的设计方式。  </li><li><code>modulepreload</code> 对 JSON 和 style 的支持，意味着一类加载 hack 可以开始评估删除。  </li><li>Local Network Access 的限制继续扩展，对局域网调试或设备页面会有影响。</li></ul><p>重点不在单个 API 本身，而在于：<br>你现在必须有一条固定的 beta 观察线，否则这些变化只会在某天突然出现在生产环境里。</p><h2 id="3-一套更现实的前端验证流程"><a href="#3-一套更现实的前端验证流程" class="headerlink" title="3. 一套更现实的前端验证流程"></a>3. 一套更现实的前端验证流程</h2><p>第一步，指定固定 beta 责任人。<br>不要靠大家“有空看看”。至少应该有一个人每轮 beta 负责扫变化，再把真正相关的内容同步出来。</p><p>第二步，分三类记录变化。<br>一类是可以带来减法的新能力；一类是可能造成兼容风险的变化；一类是适合先在 origin trial 里试的小范围能力。</p><p>第三步，把验证下沉到组件库。<br>浏览器变化不应该每个业务项目都自己重新判断。组件库和设计系统团队最适合先消化一轮。</p><p>第四步，建立 beta 验证页。<br>选一组最能代表真实问题的页面或场景，固定在 beta 上回归。</p><p>第五步，给“暂不跟进”也留结论。<br>双周发布后，最怕的不是变化多，而是没人能解释“我们为什么现在不跟”。</p><h2 id="4-最容易踩的坑"><a href="#4-最容易踩的坑" class="headerlink" title="4. 最容易踩的坑"></a>4. 最容易踩的坑</h2><p>一个坑是“先等 stable”。<br>等 stable 再看，通常已经错过了最舒服的修正窗口。</p><p>另一个坑是“看到新特性就手痒”。<br>双周发布不是让你每两周都大动干戈，而是让你更早建立判断和准备机制。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>建一条固定的 Chrome beta 观察与同步机制。  </li><li>选 3 到 5 个组件或页面做长期 beta 回归。  </li><li>把浏览器变化同步到设计系统和公共组件团队。  </li><li>对 <code>contrast-color()</code>、<code>modulepreload</code> 和 LNA 变化做最小验证。  </li><li>调整当前“月更式”兼容验证节奏。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>前端工程最容易被拖慢的，不是浏览器变化太快，而是组织还按旧节奏在应对变化。Chrome 双周发布一旦进入稳定区，这个问题会被放大得更明显。现在最值得做的，不是先讨论某个 API 酷不酷，而是把 beta 验证变成日常动作。节奏先改过来，后面的技术选择才有从容空间。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Chrome for Developers: Get features faster with Chrome’s two-week release cycle<br><a href="https://developer.chrome.com/blog/chrome-two-week-release?hl=en">https://developer.chrome.com/blog/chrome-two-week-release?hl=en</a></li><li>Chrome for Developers: Chrome 147 beta<br><a href="https://developer.chrome.com/blog/chrome-147-beta">https://developer.chrome.com/blog/chrome-147-beta</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，前端团队最该开始调整的，已经不只是组件写法，而是浏览器验证的组织节奏。Chrome 在 3 月 3 日明确宣布，从 &lt;code&gt;Chrome 153&lt;/code&gt; 稳定版开始会切到两周发布节奏；而 &lt;code&gt;Chrome </summary>
+      
+    
+    
+    
+    <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="Chrome" scheme="https://zhangxianda.com/tags/Chrome/"/>
+    
+    <category term="Release Engineering" scheme="https://zhangxianda.com/tags/Release-Engineering/"/>
+    
+    <category term="Frontend" scheme="https://zhangxianda.com/tags/Frontend/"/>
+    
+    <category term="Beta" scheme="https://zhangxianda.com/tags/Beta/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java AI 应用别再把供应商细节拖进业务层：Spring AI M4 和 Modulith M4 的提示很直接</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-java/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-java/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，Java 生态过去两周最值得企业团队注意的一组更新，来自 Spring AI <code>2.0.0-M4 / 1.1.4 / 1.0.5</code>、Spring Modulith <code>2.1 M4 / 2.0.5 / 1.4.10</code>，以及 Spring Boot <code>4.1.0-M4 / 4.0.5</code>。这些更新表面上看分属不同项目，实际上都在提醒同一件事：Java AI 应用现在最该优先治理的，不是“再接一个模型”，而是把供应商细节、编排逻辑和业务规则彻底拆开。</p><p>这不是学院派洁癖，而是非常现实的工程需求。Spring AI M4 里已经明确提到部分模型集成类进入弃用轨道；Boot 版本会继续拉动基础依赖；Modulith 又在帮你把事件外化和模块边界拉直。<br>如果业务层还直接依赖模型 SDK 和 provider 类型，后面每次升级都会像拆炸弹。</p><h2 id="1-为什么-M4-这批变化值得警惕"><a href="#1-为什么-M4-这批变化值得警惕" class="headerlink" title="1. 为什么 M4 这批变化值得警惕"></a>1. 为什么 M4 这批变化值得警惕</h2><p>Spring AI M4 不是简单修 bug。<br>它包含动态 structured output control、多个依赖升级、稳定性增强，同时还明确提示部分 provider integration 将来会移除。对 Java 团队来说，这意味着：</p><ul><li>模型接入层还在快速演化；  </li><li>供应商相关 API 不适合作为稳定边界；  </li><li>你越早把这些变化隔在业务层之外，后面越轻松。</li></ul><p>Modulith 这边则更像在回答“那你到底该怎么隔”。<br>事件外化、命名接口、模块测试这些能力，本质上都在帮你把复杂系统拆出更稳的边界。</p><h2 id="2-真正该优先治理的三条边界"><a href="#2-真正该优先治理的三条边界" class="headerlink" title="2. 真正该优先治理的三条边界"></a>2. 真正该优先治理的三条边界</h2><p>第一条，是领域边界。<br>订单规则、权限规则、审批规则、状态流转，不该知道模型供应商是谁。领域层一旦依赖 provider SDK，就已经开始埋未来的迁移债。</p><p>第二条，是能力边界。<br>Prompt、RAG、tool orchestration、结构化输出，这些属于能力编排层。它们可以依赖 Spring AI，但不该和控制器、实体、仓储搅成一团。</p><p>第三条，是供应商边界。<br>OpenAI、Anthropic、Gemini、Vertex、向量库、搜索、外部工具，这些都应该放在最外层适配层。它们生来就是变化最快的一层。</p><p>如果这三条边界没拉开，今天你只是换个 provider，明天就会变成全仓库到处改。</p><h2 id="3-一套更稳妥的执行路径"><a href="#3-一套更稳妥的执行路径" class="headerlink" title="3. 一套更稳妥的执行路径"></a>3. 一套更稳妥的执行路径</h2><p>第一步，先画依赖图。<br>找出所有直接依赖模型 SDK、Prompt 模板、向量库客户端的业务模块。很多团队直到画图时才会意识到自己绑得有多深。</p><p>第二步，把编排逻辑抽出来。<br>任何“模型怎么调、工具怎么挂、结构化输出怎么转”的逻辑，都应该从领域服务里剥离出来。</p><p>第三步，用 Modulith 收口模块。<br>对 Java 团队来说，边界不是嘴上说说而已。最好让模块测试、命名接口和事件发布真正帮你守边界。</p><p>第四步，把 Boot 升级和 AI 升级拆开。<br>这类大系统最怕多件事一起动。先分清是平台依赖变化，还是 AI 层变化，再做迁移。</p><p>第五步，给 provider 变化留缓冲。<br>既然 Spring AI 官方已经明确某些集成会弃用，组织就别再把“当前能跑”误当成“长期稳定”。</p><h2 id="4-最容易踩的坑"><a href="#4-最容易踩的坑" class="headerlink" title="4. 最容易踩的坑"></a>4. 最容易踩的坑</h2><p>一个坑是 demo 写法直接进生产。<br>demo 为了快，天然会把控制器、Prompt、provider 配置、工具注册写在一起。生产如果还照这个方式堆，只会让后续演进越来越难。</p><p>另一个坑是把 Modulith 只当文档化工具。<br>它真正有价值的地方，是帮你把模块边界做成可测试、可演化的结构，而不是画漂亮图。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>盘点现有 Java AI 应用中直接依赖供应商 SDK 的模块。  </li><li>把编排逻辑和领域逻辑分层。  </li><li>用 Modulith 或等效方法定义模块边界。  </li><li>把 Spring AI 升级和 Boot 升级拆成独立回归任务。  </li><li>为 provider 迁移预先留一层适配封装。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>Java 团队的优势，从来不在“追得最快”，而在“能把复杂系统长期维护下去”。到了 2026 年 4 月，这个优势在 AI 应用里格外重要。Spring AI M4 和 Modulith M4 给出的提示其实很直接：别让变化最快的那层直接碰到业务层。边界守住了，升级才是常规动作；边界没守住，升级就会一次比一次痛。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Spring AI 2.0.0-M4, 1.1.4 and 1.0.5 are available now<br><a href="https://spring.io/blog/2026/03/26/spring-ai-2-0-0-M4-and-1-1-4-and-1-0-5-available">https://spring.io/blog/2026/03/26/spring-ai-2-0-0-M4-and-1-1-4-and-1-0-5-available</a></li><li>Spring Modulith 2.1 M4, 2.0.5, and 1.4.10 released<br><a href="https://spring.io/blog/2026/03/27/spring-modulith-2-1-m4-2-0-5-and-1-4-10-released">https://spring.io/blog/2026/03/27/spring-modulith-2-1-m4-2-0-5-and-1-4-10-released</a></li><li>Spring Boot 4.1.0-M4 available now<br><a href="https://spring.io/blog/2026/03/26/spring-boot-4-1-0-M4-available-now">https://spring.io/blog/2026/03/26/spring-boot-4-1-0-M4-available-now</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，Java 生态过去两周最值得企业团队注意的一组更新，来自 Spring AI &lt;code&gt;2.0.0-M4 / 1.1.4 / 1.0.5&lt;/code&gt;、Spring Modulith &lt;code&gt;2.1 M4 / 2.0.</summary>
+      
+    
+    
+    
+    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://zhangxianda.com/tags/Java/"/>
+    
+    <category term="Spring AI" scheme="https://zhangxianda.com/tags/Spring-AI/"/>
+    
+    <category term="Architecture" scheme="https://zhangxianda.com/tags/Architecture/"/>
+    
+    <category term="Spring Modulith" scheme="https://zhangxianda.com/tags/Spring-Modulith/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设备入网体验开始被重写：Zigbee Direct、Aliro 和 Matter 应该放到一张图里看</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-iot/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-iot/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，IoT 平台最容易被低估的一件变化，是接入体验已经不再只是某个协议单点演进，而开始变成整条链路的重写。Zigbee Direct 试图让 Zigbee 设备接入更像大家熟悉的蓝牙体验，Aliro 1.0 把数字凭证和访问控制推向统一标准，Matter 1.5 又继续把 cameras、closures 和能源管理拉到同一生态里。把这三条线放在一张图上看，会更容易发现平台真正该补的是什么：不是再记住几个协议名，而是把入网、授权、控制和退场做成一条顺链。</p><h2 id="1-为什么这些标准不该分开看"><a href="#1-为什么这些标准不该分开看" class="headerlink" title="1. 为什么这些标准不该分开看"></a>1. 为什么这些标准不该分开看</h2><p>很多团队遇到 IoT 新标准时，会自然按产品线分开看：<br>Zigbee 归接入组，Matter 归平台互联组，Aliro 归门禁或身份组。这样分工当然方便，但它也会带来一个问题：最终进入用户体验的，并不是协议本身，而是“设备怎么进来、怎么被认出来、怎么被控制、怎么被撤销”这条连续动作。</p><p>如果组织内部仍按单协议思维推进，最后用户看到的往往还是一堆断裂体验：</p><ul><li>入网靠一个入口；  </li><li>权限靠另一套系统；  </li><li>数字凭证再走第三套逻辑；  </li><li>问题排查时谁都说这不是自己这层的问题。</li></ul><h2 id="2-Zigbee-Direct-和-Aliro-的共同价值"><a href="#2-Zigbee-Direct-和-Aliro-的共同价值" class="headerlink" title="2. Zigbee Direct 和 Aliro 的共同价值"></a>2. Zigbee Direct 和 Aliro 的共同价值</h2><p>Zigbee Direct 解决的是“入口太重”的问题。<br>它让 Zigbee 设备的接入和控制更接近人们已熟悉的蓝牙中继模式，减少对专用 Hub 和繁琐配网路径的依赖。</p><p>Aliro 1.0 解决的是“凭证太碎”的问题。<br>它试图把数字门禁凭证标准化，并且直接和 Apple、Google、Samsung 的钱包生态对齐。</p><p>看起来它们面向的不是同一个层次，但平台视角下非常相像：<br>都在把过去那种“体验复杂靠运维兜底”的链路，压成更清楚、更统一的入口。</p><h2 id="3-Matter-1-5-为什么会让这个问题更明显"><a href="#3-Matter-1-5-为什么会让这个问题更明显" class="headerlink" title="3. Matter 1.5 为什么会让这个问题更明显"></a>3. Matter 1.5 为什么会让这个问题更明显</h2><p>Matter 1.5 一旦把摄像头、closures、能源管理继续拉进统一生态，设备和空间的联动就会更复杂。<br>当门锁、摄像头、车库门、能耗设备和数字凭证开始共享更多上下文时，任何一段链路设计不清楚，问题都会被放大。</p><p>过去你还能说“这只是一个设备没连好”。<br>未来更常见的情况会变成：“设备连上了，但权限状态不同步”“门禁动作对上了，但摄像头和车库门没跟上”“凭证发下去了，但退场时没收干净”。</p><h2 id="4-一套更靠谱的平台设计思路"><a href="#4-一套更靠谱的平台设计思路" class="headerlink" title="4. 一套更靠谱的平台设计思路"></a>4. 一套更靠谱的平台设计思路</h2><p>第一步，统一身份主表。<br>设备、用户、空间、数字凭证、安装节点，都应该有可关联的统一主表，而不是分散在几个子系统里。</p><p>第二步，把入网和授权拆开建模。<br>设备接入成功，不代表它就自动具备正确权限。这个状态必须分开。</p><p>第三步，为在线和离线分别设计链路。<br>Aliro 已经明确覆盖离线和弱网场景，Zigbee Direct 也强调更轻量入口。弱网场景如果还照在线逻辑硬套，后面问题会很密集。</p><p>第四步，把退场纳入主流程。<br>真正成熟的平台不只负责“进来”，也负责“干净地出去”。</p><h2 id="5-最容易被忽略的误区"><a href="#5-最容易被忽略的误区" class="headerlink" title="5. 最容易被忽略的误区"></a>5. 最容易被忽略的误区</h2><p>一个误区是把这些标准当成“新接入能力”。<br>实际上它们更像是在倒逼你重写入口链路。</p><p>另一个误区是标准兼容了，就默认体验也兼容。<br>现实恰恰相反。真正决定体验的，是你有没有把协议、身份、授权和日志放到一条线上看。</p><h2 id="6-建议本周执行的动作"><a href="#6-建议本周执行的动作" class="headerlink" title="6. 建议本周执行的动作"></a>6. 建议本周执行的动作</h2><ol><li>画一张当前入网、授权、控制、退场的完整链路图。  </li><li>看看 Zigbee、Matter、数字凭证是不是仍在三套系统里。  </li><li>为弱网和离线场景单独补状态机。  </li><li>把设备身份和数字凭证纳入同一资产视图。  </li><li>在下一个项目里把“退场是否可追踪”纳入验收。</li></ol><h2 id="7-结语"><a href="#7-结语" class="headerlink" title="7. 结语"></a>7. 结语</h2><p>IoT 平台的复杂度越来越不像“多接几个设备”那么简单了。到 2026 年 4 月，真正值得团队重构的，是那条从设备入网到权限发放、再到后续退场的整条链路。Zigbee Direct、Aliro 和 Matter 放在一起看，会比单看任何一个协议都更有启发。因为它们共同指向的是体验和治理一体化，而不只是协议兼容。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>CSA-IOT: Zigbee Direct<br><a href="https://csa-iot.org/all-solutions/zigbee/zigbee-direct/">https://csa-iot.org/all-solutions/zigbee/zigbee-direct/</a></li><li>CSA-IOT: Introducing Aliro 1.0: A Unified Standard to Transform the Access Control Ecosystem<br><a href="https://csa-iot.org/newsroom/introducing-aliro-1-0-a-unified-standard-to-transform-the-access-control-ecosystem/">https://csa-iot.org/newsroom/introducing-aliro-1-0-a-unified-standard-to-transform-the-access-control-ecosystem/</a></li><li>CSA-IOT: Matter 1.5 Introduces Cameras, Closures, and Enhanced Energy Management Capabilities<br><a href="https://csa-iot.org/newsroom/matter-1-5-introduces-cameras-closures-and-enhanced-energy-management-capabilities/">https://csa-iot.org/newsroom/matter-1-5-introduces-cameras-closures-and-enhanced-energy-management-capabilities/</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，IoT 平台最容易被低估的一件变化，是接入体验已经不再只是某个协议单点演进，而开始变成整条链路的重写。Zigbee Direct 试图让 Zigbee 设备接入更像大家熟悉的蓝牙体验，Aliro 1.0 把数字凭证和访问控制</summary>
+      
+    
+    
+    
+    <category term="物联网" scheme="https://zhangxianda.com/categories/%E7%89%A9%E8%81%94%E7%BD%91/"/>
+    
+    
+    <category term="Matter" scheme="https://zhangxianda.com/tags/Matter/"/>
+    
+    <category term="IoT" scheme="https://zhangxianda.com/tags/IoT/"/>
+    
+    <category term="Aliro" scheme="https://zhangxianda.com/tags/Aliro/"/>
+    
+    <category term="Zigbee Direct" scheme="https://zhangxianda.com/tags/Zigbee-Direct/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>趁函数目录和试用窗口都在，量子团队最该先补的是工作流，而不是口号</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-quantum-computing/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-quantum-computing/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，量子计算领域最值得组织认真抓住的，不是一个新的“优势已至”口号，而是 IBM 在最近几周连续给出的那条更务实的路径：Qiskit Functions 继续完善，参考架构更完整，Advantage Tracker 也在提醒所有人结论必须可持续比较。尤其是 Functions 文章里明确给出的试用窗口，本质上是在给团队一个很好的机会，先把工作流跑顺，再谈更大的目标。</p><p>这一步并不性感，但非常值钱。因为很多量子项目最后没走下去，不是因为理论上没价值，而是因为工作流压根没被工程化。</p><h2 id="1-为什么现在最该做的是工作流验证"><a href="#1-为什么现在最该做的是工作流验证" class="headerlink" title="1. 为什么现在最该做的是工作流验证"></a>1. 为什么现在最该做的是工作流验证</h2><p>量子团队最容易急着回答的问题是：“我们能不能证明量子优势？”<br>我更建议先换一个问题：“我们的量子工作流能不能被同一个团队、同一套环境、同一份文档重复跑出来？”</p><p>这两者的优先级不能搞反。<br>如果数据准备、函数调用、资源使用、结果回收、后处理和 benchmark 记录都还不稳定，那么再漂亮的单次结果也很难变成组织资产。</p><h2 id="2-Functions-这类能力真正适合拿来干什么"><a href="#2-Functions-这类能力真正适合拿来干什么" class="headerlink" title="2. Functions 这类能力真正适合拿来干什么"></a>2. Functions 这类能力真正适合拿来干什么</h2><p>不是替你跳过底层理解，而是帮你降低前期 plumbing 成本。<br>很多团队其实不是输在算法，而是输在：</p><ul><li>没有稳定的输入输出约定；  </li><li>无法清楚记录 CPU、GPU、QPU 各自耗时；  </li><li>后处理步骤靠个人 notebook 串起来；  </li><li>每次实验都像重新搭一次环境。</li></ul><p>Functions 的意义，就是让这些本来容易散掉的工作流先变得可复用一点。只要这一步做成，后面你要不要继续往下钻到更底层，就会变成一个基于证据的决定。</p><h2 id="3-一套更稳妥的执行流程"><a href="#3-一套更稳妥的执行流程" class="headerlink" title="3. 一套更稳妥的执行流程"></a>3. 一套更稳妥的执行流程</h2><p>第一步，选一个经典基线足够清楚的问题。<br>没有经典基线的量子实验，后面很难比较，也很难说服别人继续投时间。</p><p>第二步，先定义输入输出契约。<br>数据格式、误差范围、结果验证方法、资源统计方式，都要先定好。否则每次实验都是“同一个题目，不同一套规则”。</p><p>第三步，用 Functions 跑一条完整链路。<br>不要只看 QPU 是否执行成功，还要看整条工作流是否稳定。</p><p>第四步，把资源记录当成正式产物。<br>CPU、GPU、QPU 的使用时间、等待时间和后处理开销，都应该进报告。否则预算和优化讨论永远像猜谜。</p><p>第五步，和 Advantage Tracker 的思路对齐。<br>好的结论不是一次性的，而是能被反复比较和修正的。</p><h2 id="4-最容易被忽略的两个坑"><a href="#4-最容易被忽略的两个坑" class="headerlink" title="4. 最容易被忽略的两个坑"></a>4. 最容易被忽略的两个坑</h2><p>一个坑是“试用窗口快结束了，先跑一个好看的 demo 再说”。<br>这种冲动很强，但通常对长期价值帮助不大。</p><p>另一个坑是“先把底层都自己实现一遍才算掌握”。<br>在项目起步阶段，这往往会把团队拖进无休止的 plumbing 细节，而不是帮助它更快找到真实瓶颈。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>选一个有稳定经典基线的问题做试点。  </li><li>先写工作流文档，再跑实验。  </li><li>把 CPU&#x2F;GPU&#x2F;QPU 资源使用单独记录。  </li><li>用 Functions 跑完整链路，而不是只跑单步能力。  </li><li>把结果写成可复现的 benchmark 文档。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>量子计算最怕的一种误区，是大家都在谈未来，但没有人先把今天的流程跑顺。Functions、参考架构和 Advantage Tracker 这几条线，其实已经把更务实的路径摆出来了。到 2026 年 4 月，这条路径最值钱的地方就在于：它让组织有机会先建立工作流纪律，再去谈更大的野心。顺序对了，后面的投入才更像工程，而不是热情。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>IBM Quantum Blog: Qiskit Functions updates accelerate quantum research for the year of quantum advantage<br><a href="https://www.ibm.com/quantum/blog/functions-2026">https://www.ibm.com/quantum/blog/functions-2026</a></li><li>IBM Quantum Blog: How IBM is helping the world realize Richard Feynman’s vision for the future of simulation<br><a href="https://www.ibm.com/quantum/blog/qcsc-reference-architecture">https://www.ibm.com/quantum/blog/qcsc-reference-architecture</a></li><li>IBM Quantum Blog: Quantum Advantage Tracker: the race to advantage<br><a href="https://www.ibm.com/quantum/blog/quantum-advantage-tracker">https://www.ibm.com/quantum/blog/quantum-advantage-tracker</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，量子计算领域最值得组织认真抓住的，不是一个新的“优势已至”口号，而是 IBM 在最近几周连续给出的那条更务实的路径：Qiskit Functions 继续完善，参考架构更完整，Advantage Tracker 也在提醒所有</summary>
+      
+    
+    
+    
+    <category term="量子计算" scheme="https://zhangxianda.com/categories/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/"/>
+    
+    
+    <category term="Workflow" scheme="https://zhangxianda.com/tags/Workflow/"/>
+    
+    <category term="Quantum" scheme="https://zhangxianda.com/tags/Quantum/"/>
+    
+    <category term="IBM Quantum" scheme="https://zhangxianda.com/tags/IBM-Quantum/"/>
+    
+    <category term="Qiskit Functions" scheme="https://zhangxianda.com/tags/Qiskit-Functions/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JIT 回正以后，Python 性能实验最需要改的不是参数，而是实验方法</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-python/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-python/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，Python 3.15 虽然还没进入 beta，但围绕性能的讨论已经很热。3 月 23 日，Python Insider 明确写出 <code>Python 3.15&#39;s JIT is now back on track</code>；3 月 10 日的 <code>Python 3.15.0 alpha 7</code> 则给出了更具体的数字：在 <code>x86-64 Linux</code> 上相对标准解释器几何平均提升 <code>3%-4%</code>，在 <code>AArch64 macOS</code> 上相对 tail-calling interpreter 提升 <code>7%-8%</code>。<br>我真正关心的不是这些数字本身，而是它们逼团队面对一个老问题：我们现在测 Python 性能的方法，很多时候太粗了。</p><h2 id="1-为什么“跑一组-benchmark”已经不够"><a href="#1-为什么“跑一组-benchmark”已经不够" class="headerlink" title="1. 为什么“跑一组 benchmark”已经不够"></a>1. 为什么“跑一组 benchmark”已经不够</h2><p>Python 性能实验最容易犯的错，就是拿一两组熟悉脚本跑完，然后得出一个很笼统的结论：快了、没快、差不多。<br>3.15 这一轮不适合这么干，原因非常简单：</p><ul><li>JIT 的收益有明显的架构差异；  </li><li>3.15 同时还引入了新的 profiler 和 lazy imports 等变化；  </li><li>真实系统的性能问题，往往不体现在平均值上，而体现在 warmup、冷启动、P95 和资源抖动上。</li></ul><p>如果实验方法不升级，最后很可能出现一种局面：你能拿出一张漂亮的对比图，但根本解释不了线上体验为什么没同步变好。</p><h2 id="2-JIT-回正以后，该怎么重写实验方法"><a href="#2-JIT-回正以后，该怎么重写实验方法" class="headerlink" title="2. JIT 回正以后，该怎么重写实验方法"></a>2. JIT 回正以后，该怎么重写实验方法</h2><p>第一，按架构分层。<br>不要再用一台开发机代替全部生产现实。既然官方自己都给出不同架构上的不同收益，团队至少该在主要生产架构上分别建基线。</p><p>第二，按阶段分层。<br>JIT 相关优化最容易在 warmup 和稳态之间出现差异。第一次请求、前 100 次调用、长时间运行 10 分钟后的表现，很可能不是同一回事。</p><p>第三，按负载类型分层。<br>CLI、Web API、批处理、数据脚本，对 JIT 的受益方式完全不同。有的更看重启动，有的更看重热点循环，有的更看重稳定吞吐。</p><p>第四，把 profiler 当长期工具。<br>3.15 新 profiler 真正有价值的地方，不是为了做一轮演示，而是让性能观测更适合固定进 CI 和例行回归。</p><h2 id="3-一套更靠谱的实验流程"><a href="#3-一套更靠谱的实验流程" class="headerlink" title="3. 一套更靠谱的实验流程"></a>3. 一套更靠谱的实验流程</h2><p>第一步，挑三类真实工作负载。<br>一个 Web 服务、一个 CLI 或运维脚本、一个批处理或数据任务。不要只拿微基准自我安慰。</p><p>第二步，固定实验矩阵。<br>写清楚 Python 版本、平台、架构、容器规格、是否启用 JIT、样本数量、warmup 次数。没有矩阵，实验就不可复现。</p><p>第三步，把 profiler 输出保存成工件。<br>别只比一个总耗时。热点函数是否变化、调用路径是否变化，同样重要。</p><p>第四步，区分启动面和稳态面。<br>JIT 的收益可能主要在稳态，lazy imports 则更偏向启动。两者必须拆开看，不能糊成一个“整体快了没有”。</p><p>第五步，把依赖兼容一并检查。<br>监控 SDK、C 扩展、profile hook、类型检查工具，都会影响观察结果。别把所有波动都甩锅给解释器本身。</p><h2 id="4-现在最常见的错误判断"><a href="#4-现在最常见的错误判断" class="headerlink" title="4. 现在最常见的错误判断"></a>4. 现在最常见的错误判断</h2><p>一个错误是“看见提升就准备默认开”。<br>没有分架构、分负载、分阶段的数据支撑，这种结论很容易变成误判。</p><p>另一个错误是“没看到明显提升，就说明不值得跟”。<br>很多时候问题不在版本，而在你的实验压根没对上真实热点。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>为主要生产架构建立独立实验矩阵。  </li><li>把 warmup 和稳态指标分开统计。  </li><li>在 CI 里固定保留 profiler 工件。  </li><li>选 3 类真实负载做 3.15a7 对照实验。  </li><li>在版本评估会上只讨论可复现数据，不讨论“感觉快了”。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>Python 3.15 这轮性能更新最大的价值，不只是让 JIT 终于重新站稳，而是逼团队承认：过去那种“一次 benchmark 定输赢”的做法已经不够用了。真正成熟的团队，会借这次机会把实验方法做扎实。方法先变好，后面的结论才值得信。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Python Insider: Python 3.15’s JIT is now back on track<br><a href="https://blog.python.org/">https://blog.python.org/</a></li><li>Python Insider: Python 3.15.0 alpha 7<br><a href="https://blog.python.org/2026/03/python-3150-alpha-7/">https://blog.python.org/2026/03/python-3150-alpha-7/</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，Python 3.15 虽然还没进入 beta，但围绕性能的讨论已经很热。3 月 23 日，Python Insider 明确写出 &lt;code&gt;Python 3.15&amp;#39;s JIT is now back on tra</summary>
+      
+    
+    
+    
+    <category term="Python" scheme="https://zhangxianda.com/categories/Python/"/>
+    
+    
+    <category term="Python" scheme="https://zhangxianda.com/tags/Python/"/>
+    
+    <category term="JIT" scheme="https://zhangxianda.com/tags/JIT/"/>
+    
+    <category term="Python 3.15" scheme="https://zhangxianda.com/tags/Python-3-15/"/>
+    
+    <category term="Performance" scheme="https://zhangxianda.com/tags/Performance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>先计划、再改代码、最后决定要不要开 PR：云端 Agent 已经把协作顺序改了</title>
+    <link href="https://zhangxianda.com/2026/04/06/2026-04-06-software-engineering/"/>
+    <id>https://zhangxianda.com/2026/04/06/2026-04-06-software-engineering/</id>
+    <published>2026-04-06T01:30:00.000Z</published>
+    <updated>2026-04-07T00:35:22.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 4 月 6 日，软件工程里最值得团队重新理解的一组能力，来自 GitHub 在 4 月 1 日围绕 Copilot cloud agent 做的那次扩展。现在 cloud agent 已经不再被限定在“开一个 PR 再说”的模式里，它可以先在分支上研究、先生成 implementation plan、先做 deep research，然后由人决定何时创建 PR。再叠加 4 月 3 日 cloud agent 提交自动签名，以及 4 月 6 日新的代码评审 active&#x2F;passive 指标，这组变化正在改写一个很多团队默认不疑的协作顺序。</p><p>过去的习惯是：<br>有问题 -&gt; 开工 -&gt; 提 PR -&gt; 再慢慢解释。<br>现在越来越像：<br>先研究 -&gt; 先计划 -&gt; 再编码 -&gt; 最后决定是否进入 PR 面。</p><p>这不是 UI 小优化，而是工作顺序的变化。</p><h2 id="1-为什么顺序变化很关键"><a href="#1-为什么顺序变化很关键" class="headerlink" title="1. 为什么顺序变化很关键"></a>1. 为什么顺序变化很关键</h2><p>很多团队的返工，根源不在代码写错，而在“太早进入 PR”。<br>一旦 PR 打开，大家就天然会进入 diff 审查模式，后续任何方向性调整都像是返工。</p><p>Copilot cloud agent 现在能先在 branch 上工作、先给出 plan、先回答深度问题，这意味着团队终于有机会把“方向确认”从 PR 之后拉到 PR 之前。<br>如果用得好，PR 会更像成果审查，而不是需求澄清现场。</p><h2 id="2-什么场景最适合先-plan-后-code"><a href="#2-什么场景最适合先-plan-后-code" class="headerlink" title="2. 什么场景最适合先 plan 后 code"></a>2. 什么场景最适合先 plan 后 code</h2><p>第一类，是改动范围不明确的任务。<br>比如模块重构、测试覆盖补全、依赖升级、老代码清理。直接开 PR 往往会让问题越看越乱。</p><p>第二类，是需要大量代码库上下文的问题。<br>以前这类问题经常靠资深同学脑补，现在 deep research session 至少给了一个系统化入口。</p><p>第三类，是需要先让人确认方案的任务。<br>例如涉及 schema、权限、架构边界的改动，先出 implementation plan 再写代码，往往会省很多后续争论。</p><h2 id="3-一套更稳妥的执行流程"><a href="#3-一套更稳妥的执行流程" class="headerlink" title="3. 一套更稳妥的执行流程"></a>3. 一套更稳妥的执行流程</h2><p>第一步，先分任务类型。<br>不是所有事情都值得先 research。简单的低风险修复仍然可以直接进编码。</p><p>第二步，把 plan 审查独立出来。<br>如果团队开始接受“先 plan 再 code”，就应该明确谁来审 plan、什么情况下 plan 算通过。</p><p>第三步，只有在 plan 收敛后再决定是否开 PR。<br>GitHub 现在允许 cloud agent 在分支上先工作，这正好给了团队一个缓冲带。</p><p>第四步，把 signed commits 和 review 规则接起来。<br>既然 agent 提交已经 <code>Verified</code>，那么 PR 审查就更应该聚焦内容，而不是纠结这是不是 agent 生成的。</p><p>第五步，用 active&#x2F;passive 评审指标检验协作习惯。<br>如果仓库里自动 review 覆盖很高，但 active engagement 仍然很低，说明团队可能还没真正吸收这套新顺序。</p><h2 id="4-最容易踩的坑"><a href="#4-最容易踩的坑" class="headerlink" title="4. 最容易踩的坑"></a>4. 最容易踩的坑</h2><p>一个坑是把“先 plan”当成形式主义。<br>如果 plan 只是换一种话术重复需求，没有真正帮助团队提前发现分歧，那它只会增加一步流程。</p><p>另一个坑是“所有任务都先 research 一遍”。<br>研究和规划是为了降低返工，不是为了制造更多等待。任务分层依然很重要。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>选一类高返工任务试行先 plan 后 code。  </li><li>为 implementation plan 建立最简审查模板。  </li><li>把 deep research 用在跨模块问题，而不是日常小修。  </li><li>对 agent 生成的 branch 引入 signed commits 和统一 review 规则。  </li><li>用 active&#x2F;passive code review 指标验证新流程是否真的被采用。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>软件工程最难改的，从来不是工具，而是顺序。GitHub 4 月初这一组 cloud agent 更新，真正有价值的地方就在这里：它在帮团队把“先想清楚再动手”做成真正可执行的流程。顺序一旦改对，PR 会更轻，返工会更少，协作也会更像工程，而不只是应急。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>GitHub Changelog: Research, plan, and code with Copilot cloud agent<br><a href="https://github.blog/changelog/2026-04-01-research-plan-and-code-with-copilot-cloud-agent/">https://github.blog/changelog/2026-04-01-research-plan-and-code-with-copilot-cloud-agent/</a></li><li>GitHub Changelog: Copilot cloud agent signs its commits<br><a href="https://github.blog/changelog/2026-04-03-copilot-cloud-agent-signs-its-commits/">https://github.blog/changelog/2026-04-03-copilot-cloud-agent-signs-its-commits/</a></li><li>GitHub Changelog: Copilot usage metrics now identify active and passive Copilot code review users<br><a href="https://github.blog/changelog/2026-04-06-copilot-usage-metrics-now-identify-active-and-passive-copilot-code-review-users/">https://github.blog/changelog/2026-04-06-copilot-usage-metrics-now-identify-active-and-passive-copilot-code-review-users/</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 4 月 6 日，软件工程里最值得团队重新理解的一组能力，来自 GitHub 在 4 月 1 日围绕 Copilot cloud agent 做的那次扩展。现在 cloud agent 已经不再被限定在“开一个 PR 再说”的模式里，它可以先</summary>
+      
+    
+    
+    
+    <category term="软件工程" scheme="https://zhangxianda.com/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
+    
+    
+    <category term="Copilot" scheme="https://zhangxianda.com/tags/Copilot/"/>
+    
+    <category term="Agent" scheme="https://zhangxianda.com/tags/Agent/"/>
+    
+    <category term="Software Engineering" scheme="https://zhangxianda.com/tags/Software-Engineering/"/>
+    
+    <category term="Planning" scheme="https://zhangxianda.com/tags/Planning/"/>
     
   </entry>
   
@@ -73,6 +373,36 @@
     <category term="AI Tools" scheme="https://zhangxianda.com/tags/AI-Tools/"/>
     
     <category term="Model Policy" scheme="https://zhangxianda.com/tags/Model-Policy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>配置中心不是内网就安全：Spring Cloud Config 这次 CVE 之后，后端团队该怎么收紧配置面</title>
+    <link href="https://zhangxianda.com/2026/03/31/2026-03-31-backend/"/>
+    <id>https://zhangxianda.com/2026/03/31/2026-03-31-backend/</id>
+    <published>2026-03-31T01:30:00.000Z</published>
+    <updated>2026-04-01T01:56:56.349Z</updated>
+    
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 31 日，后端团队很应该认真复盘的一条官方更新，是 Spring 在 <code>2026-03-23</code> 发布的 <code>Spring Cloud Config 5.0.2, 4.3.2, 4.2.6, 4.1.9, 3.1.13 Released, includes fix for CVE-2026-22739</code>。这次漏洞的核心问题非常典型：<code>profile</code> 参数替换可能导致越出配置目录访问文件，在某些 source control backend 场景下还会带来 SSRF 风险。<br>这类问题为什么值得单独写一篇？因为它恰好戳中了很多后端团队最容易放松警惕的一层：配置中心和内部配置服务。</p><p>很多团队默认觉得配置中心在内网、给应用用、路径固定、调用方可控，所以风险不高。现实里，配置面一旦被默认信任，就特别容易长成一块没人持续审计、但权限又很大的区域。</p><h2 id="1-这次问题最值得警惕的是什么"><a href="#1-这次问题最值得警惕的是什么" class="headerlink" title="1. 这次问题最值得警惕的是什么"></a>1. 这次问题最值得警惕的是什么</h2><p>不是“某个版本有个洞”，而是它暴露了一个常见思维错误：<br>很多人把 profile、label、application 这种配置维度当成纯业务参数，却忘了这些参数最后会参与到文件系统路径、仓库 URL、后端定位逻辑里。</p><p>一旦这层映射没有被严格约束，配置中心就会从“发配置”的系统，变成“帮人探路径、探地址、探内部资源”的跳板。</p><p>尤其在 Cloud Config 这种场景里，风险并不一定来自外部互联网。更多时候，问题来自内部错误调用、越权调用或本应隔离的环境被串起来。</p><h2 id="2-为什么“升级版本”只是第一步"><a href="#2-为什么“升级版本”只是第一步" class="headerlink" title="2. 为什么“升级版本”只是第一步"></a>2. 为什么“升级版本”只是第一步</h2><p>当然，升级到修复版本是必须的。<br>但后端团队如果只把这件事理解成一次补丁升级，就太可惜了。</p><p>这个漏洞提醒我们，配置面至少要重新检查三件事：</p><ol><li>参数到资源的映射是否足够收口。  </li><li>配置服务是否被过度暴露给不必要的调用方。  </li><li>配置系统有没有最小权限和最小可见性。</li></ol><p>如果这三件事不补，后面就算换成别的实现，也还是会重复类似问题。</p><h2 id="3-一套更靠谱的配置面加固流程"><a href="#3-一套更靠谱的配置面加固流程" class="headerlink" title="3. 一套更靠谱的配置面加固流程"></a>3. 一套更靠谱的配置面加固流程</h2><p>第一步，缩小调用面。<br>确认哪些服务、哪些环境、哪些网络区域真的需要访问配置中心。不要让“反正都在内网”成为默认开放理由。</p><p>第二步，限制参数自由度。<br>像 <code>profile</code>、<code>label</code> 这类参数，不应该被当成任意字符串自由穿透。应当建立 allowlist、命名规范和映射规则。</p><p>第三步，分离后端来源。<br>文件系统后端和源码仓库后端面对的风险类型不同。越是关键环境，越不应该把多种来源和动态拼接混在一起。</p><p>第四步，给配置请求留审计。<br>谁请求了哪个应用、哪个 profile、哪个 label、命中了哪个后端资源，都应该能追。</p><p>第五步，补一轮越权和 SSRF 测试。<br>别只测“配置能拿到”，还要测“拿不到不该拿的东西”。</p><h2 id="4-后端团队最容易犯的配置面误区"><a href="#4-后端团队最容易犯的配置面误区" class="headerlink" title="4. 后端团队最容易犯的配置面误区"></a>4. 后端团队最容易犯的配置面误区</h2><p>一个误区是“配置中心属于平台，不算业务暴露面”。<br>错。只要它决定服务行为，它就是高价值攻击面。</p><p>另一个误区是“只要放在内网就够安全”。<br>内网从来不是免检通行证。很多问题正是因为默认信任太强，才越滚越大。</p><p>还有一个老问题，是把配置系统当成“只需稳定、不需迭代治理”的基础设施。实际上配置面和网关、身份、密钥一样，都需要持续收紧。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>检查所有 Spring Cloud Config 部署是否已升级到修复版本。  </li><li>审核 <code>profile</code>、<code>label</code> 等参数是否有 allowlist。  </li><li>复盘配置中心是否暴露给了不必要的调用方。  </li><li>为文件系统后端和源码仓库后端分别做一次安全检查。  </li><li>把配置请求审计和异常访问告警接进平台周报。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>后端团队最容易低估的系统，往往就是每天都在默默工作、几乎没人打开看的那些基础服务。配置中心就是典型之一。Spring Cloud Config 这次 CVE 的价值，不只在于告诉你该升级了，更在于提醒你：配置面如果一直按“内部系统”对待，迟早会出事。真正成熟的团队，会趁这次修复窗口，把配置中心当成一块正式的攻击面重新治理。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Spring Blog: Spring Cloud Config 5.0.2, 4.3.2, 4.2.6, 4.1.9, 3.1.13 Released, includes fix for CVE-2026-22739<br><a href="https://spring.io/blog/2026/03/23/spring-cloud-config-5-0-2-4-3-2-4-2-6-4-1-9-3-1-13-released">https://spring.io/blog/2026/03/23/spring-cloud-config-5-0-2-4-3-2-4-2-6-4-1-9-3-1-13-released</a></li><li>Spring Security Advisory: CVE-2026-22739<br><a href="https://spring.io/security/cve-2026-22739">https://spring.io/security/cve-2026-22739</a></li><li>Spring Blog: This Week in Spring - March 31st, 2026<br><a href="https://spring.io/blog/2026/03/31/this-week-in-spring-march-31st-2026">https://spring.io/blog/2026/03/31/this-week-in-spring-march-31st-2026</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 31 日，后端团队很应该认真复盘的一条官方更新，是 Spring 在 &lt;code&gt;2026-03-23&lt;/code&gt; 发布的 &lt;code&gt;Spring Cloud Config 5.0.2, 4.3.2, 4.2.6, 4.1.9,</summary>
+      
+    
+    
+    
+    <category term="后端" scheme="https://zhangxianda.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+    <category term="Backend" scheme="https://zhangxianda.com/tags/Backend/"/>
+    
+    <category term="Spring Cloud Config" scheme="https://zhangxianda.com/tags/Spring-Cloud-Config/"/>
+    
+    <category term="SSRF" scheme="https://zhangxianda.com/tags/SSRF/"/>
+    
+    <category term="Configuration" scheme="https://zhangxianda.com/tags/Configuration/"/>
     
   </entry>
   
@@ -167,36 +497,6 @@
   </entry>
   
   <entry>
-    <title>一次补 4 条 Node 版本线还不够：3 月安全发布后该怎么把运行时加固做实</title>
-    <link href="https://zhangxianda.com/2026/03/31/2026-03-31-cybersecurity/"/>
-    <id>https://zhangxianda.com/2026/03/31/2026-03-31-cybersecurity/</id>
-    <published>2026-03-31T01:30:00.000Z</published>
-    <updated>2026-04-01T01:56:56.337Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 31 日，网络安全领域里最值得后端团队反复看的一份材料，还是 Node.js 在 <code>2026-03-24</code> 发布的安全版本说明。它一次性覆盖 <code>20.x</code>、<code>22.x</code>、<code>24.x</code>、<code>25.x</code> 四条版本线，修掉 2 个高危、5 个中危、2 个低危问题。真正值得警觉的不是数字本身，而是这些问题都很“运行时”：TLS <code>SNICallback</code> 的同步异常可导致远程 DoS，<code>req.headersDistinct</code> 在恶意 header 输入下可能崩进程，HTTP&#x2F;2 <code>WINDOW_UPDATE</code> 可造成会话泄漏，Permission Model 还出现了多处绕过。</p><p>这种漏洞组合说明一个现实问题：很多团队对运行时的安全边界理解得太粗了。大家会认真看依赖漏洞、认真扫镜像，却默认语言运行时是“底座，不太会出事”。Node 这次恰好反过来证明，真正危险的洞，常常就在你最习惯信任的那层。</p><h2 id="1-这轮漏洞最值得关注的不是数量，而是类型"><a href="#1-这轮漏洞最值得关注的不是数量，而是类型" class="headerlink" title="1. 这轮漏洞最值得关注的不是数量，而是类型"></a>1. 这轮漏洞最值得关注的不是数量，而是类型</h2><p>高危项里，一个在 TLS 握手路径，一个在请求头处理路径。<br>这意味着攻击者甚至不一定需要复杂业务逻辑，只要命中协议实现里的脆弱点，就可能把进程直接打掉。</p><p>中危项也不轻。<br>Permission Model 绕过意味着你以为的最小权限边界未必真的成立；HTTP&#x2F;2 泄漏问题则会在长连接和高并发环境下变得更难察觉；HMAC timing oracle 这种问题，如果业务自己做了再包装，后果会进一步放大。</p><p>这几类问题放在一起，给出的信号非常明确：安全补丁不能只看“是不是有 CVE”，还要看这条线是否碰到了你的运行时边界假设。</p><h2 id="2-为什么“升级版本”远远不够"><a href="#2-为什么“升级版本”远远不够" class="headerlink" title="2. 为什么“升级版本”远远不够"></a>2. 为什么“升级版本”远远不够</h2><p>当然，第一件事还是升级到官方修复版本。<br>但如果做完这一步就收工，团队很容易错过更大的问题。</p><p>Node 这次暴露出来的，是以下几种工程习惯的脆弱性：</p><ul><li>对 TLS 回调异常处理不严谨。  </li><li>对 header 解析边界缺少恶意输入测试。  </li><li>对 HTTP&#x2F;2 长连接资源释放监控不足。  </li><li>对 Permission Model 能力边界理解过度乐观。</li></ul><p>这些习惯如果不改，下次即使换一组 CVE，组织还是会在类似地方摔跤。</p><h2 id="3-一套更靠谱的补丁响应流程"><a href="#3-一套更靠谱的补丁响应流程" class="headerlink" title="3. 一套更靠谱的补丁响应流程"></a>3. 一套更靠谱的补丁响应流程</h2><p>第一步，先做运行时版本盘点。<br>不要只看仓库里的 <code>package.json</code> 或 Dockerfile。要确认实际在线服务跑的 Node 版本、容器基础镜像版本、进程管理器配置和启动参数。</p><p>第二步，按协议面做风险分组。<br>启用了 TLS 自定义回调的服务、使用 HTTP&#x2F;2 的服务、启用了 Permission Model 的服务，都应该单独拉出来看。因为它们面对的不是同一类风险。</p><p>第三步，补一轮异常输入回归。<br>TLS 握手异常、恶意 header、异常窗口更新、边界路径访问，都应该进测试，而不是只跑 happy path。</p><p>第四步，给进程级异常留证据。<br>这类问题里，很多最终表现都是进程崩溃或资源耗尽。没有崩溃告警、重启记录、连接数与内存观测，你很难确认补丁前后是不是稳定。</p><p>第五步，把运行时公告接进固定节奏。<br>很多组织能追业务依赖，却不固定追语言运行时公告。这是必须改掉的习惯。</p><h2 id="4-Permission-Model-这条线尤其值得警惕"><a href="#4-Permission-Model-这条线尤其值得警惕" class="headerlink" title="4. Permission Model 这条线尤其值得警惕"></a>4. Permission Model 这条线尤其值得警惕</h2><p>我单独拎出来说，是因为很多团队已经开始把 <code>--permission</code> 当作轻量沙箱边界来用，而 Node 25.8.0 又刚引入了 <code>--permission-audit</code>。这说明官方自己也在把这条能力往更工程化方向推进。</p><p>正确的做法，不是因为出了绕过就放弃，而是把它从“实验开关”升级成“需要单独测试、单独审计、单独灰度”的能力。越早建立这套纪律，后面越不容易把权限边界想象得过于完美。</p><h2 id="5-建议本周就执行的动作"><a href="#5-建议本周就执行的动作" class="headerlink" title="5. 建议本周就执行的动作"></a>5. 建议本周就执行的动作</h2><ol><li>核对所有 Node 服务是否已切到 <code>2026-03-24</code> 后的安全版本。  </li><li>标出使用 TLS 自定义回调、HTTP&#x2F;2、Permission Model 的服务。  </li><li>为这三类服务补一轮恶意输入和异常连接测试。  </li><li>给进程级崩溃、重启和连接泄漏加监控。  </li><li>把 Node 官方安全公告纳入例行安全周报。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>Node 这次安全发布最大的价值，不只是把几个洞补上，而是给团队提了个醒：运行时不是静态背景板，它本身就是风险面。真正成熟的安全响应，不会只盯着补丁编号，而是会借这次窗口，把协议边界、异常测试、权限审计和运行时观测一起补上。这样下一次遇到类似问题，团队才不会继续手忙脚乱。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Node.js: Tuesday, March 24, 2026 Security Releases<br><a href="https://nodejs.org/en/blog/vulnerability/march-2026-security-releases">https://nodejs.org/en/blog/vulnerability/march-2026-security-releases</a></li><li>Node.js 25.8.0 (Current)<br><a href="https://nodejs.org/en/blog/release/v25.8.0">https://nodejs.org/en/blog/release/v25.8.0</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 31 日，网络安全领域里最值得后端团队反复看的一份材料，还是 Node.js 在 &lt;code&gt;2026-03-24&lt;/code&gt; 发布的安全版本说明。它一次性覆盖 &lt;code&gt;20.x&lt;/code&gt;、&lt;code&gt;22.x&lt;/code</summary>
-      
-    
-    
-    
-    <category term="网络安全" scheme="https://zhangxianda.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="TLS" scheme="https://zhangxianda.com/tags/TLS/"/>
-    
-    <category term="Cybersecurity" scheme="https://zhangxianda.com/tags/Cybersecurity/"/>
-    
-    <category term="Node.js" scheme="https://zhangxianda.com/tags/Node-js/"/>
-    
-    <category term="Runtime Security" scheme="https://zhangxianda.com/tags/Runtime-Security/"/>
-    
-  </entry>
-  
-  <entry>
     <title>物联网平台下一步要补的是入网链路，而不是再加一个协议名</title>
     <link href="https://zhangxianda.com/2026/03/31/2026-03-31-iot/"/>
     <id>https://zhangxianda.com/2026/03/31/2026-03-31-iot/</id>
@@ -227,32 +527,32 @@
   </entry>
   
   <entry>
-    <title>Java 团队做 AI 应用，先稳住模块边界再追新版本：Spring AI M4 和 Modulith 给出的答案</title>
-    <link href="https://zhangxianda.com/2026/03/31/2026-03-31-java/"/>
-    <id>https://zhangxianda.com/2026/03/31/2026-03-31-java/</id>
+    <title>一次补 4 条 Node 版本线还不够：3 月安全发布后该怎么把运行时加固做实</title>
+    <link href="https://zhangxianda.com/2026/03/31/2026-03-31-cybersecurity/"/>
+    <id>https://zhangxianda.com/2026/03/31/2026-03-31-cybersecurity/</id>
     <published>2026-03-31T01:30:00.000Z</published>
     <updated>2026-04-01T01:56:56.337Z</updated>
     
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 31 日，Java 生态这一周给企业团队的信号非常密集。Spring 在当日发布的 <code>This Week in Spring - March 31st, 2026</code> 里集中点名了 <code>Spring AI 2.0.0-M4 / 1.1.4 / 1.0.5</code>、<code>Spring Modulith 2.1 M4 / 2.0.5 / 1.4.10</code>、<code>Spring Boot 4.0.5</code> 和 <code>Spring Boot 4.1.0-M4</code>。如果把这些发布连起来看，会发现一个很清楚的方向：Java 团队做 AI 应用，最先要解决的已经不是“能不能接上模型”，而是“模块边界能不能稳住，供应商变化和框架升级会不会把业务层一起拉乱”。</p><p>这件事在 Java 世界里尤其重要。因为 Java 项目活得久、依赖多、团队大，任何一次版本演进都不是单兵冒险，而是组织性迁移。</p><h2 id="1-为什么这周这些发布值得一起看"><a href="#1-为什么这周这些发布值得一起看" class="headerlink" title="1. 为什么这周这些发布值得一起看"></a>1. 为什么这周这些发布值得一起看</h2><p>Spring AI M4 带来的不是单点新功能，而是继续在结构化输出控制、稳定性修复和依赖升级上推进，同时还明确提示某些模型集成类已经进入弃用轨道。<br>Spring Modulith 2.1 M4 则继续强化模块化建模和事件外化能力，还把 JobRunr 作为事件外化的一个方向纳入进来。<br>Spring Boot 4.1.0-M4 和 4.0.5 一边修回归，一边继续拉平台依赖。</p><p>这三条线合在一起看，给 Java 团队的建议非常一致：别把 AI 接入写成一团紧耦合 glue code，不然每次 SDK、模型、框架和运行平台一动，业务逻辑就跟着一起抖。</p><h2 id="2-真正该优先治理的，不是模型数，而是边界"><a href="#2-真正该优先治理的，不是模型数，而是边界" class="headerlink" title="2. 真正该优先治理的，不是模型数，而是边界"></a>2. 真正该优先治理的，不是模型数，而是边界</h2><p>我更建议 Java 团队先把应用拆成三层：</p><p>第一层，领域与业务层。<br>这层只处理业务规则、权限、状态变化和最终交付结果，不直接依赖某个具体模型 SDK。</p><p>第二层，能力编排层。<br>负责 Prompt、工具调用、结构化输出、RAG、代理协作、任务编排。Spring AI 更适合留在这一层。</p><p>第三层，外部适配层。<br>负责具体模型供应商、MCP、向量库、搜索引擎、事件外化、队列和存储。任何供应商弃用或 SDK 替换，都应该尽量被限制在这里。</p><p>一旦这三层边界拉开，Spring AI 的版本升级就不会那么像一场系统性地震。</p><h2 id="3-结合这周更新，更稳妥的执行路径"><a href="#3-结合这周更新，更稳妥的执行路径" class="headerlink" title="3. 结合这周更新，更稳妥的执行路径"></a>3. 结合这周更新，更稳妥的执行路径</h2><p>第一步，别急着全量上 M4。<br>先判断你的项目处在什么阶段。如果已经生产化，优先吃稳定线修复；如果是试点或平台能力开发，再评估 M4 的新能力是否值得承担变更成本。</p><p>第二步，用 Modulith 收口模块关系。<br>很多 Java AI 项目真正的问题不在模型，而在模块边界太乱。Prompt、工具定义、领域服务、审计逻辑、消息分发全缠在一起，最后谁都不敢动。</p><p>第三步，把模型供应商适配做薄。<br>Spring AI 这次已经明确提示部分集成类将来会移除。对团队来说，正确姿势不是抱怨官方变化快，而是自己别把业务代码直接绑死在这些类上。</p><p>第四步，把事件外化和异步任务独立治理。<br>AI 应用一旦进入真实业务，很多动作都天然异步：生成、审批、回填、通知、补偿、审计。Modulith 和 JobRunr 这类组合，正好适合把这些流程从控制器和服务实现里抽出来。</p><p>第五步，把 Boot 升级和 AI 升级分阶段。<br>别一轮改动里既升级 Boot，又换 Spring AI，又切模型集成。那样一旦出问题，根本不知道是谁的锅。</p><h2 id="4-我会优先检查的几个点"><a href="#4-我会优先检查的几个点" class="headerlink" title="4. 我会优先检查的几个点"></a>4. 我会优先检查的几个点</h2><ol><li>业务层是否直接依赖了模型 SDK 类型。  </li><li>结构化输出是否已经有统一的 DTO 和校验层。  </li><li>事件外化、重试和补偿是否与 HTTP 接口逻辑解耦。  </li><li>模型供应商替换是否只需要改适配层，而不是全仓搜关键字。</li></ol><p>如果这四个问题里有两个答不上来，说明团队的 AI 应用还没有脱离 demo 阶段。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>画一张现有 Java AI 项目的模块依赖图。  </li><li>找出所有直接引用模型 SDK 的业务代码。  </li><li>用 Modulith 或等效方式重新梳理边界。  </li><li>把异步任务和事件外化单独拉出治理。  </li><li>给 Spring AI 与 Boot 升级分别建立独立回归计划。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>Java 团队最大的优势，从来不是追新快，而是能把一套复杂能力长期维护下去。到了 2026 年 3 月底，这个优势在 AI 应用里尤其明显。Spring AI、Modulith 和 Boot 这一周的更新，真正提示大家的，不是“有多少新特性”，而是“你有没有把边界守住”。边界守住了，版本迭代才是生产力；边界没守住，每次升级都只会放大混乱。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Spring Blog: This Week in Spring - March 31st, 2026<br><a href="https://spring.io/blog/2026/03/31/this-week-in-spring-march-31st-2026">https://spring.io/blog/2026/03/31/this-week-in-spring-march-31st-2026</a></li><li>Spring Blog: Spring AI 2.0.0-M4, 1.1.4 and 1.0.5 are available now<br><a href="https://spring.io/blog/2026/03/26/spring-ai-2-0-0-M4-and-1-1-4-and-1-0-5-available">https://spring.io/blog/2026/03/26/spring-ai-2-0-0-M4-and-1-1-4-and-1-0-5-available</a></li><li>Spring Blog: Spring Modulith 2.1 M4, 2.0.5, and 1.4.10 released<br><a href="https://spring.io/blog/2026/03/27/spring-modulith-2-1-m4-2-0-5-and-1-4-10-released">https://spring.io/blog/2026/03/27/spring-modulith-2-1-m4-2-0-5-and-1-4-10-released</a></li><li>Spring Blog: Spring Boot 4.1.0-M4 available now<br><a href="https://spring.io/blog/2026/03/26/spring-boot-4-1-0-M4-available-now">https://spring.io/blog/2026/03/26/spring-boot-4-1-0-M4-available-now</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 31 日，网络安全领域里最值得后端团队反复看的一份材料，还是 Node.js 在 <code>2026-03-24</code> 发布的安全版本说明。它一次性覆盖 <code>20.x</code>、<code>22.x</code>、<code>24.x</code>、<code>25.x</code> 四条版本线，修掉 2 个高危、5 个中危、2 个低危问题。真正值得警觉的不是数字本身，而是这些问题都很“运行时”：TLS <code>SNICallback</code> 的同步异常可导致远程 DoS，<code>req.headersDistinct</code> 在恶意 header 输入下可能崩进程，HTTP&#x2F;2 <code>WINDOW_UPDATE</code> 可造成会话泄漏，Permission Model 还出现了多处绕过。</p><p>这种漏洞组合说明一个现实问题：很多团队对运行时的安全边界理解得太粗了。大家会认真看依赖漏洞、认真扫镜像，却默认语言运行时是“底座，不太会出事”。Node 这次恰好反过来证明，真正危险的洞，常常就在你最习惯信任的那层。</p><h2 id="1-这轮漏洞最值得关注的不是数量，而是类型"><a href="#1-这轮漏洞最值得关注的不是数量，而是类型" class="headerlink" title="1. 这轮漏洞最值得关注的不是数量，而是类型"></a>1. 这轮漏洞最值得关注的不是数量，而是类型</h2><p>高危项里，一个在 TLS 握手路径，一个在请求头处理路径。<br>这意味着攻击者甚至不一定需要复杂业务逻辑，只要命中协议实现里的脆弱点，就可能把进程直接打掉。</p><p>中危项也不轻。<br>Permission Model 绕过意味着你以为的最小权限边界未必真的成立；HTTP&#x2F;2 泄漏问题则会在长连接和高并发环境下变得更难察觉；HMAC timing oracle 这种问题，如果业务自己做了再包装，后果会进一步放大。</p><p>这几类问题放在一起，给出的信号非常明确：安全补丁不能只看“是不是有 CVE”，还要看这条线是否碰到了你的运行时边界假设。</p><h2 id="2-为什么“升级版本”远远不够"><a href="#2-为什么“升级版本”远远不够" class="headerlink" title="2. 为什么“升级版本”远远不够"></a>2. 为什么“升级版本”远远不够</h2><p>当然，第一件事还是升级到官方修复版本。<br>但如果做完这一步就收工，团队很容易错过更大的问题。</p><p>Node 这次暴露出来的，是以下几种工程习惯的脆弱性：</p><ul><li>对 TLS 回调异常处理不严谨。  </li><li>对 header 解析边界缺少恶意输入测试。  </li><li>对 HTTP&#x2F;2 长连接资源释放监控不足。  </li><li>对 Permission Model 能力边界理解过度乐观。</li></ul><p>这些习惯如果不改，下次即使换一组 CVE，组织还是会在类似地方摔跤。</p><h2 id="3-一套更靠谱的补丁响应流程"><a href="#3-一套更靠谱的补丁响应流程" class="headerlink" title="3. 一套更靠谱的补丁响应流程"></a>3. 一套更靠谱的补丁响应流程</h2><p>第一步，先做运行时版本盘点。<br>不要只看仓库里的 <code>package.json</code> 或 Dockerfile。要确认实际在线服务跑的 Node 版本、容器基础镜像版本、进程管理器配置和启动参数。</p><p>第二步，按协议面做风险分组。<br>启用了 TLS 自定义回调的服务、使用 HTTP&#x2F;2 的服务、启用了 Permission Model 的服务，都应该单独拉出来看。因为它们面对的不是同一类风险。</p><p>第三步，补一轮异常输入回归。<br>TLS 握手异常、恶意 header、异常窗口更新、边界路径访问，都应该进测试，而不是只跑 happy path。</p><p>第四步，给进程级异常留证据。<br>这类问题里，很多最终表现都是进程崩溃或资源耗尽。没有崩溃告警、重启记录、连接数与内存观测，你很难确认补丁前后是不是稳定。</p><p>第五步，把运行时公告接进固定节奏。<br>很多组织能追业务依赖，却不固定追语言运行时公告。这是必须改掉的习惯。</p><h2 id="4-Permission-Model-这条线尤其值得警惕"><a href="#4-Permission-Model-这条线尤其值得警惕" class="headerlink" title="4. Permission Model 这条线尤其值得警惕"></a>4. Permission Model 这条线尤其值得警惕</h2><p>我单独拎出来说，是因为很多团队已经开始把 <code>--permission</code> 当作轻量沙箱边界来用，而 Node 25.8.0 又刚引入了 <code>--permission-audit</code>。这说明官方自己也在把这条能力往更工程化方向推进。</p><p>正确的做法，不是因为出了绕过就放弃，而是把它从“实验开关”升级成“需要单独测试、单独审计、单独灰度”的能力。越早建立这套纪律，后面越不容易把权限边界想象得过于完美。</p><h2 id="5-建议本周就执行的动作"><a href="#5-建议本周就执行的动作" class="headerlink" title="5. 建议本周就执行的动作"></a>5. 建议本周就执行的动作</h2><ol><li>核对所有 Node 服务是否已切到 <code>2026-03-24</code> 后的安全版本。  </li><li>标出使用 TLS 自定义回调、HTTP&#x2F;2、Permission Model 的服务。  </li><li>为这三类服务补一轮恶意输入和异常连接测试。  </li><li>给进程级崩溃、重启和连接泄漏加监控。  </li><li>把 Node 官方安全公告纳入例行安全周报。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>Node 这次安全发布最大的价值，不只是把几个洞补上，而是给团队提了个醒：运行时不是静态背景板，它本身就是风险面。真正成熟的安全响应，不会只盯着补丁编号，而是会借这次窗口，把协议边界、异常测试、权限审计和运行时观测一起补上。这样下一次遇到类似问题，团队才不会继续手忙脚乱。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Node.js: Tuesday, March 24, 2026 Security Releases<br><a href="https://nodejs.org/en/blog/vulnerability/march-2026-security-releases">https://nodejs.org/en/blog/vulnerability/march-2026-security-releases</a></li><li>Node.js 25.8.0 (Current)<br><a href="https://nodejs.org/en/blog/release/v25.8.0">https://nodejs.org/en/blog/release/v25.8.0</a></li></ul>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 31 日，Java 生态这一周给企业团队的信号非常密集。Spring 在当日发布的 &lt;code&gt;This Week in Spring - March 31st, 2026&lt;/code&gt; 里集中点名了 &lt;code&gt;Spring AI</summary>
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 31 日，网络安全领域里最值得后端团队反复看的一份材料，还是 Node.js 在 &lt;code&gt;2026-03-24&lt;/code&gt; 发布的安全版本说明。它一次性覆盖 &lt;code&gt;20.x&lt;/code&gt;、&lt;code&gt;22.x&lt;/code</summary>
       
     
     
     
-    <category term="Java" scheme="https://zhangxianda.com/categories/Java/"/>
+    <category term="网络安全" scheme="https://zhangxianda.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
     
     
-    <category term="Java" scheme="https://zhangxianda.com/tags/Java/"/>
+    <category term="TLS" scheme="https://zhangxianda.com/tags/TLS/"/>
     
-    <category term="Spring Boot" scheme="https://zhangxianda.com/tags/Spring-Boot/"/>
+    <category term="Cybersecurity" scheme="https://zhangxianda.com/tags/Cybersecurity/"/>
     
-    <category term="Spring AI" scheme="https://zhangxianda.com/tags/Spring-AI/"/>
+    <category term="Node.js" scheme="https://zhangxianda.com/tags/Node-js/"/>
     
-    <category term="Spring Modulith" scheme="https://zhangxianda.com/tags/Spring-Modulith/"/>
+    <category term="Runtime Security" scheme="https://zhangxianda.com/tags/Runtime-Security/"/>
     
   </entry>
   
@@ -287,258 +587,18 @@
   </entry>
   
   <entry>
-    <title>趁试用窗口还在，量子团队该先把 Functions 工作流跑通，而不是急着证明优势</title>
-    <link href="https://zhangxianda.com/2026/03/31/2026-03-31-quantum-computing/"/>
-    <id>https://zhangxianda.com/2026/03/31/2026-03-31-quantum-computing/</id>
+    <title>Java 团队做 AI 应用，先稳住模块边界再追新版本：Spring AI M4 和 Modulith 给出的答案</title>
+    <link href="https://zhangxianda.com/2026/03/31/2026-03-31-java/"/>
+    <id>https://zhangxianda.com/2026/03/31/2026-03-31-java/</id>
     <published>2026-03-31T01:30:00.000Z</published>
-    <updated>2026-04-01T01:56:56.349Z</updated>
+    <updated>2026-04-01T01:56:56.337Z</updated>
     
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 31 日，量子计算圈一个很容易被忽略、却非常适合落地的时间点到了。IBM 在 <code>Qiskit Functions updates accelerate quantum research</code> 里明确写到：合资格的 Premium Plan 组织可以在 <code>2026-03-31</code> 前申请一年的免费 Qiskit Functions 许可证。很多人看到这类信息，第一反应可能是“薅一次试用”。我更在意的是另一层含义：在参考架构、Functions Catalog、Advantage Tracker 都已经摆在台面上的时候，组织终于有机会用较低门槛，把“量子工作流到底能不能跑通”这件事认真试一次。</p><h2 id="1-为什么这个窗口值得抓"><a href="#1-为什么这个窗口值得抓" class="headerlink" title="1. 为什么这个窗口值得抓"></a>1. 为什么这个窗口值得抓</h2><p>量子团队最容易犯的一个错，是过早把目标定成“证明量子优势”。<br>这当然很吸引人，但如果基本工作流都还没跑顺，优势讨论很容易变成空中楼阁。</p><p>Qiskit Functions 之所以有价值，不是因为它替你解决了一切，而是因为它把一部分原本高度专业化的工作流封装起来，让团队可以先专注于问题定义、输入输出、资源观测和结果解释。</p><p>换句话说，这个时间窗口最适合做的，不是押一个 headline，而是补一段工程基础课。</p><h2 id="2-现在更值得验证的是什么"><a href="#2-现在更值得验证的是什么" class="headerlink" title="2. 现在更值得验证的是什么"></a>2. 现在更值得验证的是什么</h2><p>第一，是问题能不能被稳定描述。<br>很多量子 PoC 一开始就死在这里：每次实验的问题定义、输入格式和评价指标都在变，最后根本没法比较。</p><p>第二，是工作流能不能闭环。<br>从经典侧准备数据，到提交函数、运行量子部分、拿回结果、做后处理和误差分析，整条链能不能稳定走完，比单次结果更重要。</p><p>第三，是资源账能不能看清。<br>IBM 这几周反复强调 CPU、GPU、QPU 协同和资源使用摘要，这不是装饰。团队如果连算力花在哪都说不清，后面根本没法做预算和优化。</p><h2 id="3-一套更合适的执行流程"><a href="#3-一套更合适的执行流程" class="headerlink" title="3. 一套更合适的执行流程"></a>3. 一套更合适的执行流程</h2><p>第一步，挑一个经典基线已经成熟的问题。<br>别拿一个连经典解法都不稳定的问题去试量子，那只会同时放大两边的不确定性。</p><p>第二步，先用 Functions 把流程跑通。<br>不要一开始就下钻到底层量子电路和所有调度细节。先证明问题能被稳定输入、执行、回收和解释。</p><p>第三步，把资源使用一起记账。<br>CPU、GPU、QPU 各用多少，等待时间多长，后处理多重，这些都要记。</p><p>第四步，建立一份可重复的 benchmark 文档。<br>Advantage Tracker 的思路已经说明，单次结果不重要，能不能被持续比较才重要。</p><p>第五步，只有在工作流稳定后，再谈优势和扩面。<br>这一步顺序不能反。否则最后得到的通常不是优势，而是一堆不可复现的演示。</p><h2 id="4-为什么-Functions-比“自研一切”更适合这个阶段"><a href="#4-为什么-Functions-比“自研一切”更适合这个阶段" class="headerlink" title="4. 为什么 Functions 比“自研一切”更适合这个阶段"></a>4. 为什么 Functions 比“自研一切”更适合这个阶段</h2><p>很多团队一碰量子，就天然会有一种工程师冲动：最好自己把每一层都搞明白。这个冲动可以理解，但在项目初期并不总是划算。</p><p>Functions 的意义正在于把一些共性工作流先标准化，让你更快看到真实瓶颈在哪里。<br>如果瓶颈在问题建模和后处理，那你没必要一开始就把大量时间花在量子底层 plumbing 上。<br>如果瓶颈真在底层，那么至少你是带着证据去下钻，而不是凭感觉。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>确认组织是否还在免费许可证申请窗口内。  </li><li>选一个有明确经典基线的问题做试点。  </li><li>用 Functions 跑通一条完整工作流，而不是只做单步演示。  </li><li>为每次实验记录 CPU、GPU、QPU 资源占用。  </li><li>把 benchmark 结果写成可复用文档，而不是留在个人 notebook 里。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>量子计算到现在，最缺的往往不是梦想，而是可靠的执行路径。Qiskit Functions、参考架构和 Advantage Tracker 这几条线，已经把路径画得比以前清楚多了。<code>2026-03-31</code> 这个试用窗口，更像是在提醒团队：先把工作流跑顺，再谈更大的结论。谁先把这一步做扎实，谁后面才更有资格谈应用和优势。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>IBM Quantum Blog: Qiskit Functions updates accelerate quantum research for the year of quantum advantage<br><a href="https://www.ibm.com/quantum/blog/functions-2026">https://www.ibm.com/quantum/blog/functions-2026</a></li><li>IBM Quantum Blog: How IBM is helping the world realize Richard Feynman’s vision for the future of simulation<br><a href="https://www.ibm.com/quantum/blog/qcsc-reference-architecture">https://www.ibm.com/quantum/blog/qcsc-reference-architecture</a></li><li>IBM Quantum Blog: Quantum Advantage Tracker: the race to advantage<br><a href="https://www.ibm.com/quantum/blog/quantum-advantage-tracker">https://www.ibm.com/quantum/blog/quantum-advantage-tracker</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 31 日，量子计算圈一个很容易被忽略、却非常适合落地的时间点到了。IBM 在 &lt;code&gt;Qiskit Functions updates accelerate quantum research&lt;/code&gt; 里明确写到：合资格的 </summary>
-      
-    
-    
-    
-    <category term="量子计算" scheme="https://zhangxianda.com/categories/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/"/>
-    
-    
-    <category term="Workflow" scheme="https://zhangxianda.com/tags/Workflow/"/>
-    
-    <category term="Quantum" scheme="https://zhangxianda.com/tags/Quantum/"/>
-    
-    <category term="IBM Quantum" scheme="https://zhangxianda.com/tags/IBM-Quantum/"/>
-    
-    <category term="Qiskit Functions" scheme="https://zhangxianda.com/tags/Qiskit-Functions/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>反馈表面需要收口了：旧 commit 评论该降噪，真正的协作应该回到 PR 和 Issue</title>
-    <link href="https://zhangxianda.com/2026/03/31/2026-03-31-software-engineering/"/>
-    <id>https://zhangxianda.com/2026/03/31/2026-03-31-software-engineering/</id>
-    <published>2026-03-31T01:30:00.000Z</published>
-    <updated>2026-04-01T01:56:56.349Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 31 日，这周软件工程流程里最值得团队反思的一组更新，并不是更强的生成能力，而是 GitHub 对“反馈表面”做的几次调整。3 月 26 日，新 PR dashboard 进入 public preview；同一天，Issues 和 Projects 开始显示 agent sessions；再往前一天，仓库管理员可以直接关闭 individual commit comments。把这些变化放在一起看，一个趋势已经非常明显：真正值得保留的反馈，应该尽量留在可追踪、可分派、可汇总的界面里，而不是散落在过时 commit 页面和零碎通知里。</p><h2 id="1-为什么反馈表面会影响工程效率"><a href="#1-为什么反馈表面会影响工程效率" class="headerlink" title="1. 为什么反馈表面会影响工程效率"></a>1. 为什么反馈表面会影响工程效率</h2><p>很多团队谈评审效率时，只看 PR 数量、合并时长和 review 完成率。真正拖慢协作的，往往是反馈分布得太散：</p><ul><li>一部分在 PR 评论里；  </li><li>一部分在具体 commit 上；  </li><li>一部分在 issue；  </li><li>一部分在群里；  </li><li>还有一部分在某个 agent session 里。</li></ul><p>当同一个决策被分散在太多地方时，后面任何一个新人、维护者或值班工程师想搞清楚“当时为什么这么改”，都会很痛苦。</p><h2 id="2-为什么-“Disable-comments-on-individual-commits”-很值得注意"><a href="#2-为什么-“Disable-comments-on-individual-commits”-很值得注意" class="headerlink" title="2. 为什么 “Disable comments on individual commits” 很值得注意"></a>2. 为什么 “Disable comments on individual commits” 很值得注意</h2><p>这条功能看起来小，但我觉得它很有代表性。<br>管理员现在可以关闭 individual commit comments，隐藏 comment form、inline affordance 和 API comment creation。官方没有删除既有评论，而是明确把“新增反馈”这件事收了口。</p><p>这背后的价值不在于减少一个按钮，而在于提醒团队：<br>commit 页面通常是历史快照，不是长期协作主战场。<br>真正应该承接结构化讨论的，还是 PR、Issue 和 Project。</p><p>如果组织一直允许大量反馈落在旧 commit 上，最终很容易形成一堆脱离上下文的历史碎片。</p><h2 id="3-一套更适合现在的协作面设计"><a href="#3-一套更适合现在的协作面设计" class="headerlink" title="3. 一套更适合现在的协作面设计"></a>3. 一套更适合现在的协作面设计</h2><p>第一层，Issue 面。<br>用于定义问题、拆分任务、承接 agent 指派和状态变化。</p><p>第二层，PR 面。<br>用于承接代码评审、冲突解决、验证结果和合并决策。</p><p>第三层，Project 面。<br>用于追踪整体进度，特别是 agent session 这类跨多个任务项的执行状态。</p><p>按照这个分层来看，commit 面最适合作为证据和历史，不适合作为新的讨论中心。</p><h2 id="4-推荐的团队改造流程"><a href="#4-推荐的团队改造流程" class="headerlink" title="4. 推荐的团队改造流程"></a>4. 推荐的团队改造流程</h2><p>第一步，梳理现有反馈分布。<br>看最近 30 天里，评审意见到底落在 PR、Issue、commit 还是聊天工具里。</p><p>第二步，收口新增反馈入口。<br>如果团队发现 commit 评论大多只是噪音或补充说明，完全可以考虑关闭，强制把后续意见放回 PR。</p><p>第三步，用 PR dashboard 重写日常看板。<br>Inbox、saved views、智能过滤，已经足够把“待我评审”“待我处理”“可合并”分开。没有必要再靠一堆浏览器搜索收藏夹凑合。</p><p>第四步，让 agent 状态回到项目板。<br>既然 GitHub 已经把 session 状态带进 Issues 和 Projects，就别再靠群里口头同步“它好像跑完了没有”。</p><p>第五步，把反馈链路纳入复盘。<br>不仅看代码对不对，也要看意见是不是留在了正确的地方。</p><h2 id="5-这个方向最容易遇到的阻力"><a href="#5-这个方向最容易遇到的阻力" class="headerlink" title="5. 这个方向最容易遇到的阻力"></a>5. 这个方向最容易遇到的阻力</h2><p>一个阻力是“我们以前一直这么用 commit 评论”。<br>很多老习惯之所以还在，不是因为它合理，而是因为没人主动收口。</p><p>另一个阻力是“多一个表面更灵活”。<br>表面多不一定灵活，常常只是更难追踪。尤其当 agent 也开始参与工作流后，表面越散，证据链越容易断。</p><h2 id="6-建议本周执行的动作"><a href="#6-建议本周执行的动作" class="headerlink" title="6. 建议本周执行的动作"></a>6. 建议本周执行的动作</h2><ol><li>统计团队最近的反馈分布情况。  </li><li>评估是否关闭 individual commit comments。  </li><li>给评审人统一一套 PR dashboard saved views。  </li><li>把 agent session 状态显示打开到项目板里。  </li><li>在复盘里增加“反馈是否落在正确表面”的检查项。</li></ol><h2 id="7-结语"><a href="#7-结语" class="headerlink" title="7. 结语"></a>7. 结语</h2><p>软件工程真正的协作成本，很多时候不在编码，而在信息放错地方。GitHub 这几条更新放在一起，已经给出一个很清楚的方向：让反馈尽量回到 PR、Issue 和 Project 这些可追踪的主表面里。谁先做这件小事，谁后面的维护成本就会先降下来。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>GitHub Changelog: Disable comments on individual commits<br><a href="https://github.blog/changelog/2026-03-25-disable-comments-on-individual-commits">https://github.blog/changelog/2026-03-25-disable-comments-on-individual-commits</a></li><li>GitHub Changelog: New pull requests dashboard is in public preview<br><a href="https://github.blog/changelog/2026-03-26-new-pull-requests-dashboard-is-in-public-preview/">https://github.blog/changelog/2026-03-26-new-pull-requests-dashboard-is-in-public-preview/</a></li><li>GitHub Changelog: Agent activity in GitHub Issues and Projects<br><a href="https://github.blog/changelog/2026-03-26-agent-activity-in-github-issues-and-projects/">https://github.blog/changelog/2026-03-26-agent-activity-in-github-issues-and-projects/</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 31 日，Java 生态这一周给企业团队的信号非常密集。Spring 在当日发布的 <code>This Week in Spring - March 31st, 2026</code> 里集中点名了 <code>Spring AI 2.0.0-M4 / 1.1.4 / 1.0.5</code>、<code>Spring Modulith 2.1 M4 / 2.0.5 / 1.4.10</code>、<code>Spring Boot 4.0.5</code> 和 <code>Spring Boot 4.1.0-M4</code>。如果把这些发布连起来看，会发现一个很清楚的方向：Java 团队做 AI 应用，最先要解决的已经不是“能不能接上模型”，而是“模块边界能不能稳住，供应商变化和框架升级会不会把业务层一起拉乱”。</p><p>这件事在 Java 世界里尤其重要。因为 Java 项目活得久、依赖多、团队大，任何一次版本演进都不是单兵冒险，而是组织性迁移。</p><h2 id="1-为什么这周这些发布值得一起看"><a href="#1-为什么这周这些发布值得一起看" class="headerlink" title="1. 为什么这周这些发布值得一起看"></a>1. 为什么这周这些发布值得一起看</h2><p>Spring AI M4 带来的不是单点新功能，而是继续在结构化输出控制、稳定性修复和依赖升级上推进，同时还明确提示某些模型集成类已经进入弃用轨道。<br>Spring Modulith 2.1 M4 则继续强化模块化建模和事件外化能力，还把 JobRunr 作为事件外化的一个方向纳入进来。<br>Spring Boot 4.1.0-M4 和 4.0.5 一边修回归，一边继续拉平台依赖。</p><p>这三条线合在一起看，给 Java 团队的建议非常一致：别把 AI 接入写成一团紧耦合 glue code，不然每次 SDK、模型、框架和运行平台一动，业务逻辑就跟着一起抖。</p><h2 id="2-真正该优先治理的，不是模型数，而是边界"><a href="#2-真正该优先治理的，不是模型数，而是边界" class="headerlink" title="2. 真正该优先治理的，不是模型数，而是边界"></a>2. 真正该优先治理的，不是模型数，而是边界</h2><p>我更建议 Java 团队先把应用拆成三层：</p><p>第一层，领域与业务层。<br>这层只处理业务规则、权限、状态变化和最终交付结果，不直接依赖某个具体模型 SDK。</p><p>第二层，能力编排层。<br>负责 Prompt、工具调用、结构化输出、RAG、代理协作、任务编排。Spring AI 更适合留在这一层。</p><p>第三层，外部适配层。<br>负责具体模型供应商、MCP、向量库、搜索引擎、事件外化、队列和存储。任何供应商弃用或 SDK 替换，都应该尽量被限制在这里。</p><p>一旦这三层边界拉开，Spring AI 的版本升级就不会那么像一场系统性地震。</p><h2 id="3-结合这周更新，更稳妥的执行路径"><a href="#3-结合这周更新，更稳妥的执行路径" class="headerlink" title="3. 结合这周更新，更稳妥的执行路径"></a>3. 结合这周更新，更稳妥的执行路径</h2><p>第一步，别急着全量上 M4。<br>先判断你的项目处在什么阶段。如果已经生产化，优先吃稳定线修复；如果是试点或平台能力开发，再评估 M4 的新能力是否值得承担变更成本。</p><p>第二步，用 Modulith 收口模块关系。<br>很多 Java AI 项目真正的问题不在模型，而在模块边界太乱。Prompt、工具定义、领域服务、审计逻辑、消息分发全缠在一起，最后谁都不敢动。</p><p>第三步，把模型供应商适配做薄。<br>Spring AI 这次已经明确提示部分集成类将来会移除。对团队来说，正确姿势不是抱怨官方变化快，而是自己别把业务代码直接绑死在这些类上。</p><p>第四步，把事件外化和异步任务独立治理。<br>AI 应用一旦进入真实业务，很多动作都天然异步：生成、审批、回填、通知、补偿、审计。Modulith 和 JobRunr 这类组合，正好适合把这些流程从控制器和服务实现里抽出来。</p><p>第五步，把 Boot 升级和 AI 升级分阶段。<br>别一轮改动里既升级 Boot，又换 Spring AI，又切模型集成。那样一旦出问题，根本不知道是谁的锅。</p><h2 id="4-我会优先检查的几个点"><a href="#4-我会优先检查的几个点" class="headerlink" title="4. 我会优先检查的几个点"></a>4. 我会优先检查的几个点</h2><ol><li>业务层是否直接依赖了模型 SDK 类型。  </li><li>结构化输出是否已经有统一的 DTO 和校验层。  </li><li>事件外化、重试和补偿是否与 HTTP 接口逻辑解耦。  </li><li>模型供应商替换是否只需要改适配层，而不是全仓搜关键字。</li></ol><p>如果这四个问题里有两个答不上来，说明团队的 AI 应用还没有脱离 demo 阶段。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>画一张现有 Java AI 项目的模块依赖图。  </li><li>找出所有直接引用模型 SDK 的业务代码。  </li><li>用 Modulith 或等效方式重新梳理边界。  </li><li>把异步任务和事件外化单独拉出治理。  </li><li>给 Spring AI 与 Boot 升级分别建立独立回归计划。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>Java 团队最大的优势，从来不是追新快，而是能把一套复杂能力长期维护下去。到了 2026 年 3 月底，这个优势在 AI 应用里尤其明显。Spring AI、Modulith 和 Boot 这一周的更新，真正提示大家的，不是“有多少新特性”，而是“你有没有把边界守住”。边界守住了，版本迭代才是生产力；边界没守住，每次升级都只会放大混乱。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Spring Blog: This Week in Spring - March 31st, 2026<br><a href="https://spring.io/blog/2026/03/31/this-week-in-spring-march-31st-2026">https://spring.io/blog/2026/03/31/this-week-in-spring-march-31st-2026</a></li><li>Spring Blog: Spring AI 2.0.0-M4, 1.1.4 and 1.0.5 are available now<br><a href="https://spring.io/blog/2026/03/26/spring-ai-2-0-0-M4-and-1-1-4-and-1-0-5-available">https://spring.io/blog/2026/03/26/spring-ai-2-0-0-M4-and-1-1-4-and-1-0-5-available</a></li><li>Spring Blog: Spring Modulith 2.1 M4, 2.0.5, and 1.4.10 released<br><a href="https://spring.io/blog/2026/03/27/spring-modulith-2-1-m4-2-0-5-and-1-4-10-released">https://spring.io/blog/2026/03/27/spring-modulith-2-1-m4-2-0-5-and-1-4-10-released</a></li><li>Spring Blog: Spring Boot 4.1.0-M4 available now<br><a href="https://spring.io/blog/2026/03/26/spring-boot-4-1-0-M4-available-now">https://spring.io/blog/2026/03/26/spring-boot-4-1-0-M4-available-now</a></li></ul>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 31 日，这周软件工程流程里最值得团队反思的一组更新，并不是更强的生成能力，而是 GitHub 对“反馈表面”做的几次调整。3 月 26 日，新 PR dashboard 进入 public preview；同一天，Issues 和</summary>
-      
-    
-    
-    
-    <category term="软件工程" scheme="https://zhangxianda.com/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
-    
-    
-    <category term="GitHub" scheme="https://zhangxianda.com/tags/GitHub/"/>
-    
-    <category term="Software Engineering" scheme="https://zhangxianda.com/tags/Software-Engineering/"/>
-    
-    <category term="Pull Request" scheme="https://zhangxianda.com/tags/Pull-Request/"/>
-    
-    <category term="Review" scheme="https://zhangxianda.com/tags/Review/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>最新AI开发工具推荐：Slack 入口正在取代“另开网页”成为团队的第一触点</title>
-    <link href="https://zhangxianda.com/2026/03/30/2026-03-30-ai-tooling/"/>
-    <id>https://zhangxianda.com/2026/03/30/2026-03-30-ai-tooling/</id>
-    <published>2026-03-30T01:30:00.000Z</published>
-    <updated>2026-03-31T00:43:29.161Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 30 日，这周最值得推荐的 AI 开发工具，不再是某个单独的聊天窗口，而是那些能直接嵌进团队主沟通入口的组合。GitHub 现在支持在 Slack 里通过 <code>@GitHub</code> 自然语言创建 issue、子 issue，并在 thread 里反复修改；前几天又刚把 agent activity 放进 Issues 和 Projects，让 <code>@copilot</code> 能在 PR 里解 merge conflict。对工具选型来说，这是一条很清楚的趋势：AI 第一触点开始从“用户自己打开某个网页或 IDE 面板”，转向“在团队本来就工作的位置里直接发生”。</p><h2 id="1-这周最值得试的工具组合"><a href="#1-这周最值得试的工具组合" class="headerlink" title="1. 这周最值得试的工具组合"></a>1. 这周最值得试的工具组合</h2><h3 id="组合一：Slack-GitHub-app-Copilot"><a href="#组合一：Slack-GitHub-app-Copilot" class="headerlink" title="组合一：Slack + GitHub app + Copilot"></a>组合一：Slack + GitHub app + Copilot</h3><p>这是我最优先推荐的。原因很简单，团队本来就在 Slack 里讨论问题。现在直接在讨论现场创建 issue，再把执行回流到 GitHub，看起来比“记得稍后去建单”靠谱得多。</p><h3 id="组合二：Slack-issue-creation-agent-activity-PR-inbox"><a href="#组合二：Slack-issue-creation-agent-activity-PR-inbox" class="headerlink" title="组合二：Slack issue creation + agent activity + PR inbox"></a>组合二：Slack issue creation + agent activity + PR inbox</h3><p>适合已经有一定工作流纪律的团队。聊天里生成 issue，项目板里看 agent 状态，PR inbox 里看合并和评审，三段连起来以后，执行链很顺。</p><h3 id="组合三：Jira-Slack-PR"><a href="#组合三：Jira-Slack-PR" class="headerlink" title="组合三：Jira + Slack + PR"></a>组合三：Jira + Slack + PR</h3><p>如果组织仍以 Jira 为主，也不用非此即彼。Jira 适合正式需求入口，Slack 更适合临时工作和跨职能协作。关键是别让两个入口互相打架。</p><h2 id="2-为什么我会推荐“入口前移”的工具，而不是更强的模型"><a href="#2-为什么我会推荐“入口前移”的工具，而不是更强的模型" class="headerlink" title="2. 为什么我会推荐“入口前移”的工具，而不是更强的模型"></a>2. 为什么我会推荐“入口前移”的工具，而不是更强的模型</h2><p>因为大多数团队的问题已经不在“模型不够聪明”，而在“人根本不愿意多开一个窗口”。只要新工具需要额外登录、额外切换、额外记忆路径，它就很难进入高频协作。</p><p>Slack 这类入口的价值就在于：</p><ul><li>触发门槛低；  </li><li>上下文天然完整；  </li><li>讨论和跟踪能更快衔接；  </li><li>更容易被整个团队，而不是某个个人，持续使用。</li></ul><p>这跟模型强不强不是一个维度，却往往更决定工具能不能活下来。</p><h2 id="3-一套适合试点的工具落地流程"><a href="#3-一套适合试点的工具落地流程" class="headerlink" title="3. 一套适合试点的工具落地流程"></a>3. 一套适合试点的工具落地流程</h2><p>第一步，选一个高频协作频道。<br>平台组、内部工具组、值班协调群都很合适。</p><p>第二步，把默认仓库和频道规则设清楚。<br>官方已经支持频道级默认仓库和设置入口。别等用了再补规则。</p><p>第三步，只开放一类任务。<br>先让它创建 bug、优化项或文档任务中的一种，不要什么都往里塞。</p><p>第四步，把 issue 和 PR 串起来看。<br>如果工单生成更快了，但后面没人接、没人关、没人关联 PR，那工具只是更快地产生废纸。</p><p>第五步，按一周为周期复盘。<br>看创建成功率、重复率、采用率和返工率。别被第一天的新鲜感骗了。</p><h2 id="4-这批工具最值得警惕的地方"><a href="#4-这批工具最值得警惕的地方" class="headerlink" title="4. 这批工具最值得警惕的地方"></a>4. 这批工具最值得警惕的地方</h2><p>一个风险是聊天过于口语化。<br>输入如果太散，issue 会更快变脏。</p><p>另一个风险是频道默认仓库配置错误。<br>这种错误不会立刻报错，却会让工单静悄悄掉到错误地方，非常难排查。</p><p>还有一个常见问题：团队把入口变多了，却没定义什么时候该用哪个。这样最终只会更乱。</p><h2 id="5-建议本周就做的试点清单"><a href="#5-建议本周就做的试点清单" class="headerlink" title="5. 建议本周就做的试点清单"></a>5. 建议本周就做的试点清单</h2><ol><li>在一个频道里启用 Slack issue creation。  </li><li>只开放单一任务类型，先跑通流程。  </li><li>绑定默认仓库并指定维护人。  </li><li>要求生成的 issue 必须能回挂到项目板或 PR。  </li><li>一周后看真实采用率，不看表面热闹。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>AI 开发工具走到今天，真正值钱的已经不是“它会不会回答”，而是“它是不是在团队工作流最顺手的位置出现”。Slack 入口这次很说明问题。对多数团队来说，第一触点换了，后面的采纳率、证据链和协作习惯都会跟着变。谁先顺着这个方向选工具，谁就更容易把 AI 真正变成日常工作的一部分。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>GitHub Changelog: Create issues from Slack with Copilot<br><a href="https://github.blog/changelog/2026-03-30-create-issues-from-slack-with-copilot/">https://github.blog/changelog/2026-03-30-create-issues-from-slack-with-copilot/</a></li><li>GitHub Changelog: Ask @copilot to resolve merge conflicts on pull requests<br><a href="https://github.blog/changelog/2026-03-26-ask-copilot-to-resolve-merge-conflicts-on-pull-requests/">https://github.blog/changelog/2026-03-26-ask-copilot-to-resolve-merge-conflicts-on-pull-requests/</a></li><li>GitHub Changelog: Agent activity in GitHub Issues and Projects<br><a href="https://github.blog/changelog/2026-03-26-agent-activity-in-github-issues-and-projects/">https://github.blog/changelog/2026-03-26-agent-activity-in-github-issues-and-projects/</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 30 日，这周最值得推荐的 AI 开发工具，不再是某个单独的聊天窗口，而是那些能直接嵌进团队主沟通入口的组合。GitHub 现在支持在 Slack 里通过 &lt;code&gt;@GitHub&lt;/code&gt; 自然语言创建 issue、子 is</summary>
-      
-    
-    
-    
-    <category term="最新AI开发工具推荐" scheme="https://zhangxianda.com/categories/%E6%9C%80%E6%96%B0AI%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
-    
-    
-    <category term="Copilot" scheme="https://zhangxianda.com/tags/Copilot/"/>
-    
-    <category term="Slack" scheme="https://zhangxianda.com/tags/Slack/"/>
-    
-    <category term="Workflow" scheme="https://zhangxianda.com/tags/Workflow/"/>
-    
-    <category term="AI Tools" scheme="https://zhangxianda.com/tags/AI-Tools/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AI 协作开始前移到需求入口：从 Slack 对话生成 Issue 以后，团队该怎么改需求协作</title>
-    <link href="https://zhangxianda.com/2026/03/30/2026-03-30-artificial-intelligence/"/>
-    <id>https://zhangxianda.com/2026/03/30/2026-03-30-artificial-intelligence/</id>
-    <published>2026-03-30T01:30:00.000Z</published>
-    <updated>2026-03-31T00:43:29.160Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 30 日，这周 AI 协作里最值得重视的变化，不在 IDE，也不在 PR，而是在聊天窗口。GitHub 当天让 Slack 里的 <code>@GitHub</code> 可以直接用自然语言创建 Issue，还支持子任务层级、线程里迭代、频道级默认仓库设置。对很多团队来说，这看上去像个方便的小功能；但我更愿意把它看成 AI 协作重心的一次前移。过去大家总把 AI 放在“写代码”的末端，现在它开始进入“定义问题”的入口。</p><p>这件事很关键。因为工程里最贵的错误，往往不是代码写错，而是问题定义就糊了。一个糟糕的需求描述，后面要靠更多会议、更多 PR、更多返工去补。AI 一旦进入需求入口，团队能得到的不只是“少打几个字”，而是有机会把需求表达、任务拆解、执行入口统一成一种更结构化的语言。</p><h2 id="1-为什么-Slack-入口值得认真看"><a href="#1-为什么-Slack-入口值得认真看" class="headerlink" title="1. 为什么 Slack 入口值得认真看"></a>1. 为什么 Slack 入口值得认真看</h2><p>很多组织的真实工作流是这样的：问题在群里冒出来，结论在会后飘着，真正落到 issue 时已经丢了半层上下文。现在 GitHub app for Slack 支持在频道里直接创建结构化 issue，本质上是在减少“从讨论到跟踪”的损耗。</p><p>官方给的功能点很实在：</p><ul><li>自然语言创建 issue。  </li><li>一次消息里就能带出 sub-issues。  </li><li>在 thread 里持续 refine，再决定何时落库。  </li><li>频道级设置默认仓库，避免每次手动指定。</li></ul><p>这些都不花哨，但对团队协作非常实用。因为需求入口最怕的就是流程太重，大家懒得记。</p><h2 id="2-需求协作现在应该怎么改"><a href="#2-需求协作现在应该怎么改" class="headerlink" title="2. 需求协作现在应该怎么改"></a>2. 需求协作现在应该怎么改</h2><p>第一件事，是把“聊天”分成两种。<br>一种是纯讨论，另一种是准备进入跟踪系统的工作项。后者不需要等开会结束，再让某个人凭记忆回填。直接在 Slack 线程里让 <code>@GitHub</code> 帮你收束内容，效率高得多。</p><p>第二件事，是把子任务拆解前置。<br>以前大家习惯先建一个大 issue，后面再慢慢拆。现在既然支持一条消息里生成 parent 和 child issues，就应该在需求刚被提出时就把执行颗粒度想清楚。</p><p>第三件事，是为频道建立明确边界。<br>哪个频道默认对应哪个仓库，谁有权在里面触发 issue 创建，哪些频道只能讨论不能建任务，这些都要先说明白。不然问题会从“丢上下文”变成“工单泛滥”。</p><h2 id="3-一套更稳的实操流程"><a href="#3-一套更稳的实操流程" class="headerlink" title="3. 一套更稳的实操流程"></a>3. 一套更稳的实操流程</h2><p>第一步，先选 2 到 3 个讨论最活跃的工程频道试点。<br>不要全量铺开，先看高频协作场景里效果如何。</p><p>第二步，统一 issue prompt 模板。<br>建议团队在频道置顶里给一个最短模板：问题背景、预期结果、受影响范围、是否需要拆子任务。自然语言不是随便说，越接近结构化，后面越省事。</p><p>第三步，把 thread 当草稿区。<br>别在第一条消息就强行落 issue。先在 thread 里用 <code>@GitHub</code> 来回 refine，一旦信息够了再正式创建。</p><p>第四步，和 Projects&#x2F;PR 流程接起来。<br>Issue 建出来只是第一步。后面谁认领、何时进项目板、何时挂 PR，都要有统一动作。</p><p>第五步，定期复盘“聊天建 issue”的质量。<br>看创建率、关闭率、重复率、返工率。要判断它是减少了信息丢失，还是只是更快地产生噪音。</p><h2 id="4-这个能力最容易踩的坑"><a href="#4-这个能力最容易踩的坑" class="headerlink" title="4. 这个能力最容易踩的坑"></a>4. 这个能力最容易踩的坑</h2><p>第一个坑，是把自然语言等同于低门槛。<br>自然语言确实降低了创建门槛，但如果输入模糊，输出只会更快地把模糊写进系统。</p><p>第二个坑，是没有频道边界。<br>频道级默认仓库很好用，但如果默认设置不清楚，工单会被错误落到不该去的地方。</p><p>第三个坑，是没有“讨论结束”的标志。<br>如果 thread 可以无限 refine，却没人拍板创建或关闭，讨论一样会拖。</p><h2 id="5-建议本周直接做的动作"><a href="#5-建议本周直接做的动作" class="headerlink" title="5. 建议本周直接做的动作"></a>5. 建议本周直接做的动作</h2><ol><li>选一个跨职能协作最频繁的 Slack 频道做试点。  </li><li>写一份 4 行以内的 issue 提示模板。  </li><li>为频道绑定默认仓库并指定维护人。  </li><li>把 sub-issue 使用规则写进团队手册。  </li><li>一周后统计由 Slack 创建的 issue 的采用率和返工率。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>AI 进入工程流程，真正有意思的地方不是它能多快写出代码，而是它开始帮团队把问题说清楚。3 月 30 日这条 Slack 更新就属于这种变化。谁先把需求入口整理好，谁后面的 issue、PR、迭代计划都会更顺。反过来，如果聊天里依旧是碎片、口语和临时共识，AI 只会更快地把混乱固化下来。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>GitHub Changelog: Create issues from Slack with Copilot<br><a href="https://github.blog/changelog/2026-03-30-create-issues-from-slack-with-copilot/">https://github.blog/changelog/2026-03-30-create-issues-from-slack-with-copilot/</a></li><li>GitHub Changelog: Agent activity in GitHub Issues and Projects<br><a href="https://github.blog/changelog/2026-03-26-agent-activity-in-github-issues-and-projects/">https://github.blog/changelog/2026-03-26-agent-activity-in-github-issues-and-projects/</a></li><li>GitHub Changelog: New pull requests dashboard is in public preview<br><a href="https://github.blog/changelog/2026-03-26-new-pull-requests-dashboard-is-in-public-preview/">https://github.blog/changelog/2026-03-26-new-pull-requests-dashboard-is-in-public-preview/</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 30 日，这周 AI 协作里最值得重视的变化，不在 IDE，也不在 PR，而是在聊天窗口。GitHub 当天让 Slack 里的 &lt;code&gt;@GitHub&lt;/code&gt; 可以直接用自然语言创建 Issue，还支持子任务层级、线程里</summary>
-      
-    
-    
-    
-    <category term="人工智能" scheme="https://zhangxianda.com/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    
-    <category term="Copilot" scheme="https://zhangxianda.com/tags/Copilot/"/>
-    
-    <category term="Slack" scheme="https://zhangxianda.com/tags/Slack/"/>
-    
-    <category term="AI" scheme="https://zhangxianda.com/tags/AI/"/>
-    
-    <category term="Issues" scheme="https://zhangxianda.com/tags/Issues/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Node 服务权限模型不能再只停在实验室：3 月补丁后后端团队该怎么做最小权限改造</title>
-    <link href="https://zhangxianda.com/2026/03/30/2026-03-30-backend/"/>
-    <id>https://zhangxianda.com/2026/03/30/2026-03-30-backend/</id>
-    <published>2026-03-30T01:30:00.000Z</published>
-    <updated>2026-03-31T00:43:29.161Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 30 日，后端团队看完 Node.js 3 月 24 日的安全发布，最不该做的就是只打一轮补丁然后收工。那份说明里有两条内容尤其值得后端平台认真咀嚼：一是 <code>--permission</code> 相关的网络与文件访问绕过，二是 3 月初 Node 25.8.0 已经加入了 <code>--permission-audit</code>。这两条线放在一起，非常像一个信号：Node 的 Permission Model 不能再只停在试验或演示层面了，服务级最小权限迟早要进入工程常态。</p><h2 id="1-为什么后端团队会低估-Permission-Model"><a href="#1-为什么后端团队会低估-Permission-Model" class="headerlink" title="1. 为什么后端团队会低估 Permission Model"></a>1. 为什么后端团队会低估 Permission Model</h2><p>因为它目前还带着“实验特性”的标签，很多人就下意识把它当成可有可无的玩具。问题是，一旦团队已经开始用它做沙箱、脚本隔离、任务执行限制，它就已经进入真实边界了。边界一旦进入真实环境，团队就不能再用“先试试”来对待。</p><p>这次的绕过问题非常典型：</p><ul><li>UDS server bind&#x2F;listen 在缺少 <code>--allow-net</code> 时仍可工作；  </li><li><code>realpathSync.native()</code> 可以越过 <code>--allow-fs-read</code> 做存在性探测；  </li><li><code>FileHandle.chmod/chown</code> 还能绕过部分写权限限制。</li></ul><p>这说明两件事：第一，最小权限很值得做；第二，它比想象中更难做。</p><h2 id="2-真正靠谱的最小权限改造长什么样"><a href="#2-真正靠谱的最小权限改造长什么样" class="headerlink" title="2. 真正靠谱的最小权限改造长什么样"></a>2. 真正靠谱的最小权限改造长什么样</h2><p>第一步，不是直接全站开 <code>--permission</code>，而是先盘点。<br>先弄清楚服务到底读哪些目录、连哪些地址、开哪些本地 socket、调用哪些外部命令。</p><p>第二步，把权限声明写成配置资产。<br>最小权限不是一堆命令行参数散在启动脚本里，而应该是有版本、有 owner 的配置。</p><p>第三步，用 <code>--permission-audit</code> 先做观察。<br>3 月 3 日的 Node 25.8.0 已经给了审计入口。先看实际访问，再决定收紧边界，会比拍脑袋安全得多。</p><p>第四步，给高风险服务先落地。<br>任务执行器、脚本平台、多租户 worker、文件处理服务，比普通 CRUD API 更适合优先试。</p><p>第五步，把运行时回归纳入 CI 和预发。<br>权限边界最怕“上线后才知道少开了一个目录”。这类错误必须前移。</p><h2 id="3-一套可执行的改造流程"><a href="#3-一套可执行的改造流程" class="headerlink" title="3. 一套可执行的改造流程"></a>3. 一套可执行的改造流程</h2><ol><li>按服务类型分类：API、worker、CLI、任务平台。  </li><li>对每类服务收集文件、网络、子进程访问行为。  </li><li>用审计模式跑一轮真实流量或回放。  </li><li>形成允许列表，而不是只写拒绝规则。  </li><li>在预发环境灰度启用，观察异常和误杀。  </li><li>每次 Node 安全发布后复核权限边界。</li></ol><h2 id="4-这件事最容易做坏在哪里"><a href="#4-这件事最容易做坏在哪里" class="headerlink" title="4. 这件事最容易做坏在哪里"></a>4. 这件事最容易做坏在哪里</h2><p>一个错误，是看见漏洞就放弃 Permission Model。<br>这不对。暴露漏洞说明边界需要更认真地测，不代表最小权限没有价值。</p><p>另一个错误，是把 Permission Model 当成万能安全层。<br>它能缩边界，但替代不了输入校验、容器隔离、TLS 配置和代码审计。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>确认是否有服务已经在用 <code>--permission</code>。  </li><li>升级到 3 月 24 日后的安全版本。  </li><li>选一类高风险服务试跑 <code>--permission-audit</code>。  </li><li>把实际访问行为记录下来做允许列表。  </li><li>为 Permission Model 建一条独立回归测试线。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>后端平台要走向最小权限，不可能一直停在 PPT 上。Node 这轮补丁很像一次提醒：边界越早进入真实流量，越早暴露问题，也越值得被认真工程化。真正成熟的团队，不会因为它还在演进就完全不碰，也不会因为它看起来很酷就贸然全开，而是会借着审计、补丁和灰度，把这条线一步步做实。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Node.js: Tuesday, March 24, 2026 Security Releases<br><a href="https://nodejs.org/en/blog/vulnerability/march-2026-security-releases">https://nodejs.org/en/blog/vulnerability/march-2026-security-releases</a></li><li>Node.js 25.8.0 (Current)<br><a href="https://nodejs.org/en/blog/release/v25.8.0">https://nodejs.org/en/blog/release/v25.8.0</a></li><li>Node.js: Evolving the Node.js Release Schedule<br><a href="https://nodejs.org/blog/announcements/evolving-the-nodejs-release-schedule">https://nodejs.org/blog/announcements/evolving-the-nodejs-release-schedule</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 30 日，后端团队看完 Node.js 3 月 24 日的安全发布，最不该做的就是只打一轮补丁然后收工。那份说明里有两条内容尤其值得后端平台认真咀嚼：一是 &lt;code&gt;--permission&lt;/code&gt; 相关的网络与文件访问绕过</summary>
-      
-    
-    
-    
-    <category term="后端" scheme="https://zhangxianda.com/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    
-    <category term="Backend" scheme="https://zhangxianda.com/tags/Backend/"/>
-    
-    <category term="Node.js" scheme="https://zhangxianda.com/tags/Node-js/"/>
-    
-    <category term="Permission Model" scheme="https://zhangxianda.com/tags/Permission-Model/"/>
-    
-    <category term="Service Hardening" scheme="https://zhangxianda.com/tags/Service-Hardening/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Node 3 月安全发布暴露了什么短板：TLS、Permission Model 与 HTTP/2 的补丁流程要重写</title>
-    <link href="https://zhangxianda.com/2026/03/30/2026-03-30-cybersecurity/"/>
-    <id>https://zhangxianda.com/2026/03/30/2026-03-30-cybersecurity/</id>
-    <published>2026-03-30T01:30:00.000Z</published>
-    <updated>2026-03-31T00:43:29.160Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 30 日，网络安全里最值得工程团队警觉的一份材料，不是新的威胁情报，而是 Node.js 在 3 月 24 日发布的安全版本说明。它一次性覆盖了 20.x、22.x、24.x、25.x 四条线，修掉 2 个高危、5 个中危、2 个低危问题。更值得注意的是这些漏洞的类型：TLS <code>SNICallback</code> 同步异常导致远程 DoS，<code>req.headersDistinct</code> 遇到 <code>__proto__</code> 头可崩进程，Permission Model 在 UDS 和 <code>realpathSync.native()</code> 上有绕过，HTTP&#x2F;2 <code>WINDOW_UPDATE</code> 会造成会话泄漏，HMAC 校验还出现了 timing oracle 风险。</p><p>这些问题放在一起看，信息量很大。它们提醒后端团队一件很现实的事：安全风险已经不只是“依赖有漏洞”，而是运行时边界、错误处理、协议实现和权限模型都在暴露工程短板。如果补丁流程还停留在“等 Dependabot 提醒再升版本”，反应一定慢。</p><h2 id="1-这轮漏洞为什么值得认真看"><a href="#1-这轮漏洞为什么值得认真看" class="headerlink" title="1. 这轮漏洞为什么值得认真看"></a>1. 这轮漏洞为什么值得认真看</h2><p>先看高危项。<br>一个在 TLS 层，一个在 HTTP 请求头处理层，特点都一样：异常在关键路径上同步抛出，最终把进程打死。换句话说，这类问题不是“某个接口返回错数据”，而是服务直接掉线。</p><p>再看中低危项。<br>Permission Model 的绕过、HTTP&#x2F;2 的内存泄漏、HashDoS、HMAC timing side-channel，看起来没前两个刺眼，但它们很像现实生产里最容易被忽视的那类坑：不一定立刻炸，却会在高流量、恶意输入或隔离场景里留下可利用空间。</p><p>我尤其关注 Permission Model 这组问题。因为很多团队开始把它当成沙箱边界，但如果对功能边界和漏洞历史不了解，很容易高估它当前的可靠性。</p><h2 id="2-正确的补丁流程不该只是“升版本”"><a href="#2-正确的补丁流程不该只是“升版本”" class="headerlink" title="2. 正确的补丁流程不该只是“升版本”"></a>2. 正确的补丁流程不该只是“升版本”</h2><p>我更建议把这轮 Node 安全更新分成三层处理。</p><p>第一层，快速收敛版本。<br>生产环境如果还在 20.x、22.x、24.x、25.x 的受影响版本上，第一件事当然是尽快切到官方给出的 20.20.2、22.22.2、24.14.1、25.8.2。</p><p>第二层，针对场景复核。<br>不是所有服务都暴露同样风险。需要重点排查：</p><ul><li>是否用了自定义 <code>SNICallback</code>；  </li><li>是否访问 <code>req.headersDistinct</code>；  </li><li>是否启用 HTTP&#x2F;2；  </li><li>是否开始试用 Permission Model；  </li><li>是否自己做过 HMAC 校验封装。</li></ul><p>第三层，修补工程习惯。<br>如果补丁打完，代码里仍然存在“同步异常会把进程打死”的假设、“permission 边界天然可靠”的假设，下一轮类似问题还会再来。</p><h2 id="3-一套更稳的应对流程"><a href="#3-一套更稳的应对流程" class="headerlink" title="3. 一套更稳的应对流程"></a>3. 一套更稳的应对流程</h2><p>第一步，拉出 Node 服务清单。<br>不要只看 package.json。确认实际运行时版本、部署环境和网络入口。</p><p>第二步，按协议面做风险分组。<br>TLS 服务、HTTP&#x2F;2 服务、Permission Model 试点服务单独拉出来，别混在普通 API 一起处理。</p><p>第三步，补一轮定向回归。<br>TLS 重点看错误输入下进程是否稳定；HTTP 请求头重点看异常 header 行为；HTTP&#x2F;2 重点压窗口更新边界；Permission Model 重点验证本地 IPC 和文件路径访问是否真被约束。</p><p>第四步，给进程级崩溃加监控。<br>这轮好几个问题都和未捕获异常有关。没有进程退出和重启告警，补丁前后的效果都说不清。</p><p>第五步，把 Node 安全公告接进固定节奏。<br>很多组织会追语言版本，却不跟安全公告。这个习惯要改。</p><h2 id="4-现在最该警惕的误判"><a href="#4-现在最该警惕的误判" class="headerlink" title="4. 现在最该警惕的误判"></a>4. 现在最该警惕的误判</h2><p>一个误判是“我们只用 LTS，不会中招”。这次 20.x、22.x、24.x 都在影响范围内。<br>另一个误判是“Permission Model 只是实验特性，影响不大”。恰恰因为很多人把它当试验场，才更容易缺测试、缺监控、缺边界复核。</p><p>安全问题最怕的不是大家不知道风险，而是把风险想成“不像会发生在我们这里”。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>确认所有 Node 服务已升级到 3 月 24 日后的安全版本。  </li><li>标记是否使用 TLS 自定义回调、HTTP&#x2F;2、Permission Model。  </li><li>为高风险服务加一轮异常输入回归测试。  </li><li>检查是否存在自写 HMAC 校验而非 timing-safe compare。  </li><li>把 Node 官方安全公告纳入例行关注清单。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>这次 Node 3 月安全发布给出的信号很直接：后端运行时的风险边界比很多团队想得更脆。TLS、HTTP、权限模型、文件 API，任何一个小洞都可能把“只是一段代码”变成“整台服务倒下”。真正成熟的安全响应，不会停在升级版本号，而会顺手把使用习惯、测试路径和监控面一起补上。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Node.js: Tuesday, March 24, 2026 Security Releases<br><a href="https://nodejs.org/en/blog/vulnerability/march-2026-security-releases">https://nodejs.org/en/blog/vulnerability/march-2026-security-releases</a></li><li>Node.js: Evolving the Node.js Release Schedule<br><a href="https://nodejs.org/blog/announcements/evolving-the-nodejs-release-schedule">https://nodejs.org/blog/announcements/evolving-the-nodejs-release-schedule</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 30 日，网络安全里最值得工程团队警觉的一份材料，不是新的威胁情报，而是 Node.js 在 3 月 24 日发布的安全版本说明。它一次性覆盖了 20.x、22.x、24.x、25.x 四条线，修掉 2 个高危、5 个中危、2 个低</summary>
-      
-    
-    
-    
-    <category term="网络安全" scheme="https://zhangxianda.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="TLS" scheme="https://zhangxianda.com/tags/TLS/"/>
-    
-    <category term="Cybersecurity" scheme="https://zhangxianda.com/tags/Cybersecurity/"/>
-    
-    <category term="Node.js" scheme="https://zhangxianda.com/tags/Node-js/"/>
-    
-    <category term="HTTP2" scheme="https://zhangxianda.com/tags/HTTP2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>当 Slack 聊天能直接生成工单，组织该怎样给 AI 立审计边界</title>
-    <link href="https://zhangxianda.com/2026/03/30/2026-03-30-digital-governance/"/>
-    <id>https://zhangxianda.com/2026/03/30/2026-03-30-digital-governance/</id>
-    <published>2026-03-30T01:30:00.000Z</published>
-    <updated>2026-03-31T00:43:29.160Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 30 日，数字治理里最容易被低估的一条变化，是 GitHub 把 Issue 创建入口推进到了 Slack。现在在频道里 <code>@GitHub</code>，就能用自然语言生成结构化 issue，带出 assignee、labels、milestones，甚至 parent&#x2F;child 层级；频道还能配置默认仓库。与此同时，3 月 25 日 GitHub 刚更新了 Copilot 的数据使用条款，3 月 26 日又让 agent activity 出现在 Issues 和 Projects 里。三个动作连起来看，治理问题一下子变得非常具体：当聊天内容可以直接转成执行任务，组织到底怎样证明这个过程可审计、可解释、可收敛？</p><h2 id="1-为什么这件事不只是协作提效"><a href="#1-为什么这件事不只是协作提效" class="headerlink" title="1. 为什么这件事不只是协作提效"></a>1. 为什么这件事不只是协作提效</h2><p>很多组织一看“Slack 里建 issue”，第一反应是节省几步操作。治理视角下，这件事更像在把非正式讨论直接接入正式系统。以前 Slack 和 issue tracker 之间有一道人工门槛，虽然低效，但也天然形成了一个过滤层。现在这道门槛被 AI 大幅压低，组织必须补新的控制。</p><p>最现实的问题有四个：</p><ol><li>哪些频道允许建工单？  </li><li>建出来的工单能落到哪些仓库？  </li><li>工单里引用的上下文是否包含不该进入系统的内容？  </li><li>谁来审查 AI 生成的任务描述是不是偏了？</li></ol><p>如果这些问题没有先想清楚，效率提高的同时，治理风险也会一起前移。</p><h2 id="2-一套最基础的治理框架"><a href="#2-一套最基础的治理框架" class="headerlink" title="2. 一套最基础的治理框架"></a>2. 一套最基础的治理框架</h2><p>第一层，是频道边界。<br>不是所有 Slack 频道都该开 issue 创建。建议按业务敏感度和协作目的分三类：可创建、可试点、只讨论不创建。</p><p>第二层，是仓库映射。<br>官方已经支持频道级默认仓库。这很方便，但也意味着配置错误会更快把工单送到错误地方。频道与仓库之间应该有白名单关系，而不是自由填写。</p><p>第三层，是证据层。<br>Issue 的创建来源、后续 agent session、谁修改了内容、最后是否进入 PR，都应该能在系统里追。否则一旦出现错误任务或异常操作，组织根本无法复盘。</p><h2 id="3-推荐的落地流程"><a href="#3-推荐的落地流程" class="headerlink" title="3. 推荐的落地流程"></a>3. 推荐的落地流程</h2><p>第一步，先定频道名单。<br>不要技术上全开放。先选几个协作模式清晰的频道试点，比如平台需求、前端组件库、内部效率工具。</p><p>第二步，给每个试点频道设默认仓库和维护人。<br>默认仓库不是便利设置，而是治理设置。必须有人负责。</p><p>第三步，给 AI 生成工单加最小审阅规则。<br>例如：高敏仓库工单必须由人确认后再进入 sprint；跨团队任务必须补 owner；涉及安全与权限变更的 issue 不允许直接由 Slack 对话创建。</p><p>第四步，把事件链路记下来。<br>最少要记录 Slack 频道、创建时间、issue URL、后续 agent session、最终 PR 和关闭原因。</p><p>第五步，和数据边界联动。<br>3 月 25 日的条款更新已经明确不同 Copilot 计划在数据使用上有差异。组织需要确认：参与这类流程的账号和计划类型是否符合内部边界。</p><h2 id="4-这类治理最常见的两个误区"><a href="#4-这类治理最常见的两个误区" class="headerlink" title="4. 这类治理最常见的两个误区"></a>4. 这类治理最常见的两个误区</h2><p>一个误区是“AI 只是帮忙填单，不影响治理”。<br>错。谁来创建、在哪创建、内容如何成型，这些本来就是治理的一部分。</p><p>另一个误区是“先开放再说，有问题再补”。<br>这种心态在聊天工具上尤其危险。因为问题一旦扩散进多个频道、多个仓库，后面再补规则，代价会很高。</p><h2 id="5-建议本周就做的动作"><a href="#5-建议本周就做的动作" class="headerlink" title="5. 建议本周就做的动作"></a>5. 建议本周就做的动作</h2><ol><li>列出允许试点 AI 建工单的 Slack 频道。  </li><li>为每个频道指定默认仓库和维护人。  </li><li>写一条“哪些任务不得直接由聊天生成”的红线规则。  </li><li>把 Slack -&gt; Issue -&gt; PR 的链路纳入审计报表。  </li><li>核对参与账号的 Copilot 计划与数据边界。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>数字治理最难的地方，从来不是平台没有规则，而是规则总落在系统外面。3 月 30 日这次 Slack 更新，把问题提得很直接：聊天已经不只是聊天，它开始成为正式工作流的一部分。组织如果还把治理理解成事后补材料，很快就会被这种“低门槛高传播”的自动化入口拖着走。现在最该做的，是在入口处就把边界立起来。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>GitHub Changelog: Create issues from Slack with Copilot<br><a href="https://github.blog/changelog/2026-03-30-create-issues-from-slack-with-copilot/">https://github.blog/changelog/2026-03-30-create-issues-from-slack-with-copilot/</a></li><li>GitHub Changelog: Updates to our Privacy Statement and Terms of Service: How we use your data<br><a href="https://github.blog/changelog/2026-03-25-updates-to-our-privacy-statement-and-terms-of-service-how-we-use-your-data/">https://github.blog/changelog/2026-03-25-updates-to-our-privacy-statement-and-terms-of-service-how-we-use-your-data/</a></li><li>GitHub Changelog: Agent activity in GitHub Issues and Projects<br><a href="https://github.blog/changelog/2026-03-26-agent-activity-in-github-issues-and-projects/">https://github.blog/changelog/2026-03-26-agent-activity-in-github-issues-and-projects/</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 30 日，数字治理里最容易被低估的一条变化，是 GitHub 把 Issue 创建入口推进到了 Slack。现在在频道里 &lt;code&gt;@GitHub&lt;/code&gt;，就能用自然语言生成结构化 issue，带出 assignee、lab</summary>
-      
-    
-    
-    
-    <category term="数字治理" scheme="https://zhangxianda.com/categories/%E6%95%B0%E5%AD%97%E6%B2%BB%E7%90%86/"/>
-    
-    
-    <category term="Copilot" scheme="https://zhangxianda.com/tags/Copilot/"/>
-    
-    <category term="Slack" scheme="https://zhangxianda.com/tags/Slack/"/>
-    
-    <category term="Audit" scheme="https://zhangxianda.com/tags/Audit/"/>
-    
-    <category term="Governance" scheme="https://zhangxianda.com/tags/Governance/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Matter 1.5 把设备联动抬到新复杂度后，IoT 场景测试该怎么补课</title>
-    <link href="https://zhangxianda.com/2026/03/30/2026-03-30-iot/"/>
-    <id>https://zhangxianda.com/2026/03/30/2026-03-30-iot/</id>
-    <published>2026-03-30T01:30:00.000Z</published>
-    <updated>2026-03-31T00:43:29.161Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 30 日，IoT 团队如果还把场景测试理解成“设备能不能连上”和“命令能不能执行”，已经有点跟不上标准演进了。Matter 1.5 把 cameras、closures 和能源管理进一步拉进统一生态，Aliro 1.0 又把数字门禁凭证推向标准化。结果就是，现实场景里的设备不再是孤立单元，而更像一组互相牵扯的系统：摄像头会受空间权限影响，门禁状态会牵动车库和电梯，能源策略又会影响设备在线行为。问题来了，测试如果还只测单设备，结果一定失真。</p><h2 id="1-现在的-IoT-场景为什么更难测"><a href="#1-现在的-IoT-场景为什么更难测" class="headerlink" title="1. 现在的 IoT 场景为什么更难测"></a>1. 现在的 IoT 场景为什么更难测</h2><p>以前很多 IoT 项目测试简单，是因为设备关系简单。现在不一样了。一个真实空间里，门锁、摄像头、车库门、访客面板、能耗设备可能都挂在一个统一身份和自动化体系里。任何一环出错，问题都会表现成“看起来不是这个设备的锅”。</p><p>例如：</p><ul><li>门禁权限更新后，摄像头联动录像是否同步变化；  </li><li>访客临时凭证失效后，车库门是否仍放行；  </li><li>能源策略切换时，边缘设备是否会意外掉线；  </li><li>离线区域里的数字凭证刷新是否一致。</li></ul><p>这类问题靠单台设备联调几乎测不出来。</p><h2 id="2-测试策略应该从“设备清单”转成“场景清单”"><a href="#2-测试策略应该从“设备清单”转成“场景清单”" class="headerlink" title="2. 测试策略应该从“设备清单”转成“场景清单”"></a>2. 测试策略应该从“设备清单”转成“场景清单”</h2><p>我更建议把 IoT 测试分成四类场景：</p><p>第一类，身份场景。<br>谁能进、谁不能进、凭证何时失效、离线是否仍有效。</p><p>第二类，联动场景。<br>一个设备动作后，其他设备和系统应该发生什么。</p><p>第三类，异常场景。<br>网络断了、设备重启、权限更新延迟、时钟漂移，这些都得测。</p><p>第四类，退场场景。<br>设备更换、租户迁出、权限回收、日志归档。很多项目最容易忽略的恰恰是这块。</p><h2 id="3-一套更实用的场景测试流程"><a href="#3-一套更实用的场景测试流程" class="headerlink" title="3. 一套更实用的场景测试流程"></a>3. 一套更实用的场景测试流程</h2><p>第一步，先画“空间行为图”。<br>不要只画拓扑图。把用户、凭证、门锁、摄像头、车库、能源设备、云平台之间的动作链画出来。</p><p>第二步，挑关键旅程。<br>例如“员工正常入场”“访客临时通行”“离线车库开门”“夜间节能策略切换”“租户退场回收凭证”。这些旅程比单个 API 测试值钱。</p><p>第三步，把设备和平台一起测。<br>别只测终端设备，也别只测云端。两边一起测，才能发现状态同步问题。</p><p>第四步，保留带时间轴的证据。<br>IoT 场景问题很容易被“后来又恢复了”掩盖。测试要留下事件时间线、日志、状态快照。</p><p>第五步，退场流程也要进用例。<br>Aliro 1.0 让数字凭证标准化以后，退场和吊销就不再是附加项，而是核心验证点。</p><h2 id="4-最容易被忽略的测试盲区"><a href="#4-最容易被忽略的测试盲区" class="headerlink" title="4. 最容易被忽略的测试盲区"></a>4. 最容易被忽略的测试盲区</h2><p>一个盲区是“只测在线 happy path”。<br>现实里最容易出事故的，是离线区、切换时刻、跨系统边界。</p><p>另一个盲区是“设备过了认证，就默认联动没问题”。<br>标准兼容不等于场景兼容，这点在 Matter 和 Aliro 同时推进后会越来越明显。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>把现有测试用例从设备视角改写成场景视角。  </li><li>至少补三条跨设备联动旅程。  </li><li>为离线和退场增加单独用例。  </li><li>测试时保留时间轴和系统日志。  </li><li>让产品、实施、运维一起参与场景复盘。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>IoT 项目最容易吃亏的地方，是标准越来越统一，团队却还在用很旧的测试思路。到了 2026 年 3 月，Matter 1.5 和 Aliro 1.0 已经把现实场景复杂度抬高了，测试要是不跟着升级，项目上线后迟早会在“明明单设备都正常，怎么场景就是不对”这种问题上摔跤。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>CSA-IOT: Matter 1.5 Introduces Cameras, Closures, and Enhanced Energy Management Capabilities<br><a href="https://csa-iot.org/newsroom/matter-1-5-introduces-cameras-closures-and-enhanced-energy-management-capabilities/">https://csa-iot.org/newsroom/matter-1-5-introduces-cameras-closures-and-enhanced-energy-management-capabilities/</a></li><li>CSA-IOT: Introducing Aliro 1.0: A Unified Standard to Transform the Access Control Ecosystem<br><a href="https://csa-iot.org/newsroom/introducing-aliro-1-0-a-unified-standard-to-transform-the-access-control-ecosystem/">https://csa-iot.org/newsroom/introducing-aliro-1-0-a-unified-standard-to-transform-the-access-control-ecosystem/</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 30 日，IoT 团队如果还把场景测试理解成“设备能不能连上”和“命令能不能执行”，已经有点跟不上标准演进了。Matter 1.5 把 cameras、closures 和能源管理进一步拉进统一生态，Aliro 1.0 又把数字门禁</summary>
-      
-    
-    
-    
-    <category term="物联网" scheme="https://zhangxianda.com/categories/%E7%89%A9%E8%81%94%E7%BD%91/"/>
-    
-    
-    <category term="Matter" scheme="https://zhangxianda.com/tags/Matter/"/>
-    
-    <category term="IoT" scheme="https://zhangxianda.com/tags/IoT/"/>
-    
-    <category term="Aliro" scheme="https://zhangxianda.com/tags/Aliro/"/>
-    
-    <category term="Testing" scheme="https://zhangxianda.com/tags/Testing/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java 团队做 Agent 系统，别先堆 demo：Spring AI 与 Java MCP SDK 该怎么包装成可维护能力</title>
-    <link href="https://zhangxianda.com/2026/03/30/2026-03-30-java/"/>
-    <id>https://zhangxianda.com/2026/03/30/2026-03-30-java/</id>
-    <published>2026-03-30T01:30:00.000Z</published>
-    <updated>2026-03-31T00:43:29.160Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 30 日，Java 生态里和 AI 相关的讨论越来越热，但很多团队还停留在 demo 阶段：连一个模型、连一条向量库、起一个聊天接口，就觉得 Agent 系统差不多了。问题是，这套东西一旦进入企业代码库，很快就会遇到维护压力。Spring 在 3 月的几条官方内容其实给得很明确：Spring AI <code>2.0.0-M3</code>、<code>1.1.3</code>、<code>1.0.4</code> 一起发布，MCP 注解和 transport 在移动，官方 Java MCP SDK 也在快速成型，社区开始出现 <code>skillsjars</code> 这类技能打包思路。这些都说明一件事：Java 团队做 Agent，真正该投入的不是花哨演示，而是包装、隔离和升级路径。</p><h2 id="1-为什么-Java-团队更容易在-Agent-项目里积债"><a href="#1-为什么-Java-团队更容易在-Agent-项目里积债" class="headerlink" title="1. 为什么 Java 团队更容易在 Agent 项目里积债"></a>1. 为什么 Java 团队更容易在 Agent 项目里积债</h2><p>Java 项目有个典型特点：它们活得久，依赖多，团队大，治理重。也正因为如此，很多在脚本语言里“先跑起来再说”的做法，到了 Java 这里就会立刻暴露问题。</p><p>最常见的坑有三个：</p><ul><li>把 MCP server&#x2F;client 直接散落在业务代码里。  </li><li>把模型、工具、记忆、向量库配置混在同一层 starter 里。  </li><li>没有稳定的技能封装，后面每个项目都复制一份 tool glue code。</li></ul><p>这些问题在 PoC 里不明显，一旦扩到第二个、第三个应用，就会开始拖累升级和排障。</p><h2 id="2-我更推荐的包装思路"><a href="#2-我更推荐的包装思路" class="headerlink" title="2. 我更推荐的包装思路"></a>2. 我更推荐的包装思路</h2><p>第一层，平台层。<br>把模型接入、重试、日志、审计、提示词基类、向量库连接统一在平台模块里。业务项目不直接依赖底层 SDK 细节。</p><p>第二层，技能层。<br>无论你叫 skill、toolset 还是 capability，都应该把“做什么”和“如何接模型、如何走 MCP”拆开。一个能力包，最好能被多个项目重复引用。</p><p>第三层，应用层。<br>应用层只负责装配：选择哪些技能，给哪些 endpoint 或 workflow 用，如何做权限和业务校验。</p><p>这种分层听起来保守，但对 Java 团队反而是省事的。因为你的未来成本，主要不在第一次接通，而在后面的版本演进。</p><h2 id="3-结合-3-月官方更新，推荐这样落地"><a href="#3-结合-3-月官方更新，推荐这样落地" class="headerlink" title="3. 结合 3 月官方更新，推荐这样落地"></a>3. 结合 3 月官方更新，推荐这样落地</h2><p>第一步，别急着追 milestone。<br>Spring AI 的 2.0.0-M3 很新，能力也多，但 breaking changes 真实存在。生产团队可以先看 1.1.3 &#x2F; 1.0.4 稳定线，把封装模式跑顺，再评估 milestone。</p><p>第二步，把 MCP 注解和 transport 单独包起来。<br>官方已经在迁移相关包，说明这块接口还在快速演进。越是变化快的部分，越应该被你自己的适配层隔住。</p><p>第三步，把技能以 jar 形式复用。<br>不一定非要用某个社区方案，但“把技能打包成可引用工件”这个方向非常值得跟。否则每个服务都手搓一遍工具定义，后面一定痛苦。</p><p>第四步，给每个技能单独写兼容测试。<br>别只测整条 agent 对话。模型能不能回答是一回事，技能的输入输出契约能不能稳定，才决定你敢不敢升级。</p><p>第五步，把 JDK 与 Spring AI 分开验。<br>如果还要同步推进 JDK 26 或别的 JVM 级升级，最好分阶段做。别把框架变化和运行时变化搅在一起。</p><h2 id="4-判断自己是不是还停在-demo-阶段，有个很简单的标准"><a href="#4-判断自己是不是还停在-demo-阶段，有个很简单的标准" class="headerlink" title="4. 判断自己是不是还停在 demo 阶段，有个很简单的标准"></a>4. 判断自己是不是还停在 demo 阶段，有个很简单的标准</h2><p>问自己这四个问题：</p><ol><li>这个技能能不能被第二个项目直接引用？  </li><li>MCP 包变化时，业务代码会不会大面积跟着改？  </li><li>模型换掉时，日志和审计会不会还完整？  </li><li>哪一层负责处理权限、速率和回退？</li></ol><p>如果其中两个答不上来，你的 Agent 系统大概率还是 demo，不是平台能力。</p><h2 id="5-建议本周就做的动作"><a href="#5-建议本周就做的动作" class="headerlink" title="5. 建议本周就做的动作"></a>5. 建议本周就做的动作</h2><ol><li>梳理现有 Java Agent 项目的模块边界。  </li><li>把 MCP 和模型接入从业务层抽出来。  </li><li>试做一个可复用的技能 jar，而不是复制粘贴工具代码。  </li><li>为每个技能单独建契约测试。  </li><li>评估当前版本该留在稳定线还是试 milestone 线。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>Java 做 Agent 的优势，本来就不在“写个 demo 很快”，而在“把一套能力长期维护下去”。到了 2026 年 3 月，这个判断更明显了。Spring AI 和 Java MCP 生态都在快速变化，越是这个时候，越不能让业务代码直接贴着底层细节长。真正成熟的团队，会先把包装层、技能层和升级路径想明白，再去追更强的模型。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Spring Blog: Spring AI 2.0.0-M3, 1.1.3 and 1.0.4 Available Now<br><a href="https://spring.io/blog/2026/03/17/spring-ai-2-0-0-M3-and-1-1-3-and-1-0-4-available/">https://spring.io/blog/2026/03/17/spring-ai-2-0-0-M3-and-1-1-3-and-1-0-4-available/</a></li><li>Spring Blog: This Week in Spring - March 3rd, 2026<br><a href="https://spring.io/blog/2026/03/03/this-week-in-spring-march-3rd-2026">https://spring.io/blog/2026/03/03/this-week-in-spring-march-3rd-2026</a></li><li>OpenJDK: JDK 26<br><a href="https://openjdk.org/projects/jdk/26/">https://openjdk.org/projects/jdk/26/</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 30 日，Java 生态里和 AI 相关的讨论越来越热，但很多团队还停留在 demo 阶段：连一个模型、连一条向量库、起一个聊天接口，就觉得 Agent 系统差不多了。问题是，这套东西一旦进入企业代码库，很快就会遇到维护压力。Spr</summary>
+    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 31 日，Java 生态这一周给企业团队的信号非常密集。Spring 在当日发布的 &lt;code&gt;This Week in Spring - March 31st, 2026&lt;/code&gt; 里集中点名了 &lt;code&gt;Spring AI</summary>
       
     
     
@@ -548,71 +608,11 @@
     
     <category term="Java" scheme="https://zhangxianda.com/tags/Java/"/>
     
-    <category term="MCP" scheme="https://zhangxianda.com/tags/MCP/"/>
+    <category term="Spring Boot" scheme="https://zhangxianda.com/tags/Spring-Boot/"/>
     
     <category term="Spring AI" scheme="https://zhangxianda.com/tags/Spring-AI/"/>
     
-    <category term="Agent" scheme="https://zhangxianda.com/tags/Agent/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>把 profiler 和 lazy imports 接进 CI：Python 3.15 alpha 7 不该只拿来本地玩</title>
-    <link href="https://zhangxianda.com/2026/03/30/2026-03-30-python/"/>
-    <id>https://zhangxianda.com/2026/03/30/2026-03-30-python/</id>
-    <published>2026-03-30T01:30:00.000Z</published>
-    <updated>2026-03-31T00:43:29.161Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 30 日，Python 团队如果还把 3.15 alpha 7 当成“有空在本地试试”的东西，其实有点浪费。官方在 3 月 10 日的发布说明里给出的变化并不轻：高频、低开销的统计式 profiler，lazy imports，<code>frozendict</code>，UTF-8 默认编码，JIT 改进，以及一批类型系统和运行时更新。对真正维护线上 Python 服务的人来说，这些变化最大的价值，不是让你赶紧追新，而是给了一个很好的机会，把“版本预演”接进 CI 和维护流程。</p><h2 id="1-为什么我建议把-alpha-版拉进-CI"><a href="#1-为什么我建议把-alpha-版拉进-CI" class="headerlink" title="1. 为什么我建议把 alpha 版拉进 CI"></a>1. 为什么我建议把 alpha 版拉进 CI</h2><p>很多团队会说，alpha 不稳定，不该进 CI。这个说法有一半对。它确实不该直接进生产发布链，但它非常适合进一条独立的预演流水线。原因很简单：越早把兼容性和性能差异暴露出来，越能避免后面被正式版窗口追着跑。</p><p>尤其是 Python 这种依赖面广、C 扩展多、启动路径复杂的生态，你不提前看，后面大概率会被两类问题打脸：</p><ul><li>某个依赖迟迟不给兼容 wheel。  </li><li>某个内部脚本在默认编码、导入时机或 profiler 行为变化后开始出怪问题。</li></ul><h2 id="2-3-15-这一轮，最值得提前做的不是功能试用，而是诊断试用"><a href="#2-3-15-这一轮，最值得提前做的不是功能试用，而是诊断试用" class="headerlink" title="2. 3.15 这一轮，最值得提前做的不是功能试用，而是诊断试用"></a>2. 3.15 这一轮，最值得提前做的不是功能试用，而是诊断试用</h2><p>我最看重的是新 profiler。<br>很多团队现在做性能排查，还是临时拉 flamegraph、抓一次慢请求、看几张截图，最后结论都很飘。3.15 这次把高频、低开销的统计 profiler 送进来，本质上是在给维护者一把更适合日常化的工具。</p><p>其次是 lazy imports。<br>它很可能让启动和 CLI 体验更好，但也会把一些错误从 import 时推迟到运行时。这个特性如果不提前做对照实验，正式上线后很容易变成“偶发才触发”的麻烦。</p><p>JIT 改进也值得看，但我不建议一上来就把重点放在“平均快了几个点”。先把 profiler 和导入行为观察清楚，后面再谈性能收益更稳。</p><h2 id="3-一套适合团队执行的-CI-预演流程"><a href="#3-一套适合团队执行的-CI-预演流程" class="headerlink" title="3. 一套适合团队执行的 CI 预演流程"></a>3. 一套适合团队执行的 CI 预演流程</h2><p>第一步，单开 <code>py315-preview</code> 流水线。<br>不要污染主干 CI。目标是每天或每周定时跑，对比而不是替代。</p><p>第二步，挑三类用例。<br>Web API、CLI&#x2F;管理脚本、数据处理任务。别只拿一类 benchmark 就下结论。</p><p>第三步，把 profiler 输出保存成工件。<br>不要只比较通过&#x2F;失败。真正有价值的是留住每次预演的热点变化。</p><p>第四步，单独测试 lazy imports 效应。<br>记录启动时间、首次调用耗时、异常暴露时机。这个特性最怕只看启动更快，却忽略错误延后。</p><p>第五步，列兼容依赖清单。<br>谁还没声明支持 3.15，谁是 C 扩展，谁和编码、import hook、类型检查耦合高，提前记下来。</p><h2 id="4-最容易犯的两个错误"><a href="#4-最容易犯的两个错误" class="headerlink" title="4. 最容易犯的两个错误"></a>4. 最容易犯的两个错误</h2><p>一个错误是只看速度提升。<br>Profiler、编码默认值、类型和导入行为都在变，单看“快了没有”会让很多真正的风险漏掉。</p><p>另一个错误是预演只在个人电脑上做。<br>个人环境最容易被缓存、文件系统、CPU 状态污染。你真正需要的，是可重复的流水线结果。</p><h2 id="5-建议本周就做的动作"><a href="#5-建议本周就做的动作" class="headerlink" title="5. 建议本周就做的动作"></a>5. 建议本周就做的动作</h2><ol><li>新建一条 3.15 alpha 7 预演流水线。  </li><li>为关键服务保存 profiler 工件和启动指标。  </li><li>给 lazy imports 做单独的启用&#x2F;禁用对照。  </li><li>盘点所有高风险依赖和 C 扩展。  </li><li>在版本例会上固定讨论一次 3.15 预演结果。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>Python 版本升级最怕的，不是它新，而是你对自己的系统不够了解。3.15 alpha 7 给了团队一个很好的练手机会：不用冒险上生产，也能把 profiler、导入行为和兼容风险都先摸清楚。谁把这一步做成日常流程，谁后面面对 beta 和正式版时就不会那么被动。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Python Insider: Python 3.15.0 alpha 7<br><a href="https://blog.python.org/2026/03/python-3150-alpha-7/">https://blog.python.org/2026/03/python-3150-alpha-7/</a></li><li>Python Insider: CPython: 36 Years of Source Code<br><a href="https://blog.python.org/2026/03/cpython-codebase-growth/">https://blog.python.org/2026/03/cpython-codebase-growth/</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 30 日，Python 团队如果还把 3.15 alpha 7 当成“有空在本地试试”的东西，其实有点浪费。官方在 3 月 10 日的发布说明里给出的变化并不轻：高频、低开销的统计式 profiler，lazy imports，&lt;c</summary>
-      
-    
-    
-    
-    <category term="Python" scheme="https://zhangxianda.com/categories/Python/"/>
-    
-    
-    <category term="Python" scheme="https://zhangxianda.com/tags/Python/"/>
-    
-    <category term="Python 3.15" scheme="https://zhangxianda.com/tags/Python-3-15/"/>
-    
-    <category term="CI" scheme="https://zhangxianda.com/tags/CI/"/>
-    
-    <category term="Profiler" scheme="https://zhangxianda.com/tags/Profiler/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从 contrast-color 到 autofill event：前端今年最该删掉的补丁有哪些</title>
-    <link href="https://zhangxianda.com/2026/03/30/2026-03-30-frontend/"/>
-    <id>https://zhangxianda.com/2026/03/30/2026-03-30-frontend/</id>
-    <published>2026-03-30T01:30:00.000Z</published>
-    <updated>2026-03-31T00:43:29.161Z</updated>
-    
-    <content type="html"><![CDATA[<p>导语：<br>截至 2026 年 3 月 30 日，前端团队最容易忽略的一笔债，不是大框架，而是那些年复一年留下来的小补丁。Chrome 147 beta 在 3 月 11 日带来一串很适合“删代码”的能力：<code>contrast-color()</code>、<code>scroll</code> named range、<code>border-shape</code>、元素级 view transitions、JSON&#x2F;CSS <code>modulepreload</code>、<code>Math.sumPrecise</code>，还有新一轮 origin trials 里的 <code>autofill</code> event、Container Timing 和 connection allowlists。它们的价值不是让你今天就大面积重写页面，而是提醒你：很多旧的 workaround 已经过了保质期。</p><h2 id="1-前端工程最容易积债的地方在哪"><a href="#1-前端工程最容易积债的地方在哪" class="headerlink" title="1. 前端工程最容易积债的地方在哪"></a>1. 前端工程最容易积债的地方在哪</h2><p>不是复杂组件，也不是大型状态管理，而是那些“先临时补一下”的小脚本、小 mixin、小 util。比如：</p><ul><li>手动算前景色黑白对比；  </li><li>自己维护滚动驱动动画区间；  </li><li>为 JSON&#x2F;CSS 模块 preload 写自定义逻辑；  </li><li>为表单自动填充兼容写一堆监听 hack；  </li><li>为局域网连接做不透明的调试白名单。</li></ul><p>这些代码单看都不大，但维护起来很碎，而且最怕没人记得当初为什么写。</p><h2 id="2-Chrome-147-这批特性更适合拿来“减法”"><a href="#2-Chrome-147-这批特性更适合拿来“减法”" class="headerlink" title="2. Chrome 147 这批特性更适合拿来“减法”"></a>2. Chrome 147 这批特性更适合拿来“减法”</h2><p><code>contrast-color()</code> 这种特性就很典型。<br>它不花哨，却能让一类老旧的主题色判断逻辑开始退休。</p><p><code>scroll</code> named range 也一样。<br>滚动驱动动画过去很容易被各种 observer 和百分比计算拖累，现在终于更接近原生语义。</p><p>JSON&#x2F;CSS <code>modulepreload</code> 更像一条迟来的补线。<br>如果你的工程里还有为了这些模块预热而拼出来的特殊逻辑，是时候看看有没有删除空间。</p><p>再加上 <code>autofill</code> event 和 Container Timing 这类实验能力，表单和性能里一些长期不优雅的处理方式，终于有了更原生的替代方向。</p><h2 id="3-一套更合适的清债流程"><a href="#3-一套更合适的清债流程" class="headerlink" title="3. 一套更合适的清债流程"></a>3. 一套更合适的清债流程</h2><p>第一步，列补丁清单。<br>把项目里和颜色对比、滚动动画、module preload、表单自动填充、本地网络访问有关的小工具列出来。</p><p>第二步，按“删除价值”排序。<br>优先看那些代码量不大但反复出问题、入职新人也看不懂的补丁。</p><p>第三步，用 beta 和 origin trials 先验证。<br>不要急着上生产。先用试验环境确认新能力是否真能替代旧逻辑。</p><p>第四步，给回退路径写明白。<br>能删一部分，就别两套长期并存。清债最怕永远“保守留着”。</p><p>第五步，把调试方式也更新。<br>Chrome 147 之后，很多问题不再需要自己造调试工具。团队排查手册也该跟着改。</p><h2 id="4-这类减法最容易踩的坑"><a href="#4-这类减法最容易踩的坑" class="headerlink" title="4. 这类减法最容易踩的坑"></a>4. 这类减法最容易踩的坑</h2><p>一个坑是“看见新特性就想立刻用满”。<br>前端做减法不是追新比赛，而是有计划地替掉最烦的那部分旧逻辑。</p><p>另一个坑是“我知道这块脏，但暂时先别动”。<br>这句话说多了，最后代码库里就会留下几十个谁也不敢删的小机关。</p><h2 id="5-建议本周执行的动作"><a href="#5-建议本周执行的动作" class="headerlink" title="5. 建议本周执行的动作"></a>5. 建议本周执行的动作</h2><ol><li>梳理和对比色、滚动动画、预加载、autofill 相关的旧逻辑。  </li><li>选一个页面试验 <code>contrast-color()</code> 或 <code>modulepreload</code> 替换。  </li><li>对动态表单调研 <code>autofill</code> event 的应用空间。  </li><li>评估局域网访问场景是否会受连接收紧影响。  </li><li>给“计划删除的前端补丁”列一份真正会执行的清单。</li></ol><h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>前端工程常常不是被新需求压垮，而是被旧补丁拖慢。Chrome 147 beta 最有价值的地方，不在它让 demo 更漂亮，而在它给了团队一些删代码的理由。谁愿意顺着这些能力去做减法，谁的项目后面就会少很多说不清的怪问题。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li>Chrome for Developers: Chrome 147 beta<br><a href="https://developer.chrome.com/blog/chrome-147-beta">https://developer.chrome.com/blog/chrome-147-beta</a></li><li>Chrome for Developers: What’s new in DevTools 146<br><a href="https://developer.chrome.com/blog/new-in-devtools-146?hl=en">https://developer.chrome.com/blog/new-in-devtools-146?hl=en</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;导语：&lt;br&gt;截至 2026 年 3 月 30 日，前端团队最容易忽略的一笔债，不是大框架，而是那些年复一年留下来的小补丁。Chrome 147 beta 在 3 月 11 日带来一串很适合“删代码”的能力：&lt;code&gt;contrast-color()&lt;/code&gt;、&lt;co</summary>
-      
-    
-    
-    
-    <category term="前端" scheme="https://zhangxianda.com/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-    <category term="CSS" scheme="https://zhangxianda.com/tags/CSS/"/>
-    
-    <category term="Chrome" scheme="https://zhangxianda.com/tags/Chrome/"/>
-    
-    <category term="Frontend" scheme="https://zhangxianda.com/tags/Frontend/"/>
-    
-    <category term="Forms" scheme="https://zhangxianda.com/tags/Forms/"/>
+    <category term="Spring Modulith" scheme="https://zhangxianda.com/tags/Spring-Modulith/"/>
     
   </entry>
   
