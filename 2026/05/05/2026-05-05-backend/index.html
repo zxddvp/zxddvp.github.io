@@ -1,0 +1,1007 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="utf-8">
+    <meta name="author" content="张显达">
+    <meta name="keywords" content="后端平台别再假设 Token 永远 40 位，这轮更新专治历史依赖, 张显达|个人|博客|技术|生活">
+    <meta name="description" content="导语：到 2026 年 5 月 5 日，后端和平台工程这边最该警觉的，不是某个新框架，而是一组很典型的“历史假设开始失效”的更新。4 月 24 日，GitHub 明确提醒新的 GitHub App installation token 格式">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
+    <link rel="canonical" href="https://zhangxianda.com/2026/05/05/2026-05-05-backend/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="后端平台别再假设 Token 永远 40 位，这轮更新专治历史依赖 | 张显达的个人博客">
+    <meta property="og:description" content="导语：到 2026 年 5 月 5 日，后端和平台工程这边最该警觉的，不是某个新框架，而是一组很典型的“历史假设开始失效”的更新。4 月 24 日，GitHub 明确提醒新的 GitHub App installation token 格式">
+    <meta property="og:url" content="https://zhangxianda.com/2026/05/05/2026-05-05-backend/">
+    <meta property="og:site_name" content="张显达的个人博客">
+    <meta property="og:image" content="https://zhangxianda.com/favicon.png">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2026-05-06T01:27:30.566Z">
+    
+    <meta property="og:image:alt" content="后端平台别再假设 Token 永远 40 位，这轮更新专治历史依赖 | 张显达的个人博客">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="后端平台别再假设 Token 永远 40 位，这轮更新专治历史依赖 | 张显达的个人博客">
+    <meta name="twitter:description" content="导语：到 2026 年 5 月 5 日，后端和平台工程这边最该警觉的，不是某个新框架，而是一组很典型的“历史假设开始失效”的更新。4 月 24 日，GitHub 明确提醒新的 GitHub App installation token 格式">
+    <meta name="twitter:image" content="https://zhangxianda.com/favicon.png">
+    
+
+    
+
+    <title>后端平台别再假设 Token 永远 40 位，这轮更新专治历史依赖 | 张显达的个人博客</title>
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
+
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "后端平台别再假设 Token 永远 40 位，这轮更新专治历史依赖",
+      "mainEntityOfPage": "https://zhangxianda.com/2026/05/05/2026-05-05-backend/",
+      "datePublished": "2026-05-05T01:30:00.000Z",
+      "dateModified": "2026-05-06T01:27:30.566Z",
+      "author": { "@type": "Person", "name": "张显达" },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
+      "image": "https://zhangxianda.com/favicon.png"
+    }
+    </script>
+    
+    <meta property="article:published_time" content="2026-05-05T01:30:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2026-05-06T01:27:30.566Z">
+    
+    
+
+<meta name="generator" content="Hexo 8.1.0"></head>
+
+
+<body>
+    
+<header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
+          
+          <span class="logo-span">张显达</span>
+        </a>
+      </div>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+      <ul class="right nav-menu">
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/" class="waves-effect waves-light">
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              <span>首页</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/ai" class="waves-effect waves-light">
+              <i class="fas fa-robot" style="zoom: 0.6;"></i>
+              <span>人工智能</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tools" class="waves-effect waves-light">
+              <i class="fas fa-tools" style="zoom: 0.6;"></i>
+              <span>推荐工具</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tags" class="waves-effect waves-light">
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              <span>标签</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/categories" class="waves-effect waves-light">
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              <span>分类</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/archives" class="waves-effect waves-light">
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              <span>归档</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/about" class="waves-effect waves-light">
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              <span>关于</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/friends" class="waves-effect waves-light">
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              <span>友情链接</span>
+            </a>
+          </li>
+        
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div id="mobile-nav" class="side-nav sidenav">
+        <div class="mobile-head bg-color">
+          
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
+          
+          <div class="logo-name">张显达</div>
+          <div class="logo-desc">张显达的个人博客</div>
+        </div>
+        <ul class="menu-list mobile-menu-list">
+          
+            <li class="m-nav-item">
+              <a href="/" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-home"></i>
+                首页
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/ai" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-robot"></i>
+                人工智能
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tools" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tools"></i>
+                推荐工具
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tags" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tags"></i>
+                标签
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/categories" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-bookmark"></i>
+                分类
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/archives" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-archive"></i>
+                归档
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/about" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-user-circle"></i>
+                关于
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/friends" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-address-book"></i>
+                友情链接
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">后端平台别再假设 Token 永远 40 位，这轮更新专治历史依赖</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Backend/">
+                                <span class="chip bg-color">Backend</span>
+                            </a>
+                        
+                            <a href="/tags/GitHub-Actions/">
+                                <span class="chip bg-color">GitHub Actions</span>
+                            </a>
+                        
+                            <a href="/tags/OIDC/">
+                                <span class="chip bg-color">OIDC</span>
+                            </a>
+                        
+                            <a href="/tags/Token/">
+                                <span class="chip bg-color">Token</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                后端
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-05-05
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>导语：<br>到 2026 年 5 月 5 日，后端和平台工程这边最该警觉的，不是某个新框架，而是一组很典型的“历史假设开始失效”的更新。4 月 24 日，GitHub 明确提醒新的 GitHub App installation token 格式将从 40 字符左右变成长约 520 字符的 <code>ghs_APPID_JWT</code> 形态，而且 Actions 的 <code>GITHUB_TOKEN</code> 也在分阶段卷入这一变化；4 月 23 日，GitHub Actions 的 OIDC subject claim 开始引入不可变 owner/repo ID；4 月 27 日，Copilot code review 又宣布从 6 月 1 日起会在私有仓库消耗 GitHub Actions minutes。</p>
+<p>这些更新拆开看分别属于身份、凭据和计费。放在一起看，它们其实在修同一个老问题：后端平台里有太多系统默默依赖了过去的“方便假设”。token 长度默认固定、subject claim 用可变名称也够用、某类自动化运行反正不算分钟。这些假设过去勉强成立，现在平台不打算再替你兜底了。</p>
+<h2 id="1-为什么这些变化值得马上排查"><a href="#1-为什么这些变化值得马上排查" class="headerlink" title="1. 为什么这些变化值得马上排查"></a>1. 为什么这些变化值得马上排查</h2><p>后端平台最怕的不是你知道有风险，而是风险藏在看不见的默认值里。<br>例如：</p>
+<ol>
+<li>某段代码用正则校验 <code>ghs_[A-Za-z0-9]{36}</code>。</li>
+<li>数据库某列长度只够放 40 或 64 位 token。</li>
+<li>云侧 trust policy 只绑定 <code>repo:org/repo:ref:...</code> 这类可变 subject。</li>
+<li>代码评审机器人默认走 GitHub-hosted runner，但账单没人管。</li>
+</ol>
+<p>这种问题平时不出声，一旦平台升级就会成片暴露。更麻烦的是，很多组织直到报错出现，才第一次意识到自己原来在依赖这些历史细节。</p>
+<h2 id="2-新的安装令牌格式到底在提醒什么"><a href="#2-新的安装令牌格式到底在提醒什么" class="headerlink" title="2. 新的安装令牌格式到底在提醒什么"></a>2. 新的安装令牌格式到底在提醒什么</h2><p>GitHub 对 App installation token 的说明其实非常直白：把 token 当 opaque string，不要依赖长度、模式和内部内容。<br>这句话看上去像老生常谈，现实中却经常被违反。因为大家总会觉得“反正现在就是这样”，于是把令牌写进正则、字段长度、日志脱敏规则、代理转发逻辑甚至前端校验里。</p>
+<p>新的格式一上来，所有这些地方都有可能出问题。尤其是一些自建集成、老内部服务和第三方中间层，最容易中招。更关键的是，这轮变更并不只影响某个 App，而是会逐步覆盖 Actions <code>GITHUB_TOKEN</code> 和更广泛的 installation token 使用场景。</p>
+<h2 id="3-OIDC-subject-claim-的变化同样不能忽略"><a href="#3-OIDC-subject-claim-的变化同样不能忽略" class="headerlink" title="3. OIDC subject claim 的变化同样不能忽略"></a>3. OIDC subject claim 的变化同样不能忽略</h2><p>GitHub 这次给 Actions OIDC token 的默认 <code>sub</code> 增加 immutable owner / repository IDs，本质上是在修一个身份可回收风险。以前如果只用可变名称，repo 或 org 名称被回收复用，就可能给新的持有者留下意外信任路径。</p>
+<p>这个改动对安全是好消息，但对平台团队意味着一件很现实的事：<br>你们的云侧 trust policy、审计脚本、文档模板和自动化生成逻辑，最好现在就开始准备支持新格式。等到 6 月 18 日新建仓库和 rename 自动切过去，再临时补会很被动。</p>
+<h2 id="4-Actions-minutes-计费变化为什么也该算后端问题"><a href="#4-Actions-minutes-计费变化为什么也该算后端问题" class="headerlink" title="4. Actions minutes 计费变化为什么也该算后端问题"></a>4. Actions minutes 计费变化为什么也该算后端问题</h2><p>有些人会觉得 Copilot code review 消耗 Actions minutes 只是 Copilot 的事情，不算后端平台主题。我不认同。因为一旦 agentic review 跑在 GitHub Actions 上，平台组就必须把它当成标准算力消费来看待。</p>
+<p>过去很多团队对 Actions 的预算感知还停留在 CI/CD 层，觉得“代码评审是另一个产品”。现在这个边界在消失。私有仓库上的 code review 既消耗 AI Credits，也消耗 Actions minutes，这就要求平台组同时管两类成本，并且考虑 runner 类型、预算上限、报表解释和团队预期。</p>
+<p>后端平台的职责本来就是把“自动化运行成本”和“业务使用习惯”接起来，这次只是又多了一类工作负载。</p>
+<h2 id="5-一套更靠谱的排查顺序"><a href="#5-一套更靠谱的排查顺序" class="headerlink" title="5. 一套更靠谱的排查顺序"></a>5. 一套更靠谱的排查顺序</h2><p>第一步，搜所有 token 假设。<br>直接在代码库里搜 <code>ghs_</code>、40 位长度校验、数据库字段定义、日志脱敏正则、代理头处理逻辑。别靠记忆，靠全文检索。</p>
+<p>第二步，盘点 OIDC trust policy。<br>看哪些云账号、哪些环境、哪些 repo 依赖 GitHub Actions OIDC，并确认当前 subject claim 是否需要迁移到 immutable 版本。</p>
+<p>第三步，把 token 存储和校验逻辑收敛。<br>如果每个服务都自己判 token 格式，后面每次平台变更都会出事。最好有统一库或统一网关来处理。</p>
+<p>第四步，把 Actions 预算与 AI 使用放到一起看。<br>别等 6 月 1 日之后才发现评审量和 runner 分钟数一起飙升。最好现在就模拟一轮估算，并通知 billing 管理人。</p>
+<p>第五步，给历史系统留回滚和灰度方案。<br>尤其是那些老应用、老数据库、老代理，不一定能一次改完。要先知道谁最脆弱，先给它们试。</p>
+<h2 id="6-本周建议执行的动作"><a href="#6-本周建议执行的动作" class="headerlink" title="6. 本周建议执行的动作"></a>6. 本周建议执行的动作</h2><ol>
+<li>在代码库里检索所有固定 token 长度、格式校验和相关正则。</li>
+<li>盘点数据库里存 token 的字段长度，确认能否容纳约 520 字符。</li>
+<li>用新的 immutable subject claim 预览和更新云侧 trust policy。</li>
+<li>提前估算 Copilot code review 对 Actions minutes 的影响。</li>
+<li>和安全、平台、财务三个角色同步这轮变化，不要各自为政。</li>
+</ol>
+<h2 id="7-结语"><a href="#7-结语" class="headerlink" title="7. 结语"></a>7. 结语</h2><p>5 月 5 日这一波后端相关新闻，其实没有多炫的 headline，但非常典型。它们都在告诉团队：那些你以为永远不会变的底层假设，平台正在一个个收回去。token 不会永远短小固定，OIDC 身份不会永远靠可变名称，自动化评审也不会永远算作“额外福利”。后端平台真正成熟的表现，不是等这些变化打到脸上再补，而是尽早把系统改成对这些细节不敏感。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>GitHub Changelog: Notice about upcoming new format for GitHub App installation tokens<br><a target="_blank" rel="noopener noreferrer external nofollow" href="https://github.blog/changelog/2026-04-24-notice-about-upcoming-new-format-for-github-app-installation-tokens/">https://github.blog/changelog/2026-04-24-notice-about-upcoming-new-format-for-github-app-installation-tokens/</a></li>
+<li>GitHub Changelog: Immutable subject claims for GitHub Actions OIDC tokens<br><a target="_blank" rel="noopener noreferrer external nofollow" href="https://github.blog/changelog/2026-04-23-immutable-subject-claims-for-github-actions-oidc-tokens/">https://github.blog/changelog/2026-04-23-immutable-subject-claims-for-github-actions-oidc-tokens/</a></li>
+<li>GitHub Changelog: GitHub Copilot code review will start consuming GitHub Actions minutes on June 1, 2026<br><a target="_blank" rel="noopener noreferrer external nofollow" href="https://github.blog/changelog/2026-04-27-github-copilot-code-review-will-start-consuming-github-actions-minutes-on-june-1-2026/">https://github.blog/changelog/2026-04-27-github-copilot-code-review-will-start-consuming-github-actions-minutes-on-june-1-2026/</a></li>
+</ul>
+
+                
+            </div>
+            <hr>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张显达</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangxianda.com/2026/05/05/2026-05-05-backend/">https://zhangxianda.com/2026/05/05/2026-05-05-backend/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async="" defer="">
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Backend/">
+                                    <span class="chip bg-color">Backend</span>
+                                </a>
+                            
+                                <a href="/tags/GitHub-Actions/">
+                                    <span class="chip bg-color">GitHub Actions</span>
+                                </a>
+                            
+                                <a href="/tags/OIDC/">
+                                    <span class="chip bg-color">OIDC</span>
+                                </a>
+                            
+                                <a href="/tags/Token/">
+                                    <span class="chip bg-color">Token</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/05/05/2026-05-05-software-engineering/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="工单到 PR 的闭环正在被 Agent 压缩，软件工程团队得先重排协作界面" loading="lazy" decoding="async" fetchpriority="low">
+                        
+                        <span class="card-title">工单到 PR 的闭环正在被 Agent 压缩，软件工程团队得先重排协作界面</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-05-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="post-category">
+                                    软件工程
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Copilot/">
+                        <span class="chip bg-color">Copilot</span>
+                    </a>
+                    
+                    <a href="/tags/Workflow/">
+                        <span class="chip bg-color">Workflow</span>
+                    </a>
+                    
+                    <a href="/tags/Software-Engineering/">
+                        <span class="chip bg-color">Software Engineering</span>
+                    </a>
+                    
+                    <a href="/tags/Pull-Requests/">
+                        <span class="chip bg-color">Pull Requests</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/04/21/2026-04-21-ai-tooling/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="最新AI开发工具推荐，先买能安装、能追踪、能回滚的那几类" loading="lazy" decoding="async" fetchpriority="low">
+                        
+                        <span class="card-title">最新AI开发工具推荐，先买能安装、能追踪、能回滚的那几类</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-04-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9C%80%E6%96%B0AI%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/" class="post-category">
+                                    最新AI开发工具推荐
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI-Tools/">
+                        <span class="chip bg-color">AI Tools</span>
+                    </a>
+                    
+                    <a href="/tags/DevTools/">
+                        <span class="chip bg-color">DevTools</span>
+                    </a>
+                    
+                    <a href="/tags/Copilot-SDK/">
+                        <span class="chip bg-color">Copilot SDK</span>
+                    </a>
+                    
+                    <a href="/tags/gh-skill/">
+                        <span class="chip bg-color">gh skill</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 l8">
+        <p>Copyright © 2026 <a href="/">张显达的个人博客</a></p>
+        
+      </div>
+      <div class="col s12 m4 l4 right-align">
+        <a href="/privacy" class="tooltipped" data-tooltip="隐私政策" data-position="top" data-delay="50">隐私</a> |
+        <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
+        <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
+        <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
+          <i class="fas fa-rss"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+
+
+
+</body></html>
