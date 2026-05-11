@@ -1,0 +1,1012 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="utf-8">
+    <meta name="author" content="张显达">
+    <meta name="keywords" content="安全左移终于长到编码当下了，但没有运行时上下文的左移仍然不够, 张显达|个人|博客|技术|生活">
+    <meta name="description" content="导语：2026 年 5 月上旬，安全领域有一组值得一起看的官方更新。5 月 5 日，GitHub 宣布 Secret scanning with GitHub MCP server 正式 GA，同时 Dependency scanning ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="theme-color" content="#42b983">
+    <meta name="color-scheme" content="light">
+    <meta name="baidu-site-verification" content="codeva-PsT2hEIvL5">
+    <link rel="canonical" href="https://zhangxianda.com/2026/05/10/2026-05-10-cybersecurity/">
+    
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin="">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="安全左移终于长到编码当下了，但没有运行时上下文的左移仍然不够 | 张显达的个人博客">
+    <meta property="og:description" content="导语：2026 年 5 月上旬，安全领域有一组值得一起看的官方更新。5 月 5 日，GitHub 宣布 Secret scanning with GitHub MCP server 正式 GA，同时 Dependency scanning ">
+    <meta property="og:url" content="https://zhangxianda.com/2026/05/10/2026-05-10-cybersecurity/">
+    <meta property="og:site_name" content="张显达的个人博客">
+    <meta property="og:image" content="https://zhangxianda.com/favicon.png">
+    <meta property="og:locale" content="zh-CN">
+    
+    <meta property="og:updated_time" content="2026-05-11T01:57:38.263Z">
+    
+    <meta property="og:image:alt" content="安全左移终于长到编码当下了，但没有运行时上下文的左移仍然不够 | 张显达的个人博客">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="安全左移终于长到编码当下了，但没有运行时上下文的左移仍然不够 | 张显达的个人博客">
+    <meta name="twitter:description" content="导语：2026 年 5 月上旬，安全领域有一组值得一起看的官方更新。5 月 5 日，GitHub 宣布 Secret scanning with GitHub MCP server 正式 GA，同时 Dependency scanning ">
+    <meta name="twitter:image" content="https://zhangxianda.com/favicon.png">
+    
+
+    
+
+    <title>安全左移终于长到编码当下了，但没有运行时上下文的左移仍然不够 | 张显达的个人博客</title>
+    <link rel="icon" type="image/png" href="https://zhangxianda.com/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <link rel="alternate" href="https://zhangxianda.com/atom.xml" title="张显达的个人博客" type="application/atom+xml">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6213986911401773" crossorigin="anonymous"></script>
+
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "安全左移终于长到编码当下了，但没有运行时上下文的左移仍然不够",
+      "mainEntityOfPage": "https://zhangxianda.com/2026/05/10/2026-05-10-cybersecurity/",
+      "datePublished": "2026-05-10T01:30:00.000Z",
+      "dateModified": "2026-05-11T01:57:38.263Z",
+      "author": { "@type": "Person", "name": "张显达" },
+      "publisher": { "@type": "Organization", "name": "张显达的个人博客", "logo": { "@type": "ImageObject", "url": "https://zhangxianda.com/favicon.png" } },
+      "image": "https://zhangxianda.com/favicon.png"
+    }
+    </script>
+    
+    <meta property="article:published_time" content="2026-05-10T01:30:00.000Z">
+    
+    
+    <meta property="article:modified_time" content="2026-05-11T01:57:38.263Z">
+    
+    
+
+<meta name="generator" content="Hexo 8.1.0"></head>
+
+
+<body>
+    
+<header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+            <img src="/medias/logo.png" class="logo-img" alt="LOGO" loading="lazy" decoding="async" fetchpriority="high">
+          
+          <span class="logo-span">张显达</span>
+        </a>
+      </div>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+      <ul class="right nav-menu">
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/" class="waves-effect waves-light">
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              <span>首页</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/ai" class="waves-effect waves-light">
+              <i class="fas fa-robot" style="zoom: 0.6;"></i>
+              <span>人工智能</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tools" class="waves-effect waves-light">
+              <i class="fas fa-tools" style="zoom: 0.6;"></i>
+              <span>推荐工具</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/tags" class="waves-effect waves-light">
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              <span>标签</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/categories" class="waves-effect waves-light">
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              <span>分类</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/archives" class="waves-effect waves-light">
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              <span>归档</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/about" class="waves-effect waves-light">
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              <span>关于</span>
+            </a>
+          </li>
+        
+          <li class="hide-on-med-and-down nav-item">
+            <a href="/friends" class="waves-effect waves-light">
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              <span>友情链接</span>
+            </a>
+          </li>
+        
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div id="mobile-nav" class="side-nav sidenav">
+        <div class="mobile-head bg-color">
+          
+            <img src="/medias/logo.png" class="logo-img circle responsive-img" loading="lazy" decoding="async" fetchpriority="low">
+          
+          <div class="logo-name">张显达</div>
+          <div class="logo-desc">张显达的个人博客</div>
+        </div>
+        <ul class="menu-list mobile-menu-list">
+          
+            <li class="m-nav-item">
+              <a href="/" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-home"></i>
+                首页
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/ai" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-robot"></i>
+                人工智能
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tools" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tools"></i>
+                推荐工具
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/tags" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-tags"></i>
+                标签
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/categories" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-bookmark"></i>
+                分类
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/archives" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-archive"></i>
+                归档
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/about" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-user-circle"></i>
+                关于
+              </a>
+            </li>
+          
+            <li class="m-nav-item">
+              <a href="/friends" class="waves-effect waves-light">
+                <i class="fa-fw fas fa-address-book"></i>
+                友情链接
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">安全左移终于长到编码当下了，但没有运行时上下文的左移仍然不够</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/MCP/">
+                                <span class="chip bg-color">MCP</span>
+                            </a>
+                        
+                            <a href="/tags/Supply-Chain/">
+                                <span class="chip bg-color">Supply Chain</span>
+                            </a>
+                        
+                            <a href="/tags/Cybersecurity/">
+                                <span class="chip bg-color">Cybersecurity</span>
+                            </a>
+                        
+                            <a href="/tags/CodeQL/">
+                                <span class="chip bg-color">CodeQL</span>
+                            </a>
+                        
+                            <a href="/tags/AppSec/">
+                                <span class="chip bg-color">AppSec</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category">
+                                网络安全
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-05-10
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>导语：<br>2026 年 5 月上旬，安全领域有一组值得一起看的官方更新。5 月 5 日，GitHub 宣布 <code>Secret scanning with GitHub MCP server</code> 正式 GA，同时 <code>Dependency scanning with GitHub MCP server</code> 进入 Public Preview；同一天，<code>Code to cloud risk visibility with Microsoft Defender for Cloud</code> 也转为 GA。5 月 8 日，<code>CodeQL 2.25.3</code> 又补上了包括 <code>Swift 6.3</code> 在内的新支持。把这些消息拆开看，都只是功能更新；合起来看，它们指向一个更大的趋势：安全左移终于不只是“在代码合并前扫一遍”，而是开始长进 AI 编码、依赖分析、云侧风险映射和运行时暴露面关联的同一条链路。</p>
+<p>这对团队的价值，在于把“写代码的人”和“发现风险的人”之间的时间差继续压缩。以前，开发者在 IDE、CLI、PR 里生成代码，安全团队晚一些在扫描平台里看结果；现在，MCP 方式把 secret scanning、dependency scanning 直接拉到了 AI 工具的可调用能力里，意味着问题可以在生成时就被提出。但要注意，左移做得再早，如果没有运行时上下文和资产视角，最终依然只能发现“可疑代码”，难以判断“真实风险”。</p>
+<h2 id="1-这次变化真正意味着什么"><a href="#1-这次变化真正意味着什么" class="headerlink" title="1. 这次变化真正意味着什么"></a>1. 这次变化真正意味着什么</h2><p>最大的变化，是安全工具终于开始面向 AI 开发流程重新布置接口。<code>MCP server</code> 版本的 secret scanning 和 dependency scanning 不是简单复制已有扫描器，而是在承认一个现实：越来越多代码首先出现在 AI 编码助手里，然后才进入仓库和 PR。既然开发入口已经变了，安全能力也必须前移到新的入口。</p>
+<p><code>Code to cloud risk visibility</code> 的 GA 则补上了另一端。只看代码层面的发现不够，因为真实风险往往取决于资产是否在公网、权限是否过大、工作负载是否真的承载敏感数据。也就是说，代码扫描在左，云环境暴露在右，中间需要一条能把发现与资产状态关联起来的桥。</p>
+<p><code>CodeQL 2.25.3</code> 这类持续更新也说明一个工程事实：静态分析体系本身是活的，语言版本、框架特性、建模规则都在变。团队如果还把 SAST 看成“一次部署、长期不动”的系统，最后只会让规则和代码脱节，扫描结果不是噪声过多，就是覆盖不足。</p>
+<h2 id="2-为什么团队现在应该关心"><a href="#2-为什么团队现在应该关心" class="headerlink" title="2. 为什么团队现在应该关心"></a>2. 为什么团队现在应该关心</h2><p>因为 AI 编码已经改变了漏洞产生的方式。过去很多漏洞来自手写疏忽，现在则越来越多来自“模型给出看似合理的默认实现”。例如硬编码令牌、调试开关遗留、过宽的网络访问、未锁定版本依赖、把示例代码直接搬进生产项目。这类问题的共同点是生成速度快、扩散范围大，而且很容易在人类审阅疲劳时漏过去。</p>
+<p>如果安全团队还停留在“等 PR 合并前集中扫一遍”，那时机往往已经晚了。开发者已经把错误实现扩散到多个分支、多个服务甚至多个脚手架仓库，修复成本会被放大。相反，如果你把 secret scanning 和 dependency scanning 拉到 AI 编码入口附近，很多问题可以在第一次落盘前就被拦住。</p>
+<p>但只做左移也不够。因为并非每个扫描发现都值得同等响应。真正决定优先级的，是这段代码是否跑在公网暴露资产上、是否连着高权限身份、是否处在敏感数据路径中。没有代码到云资产的映射，安全团队仍然会被大量中低风险告警拖住。</p>
+<h2 id="3-一套可执行的落地流程"><a href="#3-一套可执行的落地流程" class="headerlink" title="3. 一套可执行的落地流程"></a>3. 一套可执行的落地流程</h2><p>第一步，把 AI 编码入口纳入安全资产清单。<br>列出团队当前使用的 IDE 插件、Copilot CLI、内部生成式编码门户、PR 自动修复器和脚本代理。只要它能生成、修改或解释代码，就应该算进安全控制面，而不是只把 Git 仓库算作边界。</p>
+<p>第二步，在这些入口旁边布置前置检查。<br>优先接入 <code>secret scanning</code> 和 <code>dependency scanning</code>，让开发者在提交前、生成后、修复时都能得到即时反馈。这里的关键不是“扫描一次”，而是“生成一次就能问一次”。</p>
+<p>第三步，给扫描结果加运行时上下文。<br>把扫描平台与云资产、仓库标签、服务重要性、网络暴露、数据敏感级别连接起来。相同的硬编码凭证，如果只出现在本地练习仓库与出现在公网 API 仓库，响应级别不能一样。</p>
+<p>第四步，建立从发现到处置的统一分流。<br>高风险 secret 直接走吊销、轮转、追溯提交者、阻断发布；高风险依赖走升级、隔离、替代包验证；中低风险问题则进入 backlog，并与 PR、Issue、发布窗口对齐。分流流程必须标准化，否则扫描频次越高，团队越容易乱。</p>
+<p>第五步，用真实案例反推规则。<br>每处理完一类事件，都要问两个问题：这个问题能不能更早被发现？现有规则为什么没有足够快地提醒？这样做几轮之后，规则库和提示语才会真正贴近你的代码库现实。</p>
+<h2 id="4-最容易踩的坑"><a href="#4-最容易踩的坑" class="headerlink" title="4. 最容易踩的坑"></a>4. 最容易踩的坑</h2><p>第一大坑，是把 MCP 扫描当成“聊天窗口里的彩蛋”。如果它只是开发者偶尔手动调用的一个命令，安全收益会很有限。真正有效的做法，是把它嵌进默认工作流，让生成、修改、提交三个动作都能自动触发相应检查。</p>
+<p>第二大坑，是只关心检测率，不关心处置时长。很多团队上线扫描器后会庆祝“发现更多问题”，但如果 secret 仍然不能快速吊销，依赖仍然不能快速替换，告警越多只会代表积压越重。</p>
+<p>第三大坑，是没有云上下文就急着做全量阻断。这样会把团队拖进告警风暴。左移的目标不是制造更早的噪声，而是更早地处理真正危险的东西。</p>
+<h2 id="5-本周建议执行的动作"><a href="#5-本周建议执行的动作" class="headerlink" title="5. 本周建议执行的动作"></a>5. 本周建议执行的动作</h2><p>如果你要把 5 月上旬这些更新转成实际收益，本周可以先做五件事：</p>
+<ol>
+<li>盘点所有会生成代码的 AI 入口，并指定安全负责人。</li>
+<li>在这些入口验证 secret scanning 和 dependency scanning 的接入方式。</li>
+<li>为仓库补齐服务重要性、暴露面、数据敏感级别标签。</li>
+<li>抽取最近一个安全事件，回放它是否能通过新链路更早发现。</li>
+<li>和平台团队一起定义“扫描发现 -&gt; 吊销/升级/阻断/归档”的标准处置分流。</li>
+</ol>
+<p>这五件事不复杂，但会决定你的左移是停留在 PPT 上，还是能真正进入开发流。</p>
+<h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6. 结语"></a>6. 结语</h2><p>安全左移这几年一直在讲，但直到 AI 编码和代码到云的关联真正连起来，它才开始具备新的现实意义。5 月上旬这些官方更新说明，平台已经愿意把安全能力放进编码现场，也愿意把发现和运行时环境连接起来。团队接下来要做的，不是再买一个更大的安全面板，而是把编码入口、扫描结果、资产上下文和响应动作收成一套闭环。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>GitHub Changelog: Secret scanning with GitHub MCP server is now generally available<br><a target="_blank" rel="noopener noreferrer external nofollow" href="https://github.blog/changelog/2026-05-05-secret-scanning-with-github-mcp-server-is-now-generally-available/">https://github.blog/changelog/2026-05-05-secret-scanning-with-github-mcp-server-is-now-generally-available/</a></li>
+<li>GitHub Changelog: Dependency scanning with GitHub MCP server is in public preview<br><a target="_blank" rel="noopener noreferrer external nofollow" href="https://github.blog/changelog/2026-05-05-dependency-scanning-with-github-mcp-server-is-in-public-preview/">https://github.blog/changelog/2026-05-05-dependency-scanning-with-github-mcp-server-is-in-public-preview/</a></li>
+<li>GitHub Changelog: Code to cloud risk visibility with Microsoft Defender for Cloud is now generally available<br><a target="_blank" rel="noopener noreferrer external nofollow" href="https://github.blog/changelog/2026-05-05-code-to-cloud-risk-visibility-with-microsoft-defender-for-cloud-is-now-generally-available/">https://github.blog/changelog/2026-05-05-code-to-cloud-risk-visibility-with-microsoft-defender-for-cloud-is-now-generally-available/</a></li>
+<li>GitHub Changelog: CodeQL 2.25.3 adds Swift 6.3 support<br><a target="_blank" rel="noopener noreferrer external nofollow" href="https://github.blog/changelog/2026-05-08-codeql-2-25-3-adds-swift-6-3-support/">https://github.blog/changelog/2026-05-08-codeql-2-25-3-adds-swift-6-3-support/</a></li>
+</ul>
+
+                
+            </div>
+            <hr>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张显达</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zhangxianda.com/2026/05/10/2026-05-10-cybersecurity/">https://zhangxianda.com/2026/05/10/2026-05-10-cybersecurity/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer noopener" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank" rel="noopener noreferrer">张显达</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async="" defer="">
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/MCP/">
+                                    <span class="chip bg-color">MCP</span>
+                                </a>
+                            
+                                <a href="/tags/Supply-Chain/">
+                                    <span class="chip bg-color">Supply Chain</span>
+                                </a>
+                            
+                                <a href="/tags/Cybersecurity/">
+                                    <span class="chip bg-color">Cybersecurity</span>
+                                </a>
+                            
+                                <a href="/tags/CodeQL/">
+                                    <span class="chip bg-color">CodeQL</span>
+                                </a>
+                            
+                                <a href="/tags/AppSec/">
+                                    <span class="chip bg-color">AppSec</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码" loading="lazy" decoding="async" fetchpriority="low">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/05/10/2026-05-10-backend/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="后端平台要开始托管代理运行时，而不是只托管 CI" loading="lazy" decoding="async" fetchpriority="low">
+                        
+                        <span class="card-title">后端平台要开始托管代理运行时，而不是只托管 CI</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-05-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                    后端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Identity/">
+                        <span class="chip bg-color">Identity</span>
+                    </a>
+                    
+                    <a href="/tags/API/">
+                        <span class="chip bg-color">API</span>
+                    </a>
+                    
+                    <a href="/tags/Backend/">
+                        <span class="chip bg-color">Backend</span>
+                    </a>
+                    
+                    <a href="/tags/Platform/">
+                        <span class="chip bg-color">Platform</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/05/10/2026-05-10-iot/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="设备接入体验开始反过来塑造协议演进，从 Zigbee Direct 到 Matter 都在补现场细节" loading="lazy" decoding="async" fetchpriority="low">
+                        
+                        <span class="card-title">设备接入体验开始反过来塑造协议演进，从 Zigbee Direct 到 Matter 都在补现场细节</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-05-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/" class="post-category">
+                                    物联网
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Matter/">
+                        <span class="chip bg-color">Matter</span>
+                    </a>
+                    
+                    <a href="/tags/IoT/">
+                        <span class="chip bg-color">IoT</span>
+                    </a>
+                    
+                    <a href="/tags/Zigbee/">
+                        <span class="chip bg-color">Zigbee</span>
+                    </a>
+                    
+                    <a href="/tags/Device-Onboarding/">
+                        <span class="chip bg-color">Device Onboarding</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 l8">
+        <p>Copyright © 2026 <a href="/">张显达的个人博客</a></p>
+        
+      </div>
+      <div class="col s12 m4 l4 right-align">
+        <a href="/privacy" class="tooltipped" data-tooltip="隐私政策" data-position="top" data-delay="50">隐私</a> |
+        <a href="/editorial-policy" class="tooltipped" data-tooltip="编辑原则" data-position="top" data-delay="50">编辑原则</a> |
+        <a href="/terms" class="tooltipped" data-tooltip="免责声明" data-position="top" data-delay="50">免责声明</a> |
+        <a href="/ad-disclosure" class="tooltipped" data-tooltip="广告与赞助声明" data-position="top" data-delay="50">广告与赞助</a> |
+        <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" rel="noopener noreferrer">
+          <i class="fas fa-rss"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden=""></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async="" src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+
+
+
+</body></html>
